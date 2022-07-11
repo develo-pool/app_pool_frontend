@@ -1,0 +1,19 @@
+name: lint
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: '[SETUP] checkout'
+        uses: actions/checkout@v2
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'yarn'
+      - run: yarn install --frozen-lockfile
+      - run: yarn lint
+      - run: yarn build
