@@ -11,4 +11,3 @@ yarn android
 ```
 yarn ios
 ```
-asdfasf
