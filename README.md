@@ -11,5 +11,3 @@ yarn android
 ```
 yarn ios
 ```
-
-ghgfpfpdfko
