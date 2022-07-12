@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import {useState} from 'react';
 
-function MsgScreen() {
+function MessageScreen() {
   // const [msgImgHeight, setmsgImgHeight] = useState(0);
   // const { width } = Dimensions.get('window');
   return (
@@ -143,4 +143,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default MsgScreen;
+export default MessageScreen;
