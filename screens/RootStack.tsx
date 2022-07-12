@@ -19,7 +19,11 @@ function RootStack() {
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Category" component={CategoryScreen} />
       <Stack.Screen name="BrandAssign" component={BrandAssignScreen} />
-      <Stack.Screen name="Message" component={MessageScreen} options={{title: "메시지 상세 페이지"}} />
+      <Stack.Screen
+        name="Message"
+        component={MessageScreen}
+        options={{title: '메시지 상세 페이지'}}
+      />
     </Stack.Navigator>
   );
 }

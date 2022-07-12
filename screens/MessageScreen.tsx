@@ -1,13 +1,5 @@
 import React from 'react';
-import {
-  Dimensions,
-  Image,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
-import {useState} from 'react';
+import {Image, ScrollView, StyleSheet, Text, View} from 'react-native';
 
 function MessageScreen() {
   // const [msgImgHeight, setmsgImgHeight] = useState(0);
