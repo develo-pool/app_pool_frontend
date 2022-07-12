@@ -4,6 +4,7 @@ import MainTab from './MainTab';
 import LoginScreen from './LoginScreen';
 import CategoryScreen from './CategoryScreen';
 import BrandAssignScreen from './BrandAssignScreen';
+import MsgScreen from './MsgScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -18,6 +19,7 @@ function RootStack() {
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Category" component={CategoryScreen} />
       <Stack.Screen name="BrandAssign" component={BrandAssignScreen} />
+      <Stack.Screen name="Msg" component={MsgScreen} />
     </Stack.Navigator>
   );
 }
