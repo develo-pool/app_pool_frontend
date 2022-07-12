@@ -15,7 +15,6 @@ function MessageScreen() {
   return (
     <View style={styles.container}>
       <ScrollView>
-
         <View style={styles.authorProfile}>
           <Image
             style={styles.authorProfileImg}
@@ -58,7 +57,9 @@ function MessageScreen() {
         </View>
 
         <View style={styles.commentText}>
-          <Text>asjdlfk;sdgfjl;kadfgㅁㄴㅇㄹㅁㄴㅇㄹㅎㅁ넝하;ㅣㅇ러환ㅇ;ㅣ로ㅓㄴㅇ;ㅣㅏ로ㅓㄴ;ㅇ리ㅏ허j;l</Text>
+          <Text>
+            asjdlfk;sdgfjl;kadfgㅁㄴㅇㄹㅁㄴㅇㄹㅎㅁ넝하;ㅣㅇ러환ㅇ;ㅣ로ㅓㄴㅇ;ㅣㅏ로ㅓㄴ;ㅇ리ㅏ허j;l
+          </Text>
         </View>
       </ScrollView>
     </View>
@@ -100,8 +101,8 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   msgDate: {
-    fontSize:12,
-    color:"#C4C4C4",
+    fontSize: 12,
+    color: '#C4C4C4',
   },
   msg: {
     flex: 5,
@@ -129,18 +130,17 @@ const styles = StyleSheet.create({
     // backgroundColor: '#000000',
     borderRadius: 15,
     marginVertical: 10,
-    marginRight:5,
+    marginRight: 5,
   },
   commentUser: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginHorizontal:10,
+    marginHorizontal: 10,
   },
   commentText: {
-      marginHorizontal: 20
+    marginHorizontal: 20,
   },
-
 });
 
 export default MessageScreen;
