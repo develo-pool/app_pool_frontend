@@ -1,4 +1,5 @@
 import {Text, View} from 'react-native';
+import React from 'react';
 
 function FeedScreen() {
   // const [GoToMsg, setGoToMsg] = useState('holly shit');
