@@ -1,10 +1,10 @@
 import React from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
-import BorderLine from '../components/BorderLine';
-import CommentContainer from '../components/CommentContainer';
-import CommentBar from '../components/CommentBar';
-import DetailMessageContainer from '../components/DetailMessageContainer';
-import InputCommentContainer from '../components/InputCommentContainer';
+import BorderLine from '../components/message/BorderLine';
+import Comment from '../components/message/Comment';
+import CommentBar from '../components/message/CommentBar';
+import DetailMessageContainer from '../components/message/DetailMessageContainer';
+import InputCommentContainer from '../components/message/InputCommentContainer';
 
 function MessageScreen() {
   // const [msgImgHeight, setmsgImgHeight] = useState(0);
@@ -18,7 +18,7 @@ function MessageScreen() {
 
         <CommentBar commentCount={927} />
 
-        <CommentContainer
+        <Comment
           user={undefined}
           commentText="프론트짱 다인님의 기운을 받아 햅삐ㅣㅣㅣㅣㅣㅣ"
           commentDate={Date.now()}
