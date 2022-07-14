@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 300,
     width: '100%',
-    resizeMode: 'cover',
+    resizeMode: 'contain',
     overflow: 'hidden',
   },
   msgDate: {
