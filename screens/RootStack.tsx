@@ -8,6 +8,7 @@ import LoginScreen from './LoginScreen';
 import CategoryScreen from './CategoryScreen';
 import BrandAssignScreen from './BrandAssignScreen';
 import SignUpScreen from './SignUpScreen';
+import MessageScreen from './MessageScreen';
 
 type RootStackParamList = {
   MainTab: undefined;
@@ -42,6 +43,7 @@ function RootStack() {
       />
       <Stack.Screen name="Category" component={CategoryScreen} />
       <Stack.Screen name="BrandAssign" component={BrandAssignScreen} />
+      <Stack.Screen name="Message" component={MessageScreen} />
     </Stack.Navigator>
   );
 }
