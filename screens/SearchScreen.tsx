@@ -1,29 +1,24 @@
 import React from 'react';
-import {
-  Text,
-  View,
-  ScrollView,
-  StyleSheet,
-  TextInput,
-  Button,
-  Image,
-} from 'react-native';
+import {View, ScrollView, StyleSheet} from 'react-native';
 import Title from '../components/Title';
 import SearchBar from '../components/Search/SearchBar';
+import BrandUserHorizontal from '../components/Search/BarandUserHorizontal';
+import BrandUserVertical from '../components/Search/BrandUserVertical';
+import SubTitle from '../components/Search/SubTitle';
 
-interface User {
-  name: string;
-  profileImg: string;
-  intro: string;
-  follower: number;
-}
+// interface User {
+//   name: string;
+//   profileImg: string;
+//   intro: string;
+//   follower: number;
+// }
 
-const hoon: User = {
-  name: 'hoon',
-  profileImg: 'https://reactnative.dev/img/tiny_logo.png',
-  intro: '훈훈훈릠릠릠오오오늘늘늘수수수민민민화화화이이이팅팅팅',
-  follower: 300,
-};
+// const hoon: User = {
+//   name: 'hoon',
+//   profileImg: 'https://reactnative.dev/img/tiny_logo.png',
+//   intro: '훈훈훈릠릠릠오오오늘늘늘수수수민민민화화화이이이팅팅팅',
+//   follower: 300,
+// };
 
 function SearchScreen() {
   return (
@@ -31,12 +26,12 @@ function SearchScreen() {
       <ScrollView>
         <Title title="탐색하기" alignCenter={false} />
         <SearchBar />
-        <View style={styles.subTitleContainer}>
-          <Text style={styles.subTitle}>추천브랜드</Text>
-        </View>
+        <SubTitle isSearching={false} searchCount={9} />
 
-        <ScrollView style={styles.recommandBrandUserList}>
-          <View style={styles.recommandBrandUser}>
+        <ScrollView horizontal style={styles.recommandBrandUserList}>
+          <BrandUserVertical />
+          <BrandUserVertical />
+          {/* <View style={styles.recommandBrandUser}>
             <Image
               style={styles.recommandBrandUserProfileImg}
               source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}}
@@ -49,11 +44,12 @@ function SearchScreen() {
             <View style={styles.recommandBrandUserFollowBtn}>
               <Button onPress={undefined} title="팔로우" />
             </View>
-          </View>
+          </View> */}
         </ScrollView>
 
         <ScrollView>
-          <View style={styles.searchBrandUser}>
+          <BrandUserHorizontal />
+          {/* <View style={styles.searchBrandUser}>
             <Image
               style={styles.searchBrandUserProfileImg}
               source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}}
@@ -62,7 +58,7 @@ function SearchScreen() {
             <View style={styles.searchBrandUserFollowBtn}>
               <Button onPress={undefined} title="팔로우" />
             </View>
-          </View>
+          </View> */}
         </ScrollView>
       </ScrollView>
     </View>
