@@ -16,6 +16,7 @@ type RootStackParamList = {
   SignUp: undefined;
   Category: undefined;
   BrandAssign: undefined;
+  Message: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
