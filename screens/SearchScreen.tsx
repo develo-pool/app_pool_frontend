@@ -9,6 +9,7 @@ import {
   Image,
 } from 'react-native';
 import Title from '../components/Title';
+import SearchBar from '../components/Search/SearchBar';
 
 interface User {
   name: string;
@@ -29,24 +30,15 @@ function SearchScreen() {
     <View style={styles.container}>
       <ScrollView>
         <Title title="탐색하기" alignCenter={false} />
-        <View style={styles.searchBar}>
-          <TextInput
-            //   value={text}
-            //   onChangeText={onChangeText}
-            //   onSubmitEditing={addToDo}
-            returnKeyType="go"
-            placeholder={'브랜드명을 검색해주세요.'}
-            style={styles.input}
-          />
-          <Button onPress={undefined} title="🥕" />
-        </View>
+        <SearchBar />
         <View style={styles.subTitleContainer}>
           <Text style={styles.subTitle}>추천브랜드</Text>
         </View>
+
         <ScrollView style={styles.recommandBrandUserList}>
           <View style={styles.recommandBrandUser}>
             <Image
-              style={styles.brandUserProfileImg}
+              style={styles.recommandBrandUserProfileImg}
               source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}}
             />
             <Text style={styles.brandUsername}>{hoon.name}</Text>
@@ -54,7 +46,22 @@ function SearchScreen() {
               <Text>팔로우</Text>
               <Text>{hoon.follower}</Text>
             </View>
-            <Button onPress={undefined} title="팔로우" />
+            <View style={styles.recommandBrandUserFollowBtn}>
+              <Button onPress={undefined} title="팔로우" />
+            </View>
+          </View>
+        </ScrollView>
+
+        <ScrollView>
+          <View style={styles.searchBrandUser}>
+            <Image
+              style={styles.searchBrandUserProfileImg}
+              source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}}
+            />
+            <Text style={styles.brandUsername}>{hoon.name}</Text>
+            <View style={styles.searchBrandUserFollowBtn}>
+              <Button onPress={undefined} title="팔로우" />
+            </View>
           </View>
         </ScrollView>
       </ScrollView>
@@ -87,11 +94,15 @@ const styles = StyleSheet.create({
   },
   subTitle: {},
   subTitleContainer: {},
-  brandUserProfileImg: {},
+  recommandBrandUserProfileImg: {},
   recommandBrandUserList: {},
   recommandBrandUser: {},
+  recommandBrandUserFollowBtn: {},
   brandUsername: {},
   brandUserFollowerContainer: {},
+  searchBrandUser: {},
+  searchBrandUserProfileImg: {},
+  searchBrandUserFollowBtn: {},
 });
 
 export default SearchScreen;
