@@ -1,6 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
-import {Pressable, StyleSheet, Text, TextInput, View} from 'react-native';
+import {
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {RootStackNavigationProp} from './types';
 import {RootStackParamList} from './types';
 import MainContainer from '../components/MainContainer';
@@ -8,6 +15,7 @@ import ScreenBottomButton from '../components/ScreenBottomButton';
 import Title from '../components/Title';
 import {InputTitle} from '../components/LoginComponents';
 import ProcessBar from '../components/ProcessBar';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const TOTAL = 2;
 
@@ -23,6 +31,17 @@ function SignUpScreen() {
         <ProcessBar total={TOTAL} current={route.params.current} />
       ),
       headerTitleAlign: 'center',
+      headerBackVisible: false,
+      headerLeft: () => (
+        <TouchableOpacity
+          onPress={
+            route.params.current
+              ? () => navigation.navigate('SignUp', {current: 0})
+              : () => navigation.goBack()
+          }>
+          <Icon name="keyboard-arrow-left" size={30} />
+        </TouchableOpacity>
+      ),
     });
   }, [route, navigation]);
 

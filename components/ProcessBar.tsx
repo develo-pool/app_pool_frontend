@@ -11,7 +11,7 @@ function ProcessBar({total, current}: {total: number; current: number}) {
 
   useEffect(() => {
     Animated.timing(animation, {
-      toValue: (current - 1) * currentSize,
+      toValue: current * currentSize,
       useNativeDriver: true,
     }).start();
   }, [animation, current, currentSize]);
