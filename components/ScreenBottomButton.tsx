@@ -13,6 +13,7 @@ function ScreenBottomButton({
   return (
     <Pressable
       onPress={onPress}
+      disabled={!enabled}
       style={[styles.button, enabled ? styles.enabled : styles.disabled]}>
       <Text style={enabled ? styles.enabledText : styles.disabledText}>
         {name}

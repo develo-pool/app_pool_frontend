@@ -1,11 +1,29 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import {useNavigation} from '@react-navigation/native';
+import {Pressable, StyleSheet, Text, TextInput, View} from 'react-native';
+import {RootStackNavigationProp} from './RootStack';
 import MainContainer from '../components/MainContainer';
 import ScreenBottomButton from '../components/ScreenBottomButton';
 import Title from '../components/Title';
 import {InputTitle} from '../components/LoginComponents';
-import {Pressable, StyleSheet, Text, TextInput, View} from 'react-native';
+import ProcessBar from '../components/ProcessBar';
 
 function SignUpScreen() {
+  const navigation = useNavigation<RootStackNavigationProp>();
+  const [process, setProcess] = useState({
+    total: 2,
+    current: 1,
+  });
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerTitle: () => (
+        <ProcessBar total={process.total} current={process.current} />
+      ),
+      headerTitleAlign: 'center',
+    });
+  }, [process, navigation]);
+
   const [form, setForm] = useState({
     phoneNum: '',
     password: '',
@@ -48,7 +66,13 @@ function SignUpScreen() {
           onChangeText={createChangeTextHandler('phoneNum')}
         />
       </MainContainer>
-      <ScreenBottomButton name="다음" onPress={() => {}} enabled={true} />
+      <ScreenBottomButton
+        name="다음"
+        onPress={() => {
+          setProcess({...process, current: process.current + 1});
+        }}
+        enabled={true}
+      />
     </>
   );
 }

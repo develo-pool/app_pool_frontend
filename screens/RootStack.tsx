@@ -37,11 +37,7 @@ function RootStack() {
         component={LoginScreen}
         options={{headerTitle: () => <></>}}
       />
-      <Stack.Screen
-        name="SignUp"
-        component={SignUpScreen}
-        options={{headerTitle: () => <></>}}
-      />
+      <Stack.Screen name="SignUp" component={SignUpScreen} />
       <Stack.Screen name="Category" component={CategoryScreen} />
       <Stack.Screen name="BrandAssign" component={BrandAssignScreen} />
       <Stack.Screen name="Message" component={MessageScreen} />
