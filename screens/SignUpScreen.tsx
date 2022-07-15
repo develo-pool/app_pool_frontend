@@ -8,10 +8,7 @@ import ScreenBottomButton from '../components/ScreenBottomButton';
 import Title from '../components/Title';
 import ProcessBar from '../components/ProcessBar';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {
-  FirstSignUpProcess,
-  SecondSignUpProcess,
-} from '../components/SignUpComponents';
+import {FirstForm, SecondForm} from '../components/SignUpComponents';
 
 const TOTAL = 2;
 
@@ -58,15 +55,9 @@ function SignUpScreen() {
       <MainContainer>
         <Title title={current ? '가입정보' : '기본정보'} subTitle="회원가입" />
         {current ? (
-          <SecondSignUpProcess
-            onChangeText={createChangeTextHandler}
-            form={form}
-          />
+          <SecondForm onChangeText={createChangeTextHandler} form={form} />
         ) : (
-          <FirstSignUpProcess
-            onChangeText={createChangeTextHandler}
-            form={form}
-          />
+          <FirstForm onChangeText={createChangeTextHandler} form={form} />
         )}
       </MainContainer>
       {current ? (

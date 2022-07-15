@@ -8,6 +8,7 @@ export type RootStackParamList = {
   MainTab: undefined;
   Login: undefined;
   SignUp: {current: number};
+  Guide: undefined;
   Category: undefined;
   BrandAssign: undefined;
   Message: undefined;
