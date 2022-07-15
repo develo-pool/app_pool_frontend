@@ -1,81 +1,86 @@
 import React from 'react';
 import {Text, StyleSheet, View, Pressable, Image} from 'react-native';
+import MainContainer from '../components/MainContainer';
 import Title from '../components/Title';
 
 function BrandProfileScreen() {
   return (
     <View style={styles.Container}>
       <View style={styles.Profile}>
-        <View style={styles.ProfileContainer}>
-          <View style={styles.ProfileImgContainer}>
-            <View>
-              <View //Image로 바꿔줘야함!!
-                style={styles.ImgSource}
-                // source={require('../assets/Pool.png')}
-              />
-            </View>
-            <View>
-              <Pressable>
-                <Image
-                  style={styles.EditProfile}
-                  source={require('../assets/Edit.png')}
-                />
-              </Pressable>
-            </View>
-          </View>
-          <View style={styles.BrandContainer}>
-            <View style={styles.Brand}>
+        <MainContainer>
+          <View style={styles.ProfileContainer}>
+            <View style={styles.ProfileImgContainer}>
               <View>
-                <Text style={styles.ProfileName}>엄지렐라</Text>
+                <View //Image로 바꿔줘야함!!
+                  style={styles.ImgSource}
+                  // source={require('../assets/Pool.png')}
+                />
               </View>
-              <View style={styles.Followers}>
+              <View>
+                <Pressable>
+                  <Image
+                    style={styles.EditProfile}
+                    source={require('../assets/Edit.png')}
+                  />
+                </Pressable>
+              </View>
+            </View>
+            <View style={styles.BrandContainer}>
+              <View style={styles.Brand}>
                 <View>
-                  <Text style={styles.Follow}>팔로워</Text>
+                  <Text style={styles.ProfileName}>엄지렐라</Text>
                 </View>
-                <Pressable>
-                  <Text style={styles.FollowCountTxt}>0</Text>
-                </Pressable>
+                <View style={styles.Followers}>
+                  <View>
+                    <Text style={styles.Follow}>팔로워</Text>
+                  </View>
+                  <Pressable>
+                    <Text style={styles.FollowCountTxt}>0</Text>
+                  </Pressable>
+                </View>
               </View>
-            </View>
-            <View style={styles.Share}>
-              <View style={styles.ShareButton}>
-                <Pressable>
-                  <Text style={styles.ShareText}>공유</Text>
-                </Pressable>
+              <View style={styles.Share}>
+                <View style={styles.ShareButton}>
+                  <Pressable>
+                    <Text style={styles.ShareText}>공유</Text>
+                  </Pressable>
+                </View>
               </View>
             </View>
           </View>
-        </View>
-        <View style={styles.IntroContainer}>
-          <View>
-            <Text style={styles.ProfileIntro}>
-              마라맛을 사랑하는 엄지렐라입니다. 소개글이 들어갑니다. 소개글이
-              들어갑니다. 소개글이 들어갑니다. 소개글이 들어갑니다.
-            </Text>
+          <View style={styles.IntroContainer}>
+            <View>
+              <Text style={styles.ProfileIntro}>
+                마라맛을 사랑하는 엄지렐라입니다. 소개글이 들어갑니다. 소개글이
+                들어갑니다. 소개글이 들어갑니다. 소개글이 들어갑니다.
+              </Text>
+            </View>
           </View>
-        </View>
+        </MainContainer>
       </View>
       <View style={styles.Message}>
-        <View style={styles.InitialSet}>
-          <View style={styles.InitTitleContainer}>
-            <Text style={styles.InitTitle}>초기 세팅하기</Text>
-          </View>
-          <View style={styles.InitListUp}>
-            <View style={styles.InitisDone}></View>
-            <View>
-              <Text style={styles.InitList}>웰컴 메시지 설정하기</Text>
+        <MainContainer>
+          <View style={styles.InitialSet}>
+            <View style={styles.InitTitleContainer}>
+              <Text style={styles.InitTitle}>초기 세팅하기</Text>
             </View>
-            <View>
-              <Text style={styles.InitArrow}></Text>
+            <View style={styles.InitListUp}>
+              <View style={styles.InitisDone}></View>
+              <View>
+                <Text style={styles.InitList}>웰컴 메시지 설정하기</Text>
+              </View>
+              <View>
+                <Text style={styles.InitArrow}>-</Text>
+              </View>
             </View>
           </View>
-        </View>
-        <View>
-          <Text style={styles.MessageNull}>등록한 메시지가 없습니다.</Text>
-        </View>
+          <View style={styles.MessageList}>
+            <Text style={styles.MessageNull}>등록한 메시지가 없습니다.</Text>
+          </View>
+        </MainContainer>
       </View>
       <View style={styles.CreateMessageButton}>
-        <Pressable>
+        <Pressable android_ripple={{color: 'red'}}>
           <Image
             style={styles.CreateMessage}
             source={require('../assets/New.png')}
@@ -97,7 +102,6 @@ const styles = StyleSheet.create({
   }, //프로필 영역
   Message: {
     flex: 2,
-    // justifyContent: 'center',
     alignItems: 'center',
   }, //프로필 아래 메시지가 쌓이는 메시지 영역
   CreateMessageButton: {
@@ -184,10 +188,8 @@ const styles = StyleSheet.create({
     width: 328,
     height: 96,
     marginTop: 19,
-    paddingTop: 14,
-    paddingBottom: 14,
-    paddingLeft: 21,
-    paddingRight: 21,
+    paddingVertical: 14,
+    paddingHorizontal: 21,
     backgroundColor: '#FFFFFF',
     borderRadius: 6,
     justifyContent: 'center',
@@ -217,6 +219,9 @@ const styles = StyleSheet.create({
   InitArrow: {
     fontSize: 14,
     fontWeight: '700',
+  },
+  MessageList: {
+    alignItems: 'center',
   },
   MessageNull: {
     marginTop: 144,
