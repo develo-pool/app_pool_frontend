@@ -1,7 +1,6 @@
 import React from 'react';
 import {Text, StyleSheet, View, Pressable, Image} from 'react-native';
 import MainContainer from '../components/MainContainer';
-import Title from '../components/Title';
 
 function BrandProfileScreen() {
   return (
