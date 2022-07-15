@@ -1,28 +1,30 @@
 import React, {useEffect, useState} from 'react';
-import {useNavigation} from '@react-navigation/native';
+import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {Pressable, StyleSheet, Text, TextInput, View} from 'react-native';
-import {RootStackNavigationProp} from './RootStack';
+import {RootStackNavigationProp} from './types';
+import {RootStackParamList} from './types';
 import MainContainer from '../components/MainContainer';
 import ScreenBottomButton from '../components/ScreenBottomButton';
 import Title from '../components/Title';
 import {InputTitle} from '../components/LoginComponents';
 import ProcessBar from '../components/ProcessBar';
 
+const TOTAL = 2;
+
+type SignUpScreenRouteProp = RouteProp<RootStackParamList, 'SignUp'>;
+
 function SignUpScreen() {
+  const route = useRoute<SignUpScreenRouteProp>();
   const navigation = useNavigation<RootStackNavigationProp>();
-  const [process, setProcess] = useState({
-    total: 2,
-    current: 1,
-  });
 
   useEffect(() => {
     navigation.setOptions({
       headerTitle: () => (
-        <ProcessBar total={process.total} current={process.current} />
+        <ProcessBar total={TOTAL} current={route.params.current} />
       ),
       headerTitleAlign: 'center',
     });
-  }, [process, navigation]);
+  }, [route, navigation]);
 
   const [form, setForm] = useState({
     phoneNum: '',
@@ -69,7 +71,7 @@ function SignUpScreen() {
       <ScreenBottomButton
         name="다음"
         onPress={() => {
-          setProcess({...process, current: process.current + 1});
+          navigation.navigate('SignUp', {current: 1});
         }}
         enabled={true}
       />
