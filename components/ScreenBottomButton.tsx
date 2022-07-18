@@ -4,11 +4,11 @@ import {GestureResponderEvent, Pressable, StyleSheet, Text} from 'react-native';
 function ScreenBottomButton({
   name,
   onPress,
-  enabled,
+  enabled = true,
 }: {
   name: string;
   onPress: (event: GestureResponderEvent) => void;
-  enabled: boolean;
+  enabled?: boolean;
 }) {
   return (
     <Pressable

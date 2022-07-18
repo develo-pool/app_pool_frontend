@@ -1,11 +1,11 @@
 import React, {useRef, useState} from 'react';
 import {Pressable, StyleSheet, Text, TextInput, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import {RootStackNavigationProp} from './RootStack';
+import {RootStackNavigationProp} from './types';
 import MainContainer from '../components/MainContainer';
 import ScreenBottomButton from '../components/ScreenBottomButton';
 import Title from '../components/Title';
-import {InputTitle} from '../components/LoginComponents';
+import {InputTitle} from '../components/auth/AuthComponents';
 
 function LoginScreen() {
   const navigation = useNavigation<RootStackNavigationProp>();
@@ -40,10 +40,12 @@ function LoginScreen() {
             value={form.password}
             placeholder="비밀번호 입력"
             onChangeText={createChangeTextHandler('password')}
+            secureTextEntry={true}
             ref={passwordRef}
           />
           <View style={styles.wrapper}>
-            <Pressable onPress={() => navigation.navigate('SignUp')}>
+            <Pressable
+              onPress={() => navigation.navigate('SignUp', {current: 0})}>
               <Text>회원가입</Text>
             </Pressable>
             <Text> | </Text>
@@ -55,7 +57,7 @@ function LoginScreen() {
       </MainContainer>
       <ScreenBottomButton
         name="로그인"
-        onPress={() => navigation.navigate('SignUp')}
+        onPress={() => navigation.navigate('SignUp', {current: 0})}
         enabled={Boolean(form.phoneNum) && Boolean(form.password)}
       />
     </>

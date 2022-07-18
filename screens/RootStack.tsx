@@ -1,32 +1,19 @@
 import React from 'react';
-import {
-  createNativeStackNavigator,
-  NativeStackNavigationProp,
-} from '@react-navigation/native-stack';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import MainTab from './MainTab';
 import LoginScreen from './LoginScreen';
 import CategoryScreen from './CategoryScreen';
 import BrandAssignScreen from './BrandAssignScreen';
 import SignUpScreen from './SignUpScreen';
 import MessageScreen from './MessageScreen';
-
-type RootStackParamList = {
-  MainTab: undefined;
-  Login: undefined;
-  SignUp: undefined;
-  Category: undefined;
-  BrandAssign: undefined;
-  Message: undefined;
-};
+import {RootStackParamList} from './types';
+import GuideScreen from './GuideScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
-export type RootStackNavigationProp =
-  NativeStackNavigationProp<RootStackParamList>;
-
 function RootStack() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName="Login">
       <Stack.Screen
         name="MainTab"
         component={MainTab}
@@ -38,6 +25,11 @@ function RootStack() {
         options={{headerTitle: () => <></>}}
       />
       <Stack.Screen name="SignUp" component={SignUpScreen} />
+      <Stack.Screen
+        name="Guide"
+        component={GuideScreen}
+        options={{headerShown: false}}
+      />
       <Stack.Screen name="Category" component={CategoryScreen} />
       <Stack.Screen name="BrandAssign" component={BrandAssignScreen} />
       <Stack.Screen name="Message" component={MessageScreen} />
