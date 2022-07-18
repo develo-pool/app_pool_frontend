@@ -1,11 +1,12 @@
 import React from 'react';
-import {Pressable, StyleSheet, Text} from 'react-native';
+import {Pressable, StyleSheet, Text, View} from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 export function InputTitle({title}: {title: string}) {
   return <Text style={styles.text}>{title}</Text>;
 }
 
-export function CheckButton({
+export function AuthButton({
   text,
   disabled,
 }: {
@@ -47,6 +48,49 @@ export function RadioButton({
   );
 }
 
+export function CheckBox({
+  title,
+  onPress,
+  value,
+  terms,
+}: {
+  title: string;
+  onPress: any;
+  value: 'service' | 'privacy';
+  terms: {
+    service: boolean;
+    privacy: boolean;
+  };
+}) {
+  return (
+    <>
+      {value === 'service' ? (
+        <Pressable
+          style={styles.terms}
+          onPress={() => onPress({...terms, service: !terms.service})}>
+          {terms.service ? (
+            <Icon name="check-box" size={20} />
+          ) : (
+            <View style={styles.empty} />
+          )}
+          <Text>{title}</Text>
+        </Pressable>
+      ) : (
+        <Pressable
+          style={styles.terms}
+          onPress={() => onPress({...terms, privacy: !terms.privacy})}>
+          {terms.privacy ? (
+            <Icon name="check-box" size={20} />
+          ) : (
+            <View style={styles.empty} />
+          )}
+          <Text>{title}</Text>
+        </Pressable>
+      )}
+    </>
+  );
+}
+
 const styles = StyleSheet.create({
   text: {
     fontSize: 12,
@@ -82,5 +126,14 @@ const styles = StyleSheet.create({
   },
   uncheckedText: {
     color: 'black',
+  },
+  terms: {
+    flexDirection: 'row',
+  },
+  empty: {
+    width: 15,
+    height: 15,
+    borderColor: 'black',
+    borderWidth: 1,
   },
 });

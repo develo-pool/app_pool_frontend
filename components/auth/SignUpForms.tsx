@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, TextInput, View} from 'react-native';
-import {CheckButton, InputTitle, RadioButton} from './LoginComponents';
+import {AuthButton, CheckBox, InputTitle, RadioButton} from './AuthComponents';
 
 interface Props {
   phoneNum: string;
@@ -9,6 +9,10 @@ interface Props {
   nickname: string;
   password: string;
   confirmPassword: string;
+  terms: {
+    service: boolean;
+    privacy: boolean;
+  };
 }
 
 export function FirstForm({
@@ -28,12 +32,12 @@ export function FirstForm({
           value={form.phoneNum}
           onChangeText={onChangeText('phoneNum')}
         />
-        <CheckButton text="재발송" />
+        <AuthButton text="재발송" />
       </View>
       <InputTitle title="인증번호" />
       <View style={styles.row}>
         <TextInput style={styles.input} placeholder="인증번호 입력" />
-        <CheckButton text="인증하기" />
+        <AuthButton text="인증하기" />
       </View>
       <InputTitle title="성별" />
       <View style={styles.row}>
@@ -81,7 +85,7 @@ export function SecondForm({
           value={form.nickname}
           onChangeText={onChangeText('nickname')}
         />
-        <CheckButton text="중복확인" />
+        <AuthButton text="중복확인" />
       </View>
       <InputTitle title="비밀번호" />
       <View style={styles.row}>
@@ -101,6 +105,18 @@ export function SecondForm({
           onChangeText={onChangeText('confirmPassword')}
         />
       </View>
+      <CheckBox
+        title="이용약관 동의 (필수)"
+        value="service"
+        onPress={onChangeText('terms')}
+        terms={form.terms}
+      />
+      <CheckBox
+        title="개인정보 처리방침 (필수)"
+        value="privacy"
+        onPress={onChangeText('terms')}
+        terms={form.terms}
+      />
     </View>
   );
 }
