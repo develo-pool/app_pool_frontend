@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import {Text, View, StyleSheet, Pressable, Image, Switch} from 'react-native';
 import Title from '../components/Title';
-import MainContainer from '../components/MainContainer';
+import JoinBrandContainer from '../components/setting/JoinBrand';
+import SetArticle from './../components/setting/SetArticle';
 
 function SettingStack() {
   const [isEnabled, setIsEnabled] = useState(false);
@@ -10,23 +11,19 @@ function SettingStack() {
   return (
     <View style={{flex: 1}}>
       <View style={styles.UpperContainer}>
-        <Title title="설정" alignCenter={false} />
+        <Title title="설정" />
         <View style={styles.UserInfoContainer}>
           <View style={styles.ProfileImgContainer}>
-            <View>
-              <Image //Image로 바꿔줘야함!!
-                style={styles.ImgSource}
-                source={require('../assets/Pool.png')}
+            <Image //Image로 바꿔줘야함!!
+              style={styles.ImgSource}
+              source={require('../assets/Pool.png')}
+            />
+            <Pressable>
+              <Image
+                style={styles.EditProfile}
+                source={require('../assets/Edit.png')}
               />
-            </View>
-            <View>
-              <Pressable>
-                <Image
-                  style={styles.EditProfile}
-                  source={require('../assets/Edit.png')}
-                />
-              </Pressable>
-            </View>
+            </Pressable>
           </View>
           <View style={styles.UserNameContainer}>
             <Text style={styles.UserName}>호빵맨</Text>
@@ -40,45 +37,27 @@ function SettingStack() {
             </View>
           </View>
         </View>
-        <View style={styles.JoinBrandContainer}>
-          <View style={styles.JoinImgContainer}>
-            <View //Image로 바꿔줘야함!!
-              style={styles.JoinBrandImg}
-              // source={require('../assets/Pool.png')}
-            />
-          </View>
-          <View style={styles.JoinInfoContainer}>
-            <View style={styles.JoinTitleContainer}>
-              <Text style={styles.JoinBrandTitle}>브랜드 등록 신청하기</Text>
-            </View>
-            <View style={styles.JoinIntroContainer}>
-              <Text style={styles.JoinBrandIntro}>
-                누구나 브랜드로 등록하면 메시지를 보낼 수 있어요!
-              </Text>
-            </View>
-          </View>
-        </View>
+        <JoinBrandContainer />
       </View>
       <View style={styles.SettingsContainer}>
-        <View style={styles.SetContainer}>
-          <MainContainer>
-            <View style={styles.SetNotification}>
-              <View>
-                <Text style={styles.NotiText}>알림 수신</Text>
-              </View>
-              <View>
-                <Switch
-                  trackColor={{false: '#767577', true: '#81b0ff'}}
-                  thumbColor={isEnabled ? '#f4f3f4' : '#f4f3f4'}
-                  ios_backgroundColor="#3e3e3e"
-                  onValueChange={toggleSwitch}
-                  value={isEnabled}
-                />
-              </View>
-            </View>
-            <View></View>
-          </MainContainer>
+        <View style={styles.SetNotification}>
+          <View>
+            <Text style={styles.NotiText}>알림 수신</Text>
+          </View>
+          <View style={styles.NotiSwitch}>
+            <Switch
+              trackColor={{false: '#767577', true: '#81b0ff'}}
+              thumbColor={isEnabled ? '#f4f3f4' : '#f4f3f4'}
+              ios_backgroundColor="#3e3e3e"
+              onValueChange={toggleSwitch}
+              value={isEnabled}
+            />
+          </View>
         </View>
+        <SetArticle title="이용약관" />
+        <SetArticle title="개인정보처리방침" />
+        <SetArticle title="문의하기" />
+        <SetArticle title="로그아웃" />
       </View>
     </View>
   );
@@ -96,23 +75,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginTop: 24,
   },
-  JoinBrandContainer: {
-    flexDirection: 'row',
-    marginTop: 44,
-  },
   ProfileImgContainer: {
-    flex: 1,
+    flex: 1.1,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
   },
   UserNameContainer: {
-    flex: 2,
+    flex: 2.2,
     paddingLeft: 10,
     justifyContent: 'center',
   },
   FollowingContainer: {
-    flex: 1,
+    flex: 0.7,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -142,46 +117,21 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '700',
   },
-  JoinImgContainer: {
-    flex: 1,
-  },
-  JoinInfoContainer: {
-    flex: 4,
-    justifyContent: 'center',
-  },
-  JoinBrandImg: {
-    height: 52,
-    width: 52,
-    borderRadius: 26,
-    resizeMode: 'contain',
-    backgroundColor: '#C7C7C7',
-  },
-  JoinTitleContainer: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-  JoinIntroContainer: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-  JoinBrandTitle: {
-    fontSize: 14,
-    fontWeight: '700',
-  },
-  JoinBrandIntro: {
-    fontSize: 12,
-    fontWeight: '400',
-  },
-  SetContainer: {
-    backgroundColor: 'tomato',
+  SetNotification: {
+    height: 60,
+    marginTop: 8,
+    paddingHorizontal: 24,
+    flexDirection: 'row',
+    backgroundColor: 'white',
+    alignItems: 'center',
   },
   NotiText: {
+    color: 'black',
     fontSize: 14,
     fontWeight: '700',
   },
-  SetNotification: {
-    flexDirection: 'row',
-    backgroundColor: 'tomato',
+  NotiSwitch: {
+    marginLeft: 240,
   },
 });
 
