@@ -1,10 +1,10 @@
 import React from 'react';
 import {View, ScrollView, StyleSheet} from 'react-native';
 import Title from '../components/Title';
-import SearchBar from '../components/Search/SearchBar';
-import BrandUserHorizontal from '../components/Search/BarandUserHorizontal';
-import BrandUserVertical from '../components/Search/BrandUserVertical';
-import SubTitle from '../components/Search/SubTitle';
+import SearchBar from '../components/search/SearchBar';
+import BrandUserHorizontal from '../components/search/BarandUserHorizontal';
+import BrandUserVertical from '../components/search/BrandUserVertical';
+import SubTitle from '../components/search/SubTitle';
 
 // interface User {
 //   name: string;
