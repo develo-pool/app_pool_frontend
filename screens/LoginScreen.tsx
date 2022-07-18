@@ -5,7 +5,7 @@ import {RootStackNavigationProp} from './types';
 import MainContainer from '../components/MainContainer';
 import ScreenBottomButton from '../components/ScreenBottomButton';
 import Title from '../components/Title';
-import {InputTitle} from '../components/LoginComponents';
+import {InputTitle} from '../components/auth/LoginComponents';
 
 function LoginScreen() {
   const navigation = useNavigation<RootStackNavigationProp>();
