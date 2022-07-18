@@ -9,30 +9,22 @@ function BrandProfileScreen() {
         <MainContainer>
           <View style={styles.ProfileContainer}>
             <View style={styles.ProfileImgContainer}>
-              <View>
-                <View //Image로 바꿔줘야함!!
-                  style={styles.ImgSource}
-                  // source={require('../assets/Pool.png')}
+              <View //Image로 바꿔줘야함!!
+                style={styles.ImgSource}
+                // source={require('../assets/Pool.png')}
+              />
+              <Pressable>
+                <Image
+                  style={styles.EditProfile}
+                  source={require('../assets/Edit.png')}
                 />
-              </View>
-              <View>
-                <Pressable>
-                  <Image
-                    style={styles.EditProfile}
-                    source={require('../assets/Edit.png')}
-                  />
-                </Pressable>
-              </View>
+              </Pressable>
             </View>
             <View style={styles.BrandContainer}>
               <View style={styles.Brand}>
-                <View>
-                  <Text style={styles.ProfileName}>엄지렐라</Text>
-                </View>
+                <Text style={styles.ProfileName}>엄지렐라</Text>
                 <View style={styles.Followers}>
-                  <View>
-                    <Text style={styles.Follow}>팔로워</Text>
-                  </View>
+                  <Text style={styles.Follow}>팔로워</Text>
                   <Pressable>
                     <Text style={styles.FollowCountTxt}>0</Text>
                   </Pressable>
@@ -48,12 +40,10 @@ function BrandProfileScreen() {
             </View>
           </View>
           <View style={styles.IntroContainer}>
-            <View>
-              <Text style={styles.ProfileIntro}>
-                마라맛을 사랑하는 엄지렐라입니다. 소개글이 들어갑니다. 소개글이
-                들어갑니다. 소개글이 들어갑니다. 소개글이 들어갑니다.
-              </Text>
-            </View>
+            <Text style={styles.ProfileIntro}>
+              마라맛을 사랑하는 엄지렐라입니다. 소개글이 들어갑니다. 소개글이
+              들어갑니다. 소개글이 들어갑니다. 소개글이 들어갑니다.
+            </Text>
           </View>
         </MainContainer>
       </View>
@@ -65,12 +55,8 @@ function BrandProfileScreen() {
             </View>
             <View style={styles.InitListUp}>
               <View style={styles.InitisDone}></View>
-              <View>
-                <Text style={styles.InitList}>웰컴 메시지 설정하기</Text>
-              </View>
-              <View>
-                <Text style={styles.InitArrow}>-</Text>
-              </View>
+              <Text style={styles.InitList}>웰컴 메시지 설정하기</Text>
+              <Text style={styles.InitArrow}>-</Text>
             </View>
           </View>
           <View style={styles.MessageList}>
