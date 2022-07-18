@@ -40,6 +40,7 @@ function LoginScreen() {
             value={form.password}
             placeholder="비밀번호 입력"
             onChangeText={createChangeTextHandler('password')}
+            secureTextEntry={true}
             ref={passwordRef}
           />
           <View style={styles.wrapper}>
