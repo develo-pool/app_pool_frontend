@@ -47,8 +47,6 @@ function SignUpScreen() {
     terms: {service: false, privacy: false},
   });
 
-  console.log(form.terms);
-
   const createChangeTextHandler = (name: string) => (value: string) => {
     setForm({...form, [name]: value});
   };
