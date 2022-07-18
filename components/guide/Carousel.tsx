@@ -31,20 +31,17 @@ function Carousel() {
   const flatListRef = useRef<FlatList>(null);
   const onClick = () => {
     if (index < 3) {
-      setIndex(index + 1);
       flatListRef.current?.scrollToOffset({
         offset: offset * (index + 1),
         animated: true,
       });
     } else {
-      setIndex(0);
       flatListRef.current?.scrollToOffset({
         offset: 0,
         animated: true,
       });
     }
   };
-  console.log(index);
   return (
     <View>
       <FlatList
