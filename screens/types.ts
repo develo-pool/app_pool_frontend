@@ -12,6 +12,7 @@ export type RootStackParamList = {
   Category: undefined;
   BrandAssign: undefined;
   Message: undefined;
+  CreateMessage: undefined;
 };
 
 export type RootStackNavigationProp =

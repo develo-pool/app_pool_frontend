@@ -6,6 +6,7 @@ import CategoryScreen from './CategoryScreen';
 import BrandAssignScreen from './BrandAssignScreen';
 import SignUpScreen from './SignUpScreen';
 import MessageScreen from './MessageScreen';
+import CreateMessageScreen from './CreateMsgScreen';
 import {RootStackParamList} from './types';
 import GuideScreen from './GuideScreen';
 
@@ -33,6 +34,7 @@ function RootStack() {
       <Stack.Screen name="Category" component={CategoryScreen} />
       <Stack.Screen name="BrandAssign" component={BrandAssignScreen} />
       <Stack.Screen name="Message" component={MessageScreen} />
+      <Stack.Screen name="CreateMessage" component={CreateMessageScreen} />
     </Stack.Navigator>
   );
 }
