@@ -29,21 +29,15 @@ function SettingStack() {
             <Text style={styles.UserName}>호빵맨</Text>
           </View>
           <View style={styles.FollowingContainer}>
-            <View>
-              <Text style={styles.FollowingCount}>1</Text>
-            </View>
-            <View>
-              <Text style={styles.Following}>팔로잉</Text>
-            </View>
+            <Text style={styles.FollowingCount}>1</Text>
+            <Text style={styles.Following}>팔로잉</Text>
           </View>
         </View>
         <JoinBrandContainer />
       </View>
       <View style={styles.SettingsContainer}>
         <View style={styles.SetNotification}>
-          <View>
-            <Text style={styles.NotiText}>알림 수신</Text>
-          </View>
+          <Text style={styles.NotiText}>알림 수신</Text>
           <View style={styles.NotiSwitch}>
             <Switch
               trackColor={{false: '#767577', true: '#81b0ff'}}
