@@ -1,6 +1,6 @@
 import React from 'react';
-import {Pressable, StyleSheet, Text, TextInput, View} from 'react-native';
-import {InputTitle} from '../components/LoginComponents';
+import {StyleSheet, TextInput, View} from 'react-native';
+import {CheckButton, InputTitle, RadioButton} from './LoginComponents';
 
 interface Props {
   phoneNum: string;
@@ -19,7 +19,7 @@ export function FirstForm({
   form: Props;
 }) {
   return (
-    <>
+    <View>
       <InputTitle title="휴대폰 번호" />
       <View style={styles.row}>
         <TextInput
@@ -28,34 +28,39 @@ export function FirstForm({
           value={form.phoneNum}
           onChangeText={onChangeText('phoneNum')}
         />
-        <Pressable>
-          <Text>중복확인</Text>
-        </Pressable>
+        <CheckButton text="재발송" />
       </View>
       <InputTitle title="인증번호" />
       <View style={styles.row}>
         <TextInput style={styles.input} placeholder="인증번호 입력" />
-        <Pressable>
-          <Text>인증하기</Text>
-        </Pressable>
+        <CheckButton text="인증하기" />
       </View>
       <InputTitle title="성별" />
-      <View style={[styles.row, styles.margin]}>
-        <Pressable>
-          <Text>여자</Text>
-        </Pressable>
-        <Pressable>
-          <Text>남자</Text>
-        </Pressable>
+      <View style={styles.row}>
+        <RadioButton
+          text="여자"
+          value="female"
+          disabled={form.gender !== 'female'}
+          onPress={onChangeText('gender')}
+        />
+        <RadioButton
+          text="남자"
+          value="male"
+          disabled={form.gender !== 'male'}
+          marginLeft={true}
+          onPress={onChangeText('gender')}
+        />
       </View>
       <InputTitle title="생년월일" />
-      <TextInput
-        style={styles.input}
-        placeholder="예. 990101"
-        value={form.birthday}
-        onChangeText={onChangeText('birthday')}
-      />
-    </>
+      <View style={styles.row}>
+        <TextInput
+          style={styles.input}
+          placeholder="예. 990101"
+          value={form.birthday}
+          onChangeText={onChangeText('birthday')}
+        />
+      </View>
+    </View>
   );
 }
 
@@ -67,7 +72,7 @@ export function SecondForm({
   form: Props;
 }) {
   return (
-    <>
+    <View>
       <InputTitle title="닉네임" />
       <View style={styles.row}>
         <TextInput
@@ -76,40 +81,41 @@ export function SecondForm({
           value={form.nickname}
           onChangeText={onChangeText('nickname')}
         />
-        <Pressable>
-          <Text>중복확인</Text>
-        </Pressable>
+        <CheckButton text="중복확인" />
       </View>
       <InputTitle title="비밀번호" />
-      <TextInput
-        style={styles.input}
-        placeholder="비밀번호 입력"
-        value={form.password}
-        onChangeText={onChangeText('password')}
-      />
+      <View style={styles.row}>
+        <TextInput
+          style={styles.input}
+          placeholder="비밀번호 입력"
+          value={form.password}
+          onChangeText={onChangeText('password')}
+        />
+      </View>
       <InputTitle title="비밀번호 확인" />
-      <TextInput
-        style={styles.input}
-        placeholder="비밀번호 재입력"
-        value={form.confirmPassword}
-        onChangeText={onChangeText('confirmPassword')}
-      />
-    </>
+      <View style={styles.row}>
+        <TextInput
+          style={styles.input}
+          placeholder="비밀번호 재입력"
+          value={form.confirmPassword}
+          onChangeText={onChangeText('confirmPassword')}
+        />
+      </View>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
-  },
-  margin: {
-    marginBottom: 24,
+    marginBottom: 30,
+    minHeight: 48,
   },
   input: {
+    flex: 1,
     borderWidth: 1,
     borderColor: '#BABABA',
     backgroundColor: 'white',
-    marginBottom: 30,
     paddingHorizontal: 12,
   },
 });

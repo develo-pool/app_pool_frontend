@@ -8,7 +8,7 @@ import ScreenBottomButton from '../components/ScreenBottomButton';
 import Title from '../components/Title';
 import ProcessBar from '../components/ProcessBar';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {FirstForm, SecondForm} from '../components/SignUpComponents';
+import {FirstForm, SecondForm} from '../components/SignUpForms';
 
 const TOTAL = 2;
 
