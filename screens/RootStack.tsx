@@ -43,6 +43,7 @@ function RootStack() {
       <Stack.Screen
         name="BrandAssignComplete"
         component={BrandAssignCompleteScreen}
+        options={{headerShown: false}}
       />
       <Stack.Screen name="Message" component={MessageScreen} />
       <Stack.Screen name="CreateMessage" component={CreateMessageScreen} />
