@@ -11,7 +11,7 @@ const isBrandUser = true;
 
 function MainTab() {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator initialRouteName="Feed">
       <Tab.Screen name="Search" component={SearchScreen} />
       <Tab.Screen name="Feed" component={FeedScreen} />
       {isBrandUser && (

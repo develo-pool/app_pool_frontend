@@ -1,8 +1,12 @@
 import React from 'react';
-import {Text} from 'react-native';
+import Category from '../components/Category';
 
 function CategoryScreen() {
-  return <Text>test</Text>;
+  return (
+    <>
+      <Category />
+    </>
+  );
 }
 
 export default CategoryScreen;
