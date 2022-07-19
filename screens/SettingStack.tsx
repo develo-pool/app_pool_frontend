@@ -3,13 +3,17 @@ import {Text, View, StyleSheet, Pressable, Image, Switch} from 'react-native';
 import Title from '../components/Title';
 import JoinBrandContainer from '../components/setting/JoinBrand';
 import SetArticle from './../components/setting/SetArticle';
+import {useNavigation} from '@react-navigation/native';
+import {RootStackNavigationProp} from './types';
 
 function SettingStack() {
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
+  const navigation = useNavigation<RootStackNavigationProp>();
+
   return (
-    <View style={{flex: 1}}>
+    <View style={styles.block}>
       <View style={styles.UpperContainer}>
         <Title title="설정" />
         <View style={styles.UserInfoContainer}>
@@ -33,7 +37,9 @@ function SettingStack() {
             <Text style={styles.Following}>팔로잉</Text>
           </View>
         </View>
-        <JoinBrandContainer />
+        <JoinBrandContainer
+          onPress={() => navigation.push('BrandAssignGuide')}
+        />
       </View>
       <View style={styles.SettingsContainer}>
         <View style={styles.SetNotification}>
@@ -58,6 +64,9 @@ function SettingStack() {
 }
 
 const styles = StyleSheet.create({
+  block: {
+    flex: 1,
+  },
   UpperContainer: {
     flex: 3,
     marginHorizontal: 24,

@@ -1,9 +1,9 @@
 import React from 'react';
-import {View, StyleSheet, Text} from 'react-native';
+import {View, StyleSheet, Text, Pressable} from 'react-native';
 
-function JoinBrandContainer() {
+function JoinBrandContainer({onPress}: {onPress?: any}) {
   return (
-    <View style={styles.JoinBrandContainer}>
+    <Pressable style={styles.JoinBrandContainer} onPress={onPress}>
       <View style={styles.JoinImgContainer}>
         <View //Image로 바꿔줘야함!!
           style={styles.JoinBrandImg}
@@ -20,7 +20,7 @@ function JoinBrandContainer() {
           </Text>
         </View>
       </View>
-    </View>
+    </Pressable>
   );
 }
 

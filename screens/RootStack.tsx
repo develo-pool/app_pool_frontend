@@ -9,6 +9,8 @@ import MessageScreen from './MessageScreen';
 import CreateMessageScreen from './CreateMsgScreen';
 import {RootStackParamList} from './types';
 import GuideScreen from './GuideScreen';
+import BrandAssignGuideScreen from './BrandAssignGuideScreen';
+import BrandAssignCompleteScreen from './BrandAssignCompleteScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -32,7 +34,17 @@ function RootStack() {
         options={{headerShown: false}}
       />
       <Stack.Screen name="Category" component={CategoryScreen} />
+      <Stack.Screen
+        name="BrandAssignGuide"
+        component={BrandAssignGuideScreen}
+        options={{headerTitle: () => <></>}}
+      />
       <Stack.Screen name="BrandAssign" component={BrandAssignScreen} />
+      <Stack.Screen
+        name="BrandAssignComplete"
+        component={BrandAssignCompleteScreen}
+        options={{headerShown: false}}
+      />
       <Stack.Screen name="Message" component={MessageScreen} />
       <Stack.Screen name="CreateMessage" component={CreateMessageScreen} />
     </Stack.Navigator>
