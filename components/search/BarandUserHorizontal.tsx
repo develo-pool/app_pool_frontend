@@ -22,7 +22,6 @@ import {StyleSheet, View, Image, Text, TouchableOpacity} from 'react-native';
 //     intro: '훈훈훈릠릠릠오오오늘늘늘수수수민민민화화화이이이팅팅팅',
 //     follower: 300,
 //   };
-
 function BrandUserHorizontal() {
   return (
     <View style={styles.searchBrandUser}>

@@ -46,7 +46,6 @@ function BrandUserVertical() {
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   recommandBrandUser: {
     backgroundColor: 'white',

@@ -10,7 +10,6 @@ interface Props {
   username: string;
   brandUsername: string;
 }
-
 function FollowBtn({
   isFollow = false,
   isVertical = false,

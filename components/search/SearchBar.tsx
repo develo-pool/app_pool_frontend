@@ -6,7 +6,6 @@ import {
   Text,
   TouchableOpacity,
 } from 'react-native';
-
 function SearchBar() {
   return (
     <View style={styles.searchBar}>
