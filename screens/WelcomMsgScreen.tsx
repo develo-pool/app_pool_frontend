@@ -13,7 +13,7 @@ import {RootStackNavigationProp} from './types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 // import MainContainer from '../components/MainContainer';
 
-function CreateMessageScreen() {
+function WelcomeMessageScreen() {
   const navigation = useNavigation<RootStackNavigationProp>();
   //   const [form, setForm] = useState({message: ''});
 
@@ -33,7 +33,6 @@ function CreateMessageScreen() {
           <View style={styles.ElementsContainer}>
             <Icon name="camera-alt" size={22} style={styles.Camera} />
             <Icon name="insert-link" size={24} style={styles.Link} />
-            <Icon name="access-time" size={22} style={styles.Clock} />
             <TouchableOpacity style={styles.PreviewContainer}>
               <Text style={styles.Preview}> 미리보기</Text>
             </TouchableOpacity>
@@ -41,7 +40,7 @@ function CreateMessageScreen() {
         </View>
       </View>
       <ScreenBottomButton
-        name="발송하기"
+        name="설정하기"
         onPress={() => navigation.navigate('MainTab')}
         // enabled={Boolean(form.message)}
       />
@@ -101,10 +100,7 @@ const styles = StyleSheet.create({
     marginRight: 16,
   },
   Link: {
-    marginRight: 16,
-  },
-  Clock: {
-    marginRight: 120,
+    marginRight: 160,
   },
   PreviewContainer: {},
   Preview: {
@@ -113,4 +109,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CreateMessageScreen;
+export default WelcomeMessageScreen;
