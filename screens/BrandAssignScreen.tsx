@@ -31,7 +31,7 @@ const CurrentPage = ({
     case 1:
       return <Category />;
     case 2:
-      return <BrandAssignTerm />;
+      return <BrandAssignTerm form={form} onPress={createChangeTextHandler} />;
     default:
       return <Text>Out of Index</Text>;
   }

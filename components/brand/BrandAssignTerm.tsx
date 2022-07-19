@@ -3,7 +3,7 @@ import {Pressable, StyleSheet, Text, View} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Title from '../Title';
 
-function BrandAssignTerm() {
+function BrandAssignTerm({form, onPress}: {form: any; onPress: any}) {
   return (
     <>
       <Title title="서비스 가이드를 읽고" alignCenter={true} />
@@ -19,8 +19,10 @@ function BrandAssignTerm() {
 붉은색 푸른색 그 사이 3초 그 짧은 시간 노란색 빛을 내는 저기 저 신호등이 내 머릿속을 텅 비워버려 내가 빠른 지도 느린지도 모르겠어 그저 눈앞이 샛노랄 뿐이야
       `}
       </Text>
-      <Pressable>
-        {0 ? (
+      <Pressable
+        onPress={() => onPress('terms')(!form.terms)}
+        style={styles.container}>
+        {form.terms ? (
           <Icon name="check-box" size={20} />
         ) : (
           <View style={styles.empty} />
@@ -32,6 +34,9 @@ function BrandAssignTerm() {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+  },
   empty: {
     width: 15,
     height: 15,
