@@ -5,27 +5,50 @@ import Comment from '../components/message/Comment';
 import CommentBar from '../components/message/CommentBar';
 import DetailMessageContainer from '../components/message/DetailMessageContainer';
 import InputCommentContainer from '../components/message/InputCommentContainer';
+import ScreenBottomButton from '../components/ScreenBottomButton';
+
+interface User {
+  isBrand: boolean;
+  isWriteComment: boolean;
+}
+const tester: User = {
+  isBrand: false,
+  isWriteComment: true,
+};
 
 function MessageScreen() {
   // const [msgImgHeight, setmsgImgHeight] = useState(0);
   // const { width } = Dimensions.get('window');
   return (
-    <View style={styles.container}>
-      <ScrollView style={styles.scrollview}>
-        <DetailMessageContainer user={undefined} message={undefined} />
+    <>
+      <View style={styles.container}>
+        <ScrollView style={styles.scrollview}>
+          <DetailMessageContainer user={undefined} message={undefined} />
 
-        <BorderLine />
+          <BorderLine />
 
-        <CommentBar commentCount={927} />
+          <CommentBar commentCount={927} />
 
-        <Comment
-          user={undefined}
-          commentText="프론트짱 다인님의 기운을 받아 햅삐ㅣㅣㅣㅣㅣㅣ"
-          commentDate={Date.now()}
-        />
-      </ScrollView>
-      <InputCommentContainer />
-    </View>
+          <Comment
+            user={undefined}
+            commentText="프론트짱 다인님의 기운을 받아 햅삐ㅣㅣㅣㅣㅣㅣ"
+            commentDate={Date.now()}
+          />
+
+          {tester.isBrand ? (
+            ''
+          ) : tester.isWriteComment ? (
+            <InputCommentContainer />
+          ) : (
+            <ScreenBottomButton
+              name="답장하기"
+              enabled={true}
+              onPress={function (): void {}}
+            />
+          )}
+        </ScrollView>
+      </View>
+    </>
   );
 }
 
