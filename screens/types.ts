@@ -10,6 +10,7 @@ export type RootStackParamList = {
   SignUp: {current: number};
   Guide: undefined;
   Category: undefined;
+  BrandAssignGuide: undefined;
   BrandAssign: undefined;
   Message: undefined;
   CreateMessage: undefined;
