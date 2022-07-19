@@ -1,17 +1,17 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {
   Text,
   View,
   StyleSheet,
   TextInput,
-  Image,
+  // Image,
   TouchableOpacity,
 } from 'react-native';
 import ScreenBottomButton from '../components/ScreenBottomButton';
 import {useNavigation} from '@react-navigation/native';
 import {RootStackNavigationProp} from './types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import MainContainer from '../components/MainContainer';
+// import MainContainer from '../components/MainContainer';
 
 function CreateMessageScreen() {
   const navigation = useNavigation<RootStackNavigationProp>();
