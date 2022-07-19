@@ -25,7 +25,7 @@ function BrandAssignGuideScreen() {
       </MainContainer>
       <ScreenBottomButton
         name="등록하기"
-        onPress={() => navigation.navigate('BrandAssign')}
+        onPress={() => navigation.navigate('BrandAssign', {current: 0})}
       />
     </>
   );
