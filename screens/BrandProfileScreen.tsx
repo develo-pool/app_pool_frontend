@@ -1,8 +1,19 @@
 import React from 'react';
-import {Text, StyleSheet, View, Pressable, Image} from 'react-native';
+import {
+  Text,
+  StyleSheet,
+  View,
+  Pressable,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 import MainContainer from '../components/MainContainer';
+import {RootStackNavigationProp} from './types';
 
 function BrandProfileScreen() {
+  const navigation = useNavigation<RootStackNavigationProp>();
+
   return (
     <View style={styles.Container}>
       <View style={styles.Profile}>
@@ -65,12 +76,12 @@ function BrandProfileScreen() {
         </MainContainer>
       </View>
       <View style={styles.CreateMessageButton}>
-        <Pressable android_ripple={{color: 'red'}}>
+        <TouchableOpacity onPress={() => navigation.navigate('CreateMessage')}>
           <Image
             style={styles.CreateMessage}
             source={require('../assets/New.png')}
           />
-        </Pressable>
+        </TouchableOpacity>
       </View>
     </View>
   );
