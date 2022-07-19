@@ -1,5 +1,6 @@
 import React from 'react';
 import {StyleSheet, View, Image, Text, TouchableOpacity} from 'react-native';
+import BrandUserCategory from './BrandUserCategory';
 // import FollowBtn from './FollowBtn';
 
 // Props까지 생각해서 넣어주려다가 머리가 팡팡할듯하여 일단은 넘기도록 하겠읍니다.
@@ -99,6 +100,18 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   followBtn: {},
+  categoryContainer: {
+    flexDirection:'row',
+
+  },
+  category: {
+    backgroundColor: '#666666',
+    borderRadius: 10,
+    margin: 5,
+  },
+  categoryText: {
+
+  },
 });
 
 export default BrandUserVertical;
