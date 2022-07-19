@@ -48,7 +48,7 @@ function BrandAssignScreen() {
     category: [],
     terms: false,
   });
-  console.log(form);
+  // console.log(form);
 
   const createChangeTextHandler = (name: string) => (value: string) => {
     setForm({...form, [name]: value});
