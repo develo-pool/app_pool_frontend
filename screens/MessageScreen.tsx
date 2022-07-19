@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  ScrollView,
-  StyleSheet,
-  View,
-  GestureResponderEvent,
-} from 'react-native';
+import {ScrollView, StyleSheet, View} from 'react-native';
 import BorderLine from '../components/message/BorderLine';
 import Comment from '../components/message/Comment';
 import CommentBar from '../components/message/CommentBar';
@@ -48,7 +43,7 @@ function MessageScreen() {
             <ScreenBottomButton
               name="답장하기"
               enabled={true}
-              onPress={function (event: GestureResponderEvent): void {}}
+              onPress={function (): void {}}
             />
           )}
         </ScrollView>

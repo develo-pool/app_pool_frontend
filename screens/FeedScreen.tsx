@@ -9,9 +9,11 @@ interface User {
 }
 interface Message {
   user: User | undefined;
-  isComment?: boolean;
-  isImg?: boolean;
-  isLink?: boolean;
+  msgText?: string;
+  msgImg?: string;
+  msgLink?: string;
+  msgDate: number;
+  isComment: boolean;
 }
 
 // 유저 예시를 위한 doha 객체
@@ -23,8 +25,10 @@ const doha: User = {
 const test: Message = {
   user: doha,
   isComment: false,
-  isImg: true,
-  isLink: false,
+  msgImg: 'https://reactnative.dev/img/tiny_logo.png',
+  msgLink: 'www.naver.com',
+  msgText: '흐하하하핳하하하하하핳 이도하 어서 API를 내놔라',
+  msgDate: Date.now(),
 };
 
 function FeedScreen() {
@@ -38,9 +42,9 @@ function FeedScreen() {
             <Text style={styles.followingCountText}>팔로잉</Text>
           </View>
         </View>
-        <Feed user={doha} message={test} isProfile={false} />
-        <Feed user={doha} message={test} isProfile={false} />
-        <Feed user={doha} message={test} isProfile={false} />
+        <Feed user={doha} message={test} />
+        <Feed user={doha} message={test} />
+        <Feed user={doha} message={test} />
       </ScrollView>
     </View>
   );
