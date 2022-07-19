@@ -1,5 +1,5 @@
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Text, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import BrandAssignForm from '../components/brand/BrandAssignForm';
@@ -13,10 +13,21 @@ import {RootStackNavigationProp, RootStackParamList} from './types';
 const TOTAL = 3;
 type BrandAssignScreenRouteProp = RouteProp<RootStackParamList, 'BrandAssign'>;
 
-const CurrentPage = ({current}: {current: number}) => {
+const CurrentPage = ({
+  current,
+  form,
+  createChangeTextHandler,
+}: {
+  current: number;
+  form: any;
+  setForm: any;
+  createChangeTextHandler: any;
+}) => {
   switch (current) {
     case 0:
-      return <BrandAssignForm />;
+      return (
+        <BrandAssignForm form={form} onChangeText={createChangeTextHandler} />
+      );
     case 1:
       return <Category />;
     case 2:
@@ -30,6 +41,18 @@ function BrandAssignScreen() {
   const route = useRoute<BrandAssignScreenRouteProp>();
   const current = route.params.current;
   const navigation = useNavigation<RootStackNavigationProp>();
+  const [form, setForm] = useState({
+    brandUserName: '',
+    infoText: '',
+    profileImg: '',
+    category: [],
+    terms: false,
+  });
+  console.log(form);
+
+  const createChangeTextHandler = (name: string) => (value: string) => {
+    setForm({...form, [name]: value});
+  };
 
   useEffect(() => {
     navigation.setOptions({
@@ -50,7 +73,9 @@ function BrandAssignScreen() {
   }, [current, navigation]);
   return (
     <>
-      <MainContainer>{CurrentPage({current})}</MainContainer>
+      <MainContainer>
+        {CurrentPage({current, form, setForm, createChangeTextHandler})}
+      </MainContainer>
       <ScreenBottomButton
         name="다음"
         onPress={() => {
