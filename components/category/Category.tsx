@@ -29,6 +29,7 @@ function Category({
         renderItem={renderItem}
         keyExtractor={item => item.id}
         numColumns={3}
+        showsVerticalScrollIndicator={false}
       />
     </>
   );
