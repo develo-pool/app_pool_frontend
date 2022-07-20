@@ -1,21 +1,16 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {FlatList, StyleSheet} from 'react-native';
 import Title from '../Title';
 import CategoryItem, {CategoryItemProps} from './CategoryItem';
 import categoryList from './categoryList';
 
-function Category() {
-  const [checkedItems, setCheckedItems] = useState<string[]>([]);
-
-  const checkedItemHandler = (name: string, isChecked: boolean) => {
-    if (isChecked) {
-      setCheckedItems([...checkedItems, name]);
-    } else if (!isChecked && checkedItems.find(i => i === name)) {
-      const nextCheckedItems = checkedItems.filter(i => i !== name);
-      setCheckedItems(nextCheckedItems);
-    }
-  };
-
+function Category({
+  checkedItems,
+  checkedItemHandler,
+}: {
+  checkedItems: string[];
+  checkedItemHandler: any;
+}) {
   const renderItem = ({item}: {item: CategoryItemProps}) => (
     <CategoryItem
       item={item}

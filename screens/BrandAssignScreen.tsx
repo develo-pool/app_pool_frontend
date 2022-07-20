@@ -17,11 +17,13 @@ const CurrentPage = ({
   current,
   form,
   createChangeTextHandler,
+  checkedItemHandler,
 }: {
   current: number;
   form: any;
   setForm: any;
   createChangeTextHandler: any;
+  checkedItemHandler: any;
 }) => {
   switch (current) {
     case 0:
@@ -29,7 +31,12 @@ const CurrentPage = ({
         <BrandAssignForm form={form} onChangeText={createChangeTextHandler} />
       );
     case 1:
-      return <Category />;
+      return (
+        <Category
+          checkedItems={form.category}
+          checkedItemHandler={checkedItemHandler}
+        />
+      );
     case 2:
       return <BrandAssignTerm form={form} onPress={createChangeTextHandler} />;
     default:
@@ -41,17 +48,36 @@ function BrandAssignScreen() {
   const route = useRoute<BrandAssignScreenRouteProp>();
   const current = route.params.current;
   const navigation = useNavigation<RootStackNavigationProp>();
-  const [form, setForm] = useState({
+
+  interface Props {
+    brandUserName: string;
+    infoText: string;
+    profileImg: string;
+    category: string[];
+    terms: boolean;
+  }
+
+  const [form, setForm] = useState<Props>({
     brandUserName: '',
     infoText: '',
     profileImg: '',
     category: [],
     terms: false,
   });
-  // console.log(form);
+
+  console.log(form);
 
   const createChangeTextHandler = (name: string) => (value: string) => {
     setForm({...form, [name]: value});
+  };
+
+  const checkedItemHandler = (name: string, isChecked: boolean) => {
+    if (isChecked) {
+      setForm({...form, category: [...form.category, name]});
+    } else if (!isChecked && form.category.find(i => i === name)) {
+      const nextCheckedItems = form.category.filter(i => i !== name);
+      setForm({...form, category: nextCheckedItems});
+    }
   };
 
   useEffect(() => {
@@ -74,7 +100,13 @@ function BrandAssignScreen() {
   return (
     <>
       <MainContainer>
-        {CurrentPage({current, form, setForm, createChangeTextHandler})}
+        {CurrentPage({
+          current,
+          form,
+          setForm,
+          createChangeTextHandler,
+          checkedItemHandler,
+        })}
       </MainContainer>
       <ScreenBottomButton
         name="다음"

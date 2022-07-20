@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
-import React from 'react';
+import React, {useState} from 'react';
 import Category from '../components/category/Category';
 import MainContainer from '../components/MainContainer';
 import ScreenBottomButton from '../components/ScreenBottomButton';
@@ -7,10 +7,25 @@ import {RootStackNavigationProp} from './types';
 
 function CategoryScreen() {
   const navigation = useNavigation<RootStackNavigationProp>();
+
+  const [checkedItems, setCheckedItems] = useState<string[]>([]);
+
+  const checkedItemHandler = (name: string, isChecked: boolean) => {
+    if (isChecked) {
+      setCheckedItems([...checkedItems, name]);
+    } else if (!isChecked && checkedItems.find(i => i === name)) {
+      const nextCheckedItems = checkedItems.filter(i => i !== name);
+      setCheckedItems(nextCheckedItems);
+    }
+  };
+
   return (
     <>
       <MainContainer>
-        <Category />
+        <Category
+          checkedItems={checkedItems}
+          checkedItemHandler={checkedItemHandler}
+        />
       </MainContainer>
       <ScreenBottomButton
         name="시작하기"
