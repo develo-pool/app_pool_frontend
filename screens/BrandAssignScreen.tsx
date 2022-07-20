@@ -4,7 +4,7 @@ import {Text, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import BrandAssignForm from '../components/brand/BrandAssignForm';
 import BrandAssignTerm from '../components/brand/BrandAssignTerm';
-import Category from '../components/Category';
+import Category from '../components/category/Category';
 import MainContainer from '../components/MainContainer';
 import ProcessBar from '../components/ProcessBar';
 import ScreenBottomButton from '../components/ScreenBottomButton';
