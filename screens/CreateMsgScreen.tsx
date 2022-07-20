@@ -87,7 +87,6 @@ const styles = StyleSheet.create({
   InputMessage: {
     height: 196,
     paddingHorizontal: 4,
-
     fontSize: 14,
     fontWeight: '400',
   },

@@ -19,6 +19,10 @@ const colors = {
   Grey80: '#161615',
 };
 
+const fontFamily = {
+  Pretendard: 'PretendardVariable',
+};
+
 const fontSize = {
   H1: 40,
   H2: 28,
@@ -30,14 +34,16 @@ const fontSize = {
   P3: 12,
 };
 
-const fontFamily = {
-  Pretendard: 'PretendardVariable',
+const fontWeight = {
+  Bold: '700',
+  Light: '400',
 };
 
 const theme = {
   colors,
-  fontSize,
   fontFamily,
+  fontSize,
+  fontWeight,
 };
 
 export default theme;
