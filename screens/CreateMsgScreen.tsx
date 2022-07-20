@@ -11,7 +11,6 @@ import ScreenBottomButton from '../components/ScreenBottomButton';
 import {useNavigation} from '@react-navigation/native';
 import {RootStackNavigationProp} from './types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-// import MainContainer from '../components/MainContainer';
 
 function CreateMessageScreen() {
   const navigation = useNavigation<RootStackNavigationProp>();
