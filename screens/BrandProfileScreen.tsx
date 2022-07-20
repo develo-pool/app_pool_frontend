@@ -146,6 +146,7 @@ const styles = StyleSheet.create({
     flex: 1,
   }, // 공유 버튼
   ProfileName: {
+    //fontFamily: 'PretendardVariable',
     fontSize: 19,
     fontWeight: 'bold',
   }, //브랜드 명
