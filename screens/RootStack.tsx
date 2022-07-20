@@ -33,7 +33,11 @@ function RootStack() {
         component={GuideScreen}
         options={{headerShown: false}}
       />
-      <Stack.Screen name="Category" component={CategoryScreen} />
+      <Stack.Screen
+        name="Category"
+        component={CategoryScreen}
+        options={{headerShown: false}}
+      />
       <Stack.Screen
         name="BrandAssignGuide"
         component={BrandAssignGuideScreen}

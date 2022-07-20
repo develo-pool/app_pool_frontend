@@ -1,6 +1,8 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 
+export const MARGIN = 24;
+
 interface Props {
   children: React.ReactNode;
 }
@@ -12,7 +14,7 @@ function MainContainer({children}: Props) {
 const styles = StyleSheet.create({
   block: {
     flex: 1,
-    marginHorizontal: 24,
+    marginHorizontal: MARGIN,
   },
 });
 

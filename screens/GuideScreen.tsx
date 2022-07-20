@@ -17,7 +17,7 @@ function GuideScreen() {
       <MainContainer>{}</MainContainer>
       <ScreenBottomButton
         name="건너뛰기"
-        onPress={() => navigation.navigate('MainTab')}
+        onPress={() => navigation.navigate('Category')}
       />
     </View>
   );
