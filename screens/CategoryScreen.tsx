@@ -30,6 +30,7 @@ function CategoryScreen() {
       <ScreenBottomButton
         name="시작하기"
         onPress={() => navigation.navigate('MainTab')}
+        enabled={checkedItems.length > 2}
       />
       {/* TODO MainTab의 SearchScreen 으로 이동 */}
     </>

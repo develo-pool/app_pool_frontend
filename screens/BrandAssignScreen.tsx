@@ -65,8 +65,6 @@ function BrandAssignScreen() {
     terms: false,
   });
 
-  console.log(form);
-
   const createChangeTextHandler = (name: string) => (value: string) => {
     setForm({...form, [name]: value});
   };
@@ -77,6 +75,21 @@ function BrandAssignScreen() {
     } else if (!isChecked && form.category.find(i => i === name)) {
       const nextCheckedItems = form.category.filter(i => i !== name);
       setForm({...form, category: nextCheckedItems});
+    }
+  };
+
+  const enabled = () => {
+    switch (current) {
+      case 0:
+        return (
+          form.brandUserName !== '' &&
+          form.infoText !== '' &&
+          form.profileImg !== ''
+        );
+      case 1:
+        return form.category.length > 2;
+      case 2:
+        return form.terms;
     }
   };
 
@@ -97,6 +110,7 @@ function BrandAssignScreen() {
       ),
     });
   }, [current, navigation]);
+
   return (
     <>
       <MainContainer>
@@ -115,6 +129,7 @@ function BrandAssignScreen() {
             ? navigation.navigate('BrandAssignComplete')
             : navigation.navigate('BrandAssign', {current: current + 1});
         }}
+        enabled={enabled()}
       />
     </>
   );
