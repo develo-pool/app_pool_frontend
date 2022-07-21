@@ -2,8 +2,7 @@ import React from 'react';
 import {View, ScrollView, StyleSheet} from 'react-native';
 import Title from '../components/Title';
 import SearchBar from '../components/search/SearchBar';
-import BrandUserHorizontal from '../components/search/BarandUserHorizontal';
-import BrandUserVertical from '../components/search/BrandUserVertical';
+import BrandUserContainer from '../components/search/BarandUserContainer';
 import SubTitle from '../components/search/SubTitle';
 
 // interface User {
@@ -16,7 +15,7 @@ import SubTitle from '../components/search/SubTitle';
 // const hoon: User = {
 //   name: 'hoon',
 //   profileImg: 'https://reactnative.dev/img/tiny_logo.png',
-//   intro: '훈훈훈릠릠릠오오오늘늘늘수수수민민민화화화이이이팅팅팅',
+//   intro: ''
 //   follower: 300,
 // };
 
@@ -28,12 +27,12 @@ function SearchScreen() {
         <SearchBar />
         <SubTitle isSearching={false} searchCount={9} />
 
-        <ScrollView horizontal style={styles.recommandBrandUserList}>
-          <BrandUserHorizontal />
+        <ScrollView>
+          <BrandUserContainer />
         </ScrollView>
 
         <ScrollView>
-          <BrandUserHorizontal />
+          <BrandUserContainer />
         </ScrollView>
       </ScrollView>
     </View>
