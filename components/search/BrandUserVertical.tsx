@@ -29,10 +29,12 @@ function BrandUserVertical() {
       <View style={styles.brandUserContainer}>
         <Image
           style={styles.recommandBrandUserProfileImg}
-          source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}}
+          source={{
+            uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpX76CrHxujOncRrHo9XMHks7UTYRpIbM_Mw&usqp=CAU',
+          }}
         />
-        <Text style={styles.brandUsername}>최최다다인인</Text>
-        <Text style={styles.brandUserItro}>으갸갸갸갸갸갸갹갸갸 화이팅!</Text>
+        <Text style={styles.brandUsername}>엄지렐라</Text>
+        <Text style={styles.brandUserItro}>명품이 좋아요</Text>
         <View style={styles.brandUserFollowerContainer}>
           <Text style={styles.brandUserFollowerText}>팔로우</Text>
           <Text style={styles.brandUserFollowerText}>999</Text>
