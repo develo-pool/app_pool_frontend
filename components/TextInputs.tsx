@@ -7,15 +7,15 @@ function TextInputs() {
   const [text, setText] = useState('');
 
   return (
-    <View style={styles.Textinput}>
+    <View style={[styles.Textinput, styles.Default]}>
       <TextInput
         style={styles.InputStyle}
         placeholder="Text"
         value={text}
         onChangeText={value => setText(value)}
       />
-      <TouchableOpacity style={styles.Clearbutton} onPress={() => setText('')}>
-        <Icon name="clear" size={20} style={styles.Clear} />
+      <TouchableOpacity onPress={() => setText('')}>
+        <Icon name="clear" size={20} />
       </TouchableOpacity>
     </View>
   );
@@ -30,12 +30,30 @@ const styles = StyleSheet.create({
     height: 46,
     width: 324,
   },
+  Default: {
+    borderColor: theme.colors.Grey30,
+    backgroundColor: theme.colors.White,
+  },
+  Disable: {
+    borderColor: theme.colors.Grey30,
+    backgroundColor: theme.colors.Grey10,
+  },
+  Focus: {
+    borderColor: theme.colors.Black,
+    backgroundColor: theme.colors.White,
+  },
+  Correct: {
+    borderColor: theme.colors.Grey30,
+  },
+  Error: {
+    borderColor: theme.colors.Error,
+  },
   InputStyle: {
     fontFamily: theme.fontFamily.Pretendard,
     fontSize: theme.fontSize.P1,
+    marginLeft: 4,
+    width: 292,
   },
-  Clearbutton: {},
-  Clear: {},
 });
 
 export default TextInputs;
