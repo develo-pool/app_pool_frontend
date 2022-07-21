@@ -8,6 +8,7 @@ import MessageText from './feed/MessageText';
 import {useNavigation} from '@react-navigation/native';
 import {RootStackNavigationProp} from '../screens/types';
 
+
 // 프롭스로는 유저, 메시지, 현재스크린을 넣어줍니다.
 interface Props {
   user: User;
