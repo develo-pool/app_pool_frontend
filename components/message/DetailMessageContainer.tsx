@@ -5,6 +5,7 @@ import MessageHeader from '../feed/MessageHeader';
 interface Props {
   user: User | undefined;
   message: Message | undefined;
+  isFeedScreen?: boolean;
 }
 // 얘네는 코멘트를 작성한 유저들 !
 interface User {
@@ -21,19 +22,22 @@ interface Message {
 }
 // 유저 예시를 위한 dain 객체
 const beom: User = {
-  name: '범범범',
-  profileImg: 'https://reactnative.dev/img/tiny_logo.png',
+  name: '엄지렐라',
+  profileImg:
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpX76CrHxujOncRrHo9XMHks7UTYRpIbM_Mw&usqp=CAU',
 };
 const test: Message = {
   user: beom,
   isComment: false,
-  msgImg: 'https://reactnative.dev/img/tiny_logo.png',
-  msgLink: 'www.naver.com',
-  msgText: '흐하하하핳하하하하하핳 이도하 어서 API를 내놔라',
+  msgImg:
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAKct50NCsVyvNuADQHKbmPKvN4vwU_kabkg&usqp=CAU',
+  msgLink: 'www.example.com',
+  msgText:
+    '00님 엄지렐라 팔로우 해주셔서 감사합니다. 잘부탁드립니다. 앞으로도 엄지렐라 많이 아껴주시고,',
   msgDate: Date.now(),
 };
 // 사용 시에는 user와 message 프롭스를 아래에 넣어주세용
-function DetailMessageContainer({}: Props) {
+function DetailMessageContainer({user = beom, message = test, isFeedScreen = true}: Props) {
   return (
     <View>
       {/* <View style={styles.authorProfile}>
@@ -53,12 +57,22 @@ function DetailMessageContainer({}: Props) {
       />
 
       <View style={styles.msg}>
-        <Text style={styles.msgText}>{test.msgText}</Text>
-        <Image
-          style={styles.msgImg}
-          source={{uri: `${test.msgImg}`}}
-          resizeMode="cover"
-        />
+        {/* 메시지의 구성에 따라 각각 다른 UI를 출력 */}
+        {message.msgText === undefined ? (
+            ''
+          ) : (
+            <MessageText messageText={`${test.msgText}`} />
+          )}
+          {message.msgImg === undefined ? (
+            ''
+          ) : (
+            <MessageImg messageImg={`${test.msgImg}`} />
+          )}
+          {message.msgLink === undefined ? (
+            ''
+          ) : (
+            <MessageLink messageLink={`${test.msgLink}`} />
+          )}
       </View>
     </View>
   );

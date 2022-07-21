@@ -1,10 +1,12 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, TouchableOpacity} from 'react-native';
 import CommentFocusButton from './feed/CommentFocusButton';
 import MessageLink from './feed/MessageLink';
 import MessageImg from './feed/MessageImg';
 import MessageHeader from './feed/MessageHeader';
 import MessageText from './feed/MessageText';
+import {useNavigation} from '@react-navigation/native';
+import {RootStackNavigationProp} from '../screens/types';
 
 // 프롭스로는 유저, 메시지, 현재스크린을 넣어줍니다.
 interface Props {
@@ -49,33 +51,39 @@ const test: Message = {
 
 // 사용 시에는 user 프롭스를 아래에 넣어주세용
 function Feed({user = doha, message = test, isFeedScreen = true}: Props) {
+  const navigation = useNavigation<RootStackNavigationProp>();
   return (
     <View style={styles.feedContainer}>
       {/* 메시지헤더는 메시지 MessageScreen에 한해 다른 UI를 출력합니다 */}
-      <MessageHeader
-        user={user}
-        isDetailMessage={!isFeedScreen}
-        msgDate={test.msgDate}
-      />
-      <View style={styles.feed}>
-        {/* 메시지의 구성에 따라 각각 다른 UI를 출력 */}
-        {message.msgText === undefined ? (
-          ''
-        ) : (
-          <MessageText messageText={`${test.msgText}`} />
-        )}
-        {message.msgImg === undefined ? (
-          ''
-        ) : (
-          <MessageImg messageImg={`${test.msgImg}`} />
-        )}
-        {message.msgLink === undefined ? (
-          ''
-        ) : (
-          <MessageLink messageLink={`${test.msgLink}`} />
-        )}
-      </View>
+      <TouchableOpacity>
+        <MessageHeader
+          user={user}
+          isDetailMessage={!isFeedScreen}
+          msgDate={test.msgDate}
+        />
+      </TouchableOpacity>
+      <TouchableOpacity onPress={()=> navigation.navigate('Message')}>
+        <View style={styles.feed}>
+          {/* 메시지의 구성에 따라 각각 다른 UI를 출력 */}
+          {message.msgText === undefined ? (
+            ''
+          ) : (
+            <MessageText messageText={`${test.msgText}`} />
+          )}
+          {message.msgImg === undefined ? (
+            ''
+          ) : (
+            <MessageImg messageImg={`${test.msgImg}`} />
+          )}
+          {message.msgLink === undefined ? (
+            ''
+          ) : (
+            <MessageLink messageLink={`${test.msgLink}`} />
+          )}
+        </View>
+      </TouchableOpacity>
       {/* 답장을 보냈는지 체크 */}
+      {/* 요친구는 나중에 인풋박스 포커스까지 씌워줄거에요 */}
       <CommentFocusButton isComment={true} />
     </View>
   );
