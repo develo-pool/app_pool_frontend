@@ -28,11 +28,13 @@ function BrandUserHorizontal() {
       <View style={styles.brandUserContainer}>
         <Image
           style={styles.searchBrandUserProfileImg}
-          source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}}
+          source={{
+            uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpX76CrHxujOncRrHo9XMHks7UTYRpIbM_Mw&usqp=CAU',
+          }}
         />
         <View style={styles.brandUserTexts}>
-          <Text style={styles.brandUsername}>훈훈릠릠릠</Text>
-          <Text style={styles.brandUserItro}>으갸갸갸갸갸갸갹갸갸 화이팅!</Text>
+          <Text style={styles.brandUsername}>신규유튜버</Text>
+          <Text style={styles.brandUserItro}>잘부탁드려요</Text>
         </View>
       </View>
       <View style={styles.followBtnContainer}>

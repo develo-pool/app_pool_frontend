@@ -18,15 +18,16 @@ interface Message {
 
 // 유저 예시를 위한 doha 객체
 const doha: User = {
-  name: '이이이도도도하하하',
-  profileImg: 'https://reactnative.dev/img/tiny_logo.png',
+  name: '엄지렐라',
+  profileImg:
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpX76CrHxujOncRrHo9XMHks7UTYRpIbM_Mw&usqp=CAU',
 };
 // 메시지 예시를 위한 test 객체
 const test: Message = {
   user: doha,
   isComment: false,
   msgImg: 'https://reactnative.dev/img/tiny_logo.png',
-  msgLink: 'www.naver.com',
+  msgLink: 'www.blank.com',
   msgText: '흐하하하핳하하하하하핳 이도하 어서 API를 내놔라',
   msgDate: Date.now(),
 };
