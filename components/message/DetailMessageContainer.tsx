@@ -1,6 +1,9 @@
 import React from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
 import MessageHeader from '../feed/MessageHeader';
+import MessageImg from '../feed/MessageImg';
+import MessageLink from '../feed/MessageLink';
+import MessageText from '../feed/MessageText';
 
 interface Props {
   user: User | undefined;
