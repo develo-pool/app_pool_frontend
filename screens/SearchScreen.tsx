@@ -29,36 +29,11 @@ function SearchScreen() {
         <SubTitle isSearching={false} searchCount={9} />
 
         <ScrollView horizontal style={styles.recommandBrandUserList}>
-          <BrandUserVertical />
-          <BrandUserVertical />
-          {/* <View style={styles.recommandBrandUser}>
-            <Image
-              style={styles.recommandBrandUserProfileImg}
-              source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}}
-            />
-            <Text style={styles.brandUsername}>{hoon.name}</Text>
-            <View style={styles.brandUserFollowerContainer}>
-              <Text>팔로우</Text>
-              <Text>{hoon.follower}</Text>
-            </View>
-            <View style={styles.recommandBrandUserFollowBtn}>
-              <Button onPress={undefined} title="팔로우" />
-            </View>
-          </View> */}
+          <BrandUserHorizontal />
         </ScrollView>
 
         <ScrollView>
           <BrandUserHorizontal />
-          {/* <View style={styles.searchBrandUser}>
-            <Image
-              style={styles.searchBrandUserProfileImg}
-              source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}}
-            />
-            <Text style={styles.brandUsername}>{hoon.name}</Text>
-            <View style={styles.searchBrandUserFollowBtn}>
-              <Button onPress={undefined} title="팔로우" />
-            </View>
-          </View> */}
         </ScrollView>
       </ScrollView>
     </View>
