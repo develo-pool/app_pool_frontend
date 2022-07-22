@@ -38,7 +38,9 @@ function TextInputs({type, placeholder, onChangeText, value, alert}: Props) {
       </View>
       {alert && (
         <View style={styles.textContainer}>
-          <Text style={{color: theme.colors[alert.type]}}>{alert.text}</Text>
+          <Text style={[{color: theme.colors[alert.type]}, styles.text]}>
+            {alert.text}
+          </Text>
         </View>
       )}
     </View>
@@ -84,7 +86,6 @@ const styles = StyleSheet.create({
   textContainer: {
     paddingLeft: 6,
     marginTop: 4,
-    backgroundColor: 'pink',
   },
   text: {
     fontSize: 12,
