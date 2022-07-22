@@ -3,7 +3,11 @@ import {View, StyleSheet, TextInput, TouchableOpacity} from 'react-native';
 import theme from '../theme';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-function TextInputs({type}: {type: string}) {
+interface type {
+  type: string;
+}
+
+function TextInputs({type}: type) {
   const [text, setText] = useState('');
 
   const onPress = () => {
@@ -11,7 +15,7 @@ function TextInputs({type}: {type: string}) {
   };
 
   return (
-    <View style={[styles.Textinput, types.default]}>
+    <View style={[styles.Textinput, types[type]]}>
       <TextInput
         style={styles.InputStyle}
         placeholder="Text"

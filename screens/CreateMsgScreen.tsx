@@ -40,7 +40,7 @@ function CreateMessageScreen() {
           </View>
         </View>
       </View>
-      <TextInputs />
+      <TextInputs type="default" />
       <ScreenBottomButton
         name="발송하기"
         onPress={() => navigation.navigate('MainTab')}
