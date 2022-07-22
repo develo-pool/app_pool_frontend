@@ -5,9 +5,12 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 interface Props {
   type: 'default' | 'disable' | 'focus' | 'correct' | 'error';
+  placeholder: string;
+  value: string;
+  onChangeText: any;
 }
 
-function TextInputs({type}: Props) {
+function TextInputs({type, placeholder, onChangeText, value}: Props) {
   const [text, setText] = useState('');
 
   const onPress = () => {
@@ -18,9 +21,9 @@ function TextInputs({type}: Props) {
     <View style={[styles.Textinput, types[type]]}>
       <TextInput
         style={styles.InputStyle}
-        placeholder="Text"
-        value={text}
-        onChangeText={setText}
+        placeholder={placeholder}
+        value={value}
+        onChangeText={onChangeText}
       />
       <TouchableOpacity onPress={onPress}>
         {text ? (
