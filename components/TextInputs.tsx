@@ -4,7 +4,7 @@ import theme from '../theme';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 interface Props {
-  type: string;
+  type: 'default' | 'disable' | 'focus' | 'correct' | 'error';
 }
 
 function TextInputs({type}: Props) {
