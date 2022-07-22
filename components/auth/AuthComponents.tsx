@@ -52,23 +52,18 @@ export function CheckBox({
   title,
   onPress,
   value,
-  terms,
+  state,
 }: {
   title: string;
   onPress: any;
-  value: 'service' | 'privacy';
-  terms: {
-    service: boolean;
-    privacy: boolean;
-  };
+  value: string;
+  state: boolean;
 }) {
   return (
     <>
-      {value === 'service' ? (
-        <Pressable
-          style={styles.terms}
-          onPress={() => onPress({...terms, service: !terms.service})}>
-          {terms.service ? (
+      {value === 'termAgreement' ? (
+        <Pressable style={styles.terms} onPress={() => onPress(!state)}>
+          {state ? (
             <Icon name="check-box" size={20} />
           ) : (
             <View style={styles.empty} />
@@ -76,10 +71,8 @@ export function CheckBox({
           <Text>{title}</Text>
         </Pressable>
       ) : (
-        <Pressable
-          style={styles.terms}
-          onPress={() => onPress({...terms, privacy: !terms.privacy})}>
-          {terms.privacy ? (
+        <Pressable style={styles.terms} onPress={() => onPress(!state)}>
+          {state ? (
             <Icon name="check-box" size={20} />
           ) : (
             <View style={styles.empty} />
