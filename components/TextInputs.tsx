@@ -1,15 +1,9 @@
 import React, {useState} from 'react';
-import {
-  View,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-  Keyboard,
-} from 'react-native';
+import {View, StyleSheet, TextInput, TouchableOpacity} from 'react-native';
 import theme from '../theme';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-function TextInputs() {
+function TextInputs({type}: {type: string}) {
   const [text, setText] = useState('');
 
   const onPress = () => {
@@ -17,7 +11,7 @@ function TextInputs() {
   };
 
   return (
-    <View style={[styles.Textinput, styles.Default]}>
+    <View style={[styles.Textinput, types.default]}>
       <TextInput
         style={styles.InputStyle}
         placeholder="Text"
@@ -72,5 +66,17 @@ const styles = StyleSheet.create({
     display: 'none',
   },
 });
+
+const types = {
+  default: styles.Default,
+  disable: styles.Disable,
+  focus: styles.Focus,
+  correct: styles.Correct,
+  error: styles.Error,
+};
+
+TextInputs.defaultProps = {
+  type: 'default',
+};
 
 export default TextInputs;
