@@ -1,9 +1,7 @@
 import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
 import RootStack from './screens/RootStack';
-
-const reactQuery = require('react-query');
-const {QueryClient, QueryClientProvider} = reactQuery;
+import {QueryClient, QueryClientProvider} from 'react-query';
 
 const queryClient = new QueryClient();
 
