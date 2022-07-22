@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {View, StyleSheet, TextInput, TouchableOpacity} from 'react-native';
 import theme from '../theme';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -6,31 +6,21 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 interface Props {
   type: 'default' | 'disable' | 'focus' | 'correct' | 'error';
   placeholder: string;
-  value: string;
-  onChangeText: any;
+  value?: string;
+  onChangeText?: any;
 }
 
 function TextInputs({type, placeholder, onChangeText, value}: Props) {
-  const [text, setText] = useState('');
-
-  const onPress = () => {
-    setText('');
-  };
-
   return (
-    <View style={[styles.Textinput, types[type]]}>
+    <View style={[styles.Textinput, styles[type]]}>
       <TextInput
-        style={styles.InputStyle}
+        style={styles.inputStyle}
         placeholder={placeholder}
         value={value}
         onChangeText={onChangeText}
       />
-      <TouchableOpacity onPress={onPress}>
-        {text ? (
-          <Icon name="clear" size={20} />
-        ) : (
-          <Icon name="clear" size={20} style={styles.isEmpty} />
-        )}
+      <TouchableOpacity onPress={() => onChangeText('')}>
+        {value && <Icon name="clear" size={20} />}
       </TouchableOpacity>
     </View>
   );
@@ -38,49 +28,38 @@ function TextInputs({type, placeholder, onChangeText, value}: Props) {
 
 const styles = StyleSheet.create({
   Textinput: {
+    flex: 1,
+    height: 46,
     borderWidth: 1,
     borderRadius: 6,
     flexDirection: 'row',
     alignItems: 'center',
-    height: 46,
-    width: 324,
   },
-  Default: {
+  default: {
     borderColor: theme.colors.Grey30,
     backgroundColor: theme.colors.White,
   },
-  Disable: {
+  disable: {
     borderColor: theme.colors.Grey30,
     backgroundColor: theme.colors.Grey10,
   },
-  Focus: {
+  focus: {
     borderColor: theme.colors.Black,
     backgroundColor: theme.colors.White,
   },
-  Correct: {
+  correct: {
     borderColor: theme.colors.Grey30,
   },
-  Error: {
+  error: {
     borderColor: theme.colors.Error,
   },
-  InputStyle: {
+  inputStyle: {
     fontFamily: theme.fontFamily.Pretendard,
     fontSize: theme.fontSize.P1,
     marginLeft: 4,
     width: 292,
   },
-  isEmpty: {
-    display: 'none',
-  },
 });
-
-const types = {
-  default: styles.Default,
-  disable: styles.Disable,
-  focus: styles.Focus,
-  correct: styles.Correct,
-  error: styles.Error,
-};
 
 TextInputs.defaultProps = {
   type: 'default',
