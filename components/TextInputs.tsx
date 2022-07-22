@@ -3,11 +3,11 @@ import {View, StyleSheet, TextInput, TouchableOpacity} from 'react-native';
 import theme from '../theme';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-interface type {
+interface Props {
   type: string;
 }
 
-function TextInputs({type}: type) {
+function TextInputs({type}: Props) {
   const [text, setText] = useState('');
 
   const onPress = () => {
