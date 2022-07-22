@@ -16,13 +16,13 @@ export async function getUser() {
   return response.data;
 }
 
-interface SignUpParams {
+export interface SignUpParams {
   username: string;
   password: string;
   nickName: string;
   phoneNumber: string;
-  gender: 'male' | 'female';
-  birthDay: number;
+  gender: 'male' | 'female' | '';
+  birthDay: string;
   termAgreement: boolean;
   privacyAgreement: boolean;
 }

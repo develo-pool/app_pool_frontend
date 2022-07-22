@@ -5,12 +5,13 @@ import {RootStackNavigationProp} from './types';
 import {RootStackParamList} from './types';
 import MainContainer from '../components/MainContainer';
 import ScreenBottomButton from '../components/ScreenBottomButton';
-import Title from '../components/Title';
 import ProcessBar from '../components/ProcessBar';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {FirstForm, SecondForm} from '../components/auth/SignUpForms';
+import SignUpForm from '../components/auth/SignUpForm';
+import useSignUp from '../hooks/useSignUp';
+import {SignUpParams} from '../api/auth';
 
-const TOTAL = 2;
+const TOTAL = 3;
 
 type SignUpScreenRouteProp = RouteProp<RootStackParamList, 'SignUp'>;
 
@@ -28,7 +29,7 @@ function SignUpScreen() {
         <TouchableOpacity
           onPress={
             current
-              ? () => navigation.navigate('SignUp', {current: 0})
+              ? () => navigation.navigate('SignUp', {current: current - 1})
               : () => navigation.goBack()
           }>
           <Icon name="keyboard-arrow-left" size={30} />
@@ -37,43 +38,55 @@ function SignUpScreen() {
     });
   }, [current, navigation]);
 
-  const [form, setForm] = useState({
-    phoneNum: '',
-    gender: '',
-    birthday: '',
-    nickname: '',
+  const {mutate: signUp, isLoading: signUpLoading} = useSignUp();
+  const [form, setForm] = useState<SignUpParams>({
+    username: '',
     password: '',
-    confirmPassword: '',
-    terms: {service: false, privacy: false},
+    nickName: '',
+    phoneNumber: '',
+    gender: '',
+    birthDay: '',
+    termAgreement: false,
+    privacyAgreement: false,
   });
 
   const createChangeTextHandler = (name: string) => (value: string) => {
     setForm({...form, [name]: value});
   };
 
+  const onPress = () => {
+    if (signUpLoading) {
+      return;
+    }
+
+    signUp(form);
+  };
+
+  console.log(form);
+
   return (
     <>
       <MainContainer>
-        <Title title={current ? '가입정보' : '기본정보'} subTitle="회원가입" />
-        {current ? (
-          <SecondForm onChangeText={createChangeTextHandler} form={form} />
-        ) : (
-          <FirstForm onChangeText={createChangeTextHandler} form={form} />
-        )}
+        <SignUpForm
+          current={current}
+          createChangeTextHandler={createChangeTextHandler}
+          form={form}
+        />
       </MainContainer>
-      {current ? (
+      {current === 2 ? (
         <ScreenBottomButton
           name="가입완료"
           onPress={() => {
-            navigation.navigate('Guide');
+            onPress();
+            // navigation.navigate('Guide');
           }}
-          enabled={true}
+          enabled={!signUpLoading}
         />
       ) : (
         <ScreenBottomButton
           name="다음"
           onPress={() => {
-            navigation.navigate('SignUp', {current: 1});
+            navigation.navigate('SignUp', {current: current + 1});
           }}
         />
       )}
