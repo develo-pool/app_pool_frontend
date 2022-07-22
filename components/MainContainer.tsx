@@ -6,8 +6,8 @@ export const PADDING = 24;
 
 interface Props {
   children: React.ReactNode;
-  type?: 'auth';
-  background?: 'white' | 'grey';
+  type?: 'wide';
+  background?: 'white' | 'gray';
 }
 
 function MainContainer({children, type, background = 'white'}: Props) {
@@ -23,13 +23,13 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: PADDING,
   },
-  auth: {
+  wide: {
     paddingTop: 130,
   },
   white: {
     backgroundColor: theme.colors.White,
   },
-  grey: {
+  gray: {
     backgroundColor: theme.colors.Grey10,
   },
 });
