@@ -32,7 +32,7 @@ function TextInputs({type, placeholder, onChangeText, value, alert}: Props) {
         />
         <TouchableOpacity onPress={() => onChangeText('')}>
           {value && (
-            <Icon name="clear" style={styles.clear} size={12} color="white" />
+            <Icon name="cancel" size={16} color={theme.colors.Grey30} />
           )}
         </TouchableOpacity>
       </View>
@@ -78,13 +78,7 @@ const styles = StyleSheet.create({
   error: {
     borderColor: theme.colors.Error,
   },
-  clear: {
-    backgroundColor: theme.colors.Grey30,
-    borderRadius: 10,
-    padding: 2,
-  },
   textContainer: {
-    paddingLeft: 6,
     marginTop: 4,
   },
   text: {
