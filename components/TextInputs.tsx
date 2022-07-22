@@ -5,6 +5,7 @@ import {
   TextInput,
   TouchableOpacity,
   Text,
+  KeyboardTypeOptions,
 } from 'react-native';
 import theme from '../theme';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -18,9 +19,17 @@ interface Props {
     type: 'Correct' | 'Error';
     text: string;
   };
+  keyboardType?: KeyboardTypeOptions | undefined;
 }
 
-function TextInputs({type, placeholder, onChangeText, value, alert}: Props) {
+function TextInputs({
+  type,
+  placeholder,
+  onChangeText,
+  value,
+  alert,
+  keyboardType = undefined,
+}: Props) {
   return (
     <View style={[styles.block]}>
       <View style={[styles.Textinput, styles[type]]}>
@@ -29,6 +38,7 @@ function TextInputs({type, placeholder, onChangeText, value, alert}: Props) {
           placeholder={placeholder}
           value={value}
           onChangeText={onChangeText}
+          keyboardType={keyboardType}
         />
         <TouchableOpacity onPress={() => onChangeText('')}>
           {value && (

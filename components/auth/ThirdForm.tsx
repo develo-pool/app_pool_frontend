@@ -1,6 +1,7 @@
 import React from 'react';
-import {StyleSheet, TextInput, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import {SignUpParams} from '../../api/auth';
+import TextInputs from '../TextInputs';
 import Title from '../Title';
 import {AuthButton, CheckBox, InputTitle} from './AuthComponents';
 
@@ -14,21 +15,25 @@ function ThirdForm({
   return (
     <View>
       <Title title="아이디 및 비밀번호를" />
-      <Title title="설정해 주세요." />
+      <Title title="설정해 주세요." hasMargin={true} />
       <InputTitle title="아이디" />
-      <View style={styles.row}>
-        <TextInput
-          style={styles.input}
+      <View style={[styles.row, styles.noMargin]}>
+        <TextInputs
+          type="default"
           placeholder="아이디를 입력해 주세요"
           value={form.username}
           onChangeText={onChangeText('username')}
         />
         <AuthButton text="중복확인" />
       </View>
+
+      <Text style={styles.alert}>
+        최소 3자 ~ 20자, 영문 소문자로 입력해 주세요.
+      </Text>
       <InputTitle title="닉네임" />
       <View style={styles.row}>
-        <TextInput
-          style={styles.input}
+        <TextInputs
+          type="default"
           placeholder="한글 및 영문으로 입력"
           value={form.nickName}
           onChangeText={onChangeText('nickName')}
@@ -37,8 +42,8 @@ function ThirdForm({
       </View>
       <InputTitle title="비밀번호" />
       <View style={styles.row}>
-        <TextInput
-          style={styles.input}
+        <TextInputs
+          type="default"
           placeholder="비밀번호를 입력해 주세요"
           value={form.password}
           onChangeText={onChangeText('password')}
@@ -46,8 +51,8 @@ function ThirdForm({
       </View>
       <InputTitle title="비밀번호 확인" />
       <View style={styles.row}>
-        <TextInput
-          style={styles.input}
+        <TextInputs
+          type="default"
           placeholder="비밀번호를 다시 입력해 주세요"
         />
       </View>
@@ -72,6 +77,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginBottom: 30,
     minHeight: 48,
+  },
+  noMargin: {
+    marginBottom: 4,
+  },
+  alert: {
+    marginBottom: 25,
+    fontSize: 12,
   },
   input: {
     flex: 1,

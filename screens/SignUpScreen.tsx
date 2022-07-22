@@ -24,6 +24,7 @@ function SignUpScreen() {
       headerTitle: () => <ProcessBar total={TOTAL} current={current} />,
       headerTitleAlign: 'center',
       headerBackVisible: false,
+      headerTransparent: true,
       headerLeft: () => (
         <TouchableOpacity
           onPress={
@@ -31,7 +32,12 @@ function SignUpScreen() {
               ? () => navigation.navigate('SignUp', {current: current - 1})
               : () => navigation.goBack()
           }>
-          <Icon name="keyboard-arrow-left" size={30} />
+          <Icon name="arrow-back" size={28} color="black" />
+        </TouchableOpacity>
+      ),
+      headerRight: () => (
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Icon name="close" size={28} color="black" />
         </TouchableOpacity>
       ),
     });
@@ -65,7 +71,7 @@ function SignUpScreen() {
 
   return (
     <>
-      <MainContainer>
+      <MainContainer type="wide">
         <SignUpForm
           current={current}
           createChangeTextHandler={createChangeTextHandler}

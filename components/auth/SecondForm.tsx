@@ -1,6 +1,7 @@
 import React from 'react';
-import {StyleSheet, TextInput, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {SignUpParams} from '../../api/auth';
+import TextInputs from '../TextInputs';
 import Title from '../Title';
 import {InputTitle, RadioButton} from './AuthComponents';
 
@@ -14,11 +15,11 @@ function SecondForm({
   return (
     <View>
       <Title title="생년월일 및 성별을" />
-      <Title title="입력해 주세요." />
+      <Title title="입력해 주세요." hasMargin={true} />
       <InputTitle title="생년월일" />
       <View style={styles.row}>
-        <TextInput
-          style={styles.input}
+        <TextInputs
+          type="default"
           placeholder="예. 990101"
           keyboardType="numeric"
           value={form.birthDay.toString()}
