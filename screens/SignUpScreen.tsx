@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {TouchableOpacity} from 'react-native';
-import {RootStackNavigationProp} from './types';
-import {RootStackParamList} from './types';
+import {RootStackNavigationProp, RootStackParamList} from './types';
 import MainContainer from '../components/MainContainer';
 import ScreenBottomButton from '../components/ScreenBottomButton';
 import ProcessBar from '../components/ProcessBar';
