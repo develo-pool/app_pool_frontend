@@ -10,8 +10,8 @@ interface Props {
 function Title({title, alignCenter = false, subTitle}: Props) {
   return (
     <View style={alignCenter && styles.center}>
-      {subTitle && <Text style={styles.subTitle}>{subTitle}</Text>}
       <Text style={styles.title}>{title}</Text>
+      {subTitle && <Text style={styles.subTitle}>{subTitle}</Text>}
     </View>
   );
 }
