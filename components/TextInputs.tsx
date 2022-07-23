@@ -20,6 +20,7 @@ interface Props {
     text: string;
   };
   keyboardType?: KeyboardTypeOptions | undefined;
+  maxLength?: number;
 }
 
 function TextInputs({
@@ -29,6 +30,7 @@ function TextInputs({
   value,
   alert,
   keyboardType = undefined,
+  maxLength,
 }: Props) {
   return (
     <View style={[styles.block]}>
@@ -39,6 +41,7 @@ function TextInputs({
           value={value}
           onChangeText={onChangeText}
           keyboardType={keyboardType}
+          maxLength={maxLength}
         />
         <TouchableOpacity onPress={() => onChangeText('')}>
           {value && (

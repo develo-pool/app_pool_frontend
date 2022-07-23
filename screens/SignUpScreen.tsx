@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {TouchableOpacity} from 'react-native';
+import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {RootStackNavigationProp, RootStackParamList} from './types';
 import MainContainer from '../components/MainContainer';
-import ScreenBottomButton from '../components/ScreenBottomButton';
 import ProcessBar from '../components/ProcessBar';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import SignUpForm from '../components/auth/SignUpForm';
 import useSignUp from '../hooks/useSignUp';
 import {SignUpParams} from '../api/auth';
+import SignUpScreenBottomButton from '../components/auth/SignUpScreenBottomButton';
 
 const TOTAL = 3;
 
@@ -32,12 +32,12 @@ function SignUpScreen() {
               ? () => navigation.navigate('SignUp', {current: current - 1})
               : () => navigation.goBack()
           }>
-          <Icon name="arrow-back" size={28} color="black" />
+          <Icon name="arrow-back" size={24} color="black" />
         </TouchableOpacity>
       ),
       headerRight: () => (
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Icon name="close" size={28} color="black" />
+          <Icon name="close" size={24} color="black" />
         </TouchableOpacity>
       ),
     });
@@ -55,6 +55,8 @@ function SignUpScreen() {
     privacyAgreement: false,
   });
 
+  console.log(form);
+
   const createChangeTextHandler = (name: string) => (value: string) => {
     setForm({...form, [name]: value});
   };
@@ -63,11 +65,8 @@ function SignUpScreen() {
     if (signUpLoading) {
       return;
     }
-
     signUp(form);
   };
-
-  console.log(form);
 
   return (
     <>
@@ -78,23 +77,11 @@ function SignUpScreen() {
           form={form}
         />
       </MainContainer>
-      {current === 2 ? (
-        <ScreenBottomButton
-          name="가입완료"
-          onPress={() => {
-            onPress();
-            // navigation.navigate('Guide');
-          }}
-          enabled={!signUpLoading}
-        />
-      ) : (
-        <ScreenBottomButton
-          name="다음"
-          onPress={() => {
-            navigation.navigate('SignUp', {current: current + 1});
-          }}
-        />
-      )}
+      <SignUpScreenBottomButton
+        current={current}
+        form={form}
+        onPress={onPress}
+      />
     </>
   );
 }

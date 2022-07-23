@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {SignUpParams} from '../../api/auth';
 import FirstForm from './FirstForm';
 import SecondForm from './SecondForm';
@@ -13,9 +13,27 @@ const SignUpForm = ({
   createChangeTextHandler: any;
   form: SignUpParams;
 }) => {
+  interface Props {
+    state: 'default' | 'request' | 'confirm';
+    phoneNumber: string;
+    authNumber: string;
+  }
+  const [temp, setTemp] = useState<Props>({
+    state: 'default',
+    phoneNumber: '',
+    authNumber: '',
+  });
+  console.log(temp);
+
   switch (current) {
     case 0:
-      return <FirstForm onChangeText={createChangeTextHandler} form={form} />;
+      return (
+        <FirstForm
+          onChangeText={createChangeTextHandler}
+          temp={temp}
+          setTemp={setTemp}
+        />
+      );
     case 1:
       return <SecondForm onChangeText={createChangeTextHandler} form={form} />;
     default:

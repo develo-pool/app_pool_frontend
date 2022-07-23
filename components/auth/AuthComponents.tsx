@@ -1,5 +1,11 @@
 import React from 'react';
-import {Pressable, StyleSheet, Text, View} from 'react-native';
+import {
+  GestureResponderEvent,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import theme from '../../theme';
 
@@ -10,13 +16,16 @@ export function InputTitle({title}: {title: string}) {
 export function AuthButton({
   text,
   disabled,
+  onPress,
 }: {
   text: string;
   disabled?: boolean;
+  onPress?: (event: GestureResponderEvent) => void;
 }) {
   return (
     <View style={styles.block}>
       <Pressable
+        onPress={onPress}
         style={[styles.checkButton, disabled && styles.disabled]}
         android_ripple={{color: 'rgba(255,255,255,0.1)'}}>
         <Text style={styles.innerText}>{text}</Text>
@@ -99,8 +108,8 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   checkButton: {
-    width: 92,
     height: 48,
+    paddingHorizontal: 20,
     marginLeft: 8,
     borderRadius: 4,
     backgroundColor: 'black',

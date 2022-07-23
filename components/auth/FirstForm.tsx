@@ -1,16 +1,21 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-import {SignUpParams} from '../../api/auth';
 import TextInputs from '../TextInputs';
 import Title from '../Title';
 import {AuthButton, InputTitle} from './AuthComponents';
 
 function FirstForm({
   onChangeText,
-  form,
+  temp,
+  setTemp,
 }: {
   onChangeText: any;
-  form: SignUpParams;
+  temp: {
+    state: 'default' | 'request' | 'confirm';
+    phoneNumber: string;
+    authNumber: string;
+  };
+  setTemp: any;
 }) {
   return (
     <View style={styles.block}>
@@ -21,17 +26,56 @@ function FirstForm({
         <TextInputs
           type="default"
           placeholder="예. 01012345678"
-          value={form.phoneNumber}
-          onChangeText={onChangeText('phoneNumber')}
-          alert={{type: 'Correct', text: '인증번호가 전송되었습니다.'}}
+          value={temp.phoneNumber}
+          onChangeText={(value: string) =>
+            setTemp({...temp, phoneNumber: value})
+          }
+          keyboardType="number-pad"
+          maxLength={11}
+          alert={
+            temp.state !== 'default'
+              ? {type: 'Correct', text: '인증번호가 전송되었습니다.'}
+              : undefined
+          }
         />
-        <AuthButton text="재전송" />
+        <AuthButton
+          text={temp.state !== 'default' ? '재전송' : '인증하기'}
+          disabled={!temp.phoneNumber}
+          onPress={() => {
+            setTemp({...temp, state: 'request'});
+          }}
+        />
       </View>
-      <InputTitle title="인증번호" />
-      <View style={styles.row}>
-        <TextInputs type="default" placeholder="인증번호 입력" />
-        <AuthButton text="인증하기" />
-      </View>
+      {temp.state !== 'default' && (
+        <>
+          <InputTitle title="인증번호" />
+          <View style={styles.row}>
+            <TextInputs
+              type="default"
+              placeholder="인증번호 입력"
+              value={temp.authNumber}
+              onChangeText={(value: string) =>
+                setTemp({...temp, authNumber: value})
+              }
+              keyboardType="number-pad"
+              maxLength={6}
+              alert={
+                temp.state === 'confirm'
+                  ? {type: 'Correct', text: '인증되었습니다.'}
+                  : undefined
+              }
+            />
+            <AuthButton
+              text="인증하기"
+              disabled={!temp.authNumber}
+              onPress={() => {
+                setTemp({...temp, state: 'confirm'});
+                onChangeText('phoneNumber')(temp.phoneNumber);
+              }}
+            />
+          </View>
+        </>
+      )}
     </View>
   );
 }
