@@ -18,7 +18,7 @@ import {StyleSheet, View, Image, Text, TouchableOpacity} from 'react-native';
 //     follower: 300,
 //   };
 
-function BrandUserContainer({following, changeFollowing}) {
+function RecommandBrandUserContainer({following, changeFollowing}) {
   return (
     <View style={styles.brandUserContainer}>
       <View style={styles.brandUserHorizontal}>
@@ -43,7 +43,7 @@ function BrandUserContainer({following, changeFollowing}) {
               }}
               style={styles.followBtn}>
               <Text style={styles.followText}>
-                {following ? '언팔로우' : '팔로우'}
+                {following ? '팔로잉⭐️' : '팔로우'}
               </Text>
             </TouchableOpacity>
           </View>
@@ -133,4 +133,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default BrandUserContainer;
+export default RecommandBrandUserContainer;

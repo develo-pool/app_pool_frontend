@@ -22,7 +22,7 @@ function RootStack() {
         component={MainTab}
         options={{headerShown: false}}
       />
-      {/* <Stack.Screen
+      <Stack.Screen
         name="Login"
         component={LoginScreen}
         options={{headerTitle: () => <></>}}
@@ -48,7 +48,7 @@ function RootStack() {
         name="BrandAssignComplete"
         component={BrandAssignCompleteScreen}
         options={{headerShown: false}}
-      /> */}
+      />
       <Stack.Screen name="Message" component={MessageScreen} />
       <Stack.Screen name="CreateMessage" component={CreateMessageScreen} />
     </Stack.Navigator>

@@ -14,7 +14,7 @@ function SearchBar({searchText, onChangeText, DoSearching}) {
         <TextInput
           value={searchText}
           onChangeText={onChangeText}
-          onSubmitEditing={DoSearching()}
+          // onSubmitEditing={DoSearching()}
           returnKeyType="go"
           placeholder={'브랜드명을 검색해주세요.'}
           style={styles.input}

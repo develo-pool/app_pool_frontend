@@ -2,8 +2,10 @@ import React, {useState} from 'react';
 import {View, ScrollView, StyleSheet} from 'react-native';
 import Title from '../components/Title';
 import SearchBar from '../components/search/SearchBar';
-import BrandUserContainer from '../components/search/BarandUserContainer';
-import SubTitle from '../components/search/SubTitle';
+import RecommandBrandUserContainer from '../components/search/RecommandBrandUserContainer';
+import RecommandSubTitle from '../components/search/RecommandSubTitle';
+import SearchResultBrandUserContainer from '../components/search/SearchResultBrandUserContainer';
+import SearchResultSubTitle from '../components/search/SearchResultSubTitle';
 
 // interface User {
 //   name: string;
@@ -25,8 +27,8 @@ function SearchScreen() {
   const [searchText, setSearchText] = useState('');
   const onChangeText = payload => setSearchText(payload);
   const [isSearching, setIsSearching] = useState(false);
-  const DoSearching = async(searchText) =>
-    await searchText !== '' ? setIsSearching(true) : setIsSearching(false);
+  const DoSearching = () =>
+    searchText !== '' ? setIsSearching(true) : setIsSearching(false);
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -36,13 +38,31 @@ function SearchScreen() {
           onChangeText={onChangeText}
           DoSearching={DoSearching}
         />
-        <SubTitle isSearching={isSearching} searchCount={9} />
-        <ScrollView>
-          <BrandUserContainer
-            following={following}
-            changeFollowing={changeFollowing}
-          />
-        </ScrollView>
+        {isSearching ? (
+          <ScrollView>
+            <SearchResultSubTitle searchCount={9} />
+            <SearchResultBrandUserContainer
+              following={following}
+              changeFollowing={changeFollowing}
+            />
+            <SearchResultBrandUserContainer
+              following={following}
+              changeFollowing={changeFollowing}
+            />
+          </ScrollView>
+        ) : (
+          <ScrollView>
+            <RecommandSubTitle />
+            <RecommandBrandUserContainer
+              following={following}
+              changeFollowing={changeFollowing}
+            />
+            <RecommandBrandUserContainer
+              following={following}
+              changeFollowing={changeFollowing}
+            />
+          </ScrollView>
+        )}
       </ScrollView>
     </View>
   );
