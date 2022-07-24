@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   StyleSheet,
   View,
@@ -7,22 +7,21 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-function SearchBar({text, onChangeText}) {
-
+function SearchBar({text, onChangeText, searchBtnOnPress}) {
   return (
     <View style={styles.searchBar}>
       <TextInput
-          value={text}
-          onChangeText={onChangeText}
+        value={text}
+        onChangeText={onChangeText}
         //   onSubmitEditing={addToDo}
         returnKeyType="go"
         placeholder={'브랜드명을 검색해주세요.'}
         style={styles.input}
       />
-      
+
       {/* <Button onPress={undefined} title="🥕" /> */}
       <TouchableOpacity
-        onPress={() => undefined}
+        onPress={() => searchBtnOnPress()}
         style={styles.searchIconContainer}>
         <Text style={styles.searchIcon}>🥕</Text>
       </TouchableOpacity>

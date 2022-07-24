@@ -9,12 +9,12 @@ function SubTitle({isSearching, searchCount}: Props) {
   return (
     <View>
       {isSearching ? (
-        <Text style={styles.subTitle}>추천 브랜드</Text>
-      ) : (
         <View style={styles.subTitleContainer}>
-          <Text style={styles.subTitle}>브랜드</Text>
+          <Text style={styles.subTitle}>검색결과</Text>
           <Text style={styles.subTitle}>{searchCount}</Text>
         </View>
+      ) : (
+        <Text style={styles.subTitle}>추천 브랜드</Text>
       )}
     </View>
   );
