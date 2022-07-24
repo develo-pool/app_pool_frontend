@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, View, Image, Text, TouchableOpacity} from 'react-native';
 // import FollowBtn from './FollowBtn';
 
