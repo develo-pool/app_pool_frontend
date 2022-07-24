@@ -65,36 +65,23 @@ export function RadioButton({
 export function CheckBox({
   title,
   onPress,
-  value,
   state,
 }: {
   title: string;
   onPress: any;
-  value: string;
   state: boolean;
 }) {
   return (
-    <>
-      {value === 'termAgreement' ? (
-        <Pressable style={styles.terms} onPress={() => onPress(!state)}>
-          {state ? (
-            <Icon name="check-box" size={20} />
-          ) : (
-            <View style={styles.empty} />
-          )}
-          <Text>{title}</Text>
-        </Pressable>
-      ) : (
-        <Pressable style={styles.terms} onPress={() => onPress(!state)}>
-          {state ? (
-            <Icon name="check-box" size={20} />
-          ) : (
-            <View style={styles.empty} />
-          )}
-          <Text>{title}</Text>
-        </Pressable>
-      )}
-    </>
+    <Pressable style={styles.terms} onPress={() => onPress(!state)}>
+      <View style={styles.checkBoxContainer}>
+        {state ? (
+          <Icon name="check-box" size={20} color={theme.colors.Grey30} />
+        ) : (
+          <View style={styles.empty} />
+        )}
+      </View>
+      <Text style={styles.termText}>{title}</Text>
+    </Pressable>
   );
 }
 
@@ -142,11 +129,22 @@ const styles = StyleSheet.create({
   },
   terms: {
     flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 25,
   },
   empty: {
-    width: 15,
-    height: 15,
-    borderColor: 'black',
+    width: 14,
+    height: 14,
+    borderColor: theme.colors.Grey30,
     borderWidth: 1,
+    margin: 3,
+  },
+  termText: {
+    fontSize: 14,
+  },
+  checkBoxContainer: {
+    width: 20,
+    height: 20,
+    marginRight: 10,
   },
 });

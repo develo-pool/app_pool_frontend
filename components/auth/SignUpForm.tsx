@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {ScrollView} from 'react-native';
 import {SignUpParams} from '../../api/auth';
 import FirstForm from './FirstForm';
 import SecondForm from './SecondForm';
@@ -36,7 +37,11 @@ const SignUpForm = ({
     case 1:
       return <SecondForm onChangeText={createChangeTextHandler} form={form} />;
     default:
-      return <ThirdForm onChangeText={createChangeTextHandler} form={form} />;
+      return (
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <ThirdForm onChangeText={createChangeTextHandler} form={form} />
+        </ScrollView>
+      );
   }
 };
 

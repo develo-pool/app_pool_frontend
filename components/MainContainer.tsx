@@ -6,7 +6,7 @@ export const PADDING = 24;
 
 interface Props {
   children: React.ReactNode;
-  type?: 'wide';
+  type?: 'wide' | undefined;
   background?: 'white' | 'gray';
 }
 

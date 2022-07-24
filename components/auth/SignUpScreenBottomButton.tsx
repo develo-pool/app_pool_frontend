@@ -45,7 +45,7 @@ function SignUpScreenBottomButton({
             onPress();
             // navigation.navigate('Guide');
           }}
-          enabled={false}
+          enabled={form.privacyAgreement && form.termAgreement}
         />
       );
   }

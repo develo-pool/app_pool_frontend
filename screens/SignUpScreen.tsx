@@ -70,7 +70,7 @@ function SignUpScreen() {
 
   return (
     <>
-      <MainContainer type="wide">
+      <MainContainer type={current !== 2 ? 'wide' : undefined}>
         <SignUpForm
           current={current}
           createChangeTextHandler={createChangeTextHandler}

@@ -13,7 +13,7 @@ function ThirdForm({
   form: SignUpParams;
 }) {
   return (
-    <View>
+    <View style={styles.block}>
       <Title title="아이디 및 비밀번호를" />
       <Title title="설정해 주세요." hasMargin={true} />
       <InputTitle title="아이디" />
@@ -58,13 +58,11 @@ function ThirdForm({
       </View>
       <CheckBox
         title="이용약관 동의 (필수)"
-        value={'termAgreement'}
         state={form.termAgreement}
         onPress={onChangeText('termAgreement')}
       />
       <CheckBox
         title="개인정보 처리방침 (필수)"
-        value={'privacyAgreement'}
         state={form.privacyAgreement}
         onPress={onChangeText('privacyAgreement')}
       />
@@ -73,6 +71,9 @@ function ThirdForm({
 }
 
 const styles = StyleSheet.create({
+  block: {
+    paddingTop: 130,
+  },
   row: {
     flexDirection: 'row',
     marginBottom: 30,
