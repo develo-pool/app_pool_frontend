@@ -27,13 +27,13 @@ function MessageScreen() {
 
           <BorderLine />
 
-          <CommentBar commentCount={927} />
+          {/* <CommentBar commentCount={927} />
 
           <Comment
             user={undefined}
-            commentText="프론트짱 다인님의 기운을 받아 햅삐ㅣㅣㅣㅣㅣㅣ"
+            commentText="정말 좋은 글이네요!"
             commentDate={Date.now()}
-          />
+          /> */}
 
           {tester.isBrand ? (
             ''

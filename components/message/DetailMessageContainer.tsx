@@ -55,7 +55,7 @@ function DetailMessageContainer({message = test}: Props) {
       </View> */}
       <MessageHeader
         user={beom}
-        isDetailMessage={false}
+        isDetailMessage={true}
         msgDate={test.msgDate}
       />
 

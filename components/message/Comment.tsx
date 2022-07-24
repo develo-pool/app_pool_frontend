@@ -13,7 +13,7 @@ interface User {
 }
 // 유저 예시를 위한 dain 객체
 const beom: User = {
-  name: '다인님 제발',
+  name: '김제인',
   profileImg: 'https://reactnative.dev/img/tiny_logo.png',
 };
 // 사용 시에는 user 프롭스를 아래에 넣어주세용
