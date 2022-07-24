@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View, Image} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import MessageHeader from '../feed/MessageHeader';
 import MessageImg from '../feed/MessageImg';
 import MessageLink from '../feed/MessageLink';
@@ -40,7 +40,7 @@ const test: Message = {
   msgDate: Date.now(),
 };
 // 사용 시에는 user와 message 프롭스를 아래에 넣어주세용
-function DetailMessageContainer({user = beom, message = test, isFeedScreen = true}: Props) {
+function DetailMessageContainer({message = test}: Props) {
   return (
     <View>
       {/* <View style={styles.authorProfile}>
@@ -62,20 +62,20 @@ function DetailMessageContainer({user = beom, message = test, isFeedScreen = tru
       <View style={styles.msg}>
         {/* 메시지의 구성에 따라 각각 다른 UI를 출력 */}
         {message.msgText === undefined ? (
-            ''
-          ) : (
-            <MessageText messageText={`${test.msgText}`} />
-          )}
-          {message.msgImg === undefined ? (
-            ''
-          ) : (
-            <MessageImg messageImg={`${test.msgImg}`} />
-          )}
-          {message.msgLink === undefined ? (
-            ''
-          ) : (
-            <MessageLink messageLink={`${test.msgLink}`} />
-          )}
+          ''
+        ) : (
+          <MessageText messageText={`${test.msgText}`} />
+        )}
+        {message.msgImg === undefined ? (
+          ''
+        ) : (
+          <MessageImg messageImg={`${test.msgImg}`} />
+        )}
+        {message.msgLink === undefined ? (
+          ''
+        ) : (
+          <MessageLink messageLink={`${test.msgLink}`} />
+        )}
       </View>
     </View>
   );
