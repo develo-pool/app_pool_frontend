@@ -3,6 +3,11 @@ import {StyleSheet, View, Image, Text, TouchableOpacity} from 'react-native';
 // import FollowBtn from './FollowBtn';
 
 // Props까지 생각해서 넣어주려다가 머리가 팡팡할듯하여 일단은 넘기도록 하겠읍니다.
+// interface Props {
+//     brandUser : User;
+//     user : User;
+
+// }
 
 // interface User {
 //     name: string;
@@ -17,8 +22,11 @@ import {StyleSheet, View, Image, Text, TouchableOpacity} from 'react-native';
 //     intro: '훈훈훈릠릠릠오오오늘늘늘수수수민민민화화화이이이팅팅팅',
 //     follower: 300,
 //   };
+function BrandUserContainer() {
+  const [following, setFollowing] = useState(false);
+  const follow = () => setFollowing(true);
+  const unfollow = () => setFollowing(false);
 
-function BrandUserContainer({following, follow, unfollow}) {
   return (
     <View style={styles.brandUserContainer}>
       <View style={styles.brandUserHorizontal}>
@@ -38,13 +46,14 @@ function BrandUserContainer({following, follow, unfollow}) {
           </View>
           <View>
             <TouchableOpacity
-              onPress={() => {
-                following ? unfollow() : follow();
-              }}
+              onPress={() => (following === true ? {unfollow} : {follow})}
               style={styles.followBtn}>
-              <Text style={styles.followText}>
-                {following ? '언팔로우' : '팔로우'}
-              </Text>
+              {/* <Text style={styles.followText}>언팔로우</Text> */}
+              {following === true ? (
+                <Text style={styles.followText}>언팔로우</Text>
+              ) : (
+                <Text style={styles.followText}>팔로우</Text>
+              )}
             </TouchableOpacity>
           </View>
         </View>

@@ -5,7 +5,7 @@ interface Props {
   isSearching: boolean;
   searchCount?: number;
 }
-function SubTitle({isSearching, searchCount}: Props) {
+function SubTitle({isSearching = false, searchCount}: Props) {
   return (
     <View>
       {isSearching ? (

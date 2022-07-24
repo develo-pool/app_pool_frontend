@@ -1,11 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {
-  View,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-} from 'react-native';
+import React from 'react';
+import {View, ScrollView, StyleSheet} from 'react-native';
 import Title from '../components/Title';
 import SearchBar from '../components/search/SearchBar';
 import BrandUserContainer from '../components/search/BarandUserContainer';
@@ -26,31 +20,20 @@ import SubTitle from '../components/search/SubTitle';
 // };
 
 function SearchScreen() {
-  const [text, setText] = useState('');
-  const onChangeText = (text) => setText(text);
-  const [following, setFollowing] = useState(false);
-  const follow = () => setFollowing(true);
-  const unfollow = () => setFollowing(false);
-  const [isSearching, setIsSearching] = useState(false);
-  const Searching = () => text === '' ? setIsSearching(false) : setIsSearching(true);
-  useEffect(()=>{
-    Searching()
-  }, [])
   return (
     <View style={styles.container}>
       <ScrollView>
         <Title title="탐색하기" alignCenter={false} />
-        <SearchBar text={text} onChangeText={onChangeText} />
-        <SubTitle isSearching={isSearching} searchCount={9} />
+        <SearchBar />
+        <SubTitle isSearching={false} searchCount={9} />
+
         <ScrollView>
-          <BrandUserContainer
-            following={following}
-            follow={follow}
-            unfollow={unfollow}
-          />
+          <BrandUserContainer />
         </ScrollView>
 
-        <ScrollView>{/* <BrandUserContainer /> */}</ScrollView>
+        <ScrollView>
+          <BrandUserContainer />
+        </ScrollView>
       </ScrollView>
     </View>
   );
