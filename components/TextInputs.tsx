@@ -36,9 +36,9 @@ function TextInputs({
     <View style={[styles.block]}>
       <View style={[styles.Textinput, styles[type]]}>
         <TextInput
+          value={value}
           style={styles.inputStyle}
           placeholder={placeholder}
-          value={value}
           onChangeText={onChangeText}
           keyboardType={keyboardType}
           maxLength={maxLength}

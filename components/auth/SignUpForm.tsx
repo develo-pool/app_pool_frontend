@@ -23,7 +23,6 @@ const SignUpForm = ({
     phoneNumber: '',
     authNumber: '',
   });
-  console.log(temp);
 
   switch (current) {
     case 0:
