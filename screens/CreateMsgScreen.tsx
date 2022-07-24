@@ -11,7 +11,7 @@ import ScreenBottomButton from '../components/ScreenBottomButton';
 import {useNavigation} from '@react-navigation/native';
 import {RootStackNavigationProp} from './types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-// import MainContainer from '../components/MainContainer';
+import TextInputs from '../components/TextInputs';
 
 function CreateMessageScreen() {
   const navigation = useNavigation<RootStackNavigationProp>();
@@ -40,6 +40,7 @@ function CreateMessageScreen() {
           </View>
         </View>
       </View>
+      <TextInputs type="default" />
       <ScreenBottomButton
         name="발송하기"
         onPress={() => navigation.navigate('MainTab')}
@@ -88,7 +89,6 @@ const styles = StyleSheet.create({
   InputMessage: {
     height: 196,
     paddingHorizontal: 4,
-
     fontSize: 14,
     fontWeight: '400',
   },

@@ -1,12 +1,17 @@
 import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
 import RootStack from './screens/RootStack';
+import {QueryClient, QueryClientProvider} from 'react-query';
+
+const queryClient = new QueryClient();
 
 function App() {
   return (
-    <NavigationContainer>
-      <RootStack />
-    </NavigationContainer>
+    <QueryClientProvider client={queryClient}>
+      <NavigationContainer>
+        <RootStack />
+      </NavigationContainer>
+    </QueryClientProvider>
   );
 }
 
