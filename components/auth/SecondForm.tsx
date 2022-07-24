@@ -24,6 +24,7 @@ function SecondForm({
           keyboardType="numeric"
           value={form.birthDay.toString()}
           onChangeText={onChangeText('birthDay')}
+          maxLength={6}
         />
       </View>
       <InputTitle title="성별" />

@@ -3,6 +3,7 @@ import React from 'react';
 import {SignUpParams} from '../../api/auth';
 import {RootStackNavigationProp} from '../../screens/types';
 import ScreenBottomButton from '../ScreenBottomButton';
+import {CheckBirthday} from './Validation';
 
 function SignUpScreenBottomButton({
   current,
@@ -33,6 +34,7 @@ function SignUpScreenBottomButton({
           onPress={() => {
             navigation.navigate('SignUp', {current: current + 1});
           }}
+          enabled={!!(CheckBirthday(form.birthDay) && form.gender)}
         />
       );
     default:
