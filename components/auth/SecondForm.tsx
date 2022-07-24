@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {SignUpParams} from '../../api/auth';
 import TextInputs from '../TextInputs';
 import Title from '../Title';
 import {InputTitle, RadioButton} from './AuthComponents';
+import {CheckBirthday} from './Validation';
 
 function SecondForm({
   onChangeText,
@@ -12,6 +13,11 @@ function SecondForm({
   onChangeText: any;
   form: SignUpParams;
 }) {
+  const [valid, setValid] = useState<boolean>(true);
+  const changeBirthdayHandler = (value: string) => {
+    onChangeText('birthDay')(value);
+    setValid(CheckBirthday(value));
+  };
   return (
     <View>
       <Title title="생년월일 및 성별을" />
@@ -23,8 +29,13 @@ function SecondForm({
           placeholder="예. 990101"
           keyboardType="numeric"
           value={form.birthDay.toString()}
-          onChangeText={onChangeText('birthDay')}
+          onChangeText={changeBirthdayHandler}
           maxLength={6}
+          alert={
+            valid
+              ? undefined
+              : {type: 'Error', text: '생년월일 6자리로 입력해 주세요.'}
+          }
         />
       </View>
       <InputTitle title="성별" />

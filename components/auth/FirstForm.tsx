@@ -37,7 +37,7 @@ function FirstForm({
           keyboardType="number-pad"
           maxLength={11}
           alert={
-            temp.state !== 'default'
+            temp.state === 'request'
               ? {type: 'Correct', text: '인증번호가 전송되었습니다.'}
               : valid
               ? undefined
