@@ -42,9 +42,10 @@ function TextInputs({
           onChangeText={onChangeText}
           keyboardType={keyboardType}
           maxLength={maxLength}
+          editable={!(type === 'disable')}
         />
         <TouchableOpacity onPress={() => onChangeText('')}>
-          {value && (
+          {value && type !== 'disable' && (
             <Icon name="cancel" size={16} color={theme.colors.Grey30} />
           )}
         </TouchableOpacity>

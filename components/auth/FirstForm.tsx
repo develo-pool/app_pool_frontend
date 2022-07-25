@@ -20,9 +20,13 @@ function FirstForm({
 }) {
   const [valid, setValid] = useState<boolean>(true);
   const changePhoneNumberHandler = (value: string) => {
+    // 전화번호 수정시 초기화. 기획 픽스시 제거.
+    // setTemp({state: 'default', phoneNumber: value, authNumber: ''});
+    // onChangeText('phoneNumber')('');
     setTemp({...temp, phoneNumber: value});
     setValid(CheckPhoneNumber(value));
   };
+
   return (
     <View style={styles.block}>
       <Title title="휴대폰 번호를" />
@@ -30,7 +34,9 @@ function FirstForm({
       <InputTitle title="휴대전화" />
       <View style={styles.row}>
         <TextInputs
-          type={valid ? 'default' : 'error'}
+          type={
+            temp.state === 'default' ? (valid ? 'default' : 'error') : 'disable'
+          }
           placeholder="예. 01012345678"
           value={temp.phoneNumber}
           onChangeText={changePhoneNumberHandler}
@@ -45,8 +51,8 @@ function FirstForm({
           }
         />
         <AuthButton
-          text={temp.state !== 'default' ? '재전송' : '인증하기'}
-          disabled={!(temp.phoneNumber && valid)}
+          text={'인증하기'}
+          disabled={!(temp.phoneNumber && valid && temp.state === 'default')}
           onPress={() => {
             setTemp({...temp, state: 'request'});
           }}
