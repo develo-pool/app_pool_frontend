@@ -10,7 +10,6 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import MainContainer from '../components/MainContainer';
 import {RootStackNavigationProp} from './types';
-import theme from './../theme';
 
 function BrandProfileScreen() {
   const navigation = useNavigation<RootStackNavigationProp>();
