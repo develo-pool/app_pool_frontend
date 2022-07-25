@@ -6,23 +6,25 @@ import {
   Text,
   TouchableOpacity,
 } from 'react-native';
-function SearchBar() {
+
+function SearchBar({searchText, onChangeText, DoSearching}) {
   return (
-    <View style={styles.searchBar}>
-      <TextInput
-        //   value={text}
-        //   onChangeText={onChangeText}
-        //   onSubmitEditing={addToDo}
-        returnKeyType="go"
-        placeholder={'브랜드명을 검색해주세요.'}
-        style={styles.input}
-      />
-      {/* <Button onPress={undefined} title="🥕" /> */}
-      <TouchableOpacity
-        onPress={() => undefined}
-        style={styles.searchIconContainer}>
-        <Text style={styles.searchIcon}>🥕</Text>
-      </TouchableOpacity>
+    <View>
+      <View style={styles.searchBar}>
+        <TextInput
+          value={searchText}
+          onChangeText={onChangeText}
+          // onSubmitEditing={DoSearching()}
+          returnKeyType="go"
+          placeholder={'브랜드명을 검색해주세요.'}
+          style={styles.input}
+        />
+        <TouchableOpacity
+          onPress={() => DoSearching()}
+          style={styles.searchIconContainer}>
+          <Text style={styles.searchIcon}>🥕</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }

@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, ScrollView, StyleSheet} from 'react-native';
 import Title from '../components/Title';
 import SearchBar from '../components/search/SearchBar';
-import BrandUserHorizontal from '../components/search/BarandUserHorizontal';
-import BrandUserVertical from '../components/search/BrandUserVertical';
-import SubTitle from '../components/search/SubTitle';
+import RecommandBrandUserContainer from '../components/search/RecommandBrandUserContainer';
+import RecommandSubTitle from '../components/search/RecommandSubTitle';
+import SearchResultBrandUserContainer from '../components/search/SearchResultBrandUserContainer';
+import SearchResultSubTitle from '../components/search/SearchResultSubTitle';
 
 // interface User {
 //   name: string;
@@ -16,50 +17,52 @@ import SubTitle from '../components/search/SubTitle';
 // const hoon: User = {
 //   name: 'hoon',
 //   profileImg: 'https://reactnative.dev/img/tiny_logo.png',
-//   intro: '훈훈훈릠릠릠오오오늘늘늘수수수민민민화화화이이이팅팅팅',
+//   intro: ''
 //   follower: 300,
 // };
 
 function SearchScreen() {
+  const [following, setFollowing] = useState(false);
+  const changeFollowing = () => setFollowing(!following);
+  const [searchText, setSearchText] = useState('');
+  const onChangeText = payload => setSearchText(payload);
+  const [isSearching, setIsSearching] = useState(false);
+  const DoSearching = () =>
+    searchText !== '' ? setIsSearching(true) : setIsSearching(false);
   return (
     <View style={styles.container}>
       <ScrollView>
         <Title title="탐색하기" alignCenter={false} />
-        <SearchBar />
-        <SubTitle isSearching={false} searchCount={9} />
-
-        <ScrollView horizontal style={styles.recommandBrandUserList}>
-          <BrandUserVertical />
-          <BrandUserVertical />
-          {/* <View style={styles.recommandBrandUser}>
-            <Image
-              style={styles.recommandBrandUserProfileImg}
-              source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}}
+        <SearchBar
+          searchText={searchText}
+          onChangeText={onChangeText}
+          DoSearching={DoSearching}
+        />
+        {isSearching ? (
+          <ScrollView>
+            <SearchResultSubTitle searchCount={9} />
+            <SearchResultBrandUserContainer
+              following={following}
+              changeFollowing={changeFollowing}
             />
-            <Text style={styles.brandUsername}>{hoon.name}</Text>
-            <View style={styles.brandUserFollowerContainer}>
-              <Text>팔로우</Text>
-              <Text>{hoon.follower}</Text>
-            </View>
-            <View style={styles.recommandBrandUserFollowBtn}>
-              <Button onPress={undefined} title="팔로우" />
-            </View>
-          </View> */}
-        </ScrollView>
-
-        <ScrollView>
-          <BrandUserHorizontal />
-          {/* <View style={styles.searchBrandUser}>
-            <Image
-              style={styles.searchBrandUserProfileImg}
-              source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}}
+            <SearchResultBrandUserContainer
+              following={following}
+              changeFollowing={changeFollowing}
             />
-            <Text style={styles.brandUsername}>{hoon.name}</Text>
-            <View style={styles.searchBrandUserFollowBtn}>
-              <Button onPress={undefined} title="팔로우" />
-            </View>
-          </View> */}
-        </ScrollView>
+          </ScrollView>
+        ) : (
+          <ScrollView>
+            <RecommandSubTitle />
+            <RecommandBrandUserContainer
+              following={following}
+              changeFollowing={changeFollowing}
+            />
+            <RecommandBrandUserContainer
+              following={following}
+              changeFollowing={changeFollowing}
+            />
+          </ScrollView>
+        )}
       </ScrollView>
     </View>
   );
