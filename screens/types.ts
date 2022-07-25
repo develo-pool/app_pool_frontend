@@ -1,7 +1,11 @@
 import {NativeStackNavigationProp} from '@react-navigation/native-stack/lib/typescript/src/types';
 
 /* MainTab */
-
+export type SetStackParamList = {
+  Setting: undefined;
+  Login: undefined;
+  FollowingList: undefined;
+};
 /* RootStack */
 
 export type RootStackParamList = {

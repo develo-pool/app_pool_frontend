@@ -20,6 +20,7 @@ function SettingStack() {
         component={LoginScreen}
         options={{headerTitle: () => <></>}}
       />
+      <Stack.Screen name="FollowingList" component={FollowingListScreen} />
     </Stack.Navigator>
   );
 }
