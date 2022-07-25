@@ -10,6 +10,7 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import MainContainer from '../components/MainContainer';
 import {RootStackNavigationProp} from './types';
+import theme from './../theme';
 
 function BrandProfileScreen() {
   const navigation = useNavigation<RootStackNavigationProp>();
@@ -146,7 +147,6 @@ const styles = StyleSheet.create({
     flex: 1,
   }, // 공유 버튼
   ProfileName: {
-    //fontFamily: 'PretendardVariable',
     fontSize: 19,
     fontWeight: 'bold',
   }, //브랜드 명

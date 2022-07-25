@@ -1,35 +1,43 @@
 import React from 'react';
 import {View, Text, Pressable, StyleSheet} from 'react-native';
+import theme from './../../theme';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 interface Props {
   title: string;
+  onPress?: any;
 }
 
-function SetArticle({title}: Props) {
+function SetArticle({title, onPress}: Props) {
   return (
-    <View>
-      <Pressable>
-        <View style={styles.SetArticle}>
-          <Text style={styles.NotiText}>{title}</Text>
-        </View>
-      </Pressable>
-    </View>
+    <Pressable style={styles.Article} onPress={onPress}>
+      <View style={styles.ArticleText}>
+        <Text style={styles.SetText}>{title}</Text>
+      </View>
+      <Icon name="arrow-forward-ios" size={14} style={styles.RightArrow} />
+    </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
-  SetArticle: {
+  Article: {
+    backgroundColor: theme.colors.White,
     height: 60,
-    marginTop: 8,
-    paddingHorizontal: 24,
     flexDirection: 'row',
-    backgroundColor: 'white',
     alignItems: 'center',
+    marginTop: 1,
+    paddingHorizontal: 24,
   },
-  NotiText: {
-    color: 'black',
+  ArticleText: {
+    width: 320,
+  },
+  SetText: {
+    color: theme.colors.Grey60,
     fontSize: 14,
     fontWeight: '700',
+  },
+  RightArrow: {
+    color: theme.colors.Black,
   },
 });
 
