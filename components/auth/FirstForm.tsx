@@ -19,12 +19,17 @@ function FirstForm({
   setTemp: any;
 }) {
   const [valid, setValid] = useState<boolean>(true);
+
   const changePhoneNumberHandler = (value: string) => {
     // 전화번호 수정시 초기화. 기획 픽스시 제거.
     // setTemp({state: 'default', phoneNumber: value, authNumber: ''});
     // onChangeText('phoneNumber')('');
     setTemp({...temp, phoneNumber: value});
     setValid(CheckPhoneNumber(value));
+  };
+  const changeAuthNumberHandler = (value: string) => {
+    setTemp({...temp, authNumber: value});
+    setValid(value.length === 6);
   };
 
   return (
@@ -66,20 +71,20 @@ function FirstForm({
               type="default"
               placeholder="인증번호 입력"
               value={temp.authNumber}
-              onChangeText={(value: string) =>
-                setTemp({...temp, authNumber: value})
-              }
+              onChangeText={changeAuthNumberHandler}
               keyboardType="number-pad"
               maxLength={6}
               alert={
                 temp.state === 'confirm'
                   ? {type: 'Correct', text: '인증되었습니다.'}
-                  : undefined
+                  : valid
+                  ? undefined
+                  : {type: 'Error', text: '인증번호 6자리를 입력해 주세요.'}
               }
             />
             <AuthButton
               text="인증하기"
-              disabled={!temp.authNumber}
+              disabled={temp.authNumber.length !== 6}
               onPress={() => {
                 setTemp({...temp, state: 'confirm'});
                 onChangeText('phoneNumber')(temp.phoneNumber);
