@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
 import {Text, View, StyleSheet, Pressable, Image, Switch} from 'react-native';
-import Title from '../components/Title';
 import JoinBrandContainer from '../components/setting/JoinBrand';
 import SetArticle from './../components/setting/SetArticle';
 import {useNavigation} from '@react-navigation/native';
 import {RootStackNavigationProp} from './types';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import theme from './../theme';
 
 function SettingStack() {
   const [isEnabled, setIsEnabled] = useState(false);
@@ -14,51 +15,53 @@ function SettingStack() {
 
   return (
     <View style={styles.block}>
-      <View style={styles.UpperContainer}>
-        <Title title="설정" />
-        <View style={styles.UserInfoContainer}>
-          <View style={styles.ProfileImgContainer}>
-            <Image //Image로 바꿔줘야함!!
-              style={styles.ImgSource}
-              source={require('../assets/Pool.png')}
-            />
-            <Pressable>
-              <Image
-                style={styles.EditProfile}
-                source={require('../assets/Edit.png')}
-              />
-            </Pressable>
-          </View>
-          <View style={styles.UserNameContainer}>
-            <Text style={styles.UserName}>호빵맨</Text>
-          </View>
-          <View style={styles.FollowingContainer}>
-            <Text style={styles.FollowingCount}>1</Text>
-            <Text style={styles.Following}>팔로잉</Text>
-          </View>
+      <View style={styles.UserInfoContainer}>
+        <View style={styles.ProfileImgContainer}>
+          <Image //Image로 바꿔줘야함!!
+            style={styles.ImgSource}
+            source={require('../assets/ProfileImage.png')}
+          />
+          <Icon name="check-circle" size={18} style={styles.BrandChecked} />
         </View>
-        <JoinBrandContainer
-          onPress={() => navigation.push('BrandAssignGuide')}
-        />
+        <View style={styles.ProfileInfo}>
+          <Text style={styles.BrandName}>더푸르</Text>
+          <Text style={styles.UserName}>김자네</Text>
+          <Pressable style={styles.FollowingContainer}>
+            <Text style={styles.Following}>팔로잉</Text>
+            <Text style={styles.FollowingCount}>489</Text>
+            <Icon
+              name="arrow-forward-ios"
+              size={12}
+              style={styles.RightArrow}
+            />
+          </Pressable>
+        </View>
       </View>
-      <View style={styles.SettingsContainer}>
-        <View style={styles.SetNotification}>
+      <JoinBrandContainer onPress={() => navigation.push('BrandAssignGuide')} />
+      <>
+        <View style={styles.SeperatedSets}>
           <Text style={styles.NotiText}>알림 수신</Text>
           <View style={styles.NotiSwitch}>
             <Switch
-              trackColor={{false: '#767577', true: '#81b0ff'}}
-              thumbColor={isEnabled ? '#f4f3f4' : '#f4f3f4'}
+              trackColor={{
+                false: theme.colors.Grey40,
+                true: theme.colors.Poolgreen,
+              }}
+              thumbColor={theme.colors.White}
               ios_backgroundColor="#3e3e3e"
               onValueChange={toggleSwitch}
               value={isEnabled}
             />
           </View>
         </View>
+        <SetArticle title="회원정보 수정" />
         <SetArticle title="이용약관" />
         <SetArticle title="개인정보처리방침" />
         <SetArticle title="문의하기" />
-        <SetArticle title="로그아웃" />
-      </View>
+        <View style={styles.SeperatedSets}>
+          <Text style={styles.Logout}>로그아웃</Text>
+        </View>
+      </>
     </View>
   );
 }
@@ -67,74 +70,82 @@ const styles = StyleSheet.create({
   block: {
     flex: 1,
   },
-  UpperContainer: {
-    flex: 3,
-    marginHorizontal: 24,
-  },
-  SettingsContainer: {
-    flex: 5,
-  },
   UserInfoContainer: {
+    backgroundColor: theme.colors.White,
+    height: 120,
+    paddingHorizontal: 24,
     flexDirection: 'row',
-    marginTop: 24,
+    alignItems: 'center',
   },
   ProfileImgContainer: {
-    flex: 1.1,
     flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  UserNameContainer: {
-    flex: 2.2,
-    paddingLeft: 10,
-    justifyContent: 'center',
-  },
-  FollowingContainer: {
-    flex: 0.7,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   ImgSource: {
-    height: 74,
-    width: 74,
-    borderRadius: 37,
+    height: 64,
+    width: 64,
+    borderRadius: 32,
     resizeMode: 'contain',
-    backgroundColor: '#C7C7C7',
   },
-  EditProfile: {
-    height: 25,
-    width: 25,
-    resizeMode: 'contain',
-    marginLeft: -25,
-    marginTop: 45,
+  BrandChecked: {
+    marginLeft: -18,
+    marginTop: 44,
+    color: theme.colors.Poolblue,
+  },
+  ProfileInfo: {
+    marginLeft: 16,
+  },
+  FollowingContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  RightArrow: {
+    marginLeft: 6,
+    color: theme.colors.Grey80,
+  },
+  BrandName: {
+    fontSize: 12,
+    fontWeight: '700',
+    color: theme.colors.Poolblue,
   },
   UserName: {
-    fontSize: 19,
+    fontSize: 18,
     fontWeight: '700',
-  },
-  FollowingCount: {
-    fontSize: 24,
-    fontWeight: '700',
+    color: theme.colors.Grey80,
+    marginBottom: 2,
   },
   Following: {
     fontSize: 12,
-    fontWeight: '700',
+    fontWeight: '400',
+    color: theme.colors.Grey40,
   },
-  SetNotification: {
+  FollowingCount: {
+    fontSize: 12,
+    fontWeight: '700',
+    color: theme.colors.Grey80,
+    marginLeft: 4,
+  },
+  SeperatedSets: {
     height: 60,
     marginTop: 8,
+    marginBottom: 7,
     paddingHorizontal: 24,
     flexDirection: 'row',
     backgroundColor: 'white',
     alignItems: 'center',
   },
   NotiText: {
-    color: 'black',
+    color: theme.colors.Grey60,
     fontSize: 14,
     fontWeight: '700',
   },
   NotiSwitch: {
     marginLeft: 240,
+  },
+
+  Logout: {
+    color: theme.colors.Grey60,
+    fontSize: 14,
+    fontWeight: '400',
   },
 });
 
