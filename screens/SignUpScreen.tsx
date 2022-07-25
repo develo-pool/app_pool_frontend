@@ -14,6 +14,13 @@ const TOTAL = 3;
 
 type SignUpScreenRouteProp = RouteProp<RootStackParamList, 'SignUp'>;
 
+export interface TempProps {
+  firstState: 'default' | 'request' | 'confirm';
+  authNumber: string;
+  confirm: string;
+  passwordValid: {first: boolean; second: boolean};
+}
+
 function SignUpScreen() {
   const route = useRoute<SignUpScreenRouteProp>();
   const current = route.params.current;
@@ -56,10 +63,22 @@ function SignUpScreen() {
     privacyAgreement: false,
   });
 
-  // console.log(form);
+  const [temp, setTemp] = useState<TempProps>({
+    firstState: 'default',
+    authNumber: '',
+    confirm: '',
+    passwordValid: {first: false, second: false},
+  });
+
+  console.log(form);
+  console.log(temp);
 
   const createChangeTextHandler = (name: string) => (value: string) => {
-    setForm({...form, [name]: value});
+    if (name in form) {
+      setForm({...form, [name]: value});
+    } else if (name in temp) {
+      setTemp({...temp, [name]: value});
+    }
   };
 
   const onPress = () => {
@@ -76,11 +95,13 @@ function SignUpScreen() {
           current={current}
           createChangeTextHandler={createChangeTextHandler}
           form={form}
+          temp={temp}
         />
       </MainContainer>
       <SignUpScreenBottomButton
         current={current}
         form={form}
+        temp={temp}
         onPress={onPress}
       />
     </>

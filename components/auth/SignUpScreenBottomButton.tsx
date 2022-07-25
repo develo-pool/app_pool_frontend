@@ -1,6 +1,7 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {SignUpParams} from '../../api/auth';
+import {TempProps} from '../../screens/SignUpScreen';
 import {RootStackNavigationProp} from '../../screens/types';
 import ScreenBottomButton from '../ScreenBottomButton';
 import {CheckBirthday} from './Validation';
@@ -8,13 +9,25 @@ import {CheckBirthday} from './Validation';
 function SignUpScreenBottomButton({
   current,
   form,
+  temp,
   onPress,
 }: {
   current: number;
   form: SignUpParams;
+  temp: TempProps;
   onPress: () => void;
 }) {
   const navigation = useNavigation<RootStackNavigationProp>();
+
+  const FirstFormValid = !!form.phoneNumber && temp.firstState === 'confirm';
+  const SecondFormValid = CheckBirthday(form.birthDay) && !!form.gender;
+  const ThirdFormValid = !!(
+    temp.passwordValid.first &&
+    temp.passwordValid.second &&
+    form.password === temp.confirm &&
+    form.privacyAgreement &&
+    form.termAgreement
+  );
 
   switch (current) {
     case 0:
@@ -24,7 +37,7 @@ function SignUpScreenBottomButton({
           onPress={() => {
             navigation.navigate('SignUp', {current: current + 1});
           }}
-          enabled={!!form.phoneNumber}
+          enabled={FirstFormValid}
         />
       );
     case 1:
@@ -34,7 +47,7 @@ function SignUpScreenBottomButton({
           onPress={() => {
             navigation.navigate('SignUp', {current: current + 1});
           }}
-          enabled={!!(CheckBirthday(form.birthDay) && form.gender)}
+          enabled={SecondFormValid}
         />
       );
     default:
@@ -45,9 +58,7 @@ function SignUpScreenBottomButton({
             onPress();
             // navigation.navigate('Guide');
           }}
-          enabled={
-            !!(form.password && form.privacyAgreement && form.termAgreement)
-          }
+          enabled={ThirdFormValid}
         />
       );
   }

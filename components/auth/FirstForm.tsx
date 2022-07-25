@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
+import {SignUpParams} from '../../api/auth';
+import {TempProps} from '../../screens/SignUpScreen';
 import TextInputs from '../TextInputs';
 import Title from '../Title';
 import {AuthButton, InputTitle} from './AuthComponents';
@@ -7,30 +9,19 @@ import {CheckPhoneNumber} from './Validation';
 
 function FirstForm({
   onChangeText,
+  form,
   temp,
-  setTemp,
 }: {
   onChangeText: any;
-  temp: {
-    state: 'default' | 'request' | 'confirm';
-    phoneNumber: string;
-    authNumber: string;
-  };
-  setTemp: any;
+  form: SignUpParams;
+  temp: TempProps;
 }) {
-  const [valid, setValid] = useState<boolean>(true);
-
+  const [phoneNumberValid, setPhoneNumberValid] = useState<boolean>(true);
   const changePhoneNumberHandler = (value: string) => {
-    // 전화번호 수정시 초기화. 기획 픽스시 제거.
-    // setTemp({state: 'default', phoneNumber: value, authNumber: ''});
-    // onChangeText('phoneNumber')('');
-    setTemp({...temp, phoneNumber: value});
-    setValid(CheckPhoneNumber(value));
+    onChangeText('phoneNumber')(value);
+    setPhoneNumberValid(CheckPhoneNumber(value));
   };
-  const changeAuthNumberHandler = (value: string) => {
-    setTemp({...temp, authNumber: value});
-    setValid(value.length === 6);
-  };
+  const authLen = temp.authNumber.length;
 
   return (
     <View style={styles.block}>
@@ -40,54 +31,69 @@ function FirstForm({
       <View style={styles.row}>
         <TextInputs
           type={
-            temp.state === 'default' ? (valid ? 'default' : 'error') : 'disable'
+            temp.firstState === 'default'
+              ? phoneNumberValid || form.phoneNumber.length === 0
+                ? 'default'
+                : 'error'
+              : 'disable'
           }
           placeholder="예. 01012345678"
-          value={temp.phoneNumber}
+          value={form.phoneNumber}
           onChangeText={changePhoneNumberHandler}
           keyboardType="number-pad"
           maxLength={11}
           alert={
-            temp.state === 'request'
+            temp.firstState === 'request'
               ? {type: 'Correct', text: '인증번호가 전송되었습니다.'}
-              : valid
+              : phoneNumberValid || form.phoneNumber.length === 0
               ? undefined
               : {type: 'Error', text: '번호양식에 맞게 입력해 주세요.'}
           }
         />
         <AuthButton
           text={'인증하기'}
-          disabled={!(temp.phoneNumber && valid && temp.state === 'default')}
+          disabled={
+            !(
+              form.phoneNumber &&
+              phoneNumberValid &&
+              temp.firstState === 'default'
+            )
+          }
           onPress={() => {
-            setTemp({...temp, state: 'request'});
+            onChangeText('firstState')('request');
           }}
         />
       </View>
-      {temp.state !== 'default' && (
+      {temp.firstState !== 'default' && (
         <>
           <InputTitle title="인증번호" />
           <View style={styles.row}>
             <TextInputs
-              type="default"
+              type={
+                authLen !== 6 && authLen !== 0
+                  ? 'error'
+                  : temp.firstState === 'confirm'
+                  ? 'disable'
+                  : 'default'
+              }
               placeholder="인증번호 입력"
               value={temp.authNumber}
-              onChangeText={changeAuthNumberHandler}
+              onChangeText={onChangeText('authNumber')}
               keyboardType="number-pad"
               maxLength={6}
               alert={
-                temp.state === 'confirm'
+                temp.firstState === 'confirm'
                   ? {type: 'Correct', text: '인증되었습니다.'}
-                  : valid
+                  : authLen === 6 || authLen === 0
                   ? undefined
                   : {type: 'Error', text: '인증번호 6자리를 입력해 주세요.'}
               }
             />
             <AuthButton
               text="인증하기"
-              disabled={temp.authNumber.length !== 6}
+              disabled={authLen !== 6 || temp.firstState === 'confirm'}
               onPress={() => {
-                setTemp({...temp, state: 'confirm'});
-                onChangeText('phoneNumber')(temp.phoneNumber);
+                onChangeText('firstState')('confirm');
               }}
             />
           </View>

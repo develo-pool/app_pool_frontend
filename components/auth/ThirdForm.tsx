@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {SignUpParams} from '../../api/auth';
+import {TempProps} from '../../screens/SignUpScreen';
 import theme from '../../theme';
 import TextInputs from '../TextInputs';
 import Title from '../Title';
@@ -12,44 +13,20 @@ function ThirdForm({
   onChangeText,
   form,
   temp,
-  setTemp,
 }: {
   onChangeText: any;
   form: SignUpParams;
-  temp: {
-    password: string;
-    confirm: string;
-    passwordValid: {
-      first: boolean;
-      second: boolean;
-    };
-  };
-  setTemp: any;
+  temp: TempProps;
 }) {
   const [passwordGuideVisible, setPasswordGuideVisible] = useState(false);
   const changePasswordHandler = (value: string) => {
-    setTemp({
-      ...temp,
-      password: value,
-      passwordValid: {first: value.length >= 8, second: CheckPassword(value)},
+    onChangeText('password')(value);
+    onChangeText('passwordValid')({
+      first: value.length >= 8,
+      second: CheckPassword(value),
     });
-    onChangeText('password')('');
   };
-  const changeConfirmHandler = (value: string) => {
-    setTemp({
-      ...temp,
-      confirm: value,
-    });
-    if (
-      temp.password === value &&
-      temp.passwordValid.first &&
-      temp.passwordValid.second
-    ) {
-      onChangeText('password')(temp.password);
-    } else {
-      onChangeText('password')('');
-    }
-  };
+  const isSame = temp.confirm === form.password;
   return (
     <View style={styles.block}>
       <Title title="아이디 및 비밀번호를" />
@@ -81,18 +58,20 @@ function ThirdForm({
       <View style={styles.column}>
         <TextInputs
           type={
+            !!form.password &&
             !passwordGuideVisible &&
             !(temp.passwordValid.first && temp.passwordValid.second)
               ? 'error'
               : 'default'
           }
           placeholder="비밀번호를 입력해 주세요"
-          value={temp.password}
+          value={form.password}
           onChangeText={changePasswordHandler}
           secureTextEntry={true}
           onFocus={() => setPasswordGuideVisible(true)}
           onBlur={() => setPasswordGuideVisible(false)}
           alert={
+            !!form.password &&
             !passwordGuideVisible &&
             !(temp.passwordValid.first && temp.passwordValid.second)
               ? {
@@ -108,7 +87,7 @@ function ThirdForm({
               <View
                 style={[
                   styles.check,
-                  (!temp.passwordValid.first || !temp.password) &&
+                  (!temp.passwordValid.first || !form.password) &&
                     styles.uncheck,
                 ]}>
                 <Icon name="check" size={14} color="white" />
@@ -119,7 +98,7 @@ function ThirdForm({
               <View
                 style={[
                   styles.check,
-                  (!temp.passwordValid.second || !temp.password) &&
+                  (!temp.passwordValid.second || !form.password) &&
                     styles.uncheck,
                 ]}>
                 <Icon name="check" size={14} color="white" />
@@ -134,17 +113,13 @@ function ThirdForm({
       <InputTitle title="비밀번호 확인" />
       <View style={styles.row}>
         <TextInputs
-          type={
-            !temp.confirm || temp.confirm === temp.password
-              ? 'default'
-              : 'error'
-          }
+          type={!temp.confirm || isSame ? 'default' : 'error'}
           placeholder="비밀번호를 다시 입력해 주세요"
-          onChangeText={changeConfirmHandler}
+          onChangeText={onChangeText('confirm')}
           secureTextEntry={true}
           value={temp.confirm}
           alert={
-            !temp.confirm || temp.confirm === temp.password
+            !temp.confirm || isSame
               ? undefined
               : {type: 'Error', text: '비밀번호가 일치하지 않습니다.'}
           }
@@ -166,7 +141,7 @@ function ThirdForm({
 
 const styles = StyleSheet.create({
   block: {
-    paddingTop: 130,
+    paddingTop: 60,
   },
   row: {
     flexDirection: 'row',

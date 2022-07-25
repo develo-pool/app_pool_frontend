@@ -1,6 +1,7 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {ScrollView} from 'react-native';
 import {SignUpParams} from '../../api/auth';
+import {TempProps} from '../../screens/SignUpScreen';
 import FirstForm from './FirstForm';
 import SecondForm from './SecondForm';
 import ThirdForm from './ThirdForm';
@@ -9,35 +10,20 @@ const SignUpForm = ({
   current,
   createChangeTextHandler,
   form,
+  temp,
 }: {
   current: number;
   createChangeTextHandler: any;
   form: SignUpParams;
+  temp: TempProps;
 }) => {
-  interface Props {
-    state: 'default' | 'request' | 'confirm';
-    phoneNumber: string;
-    authNumber: string;
-    password: '';
-    confirm: string;
-    passwordValid: {first: boolean; second: boolean};
-  }
-  const [temp, setTemp] = useState<Props>({
-    state: 'default',
-    phoneNumber: '',
-    authNumber: '',
-    password: '',
-    confirm: '',
-    passwordValid: {first: true, second: true},
-  });
-
   switch (current) {
     case 0:
       return (
         <FirstForm
           onChangeText={createChangeTextHandler}
+          form={form}
           temp={temp}
-          setTemp={setTemp}
         />
       );
     case 1:
@@ -51,7 +37,6 @@ const SignUpForm = ({
             onChangeText={createChangeTextHandler}
             temp={temp}
             form={form}
-            setTemp={setTemp}
           />
         </ScrollView>
       );
