@@ -70,9 +70,6 @@ function SignUpScreen() {
     passwordValid: {first: false, second: false},
   });
 
-  console.log(form);
-  console.log(temp);
-
   const createChangeTextHandler = (name: string) => (value: string) => {
     if (name in form) {
       setForm({...form, [name]: value});

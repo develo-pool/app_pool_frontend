@@ -7,7 +7,7 @@ import theme from '../../theme';
 import TextInputs from '../TextInputs';
 import Title from '../Title';
 import {AuthButton, CheckBox, InputTitle} from './AuthComponents';
-import {CheckPassword} from './Validation';
+import {CheckNickName, CheckPassword, CheckUserName} from './Validation';
 
 function ThirdForm({
   onChangeText,
@@ -32,27 +32,48 @@ function ThirdForm({
       <Title title="아이디 및 비밀번호를" />
       <Title title="설정해 주세요." hasMargin={true} />
       <InputTitle title="아이디" />
-      <View style={[styles.row, styles.noMargin]}>
+      <View
+        style={[
+          styles.row,
+          (CheckUserName(form.username) || !form.username) && styles.noMargin,
+        ]}>
         <TextInputs
-          type="default"
+          type={
+            CheckUserName(form.username) || !form.username ? 'default' : 'error'
+          }
           placeholder="아이디를 입력해 주세요"
           value={form.username}
           onChangeText={onChangeText('username')}
+          alert={
+            CheckUserName(form.username) || !form.username
+              ? undefined
+              : {type: 'Error', text: '아이디 형식이 올바르지 않습니다.'}
+          }
         />
-        <AuthButton text="중복확인" />
+        <AuthButton text="중복확인" disabled={!CheckUserName(form.username)} />
       </View>
-      <Text style={styles.alert}>
-        최소 3자 ~ 20자, 영문 소문자로 입력해 주세요.
-      </Text>
+      {(CheckUserName(form.username) || !form.username) && (
+        <Text style={styles.alert}>
+          최소 3자 ~ 20자, 영문 소문자로 입력해 주세요.
+        </Text>
+      )}
+
       <InputTitle title="닉네임" />
       <View style={styles.row}>
         <TextInputs
-          type="default"
+          type={
+            CheckNickName(form.nickName) || !form.nickName ? 'default' : 'error'
+          }
           placeholder="한글 및 영문으로 입력"
           value={form.nickName}
           onChangeText={onChangeText('nickName')}
+          alert={
+            CheckNickName(form.nickName) || !form.nickName
+              ? undefined
+              : {type: 'Error', text: '닉네임 형식이 올바르지 않습니다.'}
+          }
         />
-        <AuthButton text="중복확인" />
+        <AuthButton text="중복확인" disabled={!CheckNickName(form.nickName)} />
       </View>
       <InputTitle title="비밀번호" />
       <View style={styles.column}>
@@ -153,11 +174,12 @@ const styles = StyleSheet.create({
     minHeight: 48,
   },
   noMargin: {
-    marginBottom: 4,
+    marginBottom: 2,
   },
   alert: {
-    marginBottom: 25,
+    marginBottom: 30,
     fontSize: 12,
+    marginLeft: 6,
   },
   input: {
     flex: 1,
