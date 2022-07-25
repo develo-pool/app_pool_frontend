@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: PADDING,
   },
   wide: {
-    paddingTop: 130,
+    paddingTop: 60,
   },
   white: {
     backgroundColor: theme.colors.White,

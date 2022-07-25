@@ -21,6 +21,9 @@ interface Props {
   };
   keyboardType?: KeyboardTypeOptions | undefined;
   maxLength?: number;
+  secureTextEntry?: boolean;
+  onFocus?: any;
+  onBlur?: any;
 }
 
 function TextInputs({
@@ -31,6 +34,9 @@ function TextInputs({
   alert,
   keyboardType = undefined,
   maxLength,
+  secureTextEntry,
+  onFocus,
+  onBlur,
 }: Props) {
   return (
     <View style={[styles.block]}>
@@ -43,6 +49,9 @@ function TextInputs({
           keyboardType={keyboardType}
           maxLength={maxLength}
           editable={!(type === 'disable')}
+          secureTextEntry={secureTextEntry}
+          onFocus={onFocus}
+          onBlur={onBlur}
         />
         <TouchableOpacity onPress={() => onChangeText('')}>
           {value && type !== 'disable' && (

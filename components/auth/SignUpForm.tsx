@@ -18,11 +18,17 @@ const SignUpForm = ({
     state: 'default' | 'request' | 'confirm';
     phoneNumber: string;
     authNumber: string;
+    password: '';
+    confirm: string;
+    passwordValid: {first: boolean; second: boolean};
   }
   const [temp, setTemp] = useState<Props>({
     state: 'default',
     phoneNumber: '',
     authNumber: '',
+    password: '',
+    confirm: '',
+    passwordValid: {first: true, second: true},
   });
 
   switch (current) {
@@ -38,8 +44,15 @@ const SignUpForm = ({
       return <SecondForm onChangeText={createChangeTextHandler} form={form} />;
     default:
       return (
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <ThirdForm onChangeText={createChangeTextHandler} form={form} />
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled">
+          <ThirdForm
+            onChangeText={createChangeTextHandler}
+            temp={temp}
+            form={form}
+            setTemp={setTemp}
+          />
         </ScrollView>
       );
   }

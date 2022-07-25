@@ -45,7 +45,9 @@ function SignUpScreenBottomButton({
             onPress();
             // navigation.navigate('Guide');
           }}
-          enabled={form.privacyAgreement && form.termAgreement}
+          enabled={
+            !!(form.password && form.privacyAgreement && form.termAgreement)
+          }
         />
       );
   }

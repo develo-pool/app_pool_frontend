@@ -24,7 +24,8 @@ function SignUpScreen() {
       headerTitle: () => <ProcessBar total={TOTAL} current={current} />,
       headerTitleAlign: 'center',
       headerBackVisible: false,
-      headerTransparent: true,
+      headerShadowVisible: false,
+      // headerTransparent: true,
       headerLeft: () => (
         <TouchableOpacity
           onPress={
@@ -55,7 +56,7 @@ function SignUpScreen() {
     privacyAgreement: false,
   });
 
-  console.log(form);
+  // console.log(form);
 
   const createChangeTextHandler = (name: string) => (value: string) => {
     setForm({...form, [name]: value});
