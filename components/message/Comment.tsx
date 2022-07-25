@@ -17,23 +17,25 @@ const beom: User = {
   profileImg: 'https://reactnative.dev/img/tiny_logo.png',
 };
 // 사용 시에는 user 프롭스를 아래에 넣어주세용
-function Comment({commentText, commentDate}: Props) {
+function Comment(comments) {
   return (
     <View>
-      <View style={styles.commentUser}>
+      {/* <Text>{console.log(JSON.stringify(comments))}</Text> */}
+      {/* <Text>{console.log()}</Text> */}
+      {/* <View style={styles.commentUser}>
         <View style={styles.align}>
           <Image
             style={styles.commentProfileImg}
-            source={{uri: `${beom.profileImg}`}}
+            source={{uri: `${comments[0].userProfileImg}`}}
           />
           <Text>{beom.name}</Text>
         </View>
-        <Text style={styles.align}>{commentDate}</Text>
+        <Text style={styles.align}>{comments[0]}</Text>
       </View>
 
       <View style={styles.commentText}>
-        <Text>{commentText}</Text>
-      </View>
+        <Text>{comments[0].commentText}</Text>
+      </View> */}
     </View>
   );
 }

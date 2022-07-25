@@ -1,5 +1,5 @@
-import React from 'react';
-import {ScrollView, StyleSheet, View} from 'react-native';
+import React, {useState} from 'react';
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import BorderLine from '../components/message/BorderLine';
 import Comment from '../components/message/Comment';
 import CommentBar from '../components/message/CommentBar';
@@ -9,46 +9,60 @@ import ScreenBottomButton from '../components/ScreenBottomButton';
 
 interface User {
   isBrand: boolean;
-  isWriteComment: boolean;
+  userName: string;
+  userProfileImg: string;
 }
 const tester: User = {
   isBrand: false,
-  isWriteComment: true,
+  userName: '진세',
+  userProfileImg: 'https://img.hankyung.com/photo/202111/03.28096495.1.jpg',
 };
 
 function MessageScreen() {
-  // const [msgImgHeight, setmsgImgHeight] = useState(0);
-  // const { width } = Dimensions.get('window');
+  const [commentText, setCommentText] = useState('');
+  const onChangeText = payload => setCommentText(payload);
+  const [comments, setComments] = useState({});
+  const [isWriteComment, setIsWriteComment] = useState(false);
+
+  const addComments = async () => {
+    if (commentText === '') {
+      return;
+    }
+    const newComments = {
+      ...comments,
+      [Date.now()]: {commentText, tester },
+    };
+    setComments(JSON.parse(newComments));
+    setIsWriteComment(true);
+    setCommentText('');
+  };
   return (
-    <>
-      <View style={styles.container}>
-        <ScrollView style={styles.scrollview}>
-          <DetailMessageContainer user={undefined} message={undefined} />
+    <View style={styles.container}>
+      <DetailMessageContainer user={undefined} message={undefined} />
 
-          <BorderLine />
+      {/* <BorderLine /> */}
 
-          {/* <CommentBar commentCount={927} />
+      {/* <CommentBar commentCount={927} /> */}
 
           <Comment
-            user={undefined}
-            commentText="정말 좋은 글이네요!"
-            commentDate={Date.now()}
-          /> */}
-
-          {tester.isBrand ? (
-            ''
-          ) : tester.isWriteComment ? (
-            <InputCommentContainer />
-          ) : (
-            <ScreenBottomButton
-              name="답장하기"
-              enabled={true}
-              onPress={function (): void {}}
-            />
-          )}
-        </ScrollView>
+            comments={comments}
+          />
+      <View>
+        {/* <ScrollView style={styles.scrollview}> */}
+        {tester.isBrand ? (
+          ''
+        ) : (
+          <InputCommentContainer
+            commentText={commentText}
+            onChangeText={onChangeText}
+            isWriteComment={isWriteComment}
+            addComments={addComments}
+          />
+        )}
+        {/* </ScrollView> */}
       </View>
-    </>
+      <Text>{console.log(comments.user)}</Text>
+    </View>
   );
 }
 

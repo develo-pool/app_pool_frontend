@@ -1,17 +1,24 @@
 import React from 'react';
 import {StyleSheet, View, TextInput} from 'react-native';
 
-function InputCommentContainer() {
+function InputCommentContainer({
+  commentText,
+  onChangeText,
+  isWriteComment,
+  addComments,
+}) {
   return (
     <View>
       <TextInput
-        //   value={text}
-        //   onChangeText={onChangeText}
-        //   onSubmitEditing={addToDo}
+        value={commentText}
+        onChangeText={onChangeText}
+        onSubmitEditing={addComments}
         returnKeyType="done"
-        placeholder={'채팅은 1회만 발송할 수 있습니다. 신중히 작성해주세요.'}
+        placeholder={isWriteComment ? '이미 작성한 메시지입니다.' : '채팅은 1회만 발송할 수 있습니다.'}
         style={styles.input}
+        editable={!isWriteComment}
       />
+
     </View>
   );
 }

@@ -42,17 +42,7 @@ const test: Message = {
 // 사용 시에는 user와 message 프롭스를 아래에 넣어주세용
 function DetailMessageContainer({message = test}: Props) {
   return (
-    <View>
-      {/* <View style={styles.authorProfile}>
-        <Image
-          style={styles.authorProfileImg}
-          source={{uri: `${beom.profileImg}`}}
-        />
-        <View style={styles.msgHeader}>
-          <Text style={styles.msgSmallText}>{beom.name}</Text>
-          <Text style={styles.msgDate}>{firstMsg.msgDate}</Text>
-        </View>
-      </View> */}
+    <View style={styles.detailMessageContainer}>
       <MessageHeader
         user={beom}
         isDetailMessage={true}
@@ -82,6 +72,9 @@ function DetailMessageContainer({message = test}: Props) {
 }
 
 const styles = StyleSheet.create({
+  detailMessageContainer:{
+    flex: 1,
+  },
   msgHeader: {
     // backgroundColor: '#555555',
   },
