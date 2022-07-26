@@ -1,4 +1,6 @@
+import {CompositeNavigationProp} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack/lib/typescript/src/types';
+import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
 
 /* MainTab */
 export type MainTabParamList = {
@@ -7,28 +9,33 @@ export type MainTabParamList = {
   BrandProfile: undefined;
   SettingStack: undefined;
 };
+
 /* RootStack */
 export type RootStackParamList = {
-  Setting: SetStackParamList;
+  Setting: SettingStackParamList;
   MainTab: undefined;
   Login: undefined;
   SignUp: {current: number};
   Guide: undefined;
-  Category: undefined;
-  BrandAssignGuide: undefined;
-  BrandAssign: {current: number};
-  BrandAssignComplete: undefined;
   Message: undefined;
   CreateMessage: undefined;
 };
 
 /* SettingStack */
-export type SetStackParamList = {
+export type SettingStackParamList = {
   Setting: undefined;
   Login: undefined;
   FollowingList: undefined;
-  BrandAssign: undefined;
+  Category: undefined;
+  BrandAssign: {current: number};
+  BrandAssignGuide: undefined;
+  BrandAssignComplete: undefined;
 };
 
 export type RootStackNavigationProp =
   NativeStackNavigationProp<RootStackParamList>;
+
+export type SettingStackNavigationProp = CompositeNavigationProp<
+  NativeStackNavigationProp<SettingStackParamList>,
+  BottomTabNavigationProp<MainTabParamList, 'SettingStack'>
+>;

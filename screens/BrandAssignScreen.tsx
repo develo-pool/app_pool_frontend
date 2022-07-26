@@ -8,10 +8,13 @@ import Category from '../components/category/Category';
 import MainContainer from '../components/MainContainer';
 import ProcessBar from '../components/ProcessBar';
 import ScreenBottomButton from '../components/ScreenBottomButton';
-import {RootStackNavigationProp, RootStackParamList} from './types';
+import {SettingStackNavigationProp, SettingStackParamList} from './types';
 
 const TOTAL = 3;
-type BrandAssignScreenRouteProp = RouteProp<RootStackParamList, 'BrandAssign'>;
+type BrandAssignScreenRouteProp = RouteProp<
+  SettingStackParamList,
+  'BrandAssign'
+>;
 
 const CurrentPage = ({
   current,
@@ -47,7 +50,7 @@ const CurrentPage = ({
 function BrandAssignScreen() {
   const route = useRoute<BrandAssignScreenRouteProp>();
   const current = route.params.current;
-  const navigation = useNavigation<RootStackNavigationProp>();
+  const navigation = useNavigation<SettingStackNavigationProp>();
 
   interface Props {
     brandUserName: string;
@@ -102,7 +105,7 @@ function BrandAssignScreen() {
         <TouchableOpacity
           onPress={
             current
-              ? () => navigation.navigate('BrandAssign', {current: current - 1})
+              ? () => navigation.push('BrandAssign', {current: current - 1})
               : () => navigation.goBack()
           }>
           <Icon name="keyboard-arrow-left" size={30} />
