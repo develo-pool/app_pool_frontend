@@ -26,8 +26,9 @@ function MessageScreen() {
   const onChangeText = payload => setCommentText(payload);
   const [comments, setComments] = useState({});
   const [isWriteComment, setIsWriteComment] = useState(false);
+  // 추후에 날짜 표기를 위한 
   const date = new Date();
-  const now = date.toString();
+  const date = new Date(132);
 
   const addComments = async () => {
     if (commentText === '') {
@@ -35,7 +36,7 @@ function MessageScreen() {
     }
     const newComments = {
       ...comments,
-      [tester.userName]: {commentText, tester, now},
+      [tester.userName]: {commentText, tester, timeStr},
     };
     setComments(newComments);
     setIsWriteComment(true);
@@ -59,7 +60,7 @@ function MessageScreen() {
             text={comments[key].commentText}
             userName={comments[key].tester.userName}
             userProfileImg={comments[key].tester.userProfileImg}
-            writenCommentTime={comments[key].now}
+            writenCommentTime={comments[key].timeStr}
           />
         </View>
       ))}
