@@ -26,30 +26,23 @@ function MessageScreen() {
   const onChangeText = payload => setCommentText(payload);
   const [comments, setComments] = useState({});
   const [isWriteComment, setIsWriteComment] = useState(false);
-  // 추후에 날짜 표기를 위한 
-  const date = new Date();
-  const date = new Date(132);
 
   const addComments = async () => {
+    const written = Date.now();
     if (commentText === '') {
       return;
     }
     const newComments = {
       ...comments,
-      [tester.userName]: {commentText, tester, timeStr},
+      [tester.userName]: {commentText, tester, written},
     };
     setComments(newComments);
     setIsWriteComment(true);
     setCommentText('');
   };
-  // useEffect = (() => {
-
-  // }, [CommentText])
   return (
     <View style={styles.container}>
       <DetailMessageContainer user={undefined} message={undefined} />
-      {/* <Text>{comments['진세'].commentText}</Text>
-          <Text>{console.log(comments)}</Text> */}
 
       {/* <BorderLine /> */}
 
@@ -60,7 +53,7 @@ function MessageScreen() {
             text={comments[key].commentText}
             userName={comments[key].tester.userName}
             userProfileImg={comments[key].tester.userProfileImg}
-            writenCommentTime={comments[key].timeStr}
+            writenCommentTime={comments[key].written}
           />
         </View>
       ))}
