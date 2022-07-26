@@ -8,6 +8,7 @@ import theme from '../../theme';
 import TextInputs from '../TextInputs';
 import Title from '../Title';
 import {AuthButton, CheckBox, InputTitle} from './AuthComponents';
+import TermsModal from './TermsModal';
 import {
   CheckNickName,
   CheckPassword,
@@ -46,7 +47,11 @@ function ThirdForm({
       enabled: false,
     },
   );
-  const [passwordGuideVisible, setPasswordGuideVisible] = useState(false);
+  const [passwordGuideVisible, setPasswordGuideVisible] =
+    useState<boolean>(false);
+  const [termModalVisible, setTermModalVisible] = useState<boolean>(false);
+  const [privacyModalVisible, setPrivacyModalVisible] =
+    useState<boolean>(false);
   const changePasswordHandler = (value: string) => {
     onChangeText('password')(value);
     onChangeText('passwordValid')({
@@ -211,11 +216,25 @@ function ThirdForm({
         title="이용약관 동의 (필수)"
         state={form.termAgreement}
         onPress={onChangeText('termAgreement')}
+        onPressText={() => setTermModalVisible(true)}
       />
       <CheckBox
         title="개인정보 처리방침 (필수)"
         state={form.privacyAgreement}
         onPress={onChangeText('privacyAgreement')}
+        onPressText={() => setPrivacyModalVisible(true)}
+      />
+      <TermsModal
+        type="term"
+        setModalVisible={setTermModalVisible}
+        onPress={onChangeText('termAgreement')}
+        visible={termModalVisible}
+      />
+      <TermsModal
+        type="privacy"
+        setModalVisible={setPrivacyModalVisible}
+        onPress={onChangeText('privacyAgreement')}
+        visible={privacyModalVisible}
       />
     </View>
   );
