@@ -1,152 +1,30 @@
-import React, {useState} from 'react';
-import {Text, View, StyleSheet, Pressable, Image, Switch} from 'react-native';
-import JoinBrandContainer from '../components/setting/JoinBrand';
-import SetArticle from './../components/setting/SetArticle';
-import {useNavigation} from '@react-navigation/native';
-import {RootStackNavigationProp} from './types';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import theme from './../theme';
+import React from 'react';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {SetStackParamList} from './types';
+import SettingScreen from './SettingScreen';
+import FollowingListScreen from './FollowingListScreen';
+import LoginScreen from './LoginScreen';
+import BrandAssignScreen from './BrandAssignScreen';
+
+const Set = createNativeStackNavigator<SetStackParamList>();
 
 function SettingStack() {
-  const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
-
-  const navigation = useNavigation<RootStackNavigationProp>();
-
   return (
-    <View style={styles.block}>
-      <View style={styles.UserInfoContainer}>
-        <View style={styles.ProfileImgContainer}>
-          <Image //Image로 바꿔줘야함!!
-            style={styles.ImgSource}
-            source={require('../assets/ProfileImage.png')}
-          />
-          <Icon name="check-circle" size={18} style={styles.BrandChecked} />
-        </View>
-        <View style={styles.ProfileInfo}>
-          <Text style={styles.BrandName}>더푸르</Text>
-          <Text style={styles.UserName}>김자네</Text>
-          <Pressable style={styles.FollowingContainer}>
-            <Text style={styles.Following}>팔로잉</Text>
-            <Text style={styles.FollowingCount}>489</Text>
-            <Icon
-              name="arrow-forward-ios"
-              size={12}
-              style={styles.RightArrow}
-            />
-          </Pressable>
-        </View>
-      </View>
-      <JoinBrandContainer onPress={() => navigation.push('BrandAssignGuide')} />
-      <>
-        <View style={styles.SeperatedSets}>
-          <Text style={styles.NotiText}>알림 수신</Text>
-          <View style={styles.NotiSwitch}>
-            <Switch
-              trackColor={{
-                false: theme.colors.Grey40,
-                true: theme.colors.Poolgreen,
-              }}
-              thumbColor={theme.colors.White}
-              ios_backgroundColor="#3e3e3e"
-              onValueChange={toggleSwitch}
-              value={isEnabled}
-            />
-          </View>
-        </View>
-        <SetArticle title="회원정보 수정" />
-        <SetArticle title="이용약관" />
-        <SetArticle title="개인정보처리방침" />
-        <SetArticle title="문의하기" />
-        <View style={styles.SeperatedSets}>
-          <Text style={styles.Logout}>로그아웃</Text>
-        </View>
-      </>
-    </View>
+    <Set.Navigator initialRouteName="Setting">
+      <Set.Screen
+        name="Setting"
+        component={SettingScreen}
+        options={{headerShown: false}}
+      />
+      <Set.Screen name="FollowingList" component={FollowingListScreen} />
+      <Set.Screen name="BrandAssign" component={BrandAssignScreen} />
+      <Set.Screen
+        name="Login"
+        component={LoginScreen}
+        options={{headerTitle: () => <></>}}
+      />
+    </Set.Navigator>
   );
 }
-
-const styles = StyleSheet.create({
-  block: {
-    flex: 1,
-  },
-  UserInfoContainer: {
-    backgroundColor: theme.colors.White,
-    height: 120,
-    paddingHorizontal: 24,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  ProfileImgContainer: {
-    flexDirection: 'row',
-  },
-  ImgSource: {
-    height: 64,
-    width: 64,
-    borderRadius: 32,
-    resizeMode: 'contain',
-  },
-  BrandChecked: {
-    marginLeft: -18,
-    marginTop: 44,
-    color: theme.colors.Poolblue,
-  },
-  ProfileInfo: {
-    marginLeft: 16,
-  },
-  FollowingContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  RightArrow: {
-    marginLeft: 6,
-    color: theme.colors.Grey80,
-  },
-  BrandName: {
-    fontSize: 12,
-    fontWeight: '700',
-    color: theme.colors.Poolblue,
-  },
-  UserName: {
-    fontSize: 18,
-    fontWeight: '700',
-    color: theme.colors.Grey80,
-    marginBottom: 2,
-  },
-  Following: {
-    fontSize: 12,
-    fontWeight: '400',
-    color: theme.colors.Grey40,
-  },
-  FollowingCount: {
-    fontSize: 12,
-    fontWeight: '700',
-    color: theme.colors.Grey80,
-    marginLeft: 4,
-  },
-  SeperatedSets: {
-    height: 60,
-    marginTop: 8,
-    marginBottom: 7,
-    paddingHorizontal: 24,
-    flexDirection: 'row',
-    backgroundColor: 'white',
-    alignItems: 'center',
-  },
-  NotiText: {
-    color: theme.colors.Grey60,
-    fontSize: 14,
-    fontWeight: '700',
-  },
-  NotiSwitch: {
-    marginLeft: 240,
-  },
-
-  Logout: {
-    color: theme.colors.Grey60,
-    fontSize: 14,
-    fontWeight: '400',
-  },
-});
 
 export default SettingStack;
