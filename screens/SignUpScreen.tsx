@@ -35,16 +35,17 @@ function SignUpScreen() {
       headerBackVisible: false,
       headerShadowVisible: false,
       // headerTransparent: true,
-      headerLeft: () => (
-        <TouchableOpacity
-          onPress={
-            current
-              ? () => navigation.navigate('SignUp', {current: current - 1})
-              : () => navigation.goBack()
-          }>
-          <Icon name="arrow-back" size={24} color="black" />
-        </TouchableOpacity>
-      ),
+      headerLeft: () =>
+        current === 0 ? undefined : (
+          <TouchableOpacity
+            onPress={
+              current
+                ? () => navigation.navigate('SignUp', {current: current - 1})
+                : () => navigation.goBack()
+            }>
+            <Icon name="arrow-back" size={24} color="black" />
+          </TouchableOpacity>
+        ),
       headerRight: () => (
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Icon name="close" size={24} color="black" />
