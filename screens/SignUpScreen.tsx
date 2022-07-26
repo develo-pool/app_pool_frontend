@@ -98,6 +98,7 @@ function SignUpScreen() {
           createChangeTextHandler={createChangeTextHandler}
           form={form}
           temp={temp}
+          setTemp={setTemp}
         />
       </MainContainer>
       <SignUpScreenBottomButton
