@@ -65,7 +65,7 @@ function BrandProfileScreen() {
               <Text style={styles.InitTitle}>초기 세팅하기</Text>
             </View>
             <View style={styles.InitListUp}>
-              <View style={styles.InitisDone}></View>
+              <View style={styles.InitisDone}>{}</View>
               <Text style={styles.InitList}>웰컴 메시지 설정하기</Text>
               <Text style={styles.InitArrow}>-</Text>
             </View>
