@@ -15,9 +15,17 @@ function MainTab() {
       <Tab.Screen name="Search" component={SearchScreen} />
       <Tab.Screen name="Feed" component={FeedScreen} />
       {isBrandUser && (
-        <Tab.Screen name="BrandProfile" component={BrandProfileScreen} />
+        <Tab.Screen
+          name="BrandProfile"
+          component={BrandProfileScreen}
+          options={{headerShown: false}}
+        />
       )}
-      <Tab.Screen name="SettingStack" component={SettingStack} />
+      <Tab.Screen
+        name="SettingStack"
+        component={SettingStack}
+        options={{headerShown: false}}
+      />
     </Tab.Navigator>
   );
 }

@@ -7,6 +7,8 @@ import {RootStackNavigationProp} from './types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import theme from './../theme';
 
+const isBrandUser = true;
+
 function SettingScreen() {
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
@@ -21,10 +23,12 @@ function SettingScreen() {
             style={styles.ImgSource}
             source={require('../assets/ProfileImage.png')}
           />
-          <Icon name="check-circle" size={18} style={styles.BrandChecked} />
+          {isBrandUser && (
+            <Icon name="check-circle" size={18} style={styles.BrandChecked} />
+          )}
         </View>
         <View style={styles.ProfileInfo}>
-          <Text style={styles.BrandName}>더푸르</Text>
+          {isBrandUser && <Text style={styles.BrandName}>더푸르</Text>}
           <Text style={styles.UserName}>김자네</Text>
           <Pressable style={styles.FollowingContainer}>
             <Text style={styles.Following}>팔로잉</Text>
@@ -37,7 +41,12 @@ function SettingScreen() {
           </Pressable>
         </View>
       </View>
-      <JoinBrandContainer onPress={() => navigation.push('BrandAssignGuide')} />
+      {isBrandUser ? null : (
+        <JoinBrandContainer
+          onPress={() => navigation.push('BrandAssignGuide')}
+        />
+      )}
+
       <>
         <View style={styles.SeperatedSets}>
           <Text style={styles.NotiText}>알림 수신</Text>
@@ -45,7 +54,9 @@ function SettingScreen() {
             <Switch
               trackColor={{
                 false: theme.colors.Grey40,
-                true: theme.colors.Poolgreen,
+                true: isBrandUser
+                  ? theme.colors.Poolblue
+                  : theme.colors.Poolgreen,
               }}
               thumbColor={theme.colors.White}
               ios_backgroundColor="#3e3e3e"

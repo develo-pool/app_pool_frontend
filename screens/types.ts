@@ -1,13 +1,8 @@
 import {NativeStackNavigationProp} from '@react-navigation/native-stack/lib/typescript/src/types';
 
 /* MainTab */
-export type SetStackParamList = {
-  Setting: undefined;
-  Login: undefined;
-  FollowingList: undefined;
-};
-/* RootStack */
 
+/* RootStack */
 export type RootStackParamList = {
   MainTab: undefined;
   Login: undefined;
@@ -19,6 +14,14 @@ export type RootStackParamList = {
   BrandAssignComplete: undefined;
   Message: undefined;
   CreateMessage: undefined;
+};
+
+/* SettingStack */
+export type SetStackParamList = {
+  Setting: undefined;
+  Login: undefined;
+  FollowingList: undefined;
+  BrandAssign: undefined;
 };
 
 export type RootStackNavigationProp =

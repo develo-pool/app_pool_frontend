@@ -4,24 +4,26 @@ import {SetStackParamList} from './types';
 import SettingScreen from './SettingScreen';
 import FollowingListScreen from './FollowingListScreen';
 import LoginScreen from './LoginScreen';
+import BrandAssignScreen from './BrandAssignScreen';
 
-const Stack = createNativeStackNavigator<SetStackParamList>();
+const Set = createNativeStackNavigator<SetStackParamList>();
 
 function SettingStack() {
   return (
-    <Stack.Navigator initialRouteName="Setting">
-      <Stack.Screen
+    <Set.Navigator initialRouteName="Setting">
+      <Set.Screen
         name="Setting"
         component={SettingScreen}
         options={{headerShown: false}}
       />
-      <Stack.Screen
+      <Set.Screen name="FollowingList" component={FollowingListScreen} />
+      <Set.Screen name="BrandAssign" component={BrandAssignScreen} />
+      <Set.Screen
         name="Login"
         component={LoginScreen}
         options={{headerTitle: () => <></>}}
       />
-      <Stack.Screen name="FollowingList" component={FollowingListScreen} />
-    </Stack.Navigator>
+    </Set.Navigator>
   );
 }
 
