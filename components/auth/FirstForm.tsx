@@ -39,7 +39,7 @@ function FirstForm({
               ? 'default'
               : 'error'
           }
-          placeholder="예. 01012345678"
+          placeholder="예.01012345678"
           value={form.phoneNumber}
           onChangeText={changePhoneNumberHandler}
           keyboardType="number-pad"
