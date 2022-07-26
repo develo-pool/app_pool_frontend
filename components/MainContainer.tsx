@@ -1,20 +1,36 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
+import theme from '../theme';
 
-export const MARGIN = 24;
+export const PADDING = 24;
 
 interface Props {
   children: React.ReactNode;
+  type?: 'wide' | undefined;
+  background?: 'white' | 'gray';
 }
 
-function MainContainer({children}: Props) {
-  return <View style={styles.block}>{children}</View>;
+function MainContainer({children, type, background = 'white'}: Props) {
+  return (
+    <View style={[styles.block, type && styles[type], styles[background]]}>
+      {children}
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
   block: {
     flex: 1,
-    marginHorizontal: MARGIN,
+    paddingHorizontal: PADDING,
+  },
+  wide: {
+    paddingTop: 60,
+  },
+  white: {
+    backgroundColor: theme.colors.White,
+  },
+  gray: {
+    backgroundColor: theme.colors.Grey10,
   },
 });
 

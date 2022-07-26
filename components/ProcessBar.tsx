@@ -1,6 +1,7 @@
 // import React, {useEffect, useRef} from 'react';
 import React, {useEffect, useRef} from 'react';
 import {Animated, StyleSheet, View} from 'react-native';
+import theme from '../theme';
 
 const WIDTH = 167;
 const HEIGHT = 4;
@@ -30,14 +31,14 @@ function ProcessBar({total, current}: {total: number; current: number}) {
 
 const styles = StyleSheet.create({
   total: {
-    backgroundColor: 'rgba(15,22,30,0.35)',
+    backgroundColor: theme.colors.Grey10,
     width: WIDTH,
     height: HEIGHT,
     zIndex: 0,
   },
   current: {
     position: 'absolute',
-    backgroundColor: 'black',
+    backgroundColor: theme.colors.Poolgreen,
     width: WIDTH / 2,
     height: HEIGHT,
     zIndex: 5,

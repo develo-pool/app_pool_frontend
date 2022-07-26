@@ -1,18 +1,25 @@
 import React, {useEffect, useState} from 'react';
-import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {TouchableOpacity} from 'react-native';
+import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {RootStackNavigationProp, RootStackParamList} from './types';
 import MainContainer from '../components/MainContainer';
-import ScreenBottomButton from '../components/ScreenBottomButton';
 import ProcessBar from '../components/ProcessBar';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import SignUpForm from '../components/auth/SignUpForm';
 import useSignUp from '../hooks/useSignUp';
 import {SignUpParams} from '../api/auth';
+import SignUpScreenBottomButton from '../components/auth/SignUpScreenBottomButton';
 
 const TOTAL = 3;
 
 type SignUpScreenRouteProp = RouteProp<RootStackParamList, 'SignUp'>;
+
+export interface TempProps {
+  firstState: 'default' | 'request' | 'confirm';
+  authNumber: string;
+  confirm: string;
+  passwordValid: {first: boolean; second: boolean};
+}
 
 function SignUpScreen() {
   const route = useRoute<SignUpScreenRouteProp>();
@@ -24,6 +31,8 @@ function SignUpScreen() {
       headerTitle: () => <ProcessBar total={TOTAL} current={current} />,
       headerTitleAlign: 'center',
       headerBackVisible: false,
+      headerShadowVisible: false,
+      // headerTransparent: true,
       headerLeft: () => (
         <TouchableOpacity
           onPress={
@@ -31,7 +40,12 @@ function SignUpScreen() {
               ? () => navigation.navigate('SignUp', {current: current - 1})
               : () => navigation.goBack()
           }>
-          <Icon name="keyboard-arrow-left" size={30} />
+          <Icon name="arrow-back" size={24} color="black" />
+        </TouchableOpacity>
+      ),
+      headerRight: () => (
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Icon name="close" size={24} color="black" />
         </TouchableOpacity>
       ),
     });
@@ -49,46 +63,44 @@ function SignUpScreen() {
     privacyAgreement: false,
   });
 
+  const [temp, setTemp] = useState<TempProps>({
+    firstState: 'default',
+    authNumber: '',
+    confirm: '',
+    passwordValid: {first: false, second: false},
+  });
+
   const createChangeTextHandler = (name: string) => (value: string) => {
-    setForm({...form, [name]: value});
+    if (name in form) {
+      setForm({...form, [name]: value});
+    } else if (name in temp) {
+      setTemp({...temp, [name]: value});
+    }
   };
 
   const onPress = () => {
     if (signUpLoading) {
       return;
     }
-
     signUp(form);
   };
 
-  console.log(form);
-
   return (
     <>
-      <MainContainer>
+      <MainContainer type={current !== 2 ? 'wide' : undefined}>
         <SignUpForm
           current={current}
           createChangeTextHandler={createChangeTextHandler}
           form={form}
+          temp={temp}
         />
       </MainContainer>
-      {current === 2 ? (
-        <ScreenBottomButton
-          name="가입완료"
-          onPress={() => {
-            onPress();
-            // navigation.navigate('Guide');
-          }}
-          enabled={!signUpLoading}
-        />
-      ) : (
-        <ScreenBottomButton
-          name="다음"
-          onPress={() => {
-            navigation.navigate('SignUp', {current: current + 1});
-          }}
-        />
-      )}
+      <SignUpScreenBottomButton
+        current={current}
+        form={form}
+        temp={temp}
+        onPress={onPress}
+      />
     </>
   );
 }

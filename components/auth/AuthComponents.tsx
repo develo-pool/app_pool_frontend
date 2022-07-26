@@ -1,6 +1,13 @@
 import React from 'react';
-import {Pressable, StyleSheet, Text, View} from 'react-native';
+import {
+  GestureResponderEvent,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import theme from '../../theme';
 
 export function InputTitle({title}: {title: string}) {
   return <Text style={styles.text}>{title}</Text>;
@@ -9,14 +16,21 @@ export function InputTitle({title}: {title: string}) {
 export function AuthButton({
   text,
   disabled,
+  onPress,
 }: {
   text: string;
   disabled?: boolean;
+  onPress?: (event: GestureResponderEvent) => void;
 }) {
   return (
-    <Pressable style={[styles.checkButton, disabled && styles.disabled]}>
-      <Text style={styles.innerText}>{text}</Text>
-    </Pressable>
+    <View style={styles.block}>
+      <Pressable
+        onPress={onPress}
+        style={[styles.checkButton, disabled && styles.disabled]}
+        android_ripple={{color: 'rgba(255,255,255,0.1)'}}>
+        <Text style={styles.innerText}>{text}</Text>
+      </Pressable>
+    </View>
   );
 }
 
@@ -51,45 +65,38 @@ export function RadioButton({
 export function CheckBox({
   title,
   onPress,
-  value,
   state,
 }: {
   title: string;
   onPress: any;
-  value: string;
   state: boolean;
 }) {
   return (
-    <>
-      {value === 'termAgreement' ? (
-        <Pressable style={styles.terms} onPress={() => onPress(!state)}>
-          {state ? (
-            <Icon name="check-box" size={20} />
-          ) : (
-            <View style={styles.empty} />
-          )}
-          <Text>{title}</Text>
-        </Pressable>
-      ) : (
-        <Pressable style={styles.terms} onPress={() => onPress(!state)}>
-          {state ? (
-            <Icon name="check-box" size={20} />
-          ) : (
-            <View style={styles.empty} />
-          )}
-          <Text>{title}</Text>
-        </Pressable>
-      )}
-    </>
+    <Pressable style={styles.terms} onPress={() => onPress(!state)}>
+      <View style={styles.checkBoxContainer}>
+        {state ? (
+          <Icon name="check-box" size={20} color={theme.colors.Grey30} />
+        ) : (
+          <View style={styles.empty} />
+        )}
+      </View>
+      <Text style={styles.termText}>{title}</Text>
+    </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
+  block: {
+    borderRadius: 4,
+    overflow: 'hidden',
+  },
   text: {
     fontSize: 12,
+    marginBottom: 4,
   },
   checkButton: {
-    width: 92,
+    height: 48,
+    paddingHorizontal: 20,
     marginLeft: 8,
     borderRadius: 4,
     backgroundColor: 'black',
@@ -114,7 +121,7 @@ const styles = StyleSheet.create({
   },
   unchecked: {
     backgroundColor: 'white',
-    borderColor: 'black',
+    borderColor: theme.colors.Grey40,
     borderWidth: 1,
   },
   uncheckedText: {
@@ -122,11 +129,22 @@ const styles = StyleSheet.create({
   },
   terms: {
     flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 25,
   },
   empty: {
-    width: 15,
-    height: 15,
-    borderColor: 'black',
+    width: 14,
+    height: 14,
+    borderColor: theme.colors.Grey30,
     borderWidth: 1,
+    margin: 3,
+  },
+  termText: {
+    fontSize: 14,
+  },
+  checkBoxContainer: {
+    width: 20,
+    height: 20,
+    marginRight: 10,
   },
 });
