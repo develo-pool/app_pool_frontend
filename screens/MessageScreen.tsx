@@ -1,11 +1,14 @@
 import React, {useState} from 'react';
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
-import BorderLine from '../components/message/BorderLine';
+import {
+  // ScrollView,
+  StyleSheet,
+  View,
+} from 'react-native';
+// import BorderLine from '../components/message/BorderLine';
 import Comment from '../components/message/Comment';
-import CommentBar from '../components/message/CommentBar';
+// import CommentBar from '../components/message/CommentBar';
 import DetailMessageContainer from '../components/message/DetailMessageContainer';
 import InputCommentContainer from '../components/message/InputCommentContainer';
-import ScreenBottomButton from '../components/ScreenBottomButton';
 
 interface User {
   isBrand: boolean;
@@ -23,6 +26,8 @@ function MessageScreen() {
   const onChangeText = payload => setCommentText(payload);
   const [comments, setComments] = useState({});
   const [isWriteComment, setIsWriteComment] = useState(false);
+  const date = new Date();
+  const now = date.toString();
 
   const addComments = async () => {
     if (commentText === '') {
@@ -30,23 +35,35 @@ function MessageScreen() {
     }
     const newComments = {
       ...comments,
-      [Date.now()]: {commentText, tester },
+      [tester.userName]: {commentText, tester, now},
     };
-    setComments(JSON.parse(newComments));
+    setComments(newComments);
     setIsWriteComment(true);
     setCommentText('');
   };
+  // useEffect = (() => {
+
+  // }, [CommentText])
   return (
     <View style={styles.container}>
       <DetailMessageContainer user={undefined} message={undefined} />
+      {/* <Text>{comments['진세'].commentText}</Text>
+          <Text>{console.log(comments)}</Text> */}
 
       {/* <BorderLine /> */}
 
       {/* <CommentBar commentCount={927} /> */}
-
+      {Object.keys(comments).map(key => (
+        <View key={key}>
           <Comment
-            comments={comments}
+            text={comments[key].commentText}
+            userName={comments[key].tester.userName}
+            userProfileImg={comments[key].tester.userProfileImg}
+            writenCommentTime={comments[key].now}
           />
+        </View>
+      ))}
+
       <View>
         {/* <ScrollView style={styles.scrollview}> */}
         {tester.isBrand ? (
@@ -61,7 +78,6 @@ function MessageScreen() {
         )}
         {/* </ScrollView> */}
       </View>
-      <Text>{console.log(comments.user)}</Text>
     </View>
   );
 }

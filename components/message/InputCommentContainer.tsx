@@ -14,11 +14,14 @@ function InputCommentContainer({
         onChangeText={onChangeText}
         onSubmitEditing={addComments}
         returnKeyType="done"
-        placeholder={isWriteComment ? '이미 작성한 메시지입니다.' : '채팅은 1회만 발송할 수 있습니다.'}
+        placeholder={
+          isWriteComment
+            ? '이미 작성한 메시지입니다.'
+            : '채팅은 1회만 발송할 수 있습니다.'
+        }
         style={styles.input}
         editable={!isWriteComment}
       />
-
     </View>
   );
 }

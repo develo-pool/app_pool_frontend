@@ -62,8 +62,7 @@ function Feed({user = doha, message = test, isFeedScreen = true}: Props) {
           msgDate={test.msgDate}
         />
       </TouchableOpacity>
-      <TouchableOpacity 
-      onPress={() => navigation.navigate('Message')}>
+      <TouchableOpacity onPress={() => navigation.navigate('Message')}>
         <View style={styles.feed}>
           {/* 메시지의 구성에 따라 각각 다른 UI를 출력 */}
           {message.msgText === undefined ? (
@@ -96,7 +95,7 @@ const styles = StyleSheet.create({
     margin: 15,
     backgroundColor: 'white',
     borderRadius: 10,
-    flex:1,
+    flex: 1,
   },
   feedHeader: {
     width: '100%',

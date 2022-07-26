@@ -72,7 +72,7 @@ function DetailMessageContainer({message = test}: Props) {
 }
 
 const styles = StyleSheet.create({
-  detailMessageContainer:{
+  detailMessageContainer: {
     flex: 1,
   },
   msgHeader: {

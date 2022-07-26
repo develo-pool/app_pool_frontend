@@ -44,7 +44,7 @@ function MessageHeader({user, isDetailMessage, msgDate}: Props) {
 }
 
 const styles = StyleSheet.create({
-  messageHeader:{
+  messageHeader: {
     flex: 0.5,
   },
   feedHeader: {
