@@ -18,6 +18,8 @@ export interface TempProps {
   firstState: 'default' | 'request' | 'confirm';
   authNumber: string;
   confirm: string;
+  usernameChecked: boolean | undefined;
+  nickNameChecked: boolean | undefined;
   passwordValid: {first: boolean; second: boolean};
 }
 
@@ -33,16 +35,17 @@ function SignUpScreen() {
       headerBackVisible: false,
       headerShadowVisible: false,
       // headerTransparent: true,
-      headerLeft: () => (
-        <TouchableOpacity
-          onPress={
-            current
-              ? () => navigation.navigate('SignUp', {current: current - 1})
-              : () => navigation.goBack()
-          }>
-          <Icon name="arrow-back" size={24} color="black" />
-        </TouchableOpacity>
-      ),
+      headerLeft: () =>
+        current === 0 ? undefined : (
+          <TouchableOpacity
+            onPress={
+              current
+                ? () => navigation.navigate('SignUp', {current: current - 1})
+                : () => navigation.goBack()
+            }>
+            <Icon name="arrow-back" size={24} color="black" />
+          </TouchableOpacity>
+        ),
       headerRight: () => (
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Icon name="close" size={24} color="black" />
@@ -68,6 +71,8 @@ function SignUpScreen() {
     authNumber: '',
     confirm: '',
     passwordValid: {first: false, second: false},
+    usernameChecked: undefined,
+    nickNameChecked: undefined,
   });
 
   const createChangeTextHandler = (name: string) => (value: string) => {
@@ -93,6 +98,7 @@ function SignUpScreen() {
           createChangeTextHandler={createChangeTextHandler}
           form={form}
           temp={temp}
+          setTemp={setTemp}
         />
       </MainContainer>
       <SignUpScreenBottomButton

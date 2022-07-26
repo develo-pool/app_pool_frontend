@@ -22,7 +22,8 @@ function SignUpScreenBottomButton({
   const FirstFormValid = !!form.phoneNumber && temp.firstState === 'confirm';
   const SecondFormValid = CheckBirthday(form.birthDay) && !!form.gender;
   const ThirdFormValid = !!(
-    form.username &&
+    temp.usernameChecked &&
+    temp.nickNameChecked &&
     form.nickName &&
     temp.passwordValid.first &&
     temp.passwordValid.second &&

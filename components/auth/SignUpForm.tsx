@@ -11,11 +11,13 @@ const SignUpForm = ({
   createChangeTextHandler,
   form,
   temp,
+  setTemp,
 }: {
   current: number;
   createChangeTextHandler: any;
   form: SignUpParams;
   temp: TempProps;
+  setTemp: any;
 }) => {
   switch (current) {
     case 0:
@@ -24,6 +26,7 @@ const SignUpForm = ({
           onChangeText={createChangeTextHandler}
           form={form}
           temp={temp}
+          setTemp={setTemp}
         />
       );
     case 1:

@@ -11,16 +11,20 @@ function FirstForm({
   onChangeText,
   form,
   temp,
+  setTemp,
 }: {
   onChangeText: any;
   form: SignUpParams;
   temp: TempProps;
+  setTemp: any;
 }) {
   const [phoneNumberValid, setPhoneNumberValid] = useState<boolean>(true);
   const changePhoneNumberHandler = (value: string) => {
     onChangeText('phoneNumber')(value);
+    setTemp({...temp, firstState: 'default', authNumber: ''});
     setPhoneNumberValid(CheckPhoneNumber(value));
   };
+
   const authLen = temp.authNumber.length;
 
   return (
@@ -31,11 +35,9 @@ function FirstForm({
       <View style={styles.row}>
         <TextInputs
           type={
-            temp.firstState === 'default'
-              ? phoneNumberValid || form.phoneNumber.length === 0
-                ? 'default'
-                : 'error'
-              : 'disable'
+            phoneNumberValid || form.phoneNumber.length === 0
+              ? 'default'
+              : 'error'
           }
           placeholder="예. 01012345678"
           value={form.phoneNumber}
