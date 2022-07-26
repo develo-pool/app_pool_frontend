@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useQuery} from 'react-query';
-import {SignUpParams, usernameExist} from '../../api/auth';
+import {nickNameExist, SignUpParams, usernameExist} from '../../api/auth';
 import {TempProps} from '../../screens/SignUpScreen';
 import theme from '../../theme';
 import TextInputs from '../TextInputs';
@@ -24,11 +24,22 @@ function ThirdForm({
   form: SignUpParams;
   temp: TempProps;
 }) {
-  const {refetch} = useQuery(
+  const {refetch: refetchUsername} = useQuery(
     'usernameExist',
     () => {
       usernameExist(form.username).then((value: boolean) => {
         onChangeText('usernameChecked')(!value);
+      });
+    },
+    {
+      enabled: false,
+    },
+  );
+  const {refetch: refetchNickname} = useQuery(
+    'nickNameExist',
+    () => {
+      nickNameExist(form.nickName).then((value: boolean) => {
+        onChangeText('nickNameChecked')(!value);
       });
     },
     {
@@ -82,7 +93,7 @@ function ThirdForm({
             !CheckUserName(form.username) || temp.usernameChecked !== undefined
           }
           onPress={() => {
-            refetch();
+            refetchUsername();
           }}
         />
       </View>
@@ -96,18 +107,34 @@ function ThirdForm({
       <View style={styles.row}>
         <TextInputs
           type={
-            CheckNickName(form.nickName) || !form.nickName ? 'default' : 'error'
+            (CheckNickName(form.nickName) || !form.nickName) &&
+            temp.nickNameChecked !== false
+              ? 'default'
+              : 'error'
           }
           placeholder="한글 및 영문으로 입력"
           value={form.nickName}
-          onChangeText={onChangeText('nickName')}
+          onChangeText={(value: string) => {
+            onChangeText('nickName')(value);
+            onChangeText('nickNameChecked')(undefined);
+          }}
           alert={
             CheckNickName(form.nickName) || !form.nickName
-              ? undefined
-              : {type: 'Error', text: '닉네임 형식이 올바르지 않습니다.'}
+              ? temp.nickNameChecked === true
+                ? {type: 'Correct', text: '사용 가능한 닉네임입니다.'}
+                : temp.nickNameChecked === undefined
+                ? undefined
+                : {type: 'Error', text: '중복된 닉네임입니다.'}
+              : {type: 'Error', text: "특수문자는 '_'만 가능합니다."}
           }
         />
-        <AuthButton text="중복확인" disabled={!CheckNickName(form.nickName)} />
+        <AuthButton
+          text="중복확인"
+          disabled={
+            !CheckNickName(form.nickName) || temp.nickNameChecked !== undefined
+          }
+          onPress={() => refetchNickname()}
+        />
       </View>
       <InputTitle title="비밀번호" />
       <View style={styles.column}>

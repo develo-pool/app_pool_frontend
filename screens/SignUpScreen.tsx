@@ -19,7 +19,7 @@ export interface TempProps {
   authNumber: string;
   confirm: string;
   usernameChecked: boolean | undefined;
-  nickNameChecked: boolean;
+  nickNameChecked: boolean | undefined;
   passwordValid: {first: boolean; second: boolean};
 }
 
@@ -72,7 +72,7 @@ function SignUpScreen() {
     confirm: '',
     passwordValid: {first: false, second: false},
     usernameChecked: undefined,
-    nickNameChecked: false,
+    nickNameChecked: undefined,
   });
 
   const createChangeTextHandler = (name: string) => (value: string) => {
