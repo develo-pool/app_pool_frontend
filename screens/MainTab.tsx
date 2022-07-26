@@ -4,8 +4,9 @@ import SearchScreen from './SearchScreen';
 import FeedScreen from './FeedScreen';
 import SettingStack from './SettingStack';
 import BrandProfileScreen from './BrandProfileScreen';
+import {MainTabParamList} from './types';
 
-const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator<MainTabParamList>();
 
 const isBrandUser = true;
 
