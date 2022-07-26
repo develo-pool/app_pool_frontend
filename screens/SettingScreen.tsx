@@ -14,7 +14,7 @@ type SettingScreenProps = CompositeNavigationProp<
   NativeStackNavigationProp<RootStackParamList>
 >;
 
-const isBrandUser = true;
+const isBrandUser = false;
 
 function SettingScreen() {
   const [isEnabled, setIsEnabled] = useState(false);
@@ -121,22 +121,26 @@ const styles = StyleSheet.create({
     color: theme.colors.Grey80,
   },
   BrandName: {
+    fontFamily: theme.fontFamily.Pretendard,
     fontSize: 12,
     fontWeight: '700',
     color: theme.colors.Poolblue,
   },
   UserName: {
+    fontFamily: theme.fontFamily.Pretendard,
     fontSize: 18,
     fontWeight: '700',
     color: theme.colors.Grey80,
     marginBottom: 2,
   },
   Following: {
+    fontFamily: theme.fontFamily.Pretendard,
     fontSize: 12,
     fontWeight: '400',
     color: theme.colors.Grey40,
   },
   FollowingCount: {
+    fontFamily: theme.fontFamily.Pretendard,
     fontSize: 12,
     fontWeight: '700',
     color: theme.colors.Grey80,
@@ -152,6 +156,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   NotiText: {
+    fontFamily: theme.fontFamily.Pretendard,
     color: theme.colors.Grey60,
     fontSize: 14,
     fontWeight: '700',
@@ -161,6 +166,7 @@ const styles = StyleSheet.create({
   },
 
   Logout: {
+    fontFamily: theme.fontFamily.Pretendard,
     color: theme.colors.Grey60,
     fontSize: 14,
     fontWeight: '400',
