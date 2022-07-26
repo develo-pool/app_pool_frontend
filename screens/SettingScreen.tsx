@@ -1,26 +1,19 @@
 import React, {useState} from 'react';
 import {Text, View, StyleSheet, Pressable, Image, Switch} from 'react-native';
-import {useNavigation, CompositeNavigationProp} from '@react-navigation/native';
-import {MainTabParamList, RootStackParamList} from './types';
-import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack/lib/typescript/src/types';
+import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import theme from './../theme';
 import JoinBrandContainer from '../components/setting/JoinBrand';
 import SetArticle from './../components/setting/SetArticle';
+import {SettingStackNavigationProp} from './types';
 
-type SettingScreenProps = CompositeNavigationProp<
-  BottomTabNavigationProp<MainTabParamList, 'SettingStack'>,
-  NativeStackNavigationProp<RootStackParamList>
->;
-
-const isBrandUser = true;
+const isBrandUser = false;
 
 function SettingScreen() {
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
-  const navigation = useNavigation<SettingScreenProps>();
+  const navigation = useNavigation<SettingStackNavigationProp>();
 
   return (
     <View style={styles.block}>
