@@ -18,6 +18,8 @@ export interface TempProps {
   firstState: 'default' | 'request' | 'confirm';
   authNumber: string;
   confirm: string;
+  usernameChecked: boolean | undefined;
+  nickNameChecked: boolean;
   passwordValid: {first: boolean; second: boolean};
 }
 
@@ -68,6 +70,8 @@ function SignUpScreen() {
     authNumber: '',
     confirm: '',
     passwordValid: {first: false, second: false},
+    usernameChecked: undefined,
+    nickNameChecked: false,
   });
 
   const createChangeTextHandler = (name: string) => (value: string) => {

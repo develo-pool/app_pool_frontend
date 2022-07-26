@@ -11,6 +11,20 @@ export async function login(params: LoginParams) {
   return response.data;
 }
 
+export async function usernameExist(params: string) {
+  const response = await client.get<boolean>(
+    `/user-usernames/${params}/exists`,
+  );
+  return response.data;
+}
+
+export async function nickNameExist(params: string) {
+  const response = await client.get<boolean>(
+    `/user-nickNames/${params}/exists`,
+  );
+  return response.data;
+}
+
 export async function getUser() {
   const response = await client.get<User>('/user');
   return response.data;

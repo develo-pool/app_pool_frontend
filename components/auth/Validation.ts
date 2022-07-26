@@ -22,3 +22,8 @@ export function CheckNickName(value: string) {
   const re = /^(?=.*[a-zA-Z0-9가-힣_])[a-zA-Z0-9가-힣_]{3,20}$/;
   return re.test(value);
 }
+
+export function ReplaceKorean(value: string) {
+  const re = /[가-힣ㄱ-ㅎㅏ-ㅣA-Z]/g;
+  return value.replace(re, '');
+}

@@ -1,13 +1,19 @@
 import React, {useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {SignUpParams} from '../../api/auth';
+import {useQuery} from 'react-query';
+import {SignUpParams, usernameExist} from '../../api/auth';
 import {TempProps} from '../../screens/SignUpScreen';
 import theme from '../../theme';
 import TextInputs from '../TextInputs';
 import Title from '../Title';
 import {AuthButton, CheckBox, InputTitle} from './AuthComponents';
-import {CheckNickName, CheckPassword, CheckUserName} from './Validation';
+import {
+  CheckNickName,
+  CheckPassword,
+  CheckUserName,
+  ReplaceKorean,
+} from './Validation';
 
 function ThirdForm({
   onChangeText,
@@ -18,6 +24,17 @@ function ThirdForm({
   form: SignUpParams;
   temp: TempProps;
 }) {
+  const {refetch} = useQuery(
+    'usernameExist',
+    () => {
+      usernameExist(form.username).then((value: boolean) => {
+        onChangeText('usernameChecked')(!value);
+      });
+    },
+    {
+      enabled: false,
+    },
+  );
   const [passwordGuideVisible, setPasswordGuideVisible] = useState(false);
   const changePasswordHandler = (value: string) => {
     onChangeText('password')(value);
@@ -32,27 +49,44 @@ function ThirdForm({
       <Title title="아이디 및 비밀번호를" />
       <Title title="설정해 주세요." hasMargin={true} />
       <InputTitle title="아이디" />
-      <View
-        style={[
-          styles.row,
-          (CheckUserName(form.username) || !form.username) && styles.noMargin,
-        ]}>
+      <View style={[styles.row, !form.username && styles.noMargin]}>
         <TextInputs
           type={
-            CheckUserName(form.username) || !form.username ? 'default' : 'error'
+            (CheckUserName(form.username) || !form.username) &&
+            temp.usernameChecked !== false
+              ? 'default'
+              : 'error'
           }
           placeholder="아이디를 입력해 주세요"
           value={form.username}
-          onChangeText={onChangeText('username')}
+          onChangeText={(value: string) => {
+            onChangeText('username')(ReplaceKorean(value));
+            onChangeText('usernameChecked')(undefined);
+          }}
+          maxLength={20}
           alert={
             CheckUserName(form.username) || !form.username
-              ? undefined
-              : {type: 'Error', text: '아이디 형식이 올바르지 않습니다.'}
+              ? temp.usernameChecked === true
+                ? {type: 'Correct', text: '사용 가능한 닉네임입니다.'}
+                : temp.usernameChecked === undefined
+                ? undefined
+                : {type: 'Error', text: '중복된 아이디입니다.'}
+              : form.username.length < 3
+              ? {type: 'Error', text: '3자 이상 입력해주세요.'}
+              : {type: 'Error', text: '특수문자는 사용 불가능합니다.'}
           }
         />
-        <AuthButton text="중복확인" disabled={!CheckUserName(form.username)} />
+        <AuthButton
+          text="중복확인"
+          disabled={
+            !CheckUserName(form.username) || temp.usernameChecked !== undefined
+          }
+          onPress={() => {
+            refetch();
+          }}
+        />
       </View>
-      {(CheckUserName(form.username) || !form.username) && (
+      {!form.username && (
         <Text style={styles.alert}>
           최소 3자 ~ 20자, 영문 소문자로 입력해 주세요.
         </Text>
