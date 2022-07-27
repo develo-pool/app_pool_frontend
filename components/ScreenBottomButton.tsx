@@ -1,5 +1,6 @@
 import React from 'react';
 import {GestureResponderEvent, Pressable, StyleSheet, Text} from 'react-native';
+import theme from '../assets/theme';
 
 function ScreenBottomButton({
   name,
@@ -32,6 +33,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
   },
   enabledText: {
+    fontFamily: theme.fontFamily.Pretendard,
+    fontWeight: theme.fontWeight.Bold,
     fontSize: 20,
     color: 'white',
   },
@@ -39,9 +42,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#d9d9d9',
   },
   disabledText: {
+    fontFamily: theme.fontFamily.Pretendard,
+    fontWeight: theme.fontWeight.Bold,
     fontSize: 20,
-    color: 'black',
-    opacity: 0.2,
+    color: 'white',
   },
 });
 

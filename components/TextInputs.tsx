@@ -52,6 +52,7 @@ function TextInputs({
           secureTextEntry={secureTextEntry}
           onFocus={onFocus}
           onBlur={onBlur}
+          placeholderTextColor={'rgba(0, 0, 0, 0.2)'}
         />
         <TouchableOpacity onPress={() => onChangeText('')}>
           {value && type !== 'disable' && (
@@ -105,7 +106,8 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   text: {
-    fontSize: 12,
+    fontFamily: theme.fontFamily.Pretendard,
+    fontSize: theme.fontSize.P3,
     paddingLeft: 6,
   },
 });

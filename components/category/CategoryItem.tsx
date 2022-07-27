@@ -67,12 +67,12 @@ const styles = StyleSheet.create({
     marginTop: 10,
     textAlign: 'center',
     fontFamily: theme.fontFamily.Pretendard,
-    fontSize: theme.fontSize.P2,
+    fontSize: 13,
     fontWeight: theme.fontWeight.Bold,
     color: theme.colors.Grey50,
   },
   checked: {
-    borderWidth: 3,
+    borderWidth: 2,
     borderColor: theme.colors.Poolgreen,
   },
   checkedName: {

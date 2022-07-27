@@ -97,6 +97,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 12,
     marginBottom: 4,
+    fontFamily: theme.fontFamily.Pretendard,
   },
   checkButton: {
     height: 48,
@@ -118,6 +119,8 @@ const styles = StyleSheet.create({
     marginLeft: 8,
   },
   innerText: {
+    fontFamily: theme.fontFamily.Pretendard,
+    fontWeight: theme.fontWeight.Bold,
     color: 'white',
   },
   disabled: {
@@ -129,6 +132,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   uncheckedText: {
+    fontFamily: theme.fontFamily.Pretendard,
+    fontWeight: theme.fontWeight.Bold,
     color: 'black',
   },
   terms: {
@@ -144,7 +149,9 @@ const styles = StyleSheet.create({
     margin: 3,
   },
   termText: {
-    fontSize: 14,
+    fontFamily: theme.fontFamily.Pretendard,
+    fontSize: theme.fontSize.P2,
+    color: theme.colors.Grey70,
   },
   checkBoxContainer: {
     width: 20,
