@@ -17,7 +17,7 @@ function CreateMessageScreen() {
     <>
       <View style={styles.UpperArea}>
         <View style={styles.TitleArea}>
-          <Title title="메시지 작성" titleSize="H5" />
+          <Title title="메시지 작성" isSmall={false} />
           <Icon name="clear" size={24} color={theme.colors.Black} />
         </View>
         <View style={styles.Info}>
