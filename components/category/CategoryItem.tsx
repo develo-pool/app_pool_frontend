@@ -8,7 +8,7 @@ export interface CategoryItemProps {
   name: string;
 }
 
-export const BETWEEN = 40;
+export const BETWEEN = 50;
 
 function CategoryItem({
   item,
@@ -22,6 +22,8 @@ function CategoryItem({
   size: number;
 }) {
   const [isChecked, setIsChecked] = useState(false);
+  const id = parseInt(item.id, 10);
+  const notLast = id % 3 !== 0;
 
   useEffect(() => {
     setIsChecked(checkedItems.includes(item.id));
@@ -34,13 +36,17 @@ function CategoryItem({
   return (
     <Pressable
       key={item.id}
-      style={[{width: size}, styles.container]}
+      style={[
+        {width: size},
+        styles.container,
+        notLast && {marginRight: BETWEEN},
+      ]}
       onPress={onCheck}>
       <View
         style={[styles.circle, {height: size}, isChecked && styles.checked]}
       />
       {isChecked && (
-        <View style={styles.tag}>
+        <View style={[styles.tag, {top: size - 24}]}>
           <Icon name="check" color="white" size={15} />
         </View>
       )}
@@ -61,6 +67,9 @@ const styles = StyleSheet.create({
     marginTop: 10,
     textAlign: 'center',
     fontFamily: theme.fontFamily.Pretendard,
+    fontSize: theme.fontSize.P2,
+    fontWeight: theme.fontWeight.Bold,
+    color: theme.colors.Grey50,
   },
   checked: {
     borderWidth: 3,
@@ -77,8 +86,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: 20,
     height: 20,
-    top: 2,
-    right: 2,
+    right: 4,
   },
 });
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, useWindowDimensions, View} from 'react-native';
+import {ScrollView, StyleSheet, useWindowDimensions, View} from 'react-native';
 import {PADDING} from '../MainContainer';
 import Title from '../Title';
 import CategoryItem, {BETWEEN, CategoryItemProps} from './CategoryItem';
@@ -13,10 +13,10 @@ function Category({
   checkedItemHandler: any;
 }) {
   const dimensions = useWindowDimensions();
-  const size = (dimensions.width - (PADDING + BETWEEN) * 2) / 3;
+  const size = Math.floor((dimensions.width - (PADDING + BETWEEN) * 2) / 3);
 
   return (
-    <View style={styles.block}>
+    <ScrollView showsVerticalScrollIndicator={false} style={styles.block}>
       <Title title="관심 카테고리를" />
       <Title title="최소 3개 선택해 주세요." hasMargin={true} />
       <View style={styles.list}>
@@ -31,7 +31,7 @@ function Category({
         ))}
         <View style={{width: size}} />
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
