@@ -12,7 +12,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootStack() {
   return (
-    <Stack.Navigator initialRouteName="Login">
+    <Stack.Navigator initialRouteName="MainTab">
       <Stack.Screen
         name="MainTab"
         component={MainTab}
