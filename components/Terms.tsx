@@ -3,7 +3,7 @@ import {StyleSheet, Text, View} from 'react-native';
 import theme from '../theme';
 import Title from './Title';
 
-function Terms({type}: {type: 'term' | 'privacy' | undefined}) {
+function Terms({type}: {type: 'term' | 'privacy'}) {
   switch (type) {
     case 'term':
       return (
