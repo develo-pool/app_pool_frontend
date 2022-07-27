@@ -11,13 +11,14 @@ import {
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import theme from '../theme';
 import Title from '../components/Title';
+import {PreviewButton, SendButton} from '../components/create/SendButton';
 
 function CreateMessageScreen() {
   return (
     <>
       <View style={styles.UpperArea}>
         <View style={styles.TitleArea}>
-          <Title title="메시지 작성" isSmall={false} />
+          <Title title="메시지 작성" isSmall={true} />
           <Icon name="clear" size={24} color={theme.colors.Black} />
         </View>
         <View style={styles.Info}>
@@ -28,9 +29,7 @@ function CreateMessageScreen() {
             />
             <Text style={styles.BrandName}>더푸르</Text>
           </View>
-          <Pressable>
-            <Text style={styles.Preview}> 미리보기</Text>
-          </Pressable>
+          <PreviewButton text="미리보기" disabled={false} />
         </View>
         <TextInput style={styles.InputMessage} placeholder="20자 이상 입력" />
       </View>
@@ -41,9 +40,7 @@ function CreateMessageScreen() {
             <Icon name="photo-camera" size={28} style={styles.Camera} />
             <Icon name="insert-link" size={28} style={styles.Link} />
           </View>
-          <TouchableOpacity style={styles.SendButton}>
-            <Text style={styles.Send}>발송하기</Text>
-          </TouchableOpacity>
+          <SendButton text="발송하기" disabled={false} />
         </View>
       </View>
     </>
@@ -70,6 +67,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: 56,
     justifyContent: 'space-between',
+    marginTop: 16,
   },
   BrandInfo: {
     flexDirection: 'row',
@@ -87,12 +85,6 @@ const styles = StyleSheet.create({
     color: theme.colors.Grey80,
     fontWeight: '700',
     marginLeft: 8,
-  },
-  Preview: {
-    fontFamily: theme.fontFamily.Pretendard,
-    fontSize: theme.fontSize.P2,
-    fontWeight: '700',
-    color: theme.colors.Grey30,
   },
   InputMessage: {
     paddingHorizontal: 4,
@@ -121,20 +113,6 @@ const styles = StyleSheet.create({
   },
   Link: {},
   // Clock: {},
-  SendButton: {
-    backgroundColor: theme.colors.Grey30,
-    width: 74,
-    height: 38,
-    borderRadius: 4,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  Send: {
-    fontFamily: theme.fontFamily.Pretendard,
-    fontSize: theme.fontSize.P3,
-    fontWeight: '700',
-    color: theme.colors.White,
-  },
 });
 
 export default CreateMessageScreen;
