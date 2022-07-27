@@ -64,12 +64,14 @@ export function RadioButton({
 
 export function CheckBox({
   title,
-  onPress,
   state,
+  onPress,
+  onPressText,
 }: {
   title: string;
-  onPress: any;
   state: boolean;
+  onPress: any;
+  onPressText: any;
 }) {
   return (
     <Pressable style={styles.terms} onPress={() => onPress(!state)}>
@@ -80,7 +82,9 @@ export function CheckBox({
           <View style={styles.empty} />
         )}
       </View>
-      <Text style={styles.termText}>{title}</Text>
+      <Pressable onPress={onPressText}>
+        <Text style={styles.termText}>{title}</Text>
+      </Pressable>
     </Pressable>
   );
 }
