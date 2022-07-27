@@ -1,13 +1,5 @@
 import React from 'react';
-import {
-  Text,
-  View,
-  StyleSheet,
-  TextInput,
-  Pressable,
-  TouchableOpacity,
-  Image,
-} from 'react-native';
+import {Text, View, StyleSheet, TextInput, Image} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import theme from '../theme';
 import Title from '../components/Title';

@@ -1,112 +1,110 @@
 import React from 'react';
-import {
-  Text,
-  View,
-  StyleSheet,
-  TextInput,
-  // Image,
-  TouchableOpacity,
-} from 'react-native';
-import ScreenBottomButton from '../components/ScreenBottomButton';
-import {useNavigation} from '@react-navigation/native';
-import {RootStackNavigationProp} from './types';
+import {Text, View, StyleSheet, TextInput, Image} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-// import MainContainer from '../components/MainContainer';
+import theme from '../theme';
+import Title from '../components/Title';
+import {PreviewButton, SendButton} from '../components/create/SendButton';
 
 function WelcomeMessageScreen() {
-  const navigation = useNavigation<RootStackNavigationProp>();
-  //   const [form, setForm] = useState({message: ''});
-
   return (
     <>
-      <View style={styles.Main}>
-        <View style={styles.CreateContainer}>
+      <View style={styles.UpperArea}>
+        <View style={styles.TitleArea}>
+          <Title title="웰컴메시지 설정" isSmall={true} />
+          <Icon name="clear" size={24} color={theme.colors.Black} />
+        </View>
+        <View style={styles.Info}>
           <View style={styles.BrandInfo}>
-            <View style={styles.BrandProfile} />
-            <Text style={styles.BrandName}>마라가 좋아</Text>
+            <Image
+              style={styles.ImgSource}
+              source={require('../assets/ProfileImage.png')}
+            />
+            <Text style={styles.BrandName}>더푸르</Text>
           </View>
-          <View style={styles.Line} />
-          <TextInput
-            style={styles.InputMessage}
-            placeholder="메시지를 작성해주세요."
-          />
+          <PreviewButton text="미리보기" disabled={false} />
+        </View>
+        <TextInput style={styles.InputMessage} placeholder="20자 이상 입력" />
+      </View>
+      <View style={styles.BottomArea}>
+        <View style={styles.Line} />
+        <View style={styles.BottomBar}>
           <View style={styles.ElementsContainer}>
-            <Icon name="camera-alt" size={22} style={styles.Camera} />
-            <Icon name="insert-link" size={24} style={styles.Link} />
-            <TouchableOpacity style={styles.PreviewContainer}>
-              <Text style={styles.Preview}> 미리보기</Text>
-            </TouchableOpacity>
+            <Icon name="photo-camera" size={28} style={styles.Camera} />
+            <Icon name="insert-link" size={28} style={styles.Link} />
           </View>
+          <SendButton text="발송하기" disabled={false} />
         </View>
       </View>
-      <ScreenBottomButton
-        name="설정하기"
-        onPress={() => navigation.navigate('MainTab')}
-        // enabled={Boolean(form.message)}
-      />
     </>
   );
 }
 
 const styles = StyleSheet.create({
-  Main: {
+  UpperArea: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  CreateContainer: {
-    backgroundColor: 'white',
-    width: 328,
-    height: 320,
-    borderRadius: 10,
     paddingHorizontal: 16,
     paddingVertical: 16,
+    backgroundColor: theme.colors.White,
+  },
+  BottomArea: {
+    backgroundColor: theme.colors.White,
+  },
+  TitleArea: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  Info: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    height: 56,
+    justifyContent: 'space-between',
+    marginTop: 16,
   },
   BrandInfo: {
     flexDirection: 'row',
     alignItems: 'center',
   },
-  BrandProfile: {
-    height: 36,
-    width: 36,
-    borderRadius: 18,
+  ImgSource: {
+    height: 24,
+    width: 24,
+    borderRadius: 12,
     resizeMode: 'contain',
-    backgroundColor: '#C7C7C7',
   },
   BrandName: {
-    marginLeft: 12,
-    fontSize: 13,
+    fontFamily: theme.fontFamily.Pretendard,
+    fontSize: theme.fontSize.P3,
+    color: theme.colors.Grey80,
     fontWeight: '700',
-  },
-  Line: {
-    height: 0.5,
-    width: 292,
-    backgroundColor: '#C7C7C7',
-    marginVertical: 12,
+    marginLeft: 8,
   },
   InputMessage: {
-    height: 196,
     paddingHorizontal: 4,
-
-    fontSize: 14,
+    fontFamily: theme.fontFamily.Pretendard,
+    fontSize: theme.fontSize.P1,
     fontWeight: '400',
+  },
+  Line: {
+    height: 1,
+    backgroundColor: '#E8E8E8',
+  },
+  BottomBar: {
+    paddingHorizontal: 16,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    height: 52,
   },
   ElementsContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingLeft: 12,
+    paddingLeft: 6,
   },
   Camera: {
-    marginRight: 16,
+    marginRight: 10,
   },
-  Link: {
-    marginRight: 160,
-  },
-  PreviewContainer: {},
-  Preview: {
-    fontSize: 13,
-    fontWeight: '700',
-  },
+  Link: {},
+  // Clock: {},
 });
 
 export default WelcomeMessageScreen;

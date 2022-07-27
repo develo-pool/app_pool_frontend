@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   small: {
-    fontSize: theme.fontSize.H4,
+    fontSize: theme.fontSize.H5,
   },
 });
 
