@@ -2,7 +2,7 @@ import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
 import theme from '../assets/theme';
-import LoginButton from '../components/auth/LoginButton';
+import {AuthButton} from '../components/auth/AuthComponents';
 import MainContainer from '../components/MainContainer';
 import Title from '../components/Title';
 import {RootStackNavigationProp} from './types';
@@ -23,9 +23,10 @@ function WelcomeScreen() {
         <Text style={styles.mainText}>
           {'POOL을 통해 사랑하는 브랜드를 팔로우하고\n1:1 소통을 즐겨보세요!'}
         </Text>
-        <LoginButton
+        <AuthButton
           text="POOL 가입하기"
           onPress={() => navigation.push('SignUp', {current: 0})}
+          welcome={true}
         />
         <View style={styles.container}>
           <Text style={styles.subText}>이미 회원이신가요?</Text>
