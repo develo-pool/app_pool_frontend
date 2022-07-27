@@ -8,226 +8,161 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import MainContainer from '../components/MainContainer';
 import {RootStackNavigationProp} from './types';
+import theme from '../assets/theme';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import SetWelcomeMsg from './../components/profile/SetWelcomeMessage';
+import FollowButton from './../components/profile/FollowButton';
+
+const isBrandUser = false;
 
 function BrandProfileScreen() {
   const navigation = useNavigation<RootStackNavigationProp>();
 
   return (
-    <View style={styles.Container}>
-      <View style={styles.Profile}>
-        <MainContainer>
+    <>
+      <View style={styles.ProfileSection}>
+        <View style={styles.ProfileLayout}>
           <View style={styles.ProfileContainer}>
             <View style={styles.ProfileImgContainer}>
-              <View //Image로 바꿔줘야함!!
+              <Image
                 style={styles.ImgSource}
-                // source={require('../assets/Pool.png')}
+                source={require('../assets/ProfileImage.png')}
               />
-              <Pressable>
-                <Image
-                  style={styles.EditProfile}
-                  source={require('../assets/Edit.png')}
-                />
+              <Pressable style={styles.EditProfile}>
+                <Icon name="edit" size={16} style={styles.EditButton} />
               </Pressable>
             </View>
-            <View style={styles.BrandContainer}>
-              <View style={styles.Brand}>
-                <Text style={styles.ProfileName}>엄지렐라</Text>
-                <View style={styles.Followers}>
-                  <Text style={styles.Follow}>팔로워</Text>
-                  <Pressable>
-                    <Text style={styles.FollowCountTxt}>0</Text>
-                  </Pressable>
-                </View>
-              </View>
-              <View style={styles.Share}>
-                <View style={styles.ShareButton}>
-                  <Pressable>
-                    <Text style={styles.ShareText}>공유</Text>
-                  </Pressable>
-                </View>
+            <View style={styles.BrandInfo}>
+              <Text style={styles.BrandName}>김자네</Text>
+              <View style={styles.FollowerContainer}>
+                <Text style={styles.Follower}>팔로워</Text>
+                <Text style={styles.FollowerCount}>1.8k</Text>
               </View>
             </View>
           </View>
-          <View style={styles.IntroContainer}>
-            <Text style={styles.ProfileIntro}>
-              마라맛을 사랑하는 엄지렐라입니다. 소개글이 들어갑니다. 소개글이
-              들어갑니다. 소개글이 들어갑니다. 소개글이 들어갑니다.
-            </Text>
-          </View>
-        </MainContainer>
+          {!isBrandUser && <FollowButton isFollowed={false} />}
+        </View>
+        <View style={styles.IntroContainer}>
+          <Text style={styles.IntroText}>
+            더푸르입니다. 소개글이 들어갑니다. 소개글이 들어갑니다. 소개글이
+            들어갑니다. 소개글이 들어갑니다.
+          </Text>
+        </View>
       </View>
+      {isBrandUser && <SetWelcomeMsg />}
       <View style={styles.Message}>
-        <MainContainer>
-          <View style={styles.InitialSet}>
-            <View style={styles.InitTitleContainer}>
-              <Text style={styles.InitTitle}>초기 세팅하기</Text>
-            </View>
-            <View style={styles.InitListUp}>
-              <View style={styles.InitisDone}>{}</View>
-              <Text style={styles.InitList}>웰컴 메시지 설정하기</Text>
-              <Text style={styles.InitArrow}>-</Text>
-            </View>
-          </View>
-          <View style={styles.MessageList}>
-            <Text style={styles.MessageNull}>등록한 메시지가 없습니다.</Text>
-          </View>
-        </MainContainer>
+        <Text style={styles.MessageNull}>등록된 메시지가 없습니다.</Text>
       </View>
-      <View style={styles.CreateMessageButton}>
-        <TouchableOpacity onPress={() => navigation.navigate('CreateMessage')}>
-          <Image
-            style={styles.CreateMessage}
-            source={require('../assets/New.png')}
-          />
+      {isBrandUser && (
+        <TouchableOpacity
+          style={styles.CreateMessageButton}
+          onPress={() => navigation.navigate('CreateMessage')}>
+          <Icon name="border-color" size={24} style={styles.CreateMessage} />
         </TouchableOpacity>
-      </View>
-    </View>
+      )}
+    </>
   );
 }
 
 const styles = StyleSheet.create({
-  Container: {
-    flex: 1,
-    backgroundColor: '#EDEDED',
-  }, //전체 Container
-  Profile: {
-    flex: 1,
-    backgroundColor: 'white',
+  ProfileSection: {
+    height: 180,
+    backgroundColor: theme.colors.White,
+    paddingHorizontal: 16,
   }, //프로필 영역
-  Message: {
-    flex: 2,
-    alignItems: 'center',
-  }, //프로필 아래 메시지가 쌓이는 메시지 영역
-  CreateMessageButton: {
-    position: 'absolute',
-    right: 20,
-    bottom: 20,
-  }, //새 메시지 작성 버튼
+  ProfileLayout: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
   ProfileContainer: {
-    flex: 1.2,
+    height: 120,
     flexDirection: 'row',
   }, // 프로필 내 브랜드 정보가 담긴 영역
-  IntroContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  }, //프로필 내 소개글이 담긴 영역
   ProfileImgContainer: {
-    flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
   }, //프로필 사진 영역
-  BrandContainer: {
-    flex: 3,
-    flexDirection: 'row',
-    alignItems: 'center',
-  }, //프로필 이름, 팔로우, 공유버튼 영역
   ImgSource: {
-    height: 74,
-    width: 74,
-    borderRadius: 37,
+    height: 90,
+    width: 90,
+    borderRadius: 45,
     resizeMode: 'contain',
-    backgroundColor: '#C7C7C7',
   }, //프로필 사진
   EditProfile: {
-    height: 25,
-    width: 25,
-    resizeMode: 'contain',
-    marginLeft: -25,
-    marginTop: 45,
+    width: 28,
+    height: 28,
+    borderRadius: 14,
+    backgroundColor: theme.colors.Grey50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: -28,
+    marginTop: 62,
   }, //수정 버튼
-  Brand: {
-    flex: 2.5,
-  }, // 브랜드 명과 팔로워
-  Share: {
-    flex: 1,
-  }, // 공유 버튼
-  ProfileName: {
-    fontSize: 19,
-    fontWeight: 'bold',
-  }, //브랜드 명
-  Followers: {
-    flexDirection: 'row',
-    marginTop: 5,
-  }, //팔로우, 팔로우 숫자
-  Follow: {
-    fontSize: 14,
-    fontWeight: '400',
+  EditButton: {
+    color: theme.colors.White,
   },
-  FollowCountTxt: {
-    marginLeft: 8,
-    fontSize: 14,
-    fontWeight: '700',
-  },
-  ShareButton: {
-    width: 66,
-    height: 48,
+  BrandInfo: {
     justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderRadius: 4,
-  }, //공유 버튼
-  ShareText: {
-    fontSize: 14,
-    fontWeight: '700',
+    marginLeft: 16,
   },
-  ProfileIntro: {
-    fontSize: 14,
-    fontWeight: '400',
-    paddingLeft: 10,
-    paddingRight: 10,
+  BrandName: {
+    fontFamily: theme.fontFamily.Pretendard,
+    fontSize: theme.fontSize.P1,
+    fontWeight: theme.fontWeight.Bold,
+    color: theme.colors.Grey80,
+    marginBottom: 2,
+  },
+  FollowerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  Follower: {
+    fontFamily: theme.fontFamily.Pretendard,
+    fontSize: theme.fontSize.P3,
+    fontWeight: theme.fontWeight.Light,
+    color: theme.colors.Grey40,
+  },
+  FollowerCount: {
+    fontFamily: theme.fontFamily.Pretendard,
+    fontSize: theme.fontSize.P3,
+    fontWeight: theme.fontWeight.Bold,
+    color: theme.colors.Grey80,
+    marginLeft: 4,
+  },
+  IntroContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  }, //프로필 내 소개글이 담긴 영역
+  IntroText: {
+    fontSize: theme.fontSize.P2,
+    color: theme.colors.Grey50,
+    fontWeight: theme.fontWeight.Light,
+    paddingHorizontal: 4,
   }, //소개글 텍스트
-  InitialSet: {
-    width: 328,
-    height: 96,
-    marginTop: 19,
-    paddingVertical: 14,
-    paddingHorizontal: 21,
-    backgroundColor: '#FFFFFF',
-    borderRadius: 6,
-    justifyContent: 'center',
-  },
-  InitTitleContainer: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-  InitTitle: {
-    fontSize: 16,
-    fontWeight: '700',
-  },
-  InitListUp: {
-    flex: 1,
-    flexDirection: 'row',
+  Message: {
     alignItems: 'center',
-  },
-  InitisDone: {
-    width: 20,
-    marginRight: 8,
-  },
-  InitList: {
-    width: 244,
-    fontSize: 14,
-    fontWeight: '700',
-  },
-  InitArrow: {
-    fontSize: 14,
-    fontWeight: '700',
-  },
-  MessageList: {
-    alignItems: 'center',
-  },
+    paddingHorizontal: 16,
+  }, //프로필 아래 메시지가 쌓이는 메시지 영역
   MessageNull: {
-    marginTop: 144,
-    fontSize: 16,
-    fontWeight: '400',
+    marginTop: 32,
+    fontSize: theme.fontSize.P1,
+    fontWeight: theme.fontWeight.Light,
   }, //동록한 메시지가 없습니다.
+  CreateMessageButton: {
+    height: 68,
+    width: 68,
+    borderRadius: 34,
+    backgroundColor: theme.colors.Black,
+    position: 'absolute',
+    right: 16,
+    bottom: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
+  }, //새 메시지 작성 버튼
   CreateMessage: {
-    height: 75,
-    width: 75,
-    resizeMode: 'contain',
+    color: theme.colors.White,
   },
 });
 
