@@ -48,12 +48,10 @@ const SignUpForm = ({
       );
     default:
       return (
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <Category
-            checkedItems={form.category}
-            checkedItemHandler={checkedItemHandler}
-          />
-        </ScrollView>
+        <Category
+          checkedItems={form.category}
+          checkedItemHandler={checkedItemHandler}
+        />
       );
   }
 };

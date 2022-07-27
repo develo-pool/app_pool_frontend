@@ -34,7 +34,10 @@ const fontSize = {
   P3: 12,
 };
 
-const fontWeight = {
+const fontWeight: {
+  Bold: '400' | '700' | undefined;
+  Light: '400' | '700' | undefined;
+} = {
   Bold: '700',
   Light: '400',
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, StyleSheet, Text, Pressable} from 'react-native';
-import theme from '../../theme';
+import theme from '../../assets/theme';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 function JoinBrandContainer({onPress}: {onPress?: any}) {

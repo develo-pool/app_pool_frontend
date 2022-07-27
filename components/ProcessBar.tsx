@@ -1,7 +1,7 @@
 // import React, {useEffect, useRef} from 'react';
 import React, {useEffect, useRef} from 'react';
 import {Animated, StyleSheet, View} from 'react-native';
-import theme from '../theme';
+import theme from '../assets/theme';
 
 const WIDTH = 167;
 const HEIGHT = 4;

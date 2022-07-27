@@ -7,7 +7,7 @@ import {
   View,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import theme from '../../theme';
+import theme from '../../assets/theme';
 
 export function InputTitle({title}: {title: string}) {
   return <Text style={styles.text}>{title}</Text>;

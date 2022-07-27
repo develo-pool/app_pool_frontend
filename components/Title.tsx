@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import theme from '../theme';
+import theme from '../assets/theme';
 
 interface Props {
   title: string;
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: theme.fontFamily.Pretendard,
     fontSize: theme.fontSize.H2,
-    fontWeight: '700',
+    fontWeight: theme.fontWeight.Bold,
     color: 'black',
   },
   subTitle: {

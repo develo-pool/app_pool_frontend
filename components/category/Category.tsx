@@ -1,7 +1,8 @@
 import React from 'react';
-import {FlatList, StyleSheet, View} from 'react-native';
+import {ScrollView, StyleSheet, useWindowDimensions, View} from 'react-native';
+import {PADDING} from '../MainContainer';
 import Title from '../Title';
-import CategoryItem, {CategoryItemProps} from './CategoryItem';
+import CategoryItem, {BETWEEN, CategoryItemProps} from './CategoryItem';
 import categoryList from './categoryList';
 
 function Category({
@@ -11,32 +12,37 @@ function Category({
   checkedItems: string[];
   checkedItemHandler: any;
 }) {
-  const renderItem = ({item}: {item: CategoryItemProps}) => (
-    <CategoryItem
-      item={item}
-      checkedItemHandler={checkedItemHandler}
-      checkedItems={checkedItems}
-    />
-  );
+  const dimensions = useWindowDimensions();
+  const size = Math.floor((dimensions.width - (PADDING + BETWEEN) * 2) / 3);
 
   return (
-    <View style={styles.block}>
+    <ScrollView showsVerticalScrollIndicator={false} style={styles.block}>
       <Title title="관심 카테고리를" />
       <Title title="최소 3개 선택해 주세요." hasMargin={true} />
-      <FlatList
-        style={styles.list}
-        data={categoryList}
-        renderItem={renderItem}
-        keyExtractor={item => item.id}
-        numColumns={3}
-      />
-    </View>
+      <View style={styles.list}>
+        {categoryList.map((item: CategoryItemProps) => (
+          <CategoryItem
+            item={item}
+            key={item.id}
+            checkedItemHandler={checkedItemHandler}
+            checkedItems={checkedItems}
+            size={size}
+          />
+        ))}
+        <View style={{width: size}} />
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   block: {flex: 1, marginTop: 60},
-  list: {flex: 1},
+  list: {
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+  },
 });
 
 export default Category;

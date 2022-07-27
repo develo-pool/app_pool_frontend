@@ -1,35 +1,29 @@
 import React, {useEffect, useState} from 'react';
-import {
-  Pressable,
-  StyleSheet,
-  Text,
-  useWindowDimensions,
-  View,
-} from 'react-native';
+import {Pressable, StyleSheet, Text, View} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {PADDING} from '../MainContainer';
+import theme from '../../assets/theme';
 
 export interface CategoryItemProps {
   id: string;
   name: string;
 }
 
-const BETWEEN = 40;
+export const BETWEEN = 50;
 
 function CategoryItem({
   item,
   checkedItemHandler,
   checkedItems,
+  size,
 }: {
   item: CategoryItemProps;
   checkedItemHandler: any;
   checkedItems: string[];
+  size: number;
 }) {
-  const dimensions = useWindowDimensions();
-  const size = (dimensions.width - (PADDING + BETWEEN) * 2) / 3;
+  const [isChecked, setIsChecked] = useState(false);
   const id = parseInt(item.id, 10);
   const notLast = id % 3 !== 0;
-  const [isChecked, setIsChecked] = useState(false);
 
   useEffect(() => {
     setIsChecked(checkedItems.includes(item.id));
@@ -42,17 +36,23 @@ function CategoryItem({
   return (
     <Pressable
       key={item.id}
-      style={[{width: size}, styles.container, notLast && styles.margin]}
+      style={[
+        {width: size},
+        styles.container,
+        notLast && {marginRight: BETWEEN},
+      ]}
       onPress={onCheck}>
       <View
         style={[styles.circle, {height: size}, isChecked && styles.checked]}
       />
       {isChecked && (
-        <View style={styles.tag}>
+        <View style={[styles.tag, {top: size - 24}]}>
           <Icon name="check" color="white" size={15} />
         </View>
       )}
-      <Text style={styles.name}>{item.name}</Text>
+      <Text style={[styles.name, isChecked && styles.checkedName]}>
+        {item.name}
+      </Text>
     </Pressable>
   );
 }
@@ -63,27 +63,30 @@ const styles = StyleSheet.create({
     backgroundColor: '#D9D9D9',
     borderRadius: 100,
   },
-  margin: {
-    marginRight: BETWEEN,
-  },
   name: {
     marginTop: 10,
     textAlign: 'center',
+    fontFamily: theme.fontFamily.Pretendard,
+    fontSize: theme.fontSize.P2,
+    fontWeight: theme.fontWeight.Bold,
+    color: theme.colors.Grey50,
   },
   checked: {
     borderWidth: 3,
-    borderColor: 'black',
+    borderColor: theme.colors.Poolgreen,
+  },
+  checkedName: {
+    color: theme.colors.Poolgreen,
   },
   tag: {
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'black',
+    backgroundColor: theme.colors.Poolgreen,
     position: 'absolute',
     borderRadius: 10,
     width: 20,
     height: 20,
-    top: 2,
-    right: 2,
+    right: 4,
   },
 });
 
