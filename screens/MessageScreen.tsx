@@ -25,7 +25,6 @@ function MessageScreen() {
   const [commentText, setCommentText] = useState('');
   const onChangeText = payload => setCommentText(payload);
   const [commentList, setCommentList] = useState({});
-  const [isComment, setIsComment] = useState(false);
 
   const addComments = async () => {
     const writtenTime = Date.now();
@@ -37,7 +36,6 @@ function MessageScreen() {
       [tester.userName]: {commentText, tester, writtenTime},
     };
     setCommentList(newComments);
-    setIsComment(true);
     setCommentText('');
   };
   return (
@@ -60,30 +58,13 @@ function MessageScreen() {
 
       <View>
         {/* <ScrollView style={styles.scrollview}> */}
-        {tester.isBrand ? (
-          null
-        ) : (<InputCommentContainer
-        commentText={commentText}
-        onChangeText={onChangeText}
-        isComment={Object.keys(commentList).length === 0 ? false : true}
-        addComments={addComments}
-      />
-        
-        
-        // Object.keys(commentList).length === 0 ? (
-        // <InputCommentContainer
-        //   commentText={commentText}
-        //   onChangeText={onChangeText}
-        //   isComment={false}
-        //   addComments={addComments}
-        // />) : (
-        //   <InputCommentContainer
-        //     commentText={commentText}
-        //     onChangeText={onChangeText}
-        //     isComment={true}
-        //     addComments={addComments}
-        //   />
-          
+        {tester.isBrand ? null : (
+          <InputCommentContainer
+            commentText={commentText}
+            onChangeText={onChangeText}
+            isComment={Object.keys(commentList).length === 0 ? false : true}
+            addComments={addComments}
+          />
         )}
         {/* </ScrollView> */}
       </View>
