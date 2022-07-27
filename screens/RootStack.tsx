@@ -7,12 +7,18 @@ import SignUpScreen from './SignUpScreen';
 import MessageScreen from './MessageScreen';
 import CreateMessageScreen from './CreateMsgScreen';
 import GuideScreen from './GuideScreen';
+import WelcomeScreen from './WelcomeScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootStack() {
   return (
-    <Stack.Navigator initialRouteName="MainTab">
+    <Stack.Navigator initialRouteName="Welcome">
+      <Stack.Screen
+        name="Welcome"
+        component={WelcomeScreen}
+        options={{headerShown: false}}
+      />
       <Stack.Screen
         name="MainTab"
         component={MainTab}
@@ -21,7 +27,7 @@ function RootStack() {
       <Stack.Screen
         name="Login"
         component={LoginScreen}
-        options={{headerTitle: () => <></>}}
+        options={{headerShown: false}}
       />
       <Stack.Screen name="SignUp" component={SignUpScreen} />
       <Stack.Screen

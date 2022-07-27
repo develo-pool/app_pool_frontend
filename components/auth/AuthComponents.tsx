@@ -17,18 +17,26 @@ export function AuthButton({
   text,
   disabled,
   onPress,
+  welcome,
 }: {
   text: string;
   disabled?: boolean;
   onPress?: (event: GestureResponderEvent) => void;
+  welcome?: boolean;
 }) {
   return (
     <View style={styles.block}>
       <Pressable
         onPress={onPress}
-        style={[styles.checkButton, disabled && styles.disabled]}
+        style={[
+          styles.checkButton,
+          disabled && styles.disabled,
+          welcome && styles.welcome,
+        ]}
         android_ripple={{color: 'rgba(255,255,255,0.1)'}}>
-        <Text style={styles.innerText}>{text}</Text>
+        <Text style={[styles.innerText, welcome && styles.welcomeText]}>
+          {text}
+        </Text>
       </Pressable>
     </View>
   );
@@ -100,7 +108,7 @@ const styles = StyleSheet.create({
     fontFamily: theme.fontFamily.Pretendard,
   },
   checkButton: {
-    height: 48,
+    paddingVertical: 13.5,
     paddingHorizontal: 20,
     marginLeft: 8,
     borderRadius: 4,
@@ -157,5 +165,12 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     marginRight: 10,
+  },
+  welcome: {
+    marginLeft: 0,
+    paddingVertical: 16,
+  },
+  welcomeText: {
+    fontSize: theme.fontSize.H5,
   },
 });
