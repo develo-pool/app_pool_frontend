@@ -15,9 +15,9 @@ interface User {
 function MessageHeader({user, isDetailMessage, msgDate}: Props) {
   return (
     // 댓글 작성 여부에 따라 메시지스크린 -> 입력창 포커스를 잡아주는 컴포넌트
-    <TouchableOpacity>
+    <TouchableOpacity style={styles.messageHeader}>
       {isDetailMessage ? (
-        <View style={styles.authorProfile}>
+        <View style={styles.detailHeader}>
           <Image
             style={styles.authorProfileImg}
             source={{uri: `${user.profileImg}`}}
@@ -37,7 +37,6 @@ function MessageHeader({user, isDetailMessage, msgDate}: Props) {
             />
             <Text style={styles.feedOwnerUsername}>{user.name}</Text>
           </View>
-          <Text style={styles.feedDate}>방금 전</Text>
         </View>
       )}
     </TouchableOpacity>
@@ -45,6 +44,9 @@ function MessageHeader({user, isDetailMessage, msgDate}: Props) {
 }
 
 const styles = StyleSheet.create({
+  messageHeader: {
+    flex: 0.5,
+  },
   feedHeader: {
     width: '100%',
     flexDirection: 'row',
@@ -73,7 +75,7 @@ const styles = StyleSheet.create({
     opacity: 0.4,
   },
 
-  authorProfile: {
+  detailHeader: {
     // backgroundColor: '#333333',
     flex: 1,
     flexDirection: 'row',

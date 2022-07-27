@@ -1,54 +1,74 @@
-import React from 'react';
-import {ScrollView, StyleSheet, View} from 'react-native';
-import BorderLine from '../components/message/BorderLine';
+import React, {useState} from 'react';
+import {
+  // ScrollView,
+  StyleSheet,
+  View,
+} from 'react-native';
+// import BorderLine from '../components/message/BorderLine';
 import Comment from '../components/message/Comment';
-import CommentBar from '../components/message/CommentBar';
+// import CommentBar from '../components/message/CommentBar';
 import DetailMessageContainer from '../components/message/DetailMessageContainer';
 import InputCommentContainer from '../components/message/InputCommentContainer';
-import ScreenBottomButton from '../components/ScreenBottomButton';
 
 interface User {
   isBrand: boolean;
-  isWriteComment: boolean;
+  userName: string;
+  userProfileImg: string;
 }
 const tester: User = {
   isBrand: false,
-  isWriteComment: true,
+  userName: '진세',
+  userProfileImg: 'https://img.hankyung.com/photo/202111/03.28096495.1.jpg',
 };
 
 function MessageScreen() {
-  // const [msgImgHeight, setmsgImgHeight] = useState(0);
-  // const { width } = Dimensions.get('window');
+  const [commentText, setCommentText] = useState('');
+  const onChangeText = payload => setCommentText(payload);
+  const [commentList, setCommentList] = useState({});
+
+  const addComments = async () => {
+    const writtenTime = Date.now();
+    if (commentText === '') {
+      return;
+    }
+    const newComments = {
+      ...commentList,
+      [tester.userName]: {commentText, tester, writtenTime},
+    };
+    setCommentList(newComments);
+    setCommentText('');
+  };
   return (
-    <>
-      <View style={styles.container}>
-        <ScrollView style={styles.scrollview}>
-          <DetailMessageContainer user={undefined} message={undefined} />
+    <View style={styles.container}>
+      <DetailMessageContainer user={undefined} message={undefined} />
 
-          <BorderLine />
+      {/* <BorderLine /> */}
 
-          <CommentBar commentCount={927} />
-
+      {/* <CommentBar commentCount={927} /> */}
+      {Object.keys(commentList).map(key => (
+        <View key={key}>
           <Comment
-            user={undefined}
-            commentText="프론트짱 다인님의 기운을 받아 햅삐ㅣㅣㅣㅣㅣㅣ"
-            commentDate={Date.now()}
+            text={commentList[key].commentText}
+            userName={commentList[key].tester.userName}
+            userProfileImg={commentList[key].tester.userProfileImg}
+            writenCommentTime={commentList[key].writtenTime}
           />
+        </View>
+      ))}
 
-          {tester.isBrand ? (
-            ''
-          ) : tester.isWriteComment ? (
-            <InputCommentContainer />
-          ) : (
-            <ScreenBottomButton
-              name="답장하기"
-              enabled={true}
-              onPress={function (): void {}}
-            />
-          )}
-        </ScrollView>
+      <View>
+        {/* <ScrollView style={styles.scrollview}> */}
+        {tester.isBrand ? null : (
+          <InputCommentContainer
+            commentText={commentText}
+            onChangeText={onChangeText}
+            isComment={Object.keys(commentList).length === 0 ? false : true}
+            addComments={addComments}
+          />
+        )}
+        {/* </ScrollView> */}
       </View>
-    </>
+    </View>
   );
 }
 

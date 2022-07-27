@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View, TouchableOpacity} from 'react-native';
+import {StyleSheet, View, TouchableOpacity, Text} from 'react-native';
 import CommentFocusButton from './feed/CommentFocusButton';
 import MessageLink from './feed/MessageLink';
 import MessageImg from './feed/MessageImg';
@@ -81,6 +81,7 @@ function Feed({user = doha, message = test, isFeedScreen = true}: Props) {
             <MessageLink messageLink={`${test.msgLink}`} />
           )}
         </View>
+        <Text style={styles.msgDate}>{message.msgDate}</Text>
       </TouchableOpacity>
       {/* 답장을 보냈는지 체크 */}
       {/* 요친구는 나중에 인풋박스 포커스까지 씌워줄거에요 */}
@@ -94,6 +95,7 @@ const styles = StyleSheet.create({
     margin: 15,
     backgroundColor: 'white',
     borderRadius: 10,
+    flex: 1,
   },
   feedHeader: {
     width: '100%',
@@ -134,6 +136,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-end',
     padding: 10,
+  },
+  msgDate: {
+    fontSize: 12,
+    color: '#C4C4C4',
   },
 });
 

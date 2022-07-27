@@ -1,38 +1,24 @@
 import React from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
 
-interface Props {
-  user: User | undefined;
-  commentText: string;
-  commentDate: number;
-}
-// 얘네는 코멘트를 작성한 유저들 !
-interface User {
-  name: string;
-  profileImg: string;
-}
-// 유저 예시를 위한 dain 객체
-const beom: User = {
-  name: '다인님 제발',
-  profileImg: 'https://reactnative.dev/img/tiny_logo.png',
-};
 // 사용 시에는 user 프롭스를 아래에 넣어주세용
-function Comment({commentText, commentDate}: Props) {
+function Comment({text, userName, userProfileImg, writenCommentTime}) {
   return (
     <View>
       <View style={styles.commentUser}>
         <View style={styles.align}>
           <Image
             style={styles.commentProfileImg}
-            source={{uri: `${beom.profileImg}`}}
+            source={{uri: `${userProfileImg}`}}
           />
-          <Text>{beom.name}</Text>
+          <Text>{userName}</Text>
         </View>
-        <Text style={styles.align}>{commentDate}</Text>
+        {/* <Text style={styles.align}>{comments[0]}</Text> */}
       </View>
 
       <View style={styles.commentText}>
-        <Text>{commentText}</Text>
+        <Text>{text}</Text>
+        <Text>{writenCommentTime}</Text>
       </View>
     </View>
   );
