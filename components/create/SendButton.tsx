@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text, Pressable, StyleSheet} from 'react-native';
-import theme from '../../theme';
+import theme from '../../assets/theme';
 
 export function SendButton({
   text,
