@@ -67,8 +67,6 @@ function SignUpScreen() {
     category: [],
   });
 
-  console.log(form);
-
   const [temp, setTemp] = useState<TempProps>({
     firstState: 'default',
     authNumber: '',
