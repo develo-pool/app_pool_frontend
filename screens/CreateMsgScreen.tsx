@@ -4,26 +4,21 @@ import {
   View,
   StyleSheet,
   TextInput,
-  TouchableOpacity,
   Pressable,
+  TouchableOpacity,
   Image,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-import {RootStackNavigationProp} from './types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import theme from '../theme';
 import Title from '../components/Title';
 
 function CreateMessageScreen() {
-  const navigation = useNavigation<RootStackNavigationProp>();
-  //   const [form, setForm] = useState({message: ''});
-
   return (
     <>
       <View style={styles.UpperArea}>
         <View style={styles.TitleArea}>
-          <Title title="메시지 작성" />
-          <Icon name="clear" size={32} color={theme.colors.Black} />
+          <Title title="메시지 작성" titleSize="H5" />
+          <Icon name="clear" size={24} color={theme.colors.Black} />
         </View>
         <View style={styles.Info}>
           <View style={styles.BrandInfo}>
@@ -46,9 +41,9 @@ function CreateMessageScreen() {
             <Icon name="photo-camera" size={28} style={styles.Camera} />
             <Icon name="insert-link" size={28} style={styles.Link} />
           </View>
-          <Pressable style={styles.SendButton}>
+          <TouchableOpacity style={styles.SendButton}>
             <Text style={styles.Send}>발송하기</Text>
-          </Pressable>
+          </TouchableOpacity>
         </View>
       </View>
     </>
@@ -68,6 +63,7 @@ const styles = StyleSheet.create({
   TitleArea: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
   },
   Info: {
     flexDirection: 'row',
@@ -103,7 +99,6 @@ const styles = StyleSheet.create({
     fontFamily: theme.fontFamily.Pretendard,
     fontSize: theme.fontSize.P1,
     fontWeight: '400',
-    backgroundColor: theme.colors.Poolgreen,
   },
   Line: {
     height: 1,

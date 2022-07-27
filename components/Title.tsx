@@ -7,12 +7,21 @@ interface Props {
   alignCenter?: boolean;
   subTitle?: string;
   hasMargin?: boolean;
+  titleSize: 'H1' | 'H2' | 'H3' | 'H4' | 'H5';
 }
 
-function Title({title, alignCenter = false, subTitle, hasMargin}: Props) {
+function Title({
+  title,
+  alignCenter = false,
+  subTitle,
+  hasMargin,
+  titleSize,
+}: Props) {
   return (
     <View style={[alignCenter && styles.center, hasMargin && styles.margin]}>
-      <Text style={styles.title}>{title}</Text>
+      <Text style={[{fontSize: theme.fontSize[titleSize]}, styles.title]}>
+        {title}
+      </Text>
       {subTitle && <Text style={styles.subTitle}>{subTitle}</Text>}
     </View>
   );
@@ -20,7 +29,6 @@ function Title({title, alignCenter = false, subTitle, hasMargin}: Props) {
 
 const styles = StyleSheet.create({
   title: {
-    fontSize: theme.fontSize.H2,
     fontFamily: theme.fontFamily.Pretendard,
     fontWeight: '700',
     color: 'black',
