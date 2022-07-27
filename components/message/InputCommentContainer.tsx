@@ -4,7 +4,7 @@ import {StyleSheet, View, TextInput} from 'react-native';
 function InputCommentContainer({
   commentText,
   onChangeText,
-  isWriteComment,
+  isComment,
   addComments,
 }) {
   return (
@@ -15,12 +15,12 @@ function InputCommentContainer({
         onSubmitEditing={addComments}
         returnKeyType="done"
         placeholder={
-          isWriteComment
+          isComment
             ? '이미 작성한 메시지입니다.'
             : '채팅은 1회만 발송할 수 있습니다.'
         }
         style={styles.input}
-        editable={!isWriteComment}
+        editable={!isComment}
       />
     </View>
   );

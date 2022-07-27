@@ -24,20 +24,20 @@ const tester: User = {
 function MessageScreen() {
   const [commentText, setCommentText] = useState('');
   const onChangeText = payload => setCommentText(payload);
-  const [comments, setComments] = useState({});
-  const [isWriteComment, setIsWriteComment] = useState(false);
+  const [commentList, setCommentList] = useState({});
+  const [isComment, setIsComment] = useState(false);
 
   const addComments = async () => {
-    const written = Date.now();
+    const writtenTime = Date.now();
     if (commentText === '') {
       return;
     }
     const newComments = {
-      ...comments,
-      [tester.userName]: {commentText, tester, written},
+      ...commentList,
+      [tester.userName]: {commentText, tester, writtenTime},
     };
-    setComments(newComments);
-    setIsWriteComment(true);
+    setCommentList(newComments);
+    setIsComment(true);
     setCommentText('');
   };
   return (
@@ -47,13 +47,13 @@ function MessageScreen() {
       {/* <BorderLine /> */}
 
       {/* <CommentBar commentCount={927} /> */}
-      {Object.keys(comments).map(key => (
+      {Object.keys(commentList).map(key => (
         <View key={key}>
           <Comment
-            text={comments[key].commentText}
-            userName={comments[key].tester.userName}
-            userProfileImg={comments[key].tester.userProfileImg}
-            writenCommentTime={comments[key].written}
+            text={commentList[key].commentText}
+            userName={commentList[key].tester.userName}
+            userProfileImg={commentList[key].tester.userProfileImg}
+            writenCommentTime={commentList[key].writtenTime}
           />
         </View>
       ))}
@@ -66,7 +66,7 @@ function MessageScreen() {
           <InputCommentContainer
             commentText={commentText}
             onChangeText={onChangeText}
-            isWriteComment={isWriteComment}
+            isComment={isComment}
             addComments={addComments}
           />
         )}
