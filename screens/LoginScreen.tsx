@@ -1,82 +1,102 @@
-import React, {useRef, useState} from 'react';
-import {Pressable, StyleSheet, Text, TextInput, View} from 'react-native';
+import React, {useState} from 'react';
+import {Pressable, StyleSheet, Text, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {RootStackNavigationProp} from './types';
 import MainContainer from '../components/MainContainer';
-import ScreenBottomButton from '../components/ScreenBottomButton';
 import Title from '../components/Title';
-import {InputTitle} from '../components/auth/AuthComponents';
+import {AuthButton, InputTitle} from '../components/auth/AuthComponents';
+import TextInputs from '../components/TextInputs';
+import theme from '../assets/theme';
 
 function LoginScreen() {
   const navigation = useNavigation<RootStackNavigationProp>();
   const [form, setForm] = useState({
-    phoneNum: '',
+    username: '',
     password: '',
   });
-
   const createChangeTextHandler = (name: string) => (value: string) => {
     setForm({...form, [name]: value});
   };
 
-  const passwordRef = useRef<TextInput | null>(null);
-
   return (
-    <>
-      <MainContainer>
-        <View style={styles.block}>
-          <Title title="로그인" />
-          <InputTitle title="휴대전화" />
-          <TextInput
-            style={styles.input}
-            value={form.phoneNum}
-            placeholder="'-'빼고 입력"
-            onChangeText={createChangeTextHandler('phoneNum')}
-            onSubmitEditing={() => passwordRef.current?.focus()}
-            returnKeyType="next"
-          />
-          <InputTitle title="비밀번호" />
-          <TextInput
-            style={styles.input}
-            value={form.password}
-            placeholder="비밀번호 입력"
-            onChangeText={createChangeTextHandler('password')}
-            secureTextEntry={true}
-            ref={passwordRef}
-          />
-          <View style={styles.wrapper}>
-            <Pressable
-              onPress={() => navigation.navigate('SignUp', {current: 0})}>
-              <Text>회원가입</Text>
-            </Pressable>
-            <Text> | </Text>
-            <Pressable>
-              <Text>비밀번호 찾기</Text>
-            </Pressable>
-          </View>
-        </View>
-      </MainContainer>
-      <ScreenBottomButton
-        name="로그인"
-        onPress={() => navigation.navigate('SignUp', {current: 0})}
-        enabled={Boolean(form.phoneNum) && Boolean(form.password)}
+    <MainContainer>
+      <View style={styles.title}>
+        <Title title="환영합니다!" subTitle="소통의 POOL에 빠져보세요" />
+      </View>
+      <InputTitle title="아이디" />
+      <View style={[styles.row, styles.margin]}>
+        <TextInputs
+          value={form.username}
+          placeholder="아이디 입력"
+          onChangeText={createChangeTextHandler('username')}
+        />
+      </View>
+      <InputTitle title="비밀번호" />
+      <View style={styles.row}>
+        <TextInputs
+          type={
+            form.password.length > 7 || !form.password ? 'default' : 'error'
+          }
+          alert={
+            form.password.length > 7 || !form.password
+              ? undefined
+              : {type: 'Error', text: '최소 8자 이상 입력해주세요.'}
+          }
+          value={form.password}
+          placeholder="비밀번호 입력"
+          onChangeText={createChangeTextHandler('password')}
+          secureTextEntry={true}
+        />
+      </View>
+      <View style={styles.passwordContainer}>
+        <Pressable onPress={() => navigation.push('Password')}>
+          <Text style={[styles.subText, styles.bold]}>비밀번호 찾기</Text>
+        </Pressable>
+      </View>
+      <AuthButton
+        text="로그인"
+        welcome={true}
+        disabled={!(form.username && form.password.length > 7)}
       />
-    </>
+      <View style={styles.container}>
+        <Text style={styles.subText}>아직 회원이 아니신가요?</Text>
+        <Pressable onPress={() => navigation.push('SignUp', {current: 0})}>
+          <Text style={[styles.subText, styles.bold]}>회원가입</Text>
+        </Pressable>
+      </View>
+    </MainContainer>
   );
 }
 
 const styles = StyleSheet.create({
-  block: {flex: 1, justifyContent: 'space-around'},
-  wrapper: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
+  title: {
+    marginTop: 120,
+    marginBottom: 60,
   },
-  input: {
-    borderWidth: 1,
-    borderColor: '#BABABA',
-    backgroundColor: 'white',
-    marginBottom: 30,
-    paddingHorizontal: 12,
+  subText: {
+    fontFamily: theme.fontFamily.Pretendard,
+    fontSize: theme.fontSize.P2,
+  },
+  bold: {
+    marginLeft: 8,
+    fontWeight: theme.fontWeight.Bold,
+  },
+  container: {
+    marginTop: 13,
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  passwordContainer: {
+    alignSelf: 'flex-end',
+    marginBottom: 24,
+  },
+  row: {
+    flexDirection: 'row',
+    marginBottom: 8,
+    minHeight: 48,
+  },
+  margin: {
+    marginBottom: 32,
   },
 });
 
