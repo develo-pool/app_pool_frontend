@@ -61,14 +61,29 @@ function MessageScreen() {
       <View>
         {/* <ScrollView style={styles.scrollview}> */}
         {tester.isBrand ? (
-          ''
-        ) : (
-          <InputCommentContainer
-            commentText={commentText}
-            onChangeText={onChangeText}
-            isComment={isComment}
-            addComments={addComments}
-          />
+          null
+        ) : (<InputCommentContainer
+        commentText={commentText}
+        onChangeText={onChangeText}
+        isComment={Object.keys(commentList).length === 0 ? false : true}
+        addComments={addComments}
+      />
+        
+        
+        // Object.keys(commentList).length === 0 ? (
+        // <InputCommentContainer
+        //   commentText={commentText}
+        //   onChangeText={onChangeText}
+        //   isComment={false}
+        //   addComments={addComments}
+        // />) : (
+        //   <InputCommentContainer
+        //     commentText={commentText}
+        //     onChangeText={onChangeText}
+        //     isComment={true}
+        //     addComments={addComments}
+        //   />
+          
         )}
         {/* </ScrollView> */}
       </View>
