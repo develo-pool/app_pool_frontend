@@ -12,13 +12,14 @@ export type MainTabParamList = {
 
 /* RootStack */
 export type RootStackParamList = {
-  Setting: SettingStackParamList;
+  Welcome: undefined;
   MainTab: undefined;
   Login: undefined;
   SignUp: {current: number};
   Guide: undefined;
   Message: undefined;
   CreateMessage: undefined;
+  Setting: SettingStackParamList;
 };
 
 /* SettingStack */
