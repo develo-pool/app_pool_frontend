@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     textAlign: 'center',
     fontFamily: theme.fontFamily.Pretendard,
-    fontSize: theme.fontSize.P2,
+    fontSize: 13,
     fontWeight: theme.fontWeight.Bold,
     color: theme.colors.Grey50,
   },
