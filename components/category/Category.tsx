@@ -1,5 +1,5 @@
 import React from 'react';
-import {FlatList, StyleSheet} from 'react-native';
+import {FlatList, StyleSheet, View} from 'react-native';
 import Title from '../Title';
 import CategoryItem, {CategoryItemProps} from './CategoryItem';
 import categoryList from './categoryList';
@@ -20,23 +20,23 @@ function Category({
   );
 
   return (
-    <>
-      <Title title="콘텐츠 카테고리" alignCenter={true} />
-      <Title title="최소 3개 이상 선택해 주세요." alignCenter={true} />
+    <View style={styles.block}>
+      <Title title="관심 카테고리를" />
+      <Title title="최소 3개 선택해 주세요." hasMargin={true} />
       <FlatList
-        style={styles.block}
+        style={styles.list}
         data={categoryList}
         renderItem={renderItem}
         keyExtractor={item => item.id}
         numColumns={3}
-        showsVerticalScrollIndicator={false}
       />
-    </>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  block: {flex: 1},
+  block: {flex: 1, marginTop: 60},
+  list: {flex: 1},
 });
 
 export default Category;

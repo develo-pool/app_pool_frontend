@@ -26,7 +26,6 @@ export type SettingStackParamList = {
   Setting: undefined;
   Login: undefined;
   FollowingList: undefined;
-  Category: undefined;
   BrandAssign: {current: number};
   BrandAssignGuide: undefined;
   BrandAssignComplete: undefined;
