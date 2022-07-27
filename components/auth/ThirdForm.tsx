@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useQuery} from 'react-query';
 import {nickNameExist, SignUpParams, usernameExist} from '../../api/auth';
 import {TempProps} from '../../screens/SignUpScreen';
-import theme from '../../theme';
+import theme from '../../assets/theme';
 import TextInputs from '../TextInputs';
 import Title from '../Title';
 import {AuthButton, CheckBox, InputTitle} from './AuthComponents';

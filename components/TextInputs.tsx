@@ -7,7 +7,7 @@ import {
   Text,
   KeyboardTypeOptions,
 } from 'react-native';
-import theme from '../theme';
+import theme from '../assets/theme';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 interface Props {

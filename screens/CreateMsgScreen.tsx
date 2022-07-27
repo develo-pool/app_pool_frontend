@@ -9,7 +9,7 @@ import {
   Image,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import theme from '../theme';
+import theme from '../assets/theme';
 import Title from '../components/Title';
 
 function CreateMessageScreen() {

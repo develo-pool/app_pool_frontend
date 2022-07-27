@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import theme from '../../theme';
+import theme from '../../assets/theme';
 
 export interface CategoryItemProps {
   id: string;

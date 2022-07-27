@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Text, View, StyleSheet, Pressable, Image, Switch} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import theme from './../theme';
+import theme from '../assets/theme';
 import JoinBrandContainer from '../components/setting/JoinBrand';
 import SetArticle from './../components/setting/SetArticle';
 import {SettingStackNavigationProp} from './types';
