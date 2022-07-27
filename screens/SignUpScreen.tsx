@@ -10,7 +10,7 @@ import useSignUp from '../hooks/useSignUp';
 import {SignUpParams} from '../api/auth';
 import SignUpScreenBottomButton from '../components/auth/SignUpScreenBottomButton';
 
-const TOTAL = 3;
+const TOTAL = 4;
 
 type SignUpScreenRouteProp = RouteProp<RootStackParamList, 'SignUp'>;
 
@@ -64,7 +64,10 @@ function SignUpScreen() {
     birthDay: '',
     termAgreement: false,
     privacyAgreement: false,
+    category: [],
   });
+
+  console.log(form);
 
   const [temp, setTemp] = useState<TempProps>({
     firstState: 'default',
@@ -75,11 +78,21 @@ function SignUpScreen() {
     nickNameChecked: undefined,
   });
 
-  const createChangeTextHandler = (name: string) => (value: string) => {
-    if (name in form) {
-      setForm({...form, [name]: value});
-    } else if (name in temp) {
-      setTemp({...temp, [name]: value});
+  const createChangeTextHandler =
+    (name: string) => (value: string | string[]) => {
+      if (name in form) {
+        setForm({...form, [name]: value});
+      } else if (name in temp) {
+        setTemp({...temp, [name]: value});
+      }
+    };
+
+  const checkedItemHandler = (name: string, isChecked: boolean) => {
+    if (isChecked) {
+      createChangeTextHandler('category')([...form.category, name]);
+    } else if (!isChecked && form.category.find(i => i === name)) {
+      const nextCheckedItems = form.category.filter(i => i !== name);
+      createChangeTextHandler('category')(nextCheckedItems);
     }
   };
 
@@ -92,10 +105,11 @@ function SignUpScreen() {
 
   return (
     <>
-      <MainContainer type={current !== 2 ? 'wide' : undefined}>
+      <MainContainer type={current < 2 ? 'wide' : undefined}>
         <SignUpForm
           current={current}
           createChangeTextHandler={createChangeTextHandler}
+          checkedItemHandler={checkedItemHandler}
           form={form}
           temp={temp}
           setTemp={setTemp}

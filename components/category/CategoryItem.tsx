@@ -28,7 +28,7 @@ function CategoryItem({
   const dimensions = useWindowDimensions();
   const size = (dimensions.width - (PADDING + BETWEEN) * 2) / 3;
   const id = parseInt(item.id, 10);
-  const notLast = id % 3 !== 2;
+  const notLast = id % 3 !== 0;
   const [isChecked, setIsChecked] = useState(false);
 
   useEffect(() => {

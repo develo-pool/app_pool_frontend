@@ -39,6 +39,7 @@ export interface SignUpParams {
   birthDay: string;
   termAgreement: boolean;
   privacyAgreement: boolean;
+  category: string[];
 }
 
 interface LoginParams {

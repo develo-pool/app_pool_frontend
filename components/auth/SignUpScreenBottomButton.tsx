@@ -53,6 +53,16 @@ function SignUpScreenBottomButton({
           enabled={SecondFormValid}
         />
       );
+    case 2:
+      return (
+        <ScreenBottomButton
+          name="다음"
+          onPress={() => {
+            navigation.navigate('SignUp', {current: current + 1});
+          }}
+          enabled={ThirdFormValid}
+        />
+      );
     default:
       return (
         <ScreenBottomButton
@@ -61,7 +71,7 @@ function SignUpScreenBottomButton({
             onPress();
             // navigation.navigate('Guide');
           }}
-          enabled={ThirdFormValid}
+          enabled={form.category.length > 2}
         />
       );
   }
