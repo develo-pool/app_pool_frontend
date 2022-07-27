@@ -47,6 +47,8 @@ const styles = StyleSheet.create({
     marginTop: 40,
   },
   text: {
+    fontFamily: theme.fontFamily.Pretendard,
+    fontSize: theme.fontSize.P1,
     color: theme.colors.Grey50,
     marginTop: 24,
   },

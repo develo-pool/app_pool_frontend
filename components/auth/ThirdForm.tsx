@@ -257,8 +257,9 @@ const styles = StyleSheet.create({
     marginBottom: 2,
   },
   alert: {
+    fontFamily: theme.fontFamily.Pretendard,
+    fontSize: theme.fontSize.P3,
     marginBottom: 30,
-    fontSize: 12,
     marginLeft: 6,
   },
   input: {
@@ -275,7 +276,8 @@ const styles = StyleSheet.create({
     paddingLeft: 6,
   },
   guide: {
-    fontSize: 12,
+    fontFamily: theme.fontFamily.Pretendard,
+    fontSize: theme.fontSize.P3,
   },
   check: {
     width: 18,

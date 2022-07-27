@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     color: theme.colors.Grey50,
   },
   checked: {
-    borderWidth: 3,
+    borderWidth: 2,
     borderColor: theme.colors.Poolgreen,
   },
   checkedName: {
