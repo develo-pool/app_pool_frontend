@@ -7,7 +7,7 @@ import {
   View,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {MARGIN} from '../MainContainer';
+import {PADDING} from '../MainContainer';
 
 export interface CategoryItemProps {
   id: string;
@@ -26,9 +26,9 @@ function CategoryItem({
   checkedItems: string[];
 }) {
   const dimensions = useWindowDimensions();
-  const size = (dimensions.width - (MARGIN + BETWEEN) * 2) / 3;
+  const size = (dimensions.width - (PADDING + BETWEEN) * 2) / 3;
   const id = parseInt(item.id, 10);
-  const notLast = id % 3 !== 2;
+  const notLast = id % 3 !== 0;
   const [isChecked, setIsChecked] = useState(false);
 
   useEffect(() => {

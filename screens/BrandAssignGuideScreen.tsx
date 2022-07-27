@@ -4,10 +4,10 @@ import {Text} from 'react-native';
 import MainContainer from '../components/MainContainer';
 import ScreenBottomButton from '../components/ScreenBottomButton';
 import Title from '../components/Title';
-import {RootStackNavigationProp} from './types';
+import {SettingStackNavigationProp} from './types';
 
 function BrandAssignGuideScreen() {
-  const navigation = useNavigation<RootStackNavigationProp>();
+  const navigation = useNavigation<SettingStackNavigationProp>();
   return (
     <>
       <MainContainer>

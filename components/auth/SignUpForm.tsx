@@ -2,6 +2,7 @@ import React from 'react';
 import {ScrollView} from 'react-native';
 import {SignUpParams} from '../../api/auth';
 import {TempProps} from '../../screens/SignUpScreen';
+import Category from '../category/Category';
 import FirstForm from './FirstForm';
 import SecondForm from './SecondForm';
 import ThirdForm from './ThirdForm';
@@ -9,12 +10,14 @@ import ThirdForm from './ThirdForm';
 const SignUpForm = ({
   current,
   createChangeTextHandler,
+  checkedItemHandler,
   form,
   temp,
   setTemp,
 }: {
   current: number;
   createChangeTextHandler: any;
+  checkedItemHandler: any;
   form: SignUpParams;
   temp: TempProps;
   setTemp: any;
@@ -31,7 +34,7 @@ const SignUpForm = ({
       );
     case 1:
       return <SecondForm onChangeText={createChangeTextHandler} form={form} />;
-    default:
+    case 2:
       return (
         <ScrollView
           showsVerticalScrollIndicator={false}
@@ -40,6 +43,15 @@ const SignUpForm = ({
             onChangeText={createChangeTextHandler}
             temp={temp}
             form={form}
+          />
+        </ScrollView>
+      );
+    default:
+      return (
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <Category
+            checkedItems={form.category}
+            checkedItemHandler={checkedItemHandler}
           />
         </ScrollView>
       );
