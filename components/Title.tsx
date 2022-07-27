@@ -33,9 +33,10 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   subTitle: {
-    fontSize: 16,
-    color: 'black',
-    opacity: 0.4,
+    fontFamily: theme.fontFamily.Pretendard,
+    fontSize: theme.fontSize.P1,
+    fontWeight: theme.fontWeight.Light,
+    color: theme.colors.Grey40,
   },
   center: {
     alignItems: 'center',
