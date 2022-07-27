@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
     width: 320,
   },
   SetText: {
+    fontFamily: theme.fontFamily.Pretendard,
     color: theme.colors.Grey60,
     fontSize: 14,
     fontWeight: '700',

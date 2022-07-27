@@ -30,7 +30,11 @@ function RootStack() {
         options={{headerShown: false}}
       />
       <Stack.Screen name="Message" component={MessageScreen} />
-      <Stack.Screen name="CreateMessage" component={CreateMessageScreen} />
+      <Stack.Screen
+        name="CreateMessage"
+        component={CreateMessageScreen}
+        options={{headerShown: false}}
+      />
     </Stack.Navigator>
   );
 }

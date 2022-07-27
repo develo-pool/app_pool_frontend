@@ -43,11 +43,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   JoinBrandTitle: {
+    fontFamily: theme.fontFamily.Pretendard,
     fontSize: 14,
     fontWeight: '700',
     color: theme.colors.Poolblue,
   },
   JoinBrandIntro: {
+    fontFamily: theme.fontFamily.Pretendard,
     fontSize: 12,
     fontWeight: '400',
     color: theme.colors.Deepblue,
