@@ -3,7 +3,7 @@ import {AuthResult, User} from './types';
 
 export async function signUp(params: SignUpParams) {
   const response = await client.post<AuthResult>('/signUp', params);
-  return response;
+  return JSON.parse(response.config.data);
 }
 
 export async function login(params: LoginParams) {
@@ -42,7 +42,7 @@ export interface SignUpParams {
   category: string[];
 }
 
-interface LoginParams {
+export interface LoginParams {
   username: string;
   password: string;
 }

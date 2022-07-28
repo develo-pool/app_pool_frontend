@@ -9,7 +9,6 @@ import {RootStackNavigationProp} from './types';
 
 function GuideScreen() {
   const navigation = useNavigation<RootStackNavigationProp>();
-
   return (
     <View style={styles.background}>
       <Title title="POOL 사용법" alignCenter={true} />
@@ -17,7 +16,7 @@ function GuideScreen() {
       <MainContainer>{}</MainContainer>
       <ScreenBottomButton
         name="건너뛰기"
-        onPress={() => navigation.navigate('Category')}
+        onPress={() => navigation.navigate('MainTab')}
       />
     </View>
   );
