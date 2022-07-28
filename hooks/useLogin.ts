@@ -5,6 +5,7 @@ import {useDispatch} from 'react-redux';
 import {authorize} from '../slices/auth';
 import {useNavigation} from '@react-navigation/native';
 import {RootStackNavigationProp} from '../screens/types';
+import {applyToken} from '../api/client';
 
 export default function useLogin() {
   const navigation = useNavigation<RootStackNavigationProp>();
@@ -18,6 +19,7 @@ export default function useLogin() {
           userStatus: data.role,
         }),
       );
+      applyToken(data.authorization);
       navigation.navigate('MainTab');
     },
     onError: (error: AuthError) => {
