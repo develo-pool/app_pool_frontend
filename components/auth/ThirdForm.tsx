@@ -25,8 +25,8 @@ function ThirdForm({
   form: SignUpParams;
   temp: TempProps;
 }) {
-  const {refetch: refetchUsername} = useQuery(
-    'usernameExist',
+  const {refetch: refetchUsername, isLoading: usernameLoading} = useQuery(
+    ['usernameExist', form.username],
     () => {
       usernameExist(form.username).then((value: boolean) => {
         onChangeText('usernameChecked')(!value);
@@ -36,8 +36,8 @@ function ThirdForm({
       enabled: false,
     },
   );
-  const {refetch: refetchNickname} = useQuery(
-    'nickNameExist',
+  const {refetch: refetchNickname, isLoading: nickNameLoading} = useQuery(
+    ['nickNameExist', form.nickName],
     () => {
       nickNameExist(form.nickName).then((value: boolean) => {
         onChangeText('nickNameChecked')(!value);
@@ -47,6 +47,7 @@ function ThirdForm({
       enabled: false,
     },
   );
+
   const [passwordGuideVisible, setPasswordGuideVisible] =
     useState<boolean>(false);
   const [termModalVisible, setTermModalVisible] = useState<boolean>(false);
@@ -100,6 +101,7 @@ function ThirdForm({
           onPress={() => {
             refetchUsername();
           }}
+          isLoading={usernameLoading}
         />
       </View>
       {!form.username && (
@@ -139,6 +141,7 @@ function ThirdForm({
             !CheckNickName(form.nickName) || temp.nickNameChecked !== undefined
           }
           onPress={() => refetchNickname()}
+          isLoading={nickNameLoading}
         />
       </View>
       <InputTitle title="비밀번호" />
@@ -198,7 +201,7 @@ function ThirdForm({
         )}
       </View>
       <InputTitle title="비밀번호 확인" />
-      <View style={styles.row}>
+      <View style={styles.column}>
         <TextInputs
           type={!temp.confirm || isSame ? 'default' : 'error'}
           placeholder="비밀번호를 다시 입력해 주세요"
@@ -246,8 +249,7 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: 'row',
-    marginBottom: 30,
-    minHeight: 48,
+    marginBottom: 45,
   },
   column: {
     marginBottom: 30,

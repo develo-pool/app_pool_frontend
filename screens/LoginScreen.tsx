@@ -7,6 +7,7 @@ import Title from '../components/Title';
 import {AuthButton, InputTitle} from '../components/auth/AuthComponents';
 import TextInputs from '../components/TextInputs';
 import theme from '../assets/theme';
+import useLogin from '../hooks/useLogin';
 
 function LoginScreen() {
   const navigation = useNavigation<RootStackNavigationProp>();
@@ -16,6 +17,15 @@ function LoginScreen() {
   });
   const createChangeTextHandler = (name: string) => (value: string) => {
     setForm({...form, [name]: value});
+  };
+
+  const {mutate: login, isLoading: loginLoading} = useLogin();
+
+  const onPress = () => {
+    if (loginLoading) {
+      return;
+    }
+    login({username: form.username, password: form.password});
   };
 
   return (
@@ -57,6 +67,7 @@ function LoginScreen() {
         text="로그인"
         welcome={true}
         disabled={!(form.username && form.password.length > 7)}
+        onPress={onPress}
       />
       <View style={styles.container}>
         <Text style={styles.subText}>아직 회원이 아니신가요?</Text>

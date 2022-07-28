@@ -3,12 +3,12 @@ import {AuthResult, User} from './types';
 
 export async function signUp(params: SignUpParams) {
   const response = await client.post<AuthResult>('/signUp', params);
-  return response.data;
+  return response;
 }
 
 export async function login(params: LoginParams) {
   const response = await client.post<AuthResult>('/login', params);
-  return response.data;
+  return response;
 }
 
 export async function usernameExist(params: string) {
