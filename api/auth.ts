@@ -8,7 +8,7 @@ export async function signUp(params: SignUpParams) {
 
 export async function login(params: LoginParams) {
   const response = await client.post<AuthResult>('/login', params);
-  return response;
+  return response.headers;
 }
 
 export async function usernameExist(params: string) {
