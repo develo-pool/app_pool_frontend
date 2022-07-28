@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  ActivityIndicator,
   GestureResponderEvent,
   Pressable,
   StyleSheet,
@@ -18,25 +19,31 @@ export function AuthButton({
   disabled,
   onPress,
   welcome,
+  isLoading,
 }: {
   text: string;
   disabled?: boolean;
   onPress?: (event: GestureResponderEvent) => void;
   welcome?: boolean;
+  isLoading?: boolean;
 }) {
   return (
     <View style={styles.block}>
       <Pressable
         onPress={onPress}
         style={[
-          styles.checkButton,
+          welcome ? styles.welcome : styles.checkButton,
           disabled && styles.disabled,
-          welcome && styles.welcome,
         ]}
-        android_ripple={{color: 'rgba(255,255,255,0.1)'}}>
-        <Text style={[styles.innerText, welcome && styles.welcomeText]}>
-          {text}
-        </Text>
+        android_ripple={{color: 'rgba(255,255,255,0.1)'}}
+        disabled={disabled}>
+        {isLoading ? (
+          <ActivityIndicator size="small" color="white" />
+        ) : (
+          <Text style={[styles.innerText, welcome && styles.welcomeText]}>
+            {text}
+          </Text>
+        )}
       </Pressable>
     </View>
   );
@@ -108,8 +115,8 @@ const styles = StyleSheet.create({
     fontFamily: theme.fontFamily.Pretendard,
   },
   checkButton: {
-    paddingVertical: 13.5,
-    paddingHorizontal: 20,
+    flex: 1,
+    width: 90,
     marginLeft: 8,
     borderRadius: 4,
     backgroundColor: 'black',
@@ -167,8 +174,11 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   welcome: {
-    marginLeft: 0,
     paddingVertical: 16,
+    borderRadius: 4,
+    backgroundColor: 'black',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   welcomeText: {
     fontSize: theme.fontSize.H5,

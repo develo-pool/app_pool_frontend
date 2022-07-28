@@ -75,9 +75,9 @@ const styles = StyleSheet.create({
   block: {
     flex: 1,
     flexDirection: 'column',
+    height: 46,
   },
   Textinput: {
-    height: 46,
     borderWidth: 1,
     borderRadius: 6,
     paddingHorizontal: 12,
