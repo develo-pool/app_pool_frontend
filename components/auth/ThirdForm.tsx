@@ -219,7 +219,7 @@ function ThirdForm({
         onPressText={() => setTermModalVisible(true)}
       />
       <CheckBox
-        title="개인정보 처리방침 (필수)"
+        title="개인정보 처리방침 동의 (필수)"
         state={form.privacyAgreement}
         onPress={onChangeText('privacyAgreement')}
         onPressText={() => setPrivacyModalVisible(true)}
