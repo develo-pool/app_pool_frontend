@@ -8,6 +8,7 @@ import MessageScreen from './MessageScreen';
 import CreateMessageScreen from './CreateMsgScreen';
 import GuideScreen from './GuideScreen';
 import WelcomeScreen from './WelcomeScreen';
+import PasswordScreen from './PasswordScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -30,6 +31,7 @@ function RootStack() {
         options={{headerShown: false}}
       />
       <Stack.Screen name="SignUp" component={SignUpScreen} />
+      <Stack.Screen name="Password" component={PasswordScreen} />
       <Stack.Screen
         name="Guide"
         component={GuideScreen}
