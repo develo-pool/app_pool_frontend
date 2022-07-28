@@ -3,7 +3,7 @@ import {AxiosError} from 'axios';
 export interface User {
   username: string;
   nickName: string;
-  userStatus: 'USER' | 'BRAND_USER';
+  userStatus: 'USER' | 'BRAND_USER' | string;
 }
 
 export interface AuthResult {

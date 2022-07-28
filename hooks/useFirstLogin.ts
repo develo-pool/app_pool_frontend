@@ -5,9 +5,8 @@ import {useDispatch} from 'react-redux';
 import {authorize} from '../slices/auth';
 import {useNavigation} from '@react-navigation/native';
 import {RootStackNavigationProp} from '../screens/types';
-import {applyToken} from '../api/client';
 
-export default function useLogin() {
+export default function useFirstLogin() {
   const navigation = useNavigation<RootStackNavigationProp>();
   const dispatch = useDispatch();
   const mutation = useMutation(login, {
@@ -19,8 +18,7 @@ export default function useLogin() {
           userStatus: data.role,
         }),
       );
-      applyToken(data.authorization);
-      navigation.navigate('MainTab');
+      navigation.navigate('Guide');
     },
     onError: (error: AuthError) => {
       console.log(error);
