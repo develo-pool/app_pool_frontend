@@ -26,7 +26,7 @@ export type RootStackParamList = {
 /* SettingStack */
 export type SettingStackParamList = {
   Setting: undefined;
-  Login: undefined;
+  // Welcome: undefined;
   FollowingList: undefined;
   BrandAssign: {current: number};
   BrandAssignGuide: undefined;
@@ -36,7 +36,12 @@ export type SettingStackParamList = {
 export type RootStackNavigationProp =
   NativeStackNavigationProp<RootStackParamList>;
 
+export type MainTabNatigationProp = CompositeNavigationProp<
+  RootStackNavigationProp,
+  BottomTabNavigationProp<MainTabParamList>
+>;
+
 export type SettingStackNavigationProp = CompositeNavigationProp<
-  NativeStackNavigationProp<SettingStackParamList>,
-  BottomTabNavigationProp<MainTabParamList, 'SettingStack'>
+  MainTabNatigationProp,
+  NativeStackNavigationProp<SettingStackParamList>
 >;
