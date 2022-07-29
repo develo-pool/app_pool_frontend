@@ -7,6 +7,7 @@ import {
   Text,
   TextInput,
   View,
+  BackHandler,
 } from 'react-native';
 import {AuthButton, InputTitle} from '../auth/AuthComponents';
 import Title from '../Title';
