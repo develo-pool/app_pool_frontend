@@ -14,7 +14,7 @@ export function SendButton({
   return (
     <Pressable
       onPress={onPress}
-      style={[styles.SendButton, disabled && styles.disabled]}>
+      style={[styles.SendButton, disabled && styles.buttonDisabled]}>
       <Text style={styles.Send}>{text}</Text>
     </Pressable>
   );
@@ -31,7 +31,9 @@ export function PreviewButton({
 }) {
   return (
     <Pressable onPress={onPress}>
-      <Text style={[styles.Preview, disabled && styles.disabled]}> {text}</Text>
+      <Text style={[styles.Preview, disabled && styles.previewDisabled]}>
+        {text}
+      </Text>
     </Pressable>
   );
 }
@@ -57,7 +59,10 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: theme.colors.Poolblue,
   },
-  disabled: {
+  previewDisabled: {
+    color: theme.colors.Grey30,
+  },
+  buttonDisabled: {
     backgroundColor: theme.colors.Grey30,
   },
 });
