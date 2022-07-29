@@ -10,6 +10,7 @@ import GuideScreen from './GuideScreen';
 import WelcomeScreen from './WelcomeScreen';
 import PasswordScreen from './PasswordScreen';
 import useAuthLoadEffect from '../hooks/useAuthLoadEffect';
+import ProfileScreen from './ProfileScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -43,6 +44,11 @@ function RootStack() {
       <Stack.Screen
         name="CreateMessage"
         component={CreateMessageScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Profile"
+        component={ProfileScreen}
         options={{headerShown: false}}
       />
     </Stack.Navigator>
