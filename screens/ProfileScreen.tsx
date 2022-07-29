@@ -1,7 +1,7 @@
 import React from 'react';
 import {Text, StyleSheet, View, Image} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-import {RootStackNavigationProp} from './types';
+// import {useNavigation} from '@react-navigation/native';
+// import {RootStackNavigationProp} from './types';
 import theme from '../assets/theme';
 import FollowButton from './../components/profile/FollowButton';
 
