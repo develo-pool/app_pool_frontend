@@ -9,6 +9,7 @@ export interface User {
 export interface AuthResult {
   accessToken: string;
   refreshToken: string;
+  user: User;
 }
 
 type AuthErrorData = {

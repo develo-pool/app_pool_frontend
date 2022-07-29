@@ -7,6 +7,9 @@ import JoinBrandContainer from '../components/setting/JoinBrand';
 import SetArticle from './../components/setting/SetArticle';
 import {SettingStackNavigationProp} from './types';
 import {clearToken} from '../api/client';
+import authStorage from '../storages/authStorage';
+import {useDispatch} from 'react-redux';
+import {logout} from '../slices/auth';
 
 const isBrandUser = false;
 
@@ -14,6 +17,15 @@ function SettingScreen() {
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
   const navigation = useNavigation<SettingStackNavigationProp>();
+  const dispatch = useDispatch();
+
+  const onLogout = () => {
+    authStorage.clear();
+    clearToken();
+    dispatch(logout());
+    navigation.push('Welcome');
+  };
+
   return (
     <View style={styles.block}>
       <View style={styles.UserInfoContainer}>
@@ -68,12 +80,7 @@ function SettingScreen() {
         <SetArticle title="이용약관" />
         <SetArticle title="개인정보처리방침" />
         <SetArticle title="문의하기" />
-        <Pressable
-          style={styles.SeperatedSets}
-          onPress={() => {
-            clearToken();
-            navigation.push('Welcome');
-          }}>
+        <Pressable style={styles.SeperatedSets} onPress={onLogout}>
           <Text style={styles.Logout}>로그아웃</Text>
         </Pressable>
       </>
