@@ -1,11 +1,40 @@
-import React from 'react';
-import {Text, View, StyleSheet, TextInput, Image} from 'react-native';
+import React, {useState} from 'react';
+import {
+  Text,
+  View,
+  StyleSheet,
+  TextInput,
+  Image,
+  Pressable,
+  Platform,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import theme from '../assets/theme';
 import Title from '../components/Title';
-import {PreviewButton, SendButton} from '../components/create/SendButton';
+import {
+  PreviewButton,
+  SendButton,
+} from '../components/create/CreateMessageComponents';
+import {launchImageLibrary} from 'react-native-image-picker';
 
 function CreateMessageScreen() {
+  const [text, setText] = useState('');
+  const onSelectImage = () => {
+    launchImageLibrary(
+      {
+        mediaType: 'photo',
+        maxWidth: 512,
+        maxHeight: 384,
+        includeBase64: Platform.OS === 'android',
+      },
+      res => {
+        if (res.didCancel) {
+          return;
+        }
+      },
+    );
+  };
+
   return (
     <>
       <View style={styles.UpperArea}>
@@ -21,18 +50,27 @@ function CreateMessageScreen() {
             />
             <Text style={styles.BrandName}>더푸르</Text>
           </View>
-          <PreviewButton text="미리보기" disabled={false} />
+          <PreviewButton text="미리보기" disabled={text.length < 20} />
         </View>
-        <TextInput style={styles.InputMessage} placeholder="20자 이상 입력" />
+        <TextInput
+          value={text}
+          onChangeText={setText}
+          style={styles.InputMessage}
+          placeholder="20자 이상,  1000자 이내로 입력"
+        />
       </View>
       <View style={styles.BottomArea}>
         <View style={styles.Line} />
         <View style={styles.BottomBar}>
           <View style={styles.ElementsContainer}>
-            <Icon name="photo-camera" size={28} style={styles.Camera} />
-            <Icon name="insert-link" size={28} style={styles.Link} />
+            <Pressable onPress={onSelectImage}>
+              <Icon name="photo-camera" size={24} style={styles.Camera} />
+            </Pressable>
+            <Pressable>
+              <Icon name="insert-link" size={26} style={styles.Link} />
+            </Pressable>
           </View>
-          <SendButton text="발송하기" disabled={false} />
+          <SendButton text="발송하기" disabled={text.length < 20} />
         </View>
       </View>
     </>
