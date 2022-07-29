@@ -5,19 +5,26 @@ import {useDispatch} from 'react-redux';
 import {authorize} from '../slices/auth';
 import {useNavigation} from '@react-navigation/native';
 import {RootStackNavigationProp} from '../screens/types';
+import {applyToken} from '../api/client';
+import authStorage from '../storages/authStorage';
 
 export default function useFirstLogin() {
   const navigation = useNavigation<RootStackNavigationProp>();
   const dispatch = useDispatch();
   const mutation = useMutation(login, {
     onSuccess: data => {
-      dispatch(
-        authorize({
-          username: data.username,
-          nickName: data.nickname,
-          userStatus: data.role,
-        }),
-      );
+      const User = {
+        username: data.username,
+        nickName: data.nickname,
+        userStatus: data.role,
+      };
+      dispatch(authorize(User));
+      authStorage.set({
+        accessToken: data.authorization,
+        refreshToken: data['authorization-refresh'],
+        user: User,
+      });
+      applyToken(data.authorization);
       navigation.navigate('Guide');
     },
     onError: (error: AuthError) => {

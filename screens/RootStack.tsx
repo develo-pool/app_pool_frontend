@@ -9,11 +9,13 @@ import CreateMessageScreen from './CreateMsgScreen';
 import GuideScreen from './GuideScreen';
 import WelcomeScreen from './WelcomeScreen';
 import PasswordScreen from './PasswordScreen';
+import useAuthLoadEffect from '../hooks/useAuthLoadEffect';
 import ProfileScreen from './ProfileScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootStack() {
+  useAuthLoadEffect();
   return (
     <Stack.Navigator initialRouteName="Welcome">
       <Stack.Screen
