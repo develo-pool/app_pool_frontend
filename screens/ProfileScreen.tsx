@@ -6,7 +6,7 @@ import theme from '../assets/theme';
 import FollowButton from './../components/profile/FollowButton';
 
 function ProfileScreen() {
-  const navigation = useNavigation<RootStackNavigationProp>();
+  // const navigation = useNavigation<RootStackNavigationProp>();
 
   return (
     <>
