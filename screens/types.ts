@@ -21,6 +21,7 @@ export type RootStackParamList = {
   Message: undefined;
   CreateMessage: undefined;
   Profile: undefined;
+  EditProfile: undefined;
   Setting: SettingStackParamList;
 };
 
