@@ -15,7 +15,7 @@ function BrandProfileScreen() {
       <View style={styles.ProfileSection}>
         <View style={styles.ProfileLayout}>
           <View style={styles.ProfileContainer}>
-            <ProfileImageContainer />
+            <ProfileImageContainer isEditable={true} />
             <View style={styles.BrandInfo}>
               <Text style={styles.BrandName}>김자네</Text>
               <View style={styles.FollowerContainer}>

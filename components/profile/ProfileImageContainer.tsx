@@ -5,7 +5,11 @@ import {RootStackNavigationProp} from '../../screens/types';
 import theme from '../../assets/theme';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-function ProfileImageContainer() {
+interface Props {
+  isEditable: boolean;
+}
+
+function ProfileImageContainer({isEditable}: Props) {
   const navigation = useNavigation<RootStackNavigationProp>();
 
   return (
@@ -14,11 +18,13 @@ function ProfileImageContainer() {
         style={styles.ImgSource}
         source={require('../../assets/ProfileImage.png')}
       />
-      <TouchableOpacity
-        style={styles.EditProfile}
-        onPress={() => navigation.navigate('EditProfile')}>
-        <Icon name="edit" size={16} style={styles.EditButton} />
-      </TouchableOpacity>
+      {isEditable && (
+        <TouchableOpacity
+          style={styles.EditProfile}
+          onPress={() => navigation.navigate('EditProfile')}>
+          <Icon name="edit" size={16} style={styles.EditButton} />
+        </TouchableOpacity>
+      )}
     </View>
   );
 }
