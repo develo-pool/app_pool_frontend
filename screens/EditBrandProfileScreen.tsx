@@ -1,7 +1,7 @@
 import React from 'react';
-import {View, StyleSheet, TextInput, Pressable, Text} from 'react-native';
+import {View, StyleSheet, TextInput} from 'react-native';
 import theme from '../assets/theme';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+
 import ProfileImageContainer from './../components/profile/ProfileImageContainer';
 
 function EditBrandProfile() {
