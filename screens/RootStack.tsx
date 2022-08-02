@@ -47,7 +47,6 @@ function RootStack() {
       <Stack.Screen
         name="BrandAssignGuide"
         component={BrandAssignGuideScreen}
-        options={{headerTitle: () => <></>}}
       />
       <Stack.Screen
         name="BrandAssignComplete"
