@@ -6,7 +6,6 @@ import FollowingListScreen from './FollowingListScreen';
 import BrandAssignScreen from './BrandAssignScreen';
 import BrandAssignGuideScreen from './BrandAssignGuideScreen';
 import BrandAssignCompleteScreen from './BrandAssignCompleteScreen';
-// import WelcomeScreen from './WelcomeScreen';
 
 const Setting = createNativeStackNavigator<SettingStackParamList>();
 
@@ -19,11 +18,6 @@ function SettingStack() {
         options={{headerShown: false}}
       />
       <Setting.Screen name="FollowingList" component={FollowingListScreen} />
-      {/* <Setting.Screen
-        name="Welcome"
-        component={WelcomeScreen}
-        options={{headerTitle: () => <></>}}
-      /> */}
       <Setting.Screen name="BrandAssign" component={BrandAssignScreen} />
       <Setting.Screen
         name="BrandAssignGuide"

@@ -9,6 +9,7 @@ import {
   View,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import theme from '../../assets/theme';
 import DATA from './Contents';
 
 const Indicator = ({focused}: {focused: boolean}) => {
@@ -29,21 +30,22 @@ function Carousel() {
     setIndex(newIndex);
   };
   const flatListRef = useRef<FlatList>(null);
-  const onClick = () => {
-    if (index < 3) {
+  const onClick = (direction: 'left' | 'right') => {
+    if (direction === 'left') {
       flatListRef.current?.scrollToOffset({
-        offset: offset * (index + 1),
+        offset: offset * (index - 1),
         animated: true,
       });
-    } else {
+    } else if (direction === 'right') {
       flatListRef.current?.scrollToOffset({
-        offset: 0,
+        offset: offset * (index + 1),
         animated: true,
       });
     }
   };
   return (
     <View>
+      <Text style={styles.title}>{DATA[index].title}</Text>
       <FlatList
         data={DATA}
         horizontal
@@ -64,9 +66,27 @@ function Carousel() {
           <Indicator key={i} focused={index === i} />
         ))}
       </View>
+
       <Text style={styles.text}>{DATA[index].text}</Text>
-      <Pressable onPress={onClick} style={styles.button}>
-        <Icon name="keyboard-arrow-right" size={50} />
+      <Pressable
+        onPress={() => onClick('left')}
+        style={styles.left}
+        disabled={index === 0}>
+        <Icon
+          name="keyboard-arrow-left"
+          size={50}
+          color={index === 0 ? theme.colors.Grey30 : 'black'}
+        />
+      </Pressable>
+      <Pressable
+        onPress={() => onClick('right')}
+        style={styles.right}
+        disabled={index === 3}>
+        <Icon
+          name="keyboard-arrow-right"
+          size={50}
+          color={index === 3 ? theme.colors.Grey30 : 'black'}
+        />
       </Pressable>
     </View>
   );
@@ -83,11 +103,23 @@ const styles = StyleSheet.create({
     maxHeight: cardSize.height,
     resizeMode: 'contain',
   },
+  title: {
+    fontFamily: theme.fontFamily.Pretendard,
+    fontSize: theme.fontSize.H2,
+    fontWeight: theme.fontWeight.Bold,
+    color: theme.colors.Black,
+    textAlign: 'center',
+  },
   text: {
     textAlign: 'center',
     paddingHorizontal: 50,
   },
-  button: {
+  left: {
+    position: 'absolute',
+    left: 0,
+    top: cardSize.height / 2 - 30,
+  },
+  right: {
     position: 'absolute',
     right: 0,
     top: cardSize.height / 2 - 30,
@@ -104,10 +136,10 @@ const styles = StyleSheet.create({
     width: 6,
     height: 6,
     borderRadius: 3,
-    backgroundColor: 'rgba(0,0,0,0.2)',
+    backgroundColor: theme.colors.Grey20,
   },
   focused: {
-    backgroundColor: 'black',
+    backgroundColor: theme.colors.Poolgreen,
   },
 });
 

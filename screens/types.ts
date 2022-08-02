@@ -27,7 +27,6 @@ export type RootStackParamList = {
 /* SettingStack */
 export type SettingStackParamList = {
   Setting: undefined;
-  // Welcome: undefined;
   FollowingList: undefined;
   BrandAssign: {current: number};
   BrandAssignGuide: undefined;

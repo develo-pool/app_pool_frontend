@@ -4,14 +4,12 @@ import {StyleSheet, View} from 'react-native';
 import Carousel from '../components/guide/Carousel';
 import MainContainer from '../components/MainContainer';
 import ScreenBottomButton from '../components/ScreenBottomButton';
-import Title from '../components/Title';
 import {RootStackNavigationProp} from './types';
 
 function GuideScreen() {
   const navigation = useNavigation<RootStackNavigationProp>();
   return (
     <View style={styles.background}>
-      <Title title="POOL 사용법" alignCenter={true} />
       <Carousel />
       <MainContainer>{}</MainContainer>
       <ScreenBottomButton
