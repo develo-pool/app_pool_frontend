@@ -1,16 +1,17 @@
 import React from 'react';
-import {Pressable, StyleSheet, Text, View} from 'react-native';
+import {Pressable, ScrollView, StyleSheet, Text, View} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import theme from '../../assets/theme';
 import Title from '../Title';
 
 function BrandAssignTerm({form, onPress}: {form: any; onPress: any}) {
   return (
-    <>
+    <ScrollView style={styles.block} showsVerticalScrollIndicator={false}>
       <Title title="서비스 가이드를 읽고" alignCenter={true} />
       <Title title="동의해주세요." alignCenter={true} />
-      <Text>
-        {`
-이제야 목적지를 정했지만 가려한 날 막아서네 난 갈 길이 먼데 새빨간 얼굴로 화를 냈던 친구가 생각나네
+      <Text style={styles.subtitle}>제 1조</Text>
+      <Text style={styles.text}>
+        {`이제야 목적지를 정했지만 가려한 날 막아서네 난 갈 길이 먼데 새빨간 얼굴로 화를 냈던 친구가 생각나네
 
 이미 난 발걸음을 떼었지만 가려한 날 재촉하네 걷기도 힘든데 새파랗게 겁에 질려 도망간 친구가 뇌에 맴도네
 
@@ -23,25 +24,61 @@ function BrandAssignTerm({form, onPress}: {form: any; onPress: any}) {
         onPress={() => onPress('terms')(!form.terms)}
         style={styles.container}>
         {form.terms ? (
-          <Icon name="check-box" size={20} />
+          <View style={styles.check}>
+            <Icon name="check" size={15} color="white" />
+          </View>
         ) : (
           <View style={styles.empty} />
         )}
-        <Text>동의합니다.</Text>
+        <Text style={styles.checkText}>동의합니다.</Text>
       </Pressable>
-    </>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
+  block: {
+    paddingTop: 40,
+  },
   container: {
     flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 100,
+  },
+  text: {
+    fontFamily: theme.fontFamily.Pretendard,
+    fontSize: theme.fontSize.P1,
+    color: theme.colors.Grey50,
+    lineHeight: 24,
+  },
+  subtitle: {
+    marginTop: 24,
+    marginBottom: 8,
+    fontFamily: theme.fontFamily.Pretendard,
+    fontSize: theme.fontSize.H5,
+    fontWeight: theme.fontWeight.Bold,
+    color: theme.colors.Grey50,
   },
   empty: {
-    width: 15,
-    height: 15,
-    borderColor: 'black',
+    width: 20,
+    height: 20,
     borderWidth: 1,
+    borderRadius: 2,
+    borderColor: theme.colors.Grey30,
+  },
+  check: {
+    width: 20,
+    height: 20,
+    borderRadius: 2,
+    backgroundColor: theme.colors.Poolgreen,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  checkText: {
+    fontFamily: theme.fontFamily.Pretendard,
+    fontSize: theme.fontSize.P2,
+    color: theme.colors.Grey70,
+    marginLeft: 10,
   },
 });
 

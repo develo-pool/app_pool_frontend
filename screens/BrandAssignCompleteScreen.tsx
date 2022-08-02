@@ -1,16 +1,15 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
+import theme from '../assets/theme';
 import MainContainer from '../components/MainContainer';
 import ScreenBottomButton from '../components/ScreenBottomButton';
 import Title from '../components/Title';
 import {RootStackNavigationProp} from './types';
 
 const data = {
-  userName: '마라가 좋아',
-  infoText:
-    '붉은색 푸른색 그 사이 3초 그 짧은 시간 노란색 빛을 내는 저기 저 신호등이 내 머릿속을 텅 비워버려 내가 빠른 지도 느린지도 모르겠어 그저 눈앞이 샛노랄 뿐이야',
-  category: ['#카테고리1', '#카테고리2', '#카테고리3'],
+  userName: '더푸르',
+  infoText: '더푸르입니다.',
   profileImg:
     'file:///data/user/0/com.app_pool_frontend/cache/rn_image_picker_lib_temp_0e072fc9-b664-4a5a-b3de-8a50c64ec30c.png',
 };
@@ -18,24 +17,21 @@ const data = {
 function BrandAssignCompleteScreen() {
   const navigation = useNavigation<RootStackNavigationProp>();
   return (
-    <View style={styles.block}>
+    <>
       <MainContainer>
-        <Title title="브랜드 등록 요청을" />
-        <Title title="완료했습니다!" />
-        <Text>심사 영업일 기준 2~3일 후 심사가 완료됩니다.</Text>
-        <Text>브랜드 등록 전까지 수정 가능합니다</Text>
-        <View style={styles.box}>
+        <View style={styles.block}>
+          <Title title="브랜드 등록 요청이" alignCenter={true} />
+          <Title title="완료되었습니다!" alignCenter={true} />
+          <Text
+            style={
+              styles.guide
+            }>{`브랜드 등록이 완료되면 따로 알림을 드리겠습니다.\n등등 관련 안내문구 제공`}</Text>
           <View style={styles.circle}>
             <Image style={styles.circle} source={{uri: data.profileImg}} />
           </View>
-          <Text>{data.userName}</Text>
-          <Text>{data.infoText}</Text>
-          <View style={styles.row}>
-            {data.category.map(i => (
-              <View key={i} style={styles.category}>
-                <Text>{i}</Text>
-              </View>
-            ))}
+          <Text style={styles.name}>{data.userName}</Text>
+          <View style={styles.box}>
+            <Text style={styles.infoText}>{data.infoText}</Text>
           </View>
         </View>
       </MainContainer>
@@ -43,29 +39,46 @@ function BrandAssignCompleteScreen() {
         name="대기하면서 피드 구경하기"
         onPress={() => navigation.push('MainTab')}
       />
-    </View>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
-  block: {
-    backgroundColor: 'white',
-    flex: 1,
+  block: {marginTop: 100, alignItems: 'center'},
+  guide: {
+    fontFamily: theme.fontFamily.Pretendard,
+    fontSize: theme.fontSize.P1,
+    color: theme.colors.Grey50,
+    textAlign: 'center',
+    lineHeight: 24,
+    marginTop: 24,
+    marginBottom: 28,
+  },
+  name: {
+    fontFamily: theme.fontFamily.Pretendard,
+    fontWeight: theme.fontWeight.Bold,
+    fontSize: theme.fontSize.P1,
+    color: theme.colors.Grey60,
+    marginTop: 10,
   },
   box: {
-    backgroundColor: '#F3F3F3',
-    padding: 30,
+    backgroundColor: theme.colors.Grey10,
+    padding: 16,
+    marginTop: 16,
     borderRadius: 10,
+    width: '100%',
     alignItems: 'center',
   },
-  circle: {
-    borderRadius: 70,
-    backgroundColor: '#D9D9D9',
-    width: 70,
-    height: 70,
+  infoText: {
+    fontFamily: theme.fontFamily.Pretendard,
+    fontSize: theme.fontSize.P1,
+    color: theme.colors.Grey60,
   },
-  row: {
-    flexDirection: 'row',
+  circle: {
+    borderRadius: 86,
+    backgroundColor: '#D9D9D9',
+    width: 86,
+    height: 86,
   },
   category: {
     backgroundColor: '#DADADA',

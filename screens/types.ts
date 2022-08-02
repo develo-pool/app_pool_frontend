@@ -21,17 +21,17 @@ export type RootStackParamList = {
   Message: undefined;
   CreateMessage: undefined;
   Profile: undefined;
+  SettingStack: undefined;
+  BrandAssign: {current: number};
+  BrandAssignGuide: undefined;
+  BrandAssignComplete: undefined;
   EditProfile: undefined;
-  Setting: SettingStackParamList;
 };
 
 /* SettingStack */
 export type SettingStackParamList = {
   Setting: undefined;
   FollowingList: undefined;
-  BrandAssign: {current: number};
-  BrandAssignGuide: undefined;
-  BrandAssignComplete: undefined;
 };
 
 export type RootStackNavigationProp =
