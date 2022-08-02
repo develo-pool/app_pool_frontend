@@ -15,6 +15,7 @@ import BrandAssignScreen from './BrandAssignScreen';
 import BrandAssignGuideScreen from './BrandAssignGuideScreen';
 import BrandAssignCompleteScreen from './BrandAssignCompleteScreen';
 import SettingStack from './SettingStack';
+import EditBrandProfile from './EditBrandProfileScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -68,6 +69,11 @@ function RootStack() {
       <Stack.Screen
         name="SettingStack"
         component={SettingStack}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="EditProfile"
+        component={EditBrandProfile}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

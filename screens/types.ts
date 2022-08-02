@@ -25,6 +25,7 @@ export type RootStackParamList = {
   BrandAssign: {current: number};
   BrandAssignGuide: undefined;
   BrandAssignComplete: undefined;
+  EditProfile: undefined;
 };
 
 /* SettingStack */
