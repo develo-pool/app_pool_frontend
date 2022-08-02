@@ -1,17 +1,11 @@
 import React from 'react';
-import {
-  Text,
-  StyleSheet,
-  View,
-  Pressable,
-  Image,
-  TouchableOpacity,
-} from 'react-native';
+import {Text, StyleSheet, View, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {RootStackNavigationProp} from './types';
 import theme from '../assets/theme';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import SetWelcomeMsg from './../components/profile/SetWelcomeMessage';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import ProfileImageContainer from '../components/profile/ProfileImageContainer';
 
 function BrandProfileScreen() {
   const navigation = useNavigation<RootStackNavigationProp>();
@@ -21,15 +15,7 @@ function BrandProfileScreen() {
       <View style={styles.ProfileSection}>
         <View style={styles.ProfileLayout}>
           <View style={styles.ProfileContainer}>
-            <View style={styles.ProfileImgContainer}>
-              <Image
-                style={styles.ImgSource}
-                source={require('../assets/ProfileImage.png')}
-              />
-              <Pressable style={styles.EditProfile}>
-                <Icon name="edit" size={16} style={styles.EditButton} />
-              </Pressable>
-            </View>
+            <ProfileImageContainer isEditable={true} />
             <View style={styles.BrandInfo}>
               <Text style={styles.BrandName}>김자네</Text>
               <View style={styles.FollowerContainer}>
@@ -74,30 +60,6 @@ const styles = StyleSheet.create({
     height: 120,
     flexDirection: 'row',
   }, // 프로필 내 브랜드 정보가 담긴 영역
-  ProfileImgContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-  }, //프로필 사진 영역
-  ImgSource: {
-    height: 90,
-    width: 90,
-    borderRadius: 45,
-    resizeMode: 'contain',
-  }, //프로필 사진
-  EditProfile: {
-    width: 28,
-    height: 28,
-    borderRadius: 14,
-    backgroundColor: theme.colors.Grey50,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginLeft: -28,
-    marginTop: 62,
-  }, //수정 버튼
-  EditButton: {
-    color: theme.colors.White,
-  },
   BrandInfo: {
     justifyContent: 'center',
     marginLeft: 16,

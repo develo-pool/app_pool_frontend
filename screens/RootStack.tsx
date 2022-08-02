@@ -11,6 +11,7 @@ import WelcomeScreen from './WelcomeScreen';
 import PasswordScreen from './PasswordScreen';
 import useAuthLoadEffect from '../hooks/useAuthLoadEffect';
 import ProfileScreen from './ProfileScreen';
+import EditBrandProfile from './EditBrandProfileScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -49,6 +50,11 @@ function RootStack() {
       <Stack.Screen
         name="Profile"
         component={ProfileScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="EditProfile"
+        component={EditBrandProfile}
         options={{headerShown: false}}
       />
     </Stack.Navigator>
