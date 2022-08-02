@@ -11,6 +11,9 @@ import WelcomeScreen from './WelcomeScreen';
 import PasswordScreen from './PasswordScreen';
 import useAuthLoadEffect from '../hooks/useAuthLoadEffect';
 import ProfileScreen from './ProfileScreen';
+import BrandAssignScreen from './BrandAssignScreen';
+import BrandAssignGuideScreen from './BrandAssignGuideScreen';
+import BrandAssignCompleteScreen from './BrandAssignCompleteScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -38,6 +41,17 @@ function RootStack() {
       <Stack.Screen
         name="Guide"
         component={GuideScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen name="BrandAssign" component={BrandAssignScreen} />
+      <Stack.Screen
+        name="BrandAssignGuide"
+        component={BrandAssignGuideScreen}
+        options={{headerTitle: () => <></>}}
+      />
+      <Stack.Screen
+        name="BrandAssignComplete"
+        component={BrandAssignCompleteScreen}
         options={{headerShown: false}}
       />
       <Stack.Screen name="Message" component={MessageScreen} />
