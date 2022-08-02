@@ -8,13 +8,10 @@ import Category from '../components/category/Category';
 import MainContainer from '../components/MainContainer';
 import ProcessBar from '../components/ProcessBar';
 import ScreenBottomButton from '../components/ScreenBottomButton';
-import {SettingStackNavigationProp, SettingStackParamList} from './types';
+import {RootStackNavigationProp, RootStackParamList} from './types';
 
 const TOTAL = 3;
-type BrandAssignScreenRouteProp = RouteProp<
-  SettingStackParamList,
-  'BrandAssign'
->;
+type BrandAssignScreenRouteProp = RouteProp<RootStackParamList, 'BrandAssign'>;
 
 const CurrentPage = ({
   current,
@@ -50,7 +47,7 @@ const CurrentPage = ({
 function BrandAssignScreen() {
   const route = useRoute<BrandAssignScreenRouteProp>();
   const current = route.params.current;
-  const navigation = useNavigation<SettingStackNavigationProp>();
+  const navigation = useNavigation<RootStackNavigationProp>();
 
   interface Props {
     brandUserName: string;
@@ -101,14 +98,20 @@ function BrandAssignScreen() {
       headerTitle: () => <ProcessBar total={TOTAL} current={current} />,
       headerTitleAlign: 'center',
       headerBackVisible: false,
+      headerShadowVisible: false,
       headerLeft: () => (
         <TouchableOpacity
           onPress={
             current
-              ? () => navigation.push('BrandAssign', {current: current - 1})
+              ? () => navigation.navigate('BrandAssign', {current: current - 1})
               : () => navigation.goBack()
           }>
           <Icon name="keyboard-arrow-left" size={30} />
+        </TouchableOpacity>
+      ),
+      headerRight: () => (
+        <TouchableOpacity onPress={() => navigation.pop(2)}>
+          <Icon name="close" size={24} color="black" />
         </TouchableOpacity>
       ),
     });

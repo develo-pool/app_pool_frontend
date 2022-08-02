@@ -36,7 +36,7 @@ function Category({
 }
 
 const styles = StyleSheet.create({
-  block: {flex: 1, marginTop: 60},
+  block: {flex: 1, paddingTop: 40},
   list: {
     flex: 1,
     flexDirection: 'row',
