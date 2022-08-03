@@ -1,9 +1,10 @@
 import React from 'react';
-import {Text, StyleSheet, View, Image} from 'react-native';
+import {Text, StyleSheet, View} from 'react-native';
 // import {useNavigation} from '@react-navigation/native';
 // import {RootStackNavigationProp} from './types';
 import theme from '../assets/theme';
 import FollowButton from './../components/profile/FollowButton';
+import ProfileImageContainer from '../components/profile/ProfileImageContainer';
 
 function ProfileScreen() {
   // const navigation = useNavigation<RootStackNavigationProp>();
@@ -13,12 +14,7 @@ function ProfileScreen() {
       <View style={styles.ProfileSection}>
         <View style={styles.ProfileLayout}>
           <View style={styles.ProfileContainer}>
-            <View style={styles.ProfileImgContainer}>
-              <Image
-                style={styles.ImgSource}
-                source={require('../assets/ProfileImage.png')}
-              />
-            </View>
+            <ProfileImageContainer isEditable={false} />
             <View style={styles.BrandInfo}>
               <Text style={styles.BrandName}>김자네</Text>
               <View style={styles.FollowerContainer}>

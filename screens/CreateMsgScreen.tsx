@@ -16,8 +16,11 @@ import {
   SendButton,
 } from '../components/create/CreateMessageComponents';
 import {launchImageLibrary} from 'react-native-image-picker';
+import {useNavigation} from '@react-navigation/native';
+import {MainTabNatigationProp} from './types';
 
 function CreateMessageScreen() {
+  const navigation = useNavigation<MainTabNatigationProp>();
   const [text, setText] = useState('');
   const onSelectImage = () => {
     launchImageLibrary(
@@ -40,7 +43,9 @@ function CreateMessageScreen() {
       <View style={styles.UpperArea}>
         <View style={styles.TitleArea}>
           <Title title="메시지 작성" isSmall={true} />
-          <Icon name="clear" size={24} color={theme.colors.Black} />
+          <Pressable onPress={() => navigation.navigate('BrandProfile')}>
+            <Icon name="clear" size={24} color={theme.colors.Black} />
+          </Pressable>
         </View>
         <View style={styles.Info}>
           <View style={styles.BrandInfo}>
