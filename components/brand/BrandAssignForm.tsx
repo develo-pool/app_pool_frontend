@@ -15,13 +15,16 @@ import {launchImageLibrary} from 'react-native-image-picker';
 import TextInputs from '../TextInputs';
 import theme from '../../assets/theme';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {BrandAssignParams} from '../../api/types';
+import {useQuery} from 'react-query';
+import {brandNameExist} from '../../api/brand';
+import {BrandAssignProps} from '../../screens/BrandAssignScreen';
+import {CheckNickName} from '../auth/Validation';
 
 function BrandAssignForm({
   form,
   onChangeText,
 }: {
-  form: BrandAssignParams;
+  form: BrandAssignProps;
   onChangeText: any;
 }) {
   const onSelectImage = () => {
@@ -40,6 +43,17 @@ function BrandAssignForm({
       },
     );
   };
+  const {refetch: refetchBrandname, isLoading: brandnameLoading} = useQuery(
+    ['usernameExist', form.brandUsername],
+    () => {
+      brandNameExist(form.brandUsername).then((value: boolean) => {
+        onChangeText('isExist')(value);
+      });
+    },
+    {
+      enabled: false,
+    },
+  );
   return (
     <ScrollView style={styles.block} showsVerticalScrollIndicator={false}>
       <Title title="브랜드에 대해" alignCenter={true} />
@@ -64,11 +78,33 @@ function BrandAssignForm({
       <InputTitle title="브랜드명" />
       <View style={styles.row}>
         <TextInputs
+          type={
+            (CheckNickName(form.brandUsername) || !form.brandUsername) &&
+            form.isExist !== true
+              ? 'default'
+              : 'error'
+          }
           value={form.brandUsername}
           onChangeText={onChangeText('brandUsername')}
           placeholder="브랜드명 입력"
+          alert={
+            CheckNickName(form.brandUsername) || !form.brandUsername
+              ? form.isExist === false
+                ? {type: 'Correct', text: '사용 가능한 닉네임입니다.'}
+                : form.isExist === undefined
+                ? undefined
+                : {type: 'Error', text: '중복된 아이디입니다.'}
+              : form.brandUsername.length < 3
+              ? {type: 'Error', text: '3자 이상 입력해주세요.'}
+              : {type: 'Error', text: "특수문자는 '_'만 가능합니다."}
+          }
         />
-        <AuthButton text="중복확인" disabled={!form.brandUsername} />
+        <AuthButton
+          text="중복확인"
+          onPress={() => refetchBrandname()}
+          disabled={!form.brandUsername}
+          isLoading={brandnameLoading}
+        />
       </View>
       <InputTitle title="소개문구" />
       <TextInput

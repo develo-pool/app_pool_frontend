@@ -6,3 +6,10 @@ export async function createBrand(params: BrandAssignParams) {
   console.log(response);
   return response;
 }
+
+export async function brandNameExist(params: string) {
+  const response = await client.get<boolean>(
+    `/brand-brandUsernames/${params}/exists`,
+  );
+  return response.data;
+}

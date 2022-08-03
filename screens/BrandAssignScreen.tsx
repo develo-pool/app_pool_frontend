@@ -4,7 +4,6 @@ import {Text, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useMutation} from 'react-query';
 import {createBrand} from '../api/brand';
-import {BrandAssignParams} from '../api/types';
 import BrandAssignForm from '../components/brand/BrandAssignForm';
 import BrandAssignTerm from '../components/brand/BrandAssignTerm';
 import Category from '../components/category/Category';
@@ -23,8 +22,7 @@ const CurrentPage = ({
   checkedItemHandler,
 }: {
   current: number;
-  form: BrandAssignParams;
-  setForm: any;
+  form: BrandAssignProps;
   createChangeTextHandler: any;
   checkedItemHandler: any;
 }) => {
@@ -47,16 +45,26 @@ const CurrentPage = ({
   }
 };
 
+export interface BrandAssignProps {
+  brandUsername: string;
+  brandInfo: string;
+  brandAgreement: boolean;
+  brandCategory: string[];
+  brandProfileImage: any;
+  isExist: boolean | undefined;
+}
+
 function BrandAssignScreen() {
   const route = useRoute<BrandAssignScreenRouteProp>();
   const current = route.params.current;
   const navigation = useNavigation<RootStackNavigationProp>();
-  const [form, setForm] = useState<BrandAssignParams>({
+  const [form, setForm] = useState<BrandAssignProps>({
     brandUsername: '',
     brandInfo: '',
     brandProfileImage: '',
     brandCategory: [],
     brandAgreement: false,
+    isExist: undefined,
   });
 
   const {mutate: assign} = useMutation(createBrand, {
@@ -65,11 +73,21 @@ function BrandAssignScreen() {
     },
   });
   const onSubmit = useCallback(() => {
-    assign(form);
+    assign({
+      brandUsername: form.brandUsername,
+      brandInfo: form.brandInfo,
+      brandProfileImage: form.brandProfileImage,
+      brandCategory: form.brandCategory,
+      brandAgreement: form.brandAgreement,
+    });
   }, [assign, form]);
 
   const createChangeTextHandler = (name: string) => (value: string) => {
-    setForm({...form, [name]: value});
+    if (name === 'brandUsername') {
+      setForm({...form, [name]: value, isExist: undefined});
+    } else {
+      setForm({...form, [name]: value});
+    }
   };
 
   const checkedItemHandler = (name: string, isChecked: boolean) => {
@@ -126,7 +144,6 @@ function BrandAssignScreen() {
         {CurrentPage({
           current,
           form,
-          setForm,
           createChangeTextHandler,
           checkedItemHandler,
         })}
