@@ -1,7 +1,10 @@
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {Text, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import {useMutation} from 'react-query';
+import {createBrand} from '../api/brand';
+import {BrandAssignParams} from '../api/types';
 import BrandAssignForm from '../components/brand/BrandAssignForm';
 import BrandAssignTerm from '../components/brand/BrandAssignTerm';
 import Category from '../components/category/Category';
@@ -20,7 +23,7 @@ const CurrentPage = ({
   checkedItemHandler,
 }: {
   current: number;
-  form: any;
+  form: BrandAssignParams;
   setForm: any;
   createChangeTextHandler: any;
   checkedItemHandler: any;
@@ -33,7 +36,7 @@ const CurrentPage = ({
     case 1:
       return (
         <Category
-          checkedItems={form.category}
+          checkedItems={form.brandCategory}
           checkedItemHandler={checkedItemHandler}
         />
       );
@@ -48,22 +51,22 @@ function BrandAssignScreen() {
   const route = useRoute<BrandAssignScreenRouteProp>();
   const current = route.params.current;
   const navigation = useNavigation<RootStackNavigationProp>();
-
-  interface Props {
-    brandUserName: string;
-    infoText: string;
-    profileImg: string;
-    category: string[];
-    terms: boolean;
-  }
-
-  const [form, setForm] = useState<Props>({
-    brandUserName: '',
-    infoText: '',
-    profileImg: '',
-    category: [],
-    terms: false,
+  const [form, setForm] = useState<BrandAssignParams>({
+    brandUsername: '',
+    brandInfo: '',
+    brandProfileImage: '',
+    brandCategory: [],
+    brandAgreement: false,
   });
+
+  const {mutate: assign} = useMutation(createBrand, {
+    onSuccess: () => {
+      navigation.navigate('BrandAssignComplete');
+    },
+  });
+  const onSubmit = useCallback(() => {
+    assign(form);
+  }, [assign, form]);
 
   const createChangeTextHandler = (name: string) => (value: string) => {
     setForm({...form, [name]: value});
@@ -71,25 +74,25 @@ function BrandAssignScreen() {
 
   const checkedItemHandler = (name: string, isChecked: boolean) => {
     if (isChecked) {
-      setForm({...form, category: [...form.category, name]});
-    } else if (!isChecked && form.category.find(i => i === name)) {
-      const nextCheckedItems = form.category.filter(i => i !== name);
-      setForm({...form, category: nextCheckedItems});
+      setForm({...form, brandCategory: [...form.brandCategory, name]});
+    } else if (!isChecked && form.brandCategory.find(i => i === name)) {
+      const nextCheckedItems = form.brandCategory.filter(i => i !== name);
+      setForm({...form, brandCategory: nextCheckedItems});
     }
   };
 
-  const enabled = () => {
-    switch (current) {
+  const enabled = (value: number) => {
+    switch (value) {
       case 0:
         return (
-          form.brandUserName !== '' &&
-          form.infoText !== '' &&
-          form.profileImg !== ''
+          form.brandUsername !== '' &&
+          form.brandInfo !== '' &&
+          form.brandProfileImage !== ''
         );
       case 1:
-        return form.category.length > 2;
+        return form.brandCategory.length > 2;
       case 2:
-        return form.terms;
+        return form.brandAgreement;
     }
   };
 
@@ -132,10 +135,10 @@ function BrandAssignScreen() {
         name="다음"
         onPress={() => {
           current === 2
-            ? navigation.navigate('BrandAssignComplete')
+            ? onSubmit()
             : navigation.navigate('BrandAssign', {current: current + 1});
         }}
-        enabled={enabled()}
+        enabled={enabled(current)}
       />
     </>
   );

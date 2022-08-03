@@ -15,20 +15,13 @@ import {launchImageLibrary} from 'react-native-image-picker';
 import TextInputs from '../TextInputs';
 import theme from '../../assets/theme';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-
-interface Props {
-  brandUserName: string;
-  infoText: string;
-  profileImg: any;
-  category: string[];
-  terms: boolean;
-}
+import {BrandAssignParams} from '../../api/types';
 
 function BrandAssignForm({
   form,
   onChangeText,
 }: {
-  form: Props;
+  form: BrandAssignParams;
   onChangeText: any;
 }) {
   const onSelectImage = () => {
@@ -43,7 +36,7 @@ function BrandAssignForm({
         if (res.didCancel) {
           return;
         }
-        onChangeText('profileImg')(res);
+        onChangeText('brandProfileImage')(res);
       },
     );
   };
@@ -57,8 +50,8 @@ function BrandAssignForm({
         <Image
           style={styles.circle}
           source={
-            form.profileImg
-              ? {uri: form.profileImg.assets[0]?.uri}
+            form.brandProfileImage
+              ? {uri: form.brandProfileImage.assets[0]?.uri}
               : require('../../assets/empty/EmptyProfile.png')
           }
           resizeMode="contain"
@@ -71,23 +64,23 @@ function BrandAssignForm({
       <InputTitle title="브랜드명" />
       <View style={styles.row}>
         <TextInputs
-          value={form.brandUserName}
-          onChangeText={onChangeText('brandUserName')}
+          value={form.brandUsername}
+          onChangeText={onChangeText('brandUsername')}
           placeholder="브랜드명 입력"
         />
-        <AuthButton text="중복확인" disabled={!form.brandUserName} />
+        <AuthButton text="중복확인" disabled={!form.brandUsername} />
       </View>
       <InputTitle title="소개문구" />
       <TextInput
         style={styles.info}
-        value={form.infoText}
-        onChangeText={onChangeText('infoText')}
+        value={form.brandInfo}
+        onChangeText={onChangeText('brandInfo')}
         placeholder="브랜드를 소개해주세요."
         maxLength={200}
         multiline={true}
         placeholderTextColor={'rgba(0, 0, 0, 0.2)'}
       />
-      <Text style={styles.counter}>{form.infoText.length}/200</Text>
+      <Text style={styles.counter}>{form.brandInfo.length}/200</Text>
     </ScrollView>
   );
 }
