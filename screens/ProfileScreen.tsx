@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, StyleSheet, View, Image} from 'react-native';
+import {Text, StyleSheet, View} from 'react-native';
 // import {useNavigation} from '@react-navigation/native';
 // import {RootStackNavigationProp} from './types';
 import theme from '../assets/theme';
