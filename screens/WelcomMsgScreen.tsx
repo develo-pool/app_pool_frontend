@@ -1,5 +1,12 @@
 import React, {useState} from 'react';
-import {Text, View, StyleSheet, TextInput, Image} from 'react-native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  TextInput,
+  Image,
+  Pressable,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import theme from '../assets/theme';
 import Title from '../components/Title';
@@ -7,15 +14,20 @@ import {
   PreviewButton,
   SendButton,
 } from '../components/create/CreateMessageComponents';
+import {useNavigation} from '@react-navigation/native';
+import {MainTabNatigationProp} from './types';
 
 function WelcomeMessageScreen() {
   const [text, setText] = useState('');
+  const navigation = useNavigation<MainTabNatigationProp>();
   return (
     <>
       <View style={styles.UpperArea}>
         <View style={styles.TitleArea}>
           <Title title="웰컴메시지 설정" isSmall={true} />
-          <Icon name="clear" size={24} color={theme.colors.Black} />
+          <Pressable onPress={() => navigation.navigate('BrandProfile')}>
+            <Icon name="clear" size={24} color={theme.colors.Black} />
+          </Pressable>
         </View>
         <View style={styles.Info}>
           <View style={styles.BrandInfo}>

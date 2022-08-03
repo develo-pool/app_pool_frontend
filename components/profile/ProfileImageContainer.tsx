@@ -22,7 +22,7 @@ function ProfileImageContainer({isEditable}: Props) {
         <TouchableOpacity
           style={styles.EditProfile}
           onPress={() => navigation.navigate('EditProfile')}>
-          <Icon name="edit" size={16} style={styles.EditButton} />
+          <Icon name="edit" size={18} style={styles.EditButton} />
         </TouchableOpacity>
       )}
     </View>
@@ -42,14 +42,14 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   }, //프로필 사진
   EditProfile: {
-    width: 28,
-    height: 28,
-    borderRadius: 14,
+    width: 32,
+    height: 32,
+    borderRadius: 16,
     backgroundColor: theme.colors.Grey50,
     justifyContent: 'center',
     alignItems: 'center',
-    marginLeft: -28,
-    marginTop: 62,
+    marginLeft: -32,
+    marginTop: 58,
   }, //수정 버튼
   EditButton: {
     color: theme.colors.White,
