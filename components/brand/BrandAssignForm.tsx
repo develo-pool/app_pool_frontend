@@ -15,20 +15,16 @@ import {launchImageLibrary} from 'react-native-image-picker';
 import TextInputs from '../TextInputs';
 import theme from '../../assets/theme';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-
-interface Props {
-  brandUserName: string;
-  infoText: string;
-  profileImg: any;
-  category: string[];
-  terms: boolean;
-}
+import {useQuery} from 'react-query';
+import {brandNameExist} from '../../api/brand';
+import {BrandAssignProps} from '../../screens/BrandAssignScreen';
+import {CheckNickName} from '../auth/Validation';
 
 function BrandAssignForm({
   form,
   onChangeText,
 }: {
-  form: Props;
+  form: BrandAssignProps;
   onChangeText: any;
 }) {
   const onSelectImage = () => {
@@ -43,10 +39,21 @@ function BrandAssignForm({
         if (res.didCancel) {
           return;
         }
-        onChangeText('profileImg')(res);
+        onChangeText('brandProfileImage')(res);
       },
     );
   };
+  const {refetch: refetchBrandname, isLoading: brandnameLoading} = useQuery(
+    ['usernameExist', form.brandUsername],
+    () => {
+      brandNameExist(form.brandUsername).then((value: boolean) => {
+        onChangeText('isExist')(value);
+      });
+    },
+    {
+      enabled: false,
+    },
+  );
   return (
     <ScrollView style={styles.block} showsVerticalScrollIndicator={false}>
       <Title title="브랜드에 대해" alignCenter={true} />
@@ -57,8 +64,8 @@ function BrandAssignForm({
         <Image
           style={styles.circle}
           source={
-            form.profileImg
-              ? {uri: form.profileImg.assets[0]?.uri}
+            form.brandProfileImage
+              ? {uri: form.brandProfileImage.assets[0]?.uri}
               : require('../../assets/empty/EmptyProfile.png')
           }
           resizeMode="contain"
@@ -71,23 +78,45 @@ function BrandAssignForm({
       <InputTitle title="브랜드명" />
       <View style={styles.row}>
         <TextInputs
-          value={form.brandUserName}
-          onChangeText={onChangeText('brandUserName')}
+          type={
+            (CheckNickName(form.brandUsername) || !form.brandUsername) &&
+            form.isExist !== true
+              ? 'default'
+              : 'error'
+          }
+          value={form.brandUsername}
+          onChangeText={onChangeText('brandUsername')}
           placeholder="브랜드명 입력"
+          alert={
+            CheckNickName(form.brandUsername) || !form.brandUsername
+              ? form.isExist === false
+                ? {type: 'Correct', text: '사용 가능한 닉네임입니다.'}
+                : form.isExist === undefined
+                ? undefined
+                : {type: 'Error', text: '중복된 아이디입니다.'}
+              : form.brandUsername.length < 3
+              ? {type: 'Error', text: '3자 이상 입력해주세요.'}
+              : {type: 'Error', text: "특수문자는 '_'만 가능합니다."}
+          }
         />
-        <AuthButton text="중복확인" disabled={!form.brandUserName} />
+        <AuthButton
+          text="중복확인"
+          onPress={() => refetchBrandname()}
+          disabled={!form.brandUsername}
+          isLoading={brandnameLoading}
+        />
       </View>
       <InputTitle title="소개문구" />
       <TextInput
         style={styles.info}
-        value={form.infoText}
-        onChangeText={onChangeText('infoText')}
+        value={form.brandInfo}
+        onChangeText={onChangeText('brandInfo')}
         placeholder="브랜드를 소개해주세요."
         maxLength={200}
         multiline={true}
         placeholderTextColor={'rgba(0, 0, 0, 0.2)'}
       />
-      <Text style={styles.counter}>{form.infoText.length}/200</Text>
+      <Text style={styles.counter}>{form.brandInfo.length}/200</Text>
     </ScrollView>
   );
 }

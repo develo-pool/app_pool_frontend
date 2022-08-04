@@ -1,10 +1,17 @@
 import React from 'react';
 import {Pressable, ScrollView, StyleSheet, Text, View} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import {BrandAssignParams} from '../../api/types';
 import theme from '../../assets/theme';
 import Title from '../Title';
 
-function BrandAssignTerm({form, onPress}: {form: any; onPress: any}) {
+function BrandAssignTerm({
+  form,
+  onPress,
+}: {
+  form: BrandAssignParams;
+  onPress: any;
+}) {
   return (
     <ScrollView style={styles.block} showsVerticalScrollIndicator={false}>
       <Title title="서비스 가이드를 읽고" alignCenter={true} />
@@ -21,9 +28,9 @@ function BrandAssignTerm({form, onPress}: {form: any; onPress: any}) {
       `}
       </Text>
       <Pressable
-        onPress={() => onPress('terms')(!form.terms)}
+        onPress={() => onPress('brandAgreement')(!form.brandAgreement)}
         style={styles.container}>
-        {form.terms ? (
+        {form.brandAgreement ? (
           <View style={styles.check}>
             <Icon name="check" size={15} color="white" />
           </View>

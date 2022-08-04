@@ -25,3 +25,11 @@ export type AuthError = AxiosError<{
   message?: AuthErrorData;
   data?: AuthErrorData;
 }>;
+
+export interface BrandAssignParams {
+  brandUsername: string;
+  brandInfo: string;
+  brandAgreement: boolean;
+  brandCategory: string[];
+  brandProfileImage: any;
+}
