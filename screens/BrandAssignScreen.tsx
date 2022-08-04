@@ -76,7 +76,7 @@ function BrandAssignScreen() {
     assign({
       brandUsername: form.brandUsername,
       brandInfo: form.brandInfo,
-      brandProfileImage: form.brandProfileImage,
+      brandProfileImage: 'dummy img',
       brandCategory: form.brandCategory,
       brandAgreement: form.brandAgreement,
     });
@@ -105,7 +105,8 @@ function BrandAssignScreen() {
         return (
           form.brandUsername !== '' &&
           form.brandInfo !== '' &&
-          form.brandProfileImage !== ''
+          form.brandProfileImage !== '' &&
+          form.isExist === false
         );
       case 1:
         return form.brandCategory.length > 2;

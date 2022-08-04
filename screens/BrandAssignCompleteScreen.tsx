@@ -1,39 +1,51 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {ActivityIndicator, Image, StyleSheet, Text, View} from 'react-native';
+import {useQuery} from 'react-query';
+import {getBrand} from '../api/brand';
 import theme from '../assets/theme';
 import MainContainer from '../components/MainContainer';
 import ScreenBottomButton from '../components/ScreenBottomButton';
 import Title from '../components/Title';
 import {RootStackNavigationProp} from './types';
 
-const data = {
-  userName: '더푸르',
-  infoText: '더푸르입니다.',
-  profileImg:
-    'file:///data/user/0/com.app_pool_frontend/cache/rn_image_picker_lib_temp_0e072fc9-b664-4a5a-b3de-8a50c64ec30c.png',
-};
-
 function BrandAssignCompleteScreen() {
   const navigation = useNavigation<RootStackNavigationProp>();
+  const id = '';
+  const {data, isLoading} = useQuery('getBrand', () => getBrand(id), {
+    refetchOnMount: 'always',
+  });
   return (
     <>
       <MainContainer>
-        <View style={styles.block}>
-          <Title title="브랜드 등록 요청이" alignCenter={true} />
-          <Title title="완료되었습니다!" alignCenter={true} />
-          <Text
-            style={
-              styles.guide
-            }>{`브랜드 등록이 완료되면 따로 알림을 드리겠습니다.\n등등 관련 안내문구 제공`}</Text>
-          <View style={styles.circle}>
-            <Image style={styles.circle} source={{uri: data.profileImg}} />
+        {isLoading ? (
+          <View style={styles.loadingContainer}>
+            <ActivityIndicator
+              size={'large'}
+              color={theme.colors.Grey20}
+              style={styles.loading}
+            />
           </View>
-          <Text style={styles.name}>{data.userName}</Text>
-          <View style={styles.box}>
-            <Text style={styles.infoText}>{data.infoText}</Text>
+        ) : (
+          <View style={styles.block}>
+            <Title title="브랜드 등록 요청이" alignCenter={true} />
+            <Title title="완료되었습니다!" alignCenter={true} />
+            <Text
+              style={
+                styles.guide
+              }>{`브랜드 등록이 완료되면 따로 알림을 드리겠습니다.\n등등 관련 안내문구 제공`}</Text>
+            <View style={styles.circle}>
+              <Image
+                style={styles.circle}
+                source={{uri: data?.brandProfileImage}}
+              />
+            </View>
+            <Text style={styles.name}>{data?.brandUsername}</Text>
+            <View style={styles.box}>
+              <Text style={styles.infoText}>{data?.brandInfo}</Text>
+            </View>
           </View>
-        </View>
+        )}
       </MainContainer>
       <ScreenBottomButton
         name="대기하면서 피드 구경하기"
@@ -86,6 +98,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     margin: 5,
     borderRadius: 100,
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  loading: {
+    alignSelf: 'center',
   },
 });
 
