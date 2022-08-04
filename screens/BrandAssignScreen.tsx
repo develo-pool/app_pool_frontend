@@ -105,7 +105,8 @@ function BrandAssignScreen() {
         return (
           form.brandUsername !== '' &&
           form.brandInfo !== '' &&
-          form.brandProfileImage !== ''
+          form.brandProfileImage !== '' &&
+          form.isExist === false
         );
       case 1:
         return form.brandCategory.length > 2;
