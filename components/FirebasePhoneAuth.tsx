@@ -11,7 +11,7 @@ function FirebasePhoneAuth() {
   // 인증코드 입력값
   const [code, setCode] = useState('');
   // 전화번호 입력값(+82 xx-xxxx-xxxx 입력 형태여야만 작동, '-'는 제거해도 ㄱㅊ)
-  const [number, setNumber] = useState('');
+  const [pnumber, setPNumber] = useState('');
   // 인증을 했는지 안했는지 boolean
 
   // 사실 당장에는 필요없는데...!
@@ -62,12 +62,12 @@ function FirebasePhoneAuth() {
       <View style={styles.Container}>
         <TextInput
           style={styles.InputBox}
-          value={number}
-          onChangeText={number => setNumber(number)}
+          value={pnumber}
+          onChangeText={number => setPNumber(number)}
         />
         <Button
           title="Phone Number Sign In"
-          onPress={() => signInWithPhoneNumber(number)}
+          onPress={() => signInWithPhoneNumber(pnumber)}
         />
       </View>
     );
