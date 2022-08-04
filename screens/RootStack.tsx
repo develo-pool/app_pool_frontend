@@ -16,6 +16,8 @@ import BrandAssignGuideScreen from './BrandAssignGuideScreen';
 import BrandAssignCompleteScreen from './BrandAssignCompleteScreen';
 import SettingStack from './SettingStack';
 import EditBrandProfile from './EditBrandProfileScreen';
+import FirebasePhoneAuth from '../components/FirebasePhoneAuth';
+import FirebaseAuth from '../components/FirebaseAuth';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -24,6 +26,16 @@ function RootStack() {
   return (
     <Stack.Navigator initialRouteName="MainTab">
       <Stack.Screen
+        name="FirebasePhoneAuth"
+        component={FirebasePhoneAuth}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="FirebaseAuth"
+        component={FirebaseAuth}
+        options={{headerShown: false}}
+      />
+      {/* <Stack.Screen
         name="Welcome"
         component={WelcomeScreen}
         options={{headerShown: false}}
@@ -75,7 +87,7 @@ function RootStack() {
         name="EditProfile"
         component={EditBrandProfile}
         options={{headerShown: false}}
-      />
+      /> */}
     </Stack.Navigator>
   );
 }

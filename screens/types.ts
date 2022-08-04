@@ -26,6 +26,8 @@ export type RootStackParamList = {
   BrandAssignGuide: undefined;
   BrandAssignComplete: undefined;
   EditProfile: undefined;
+  FirebasePhoneAuth: undefined;
+  FirebaseAuth: undefined;
 };
 
 /* SettingStack */

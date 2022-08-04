@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import auth from '@react-native-firebase/auth';
 
 function FirebaseAuth() {
@@ -34,5 +34,14 @@ function FirebaseAuth() {
     </View>
   );
 }
+const styles = StyleSheet.create({
+    Container: {
+      padding: 30,
+      margin: 30,
+    },
+    InputBox: {
+      backgroundColor: 'grey',
+    }
+  });
 
 export default FirebaseAuth;
