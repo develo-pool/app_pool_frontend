@@ -33,3 +33,9 @@ export interface BrandAssignParams {
   brandCategory: string[];
   brandProfileImage: any;
 }
+
+export interface BrandResult {
+  brandUsername: string;
+  brandInfo: string;
+  brandProfileImage: any;
+}

@@ -76,7 +76,7 @@ function BrandAssignScreen() {
     assign({
       brandUsername: form.brandUsername,
       brandInfo: form.brandInfo,
-      brandProfileImage: form.brandProfileImage,
+      brandProfileImage: 'dummy img',
       brandCategory: form.brandCategory,
       brandAgreement: form.brandAgreement,
     });
