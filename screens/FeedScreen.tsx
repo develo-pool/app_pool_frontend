@@ -2,6 +2,12 @@ import {Text, View, StyleSheet, ScrollView} from 'react-native';
 import React from 'react';
 import Title from '../components/Title';
 import Feed from '../components/Feed';
+// import {getUser} from '../api/auth';
+// import {useQuery} from 'react-query';
+// import {RefreshToken} from '../api/types';
+// import jwtDecode from 'jwt-decode';
+// import client from '../api/client';
+// import authStorage from '../storages/authStorage';
 
 interface User {
   name: string;
@@ -33,8 +39,32 @@ const test: Message = {
 };
 
 function FeedScreen() {
+  // const auth = authStorage.get();
+  // const {refetch: refetchGetUser} = useQuery(
+  //   'getUser',
+  //   () => {
+  //     console.log('request!');
+  //     console.log(auth);
+  //     const decodedRefreshToken: RefreshToken = jwtDecode(
+  //       String(client.defaults.headers.common.Authorization),
+  //     );
+  //     console.log(decodedRefreshToken.exp * 1000);
+  //     const date = new Date();
+  //     console.log(date.getTime());
+  //     getUser().then(value => {
+  //       console.log(value);
+  //     });
+  //   },
+  //   {
+  //     enabled: false,
+  //   },
+  // );
+
   return (
     <View>
+      {/* <Pressable onPress={() => refetchGetUser()}>
+        <Text>요청</Text>
+      </Pressable> */}
       <ScrollView>
         <View style={styles.feedScreenHeader}>
           <Title title="피드" />
