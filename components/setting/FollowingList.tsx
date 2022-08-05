@@ -9,7 +9,7 @@ interface Props {
   onPress?: any;
 }
 
-function FollowingList({brandName, followers, onPress}: Props) {
+function FollowingList({brandName, followers}: Props) {
   return (
     <>
       <Pressable style={styles.FollowingsContainer}>
