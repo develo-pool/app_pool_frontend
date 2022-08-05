@@ -167,9 +167,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginBottom: 32,
   },
-  column: {
-    marginBottom: 30,
-    minHeight: 48,
+  secondRow: {
+    flexDirection: 'row',
+    marginBottom: 32,
   },
   noMargin: {
     marginBottom: 2,
