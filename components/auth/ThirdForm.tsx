@@ -1,29 +1,24 @@
 import React, {useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useQuery} from 'react-query';
-import {nickNameExist, SignUpParams, usernameExist} from '../../api/auth';
-import {TempProps} from '../../screens/SignUpScreen';
+import {nickNameExist, usernameExist} from '../../api/auth';
 import theme from '../../assets/theme';
+import {SignUpScreenProps} from '../../screens/SignUpScreen';
 import TextInputs from '../TextInputs';
 import Title from '../Title';
 import {AuthButton, CheckBox, InputTitle} from './AuthComponents';
+import PasswordForm from './PasswordForm';
 import TermsModal from './TermsModal';
-import {
-  CheckNickName,
-  CheckPassword,
-  CheckUserName,
-  ReplaceKorean,
-} from './Validation';
+import {CheckNickName, CheckUserName, ReplaceKorean} from './Validation';
 
 function ThirdForm({
   onChangeText,
   form,
-  temp,
+  setForm,
 }: {
   onChangeText: any;
-  form: SignUpParams;
-  temp: TempProps;
+  form: SignUpScreenProps;
+  setForm: any;
 }) {
   const {refetch: refetchUsername, isLoading: usernameLoading} = useQuery(
     ['usernameExist', form.username],
@@ -47,20 +42,9 @@ function ThirdForm({
       enabled: false,
     },
   );
-
-  const [passwordGuideVisible, setPasswordGuideVisible] =
-    useState<boolean>(false);
   const [termModalVisible, setTermModalVisible] = useState<boolean>(false);
   const [privacyModalVisible, setPrivacyModalVisible] =
     useState<boolean>(false);
-  const changePasswordHandler = (value: string) => {
-    onChangeText('password')(value);
-    onChangeText('passwordValid')({
-      first: value.length >= 8,
-      second: CheckPassword(value),
-    });
-  };
-  const isSame = temp.confirm === form.password;
   return (
     <View style={styles.block}>
       <Title title="아이디 및 비밀번호를" />
@@ -70,22 +54,25 @@ function ThirdForm({
         <TextInputs
           type={
             (CheckUserName(form.username) || !form.username) &&
-            temp.usernameChecked !== false
+            form.usernameChecked !== false
               ? 'default'
               : 'error'
           }
           placeholder="아이디를 입력해 주세요"
           value={form.username}
           onChangeText={(value: string) => {
-            onChangeText('username')(ReplaceKorean(value));
-            onChangeText('usernameChecked')(undefined);
+            setForm({
+              ...form,
+              username: ReplaceKorean(value),
+              usernameChecked: undefined,
+            });
           }}
           maxLength={20}
           alert={
             CheckUserName(form.username) || !form.username
-              ? temp.usernameChecked === true
+              ? form.usernameChecked === true
                 ? {type: 'Correct', text: '사용 가능한 닉네임입니다.'}
-                : temp.usernameChecked === undefined
+                : form.usernameChecked === undefined
                 ? undefined
                 : {type: 'Error', text: '중복된 아이디입니다.'}
               : form.username.length < 3
@@ -96,7 +83,7 @@ function ThirdForm({
         <AuthButton
           text="중복확인"
           disabled={
-            !CheckUserName(form.username) || temp.usernameChecked !== undefined
+            !CheckUserName(form.username) || form.usernameChecked !== undefined
           }
           onPress={() => {
             refetchUsername();
@@ -115,21 +102,20 @@ function ThirdForm({
         <TextInputs
           type={
             (CheckNickName(form.nickName) || !form.nickName) &&
-            temp.nickNameChecked !== false
+            form.nickNameChecked !== false
               ? 'default'
               : 'error'
           }
           placeholder="한글 및 영문으로 입력"
           value={form.nickName}
           onChangeText={(value: string) => {
-            onChangeText('nickName')(value);
-            onChangeText('nickNameChecked')(undefined);
+            setForm({...form, nickName: value, nickNameChecked: undefined});
           }}
           alert={
             CheckNickName(form.nickName) || !form.nickName
-              ? temp.nickNameChecked === true
+              ? form.nickNameChecked === true
                 ? {type: 'Correct', text: '사용 가능한 닉네임입니다.'}
-                : temp.nickNameChecked === undefined
+                : form.nickNameChecked === undefined
                 ? undefined
                 : {type: 'Error', text: '중복된 닉네임입니다.'}
               : {type: 'Error', text: "특수문자는 '_'만 가능합니다."}
@@ -138,83 +124,13 @@ function ThirdForm({
         <AuthButton
           text="중복확인"
           disabled={
-            !CheckNickName(form.nickName) || temp.nickNameChecked !== undefined
+            !CheckNickName(form.nickName) || form.nickNameChecked !== undefined
           }
           onPress={() => refetchNickname()}
           isLoading={nickNameLoading}
         />
       </View>
-      <InputTitle title="비밀번호" />
-      <View style={styles.column}>
-        <TextInputs
-          type={
-            !!form.password &&
-            !passwordGuideVisible &&
-            !(temp.passwordValid.first && temp.passwordValid.second)
-              ? 'error'
-              : 'default'
-          }
-          placeholder="비밀번호를 입력해 주세요"
-          value={form.password}
-          onChangeText={changePasswordHandler}
-          secureTextEntry={true}
-          onFocus={() => setPasswordGuideVisible(true)}
-          onBlur={() => setPasswordGuideVisible(false)}
-          alert={
-            !!form.password &&
-            !passwordGuideVisible &&
-            !(temp.passwordValid.first && temp.passwordValid.second)
-              ? {
-                  type: 'Error',
-                  text: '비밀번호 양식에 맞게 입력해 주세요.',
-                }
-              : undefined
-          }
-        />
-        {passwordGuideVisible && (
-          <>
-            <View style={styles.guideContainer}>
-              <View
-                style={[
-                  styles.check,
-                  (!temp.passwordValid.first || !form.password) &&
-                    styles.uncheck,
-                ]}>
-                <Icon name="check" size={14} color="white" />
-              </View>
-              <Text style={styles.guide}>최소 8자 이상</Text>
-            </View>
-            <View style={styles.guideContainer}>
-              <View
-                style={[
-                  styles.check,
-                  (!temp.passwordValid.second || !form.password) &&
-                    styles.uncheck,
-                ]}>
-                <Icon name="check" size={14} color="white" />
-              </View>
-              <Text style={styles.guide}>
-                영문, 숫자, 특수문자 각 1개 이상 사용
-              </Text>
-            </View>
-          </>
-        )}
-      </View>
-      <InputTitle title="비밀번호 확인" />
-      <View style={styles.column}>
-        <TextInputs
-          type={!temp.confirm || isSame ? 'default' : 'error'}
-          placeholder="비밀번호를 다시 입력해 주세요"
-          onChangeText={onChangeText('confirm')}
-          secureTextEntry={true}
-          value={temp.confirm}
-          alert={
-            !temp.confirm || isSame
-              ? undefined
-              : {type: 'Error', text: '비밀번호가 일치하지 않습니다.'}
-          }
-        />
-      </View>
+      <PasswordForm form={form} onChangeForm={onChangeText} setForm={setForm} />
       <CheckBox
         title="이용약관 동의 (필수)"
         state={form.termAgreement}

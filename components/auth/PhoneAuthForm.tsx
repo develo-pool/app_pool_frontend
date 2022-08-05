@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
+import {SignUpScreenProps} from '../../screens/SignUpScreen';
 import TextInputs from '../TextInputs';
 import {AuthButton, InputTitle} from './AuthComponents';
 import {CheckPhoneNumber} from './Validation';
@@ -15,14 +16,13 @@ function PhoneAuthForm({
   onChangeForm,
   setForm,
 }: {
-  form: PhoneAuthProps;
+  form: SignUpScreenProps | PhoneAuthProps;
   onChangeForm: any;
   setForm: any;
 }) {
   const [phoneNumberValid, setPhoneNumberValid] = useState<boolean>(true);
   const changePhoneNumberHandler = (value: string) => {
-    // onChangeText('phoneNumber')(value);
-    // setTemp({...temp, firstState: 'default', authNumber: ''});
+    console.log(form);
     setForm({...form, state: 'default', authNumber: '', phoneNumber: value});
     setPhoneNumberValid(CheckPhoneNumber(value));
   };

@@ -1,7 +1,6 @@
 import React from 'react';
 import {ScrollView} from 'react-native';
-import {SignUpParams} from '../../api/auth';
-import {TempProps} from '../../screens/SignUpScreen';
+import {SignUpScreenProps} from '../../screens/SignUpScreen';
 import Category from '../category/Category';
 import FirstForm from './FirstForm';
 import SecondForm from './SecondForm';
@@ -12,15 +11,13 @@ const SignUpForm = ({
   createChangeTextHandler,
   checkedItemHandler,
   form,
-  temp,
-  setTemp,
+  setForm,
 }: {
   current: number;
   createChangeTextHandler: any;
   checkedItemHandler: any;
-  form: SignUpParams;
-  temp: TempProps;
-  setTemp: any;
+  form: SignUpScreenProps;
+  setForm: any;
 }) => {
   switch (current) {
     case 0:
@@ -28,8 +25,7 @@ const SignUpForm = ({
         <FirstForm
           onChangeText={createChangeTextHandler}
           form={form}
-          temp={temp}
-          setTemp={setTemp}
+          setForm={setForm}
         />
       );
     case 1:
@@ -41,8 +37,8 @@ const SignUpForm = ({
           keyboardShouldPersistTaps="handled">
           <ThirdForm
             onChangeText={createChangeTextHandler}
-            temp={temp}
             form={form}
+            setForm={setForm}
           />
         </ScrollView>
       );

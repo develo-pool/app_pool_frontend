@@ -1,7 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {SignUpParams} from '../../api/auth';
-import {TempProps} from '../../screens/SignUpScreen';
+import {SignUpScreenProps} from '../../screens/SignUpScreen';
 import {RootStackNavigationProp} from '../../screens/types';
 import ScreenBottomButton from '../ScreenBottomButton';
 import {CheckBirthday} from './Validation';
@@ -9,25 +8,23 @@ import {CheckBirthday} from './Validation';
 function SignUpScreenBottomButton({
   current,
   form,
-  temp,
   onPress,
 }: {
   current: number;
-  form: SignUpParams;
-  temp: TempProps;
+  form: SignUpScreenProps;
   onPress: () => void;
 }) {
   const navigation = useNavigation<RootStackNavigationProp>();
 
-  const FirstFormValid = !!form.phoneNumber && temp.firstState === 'confirm';
+  const FirstFormValid = !!form.phoneNumber && form.state === 'confirm';
   const SecondFormValid = CheckBirthday(form.birthDay) && !!form.gender;
   const ThirdFormValid = !!(
-    temp.usernameChecked &&
-    temp.nickNameChecked &&
+    form.usernameChecked &&
+    form.nickNameChecked &&
     form.nickName &&
-    temp.passwordValid.first &&
-    temp.passwordValid.second &&
-    form.password === temp.confirm &&
+    form.passwordValid.first &&
+    form.passwordValid.second &&
+    form.password === form.confirm &&
     form.privacyAgreement &&
     form.termAgreement
   );
@@ -69,7 +66,6 @@ function SignUpScreenBottomButton({
           name="가입완료"
           onPress={() => {
             onPress();
-            // navigation.navigate('Guide');
           }}
           enabled={form.category.length > 2}
         />

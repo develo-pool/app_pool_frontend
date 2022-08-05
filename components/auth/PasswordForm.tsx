@@ -5,6 +5,7 @@ import {InputTitle} from './AuthComponents';
 import {CheckPassword} from './Validation';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import theme from '../../assets/theme';
+import {SignUpScreenProps} from '../../screens/SignUpScreen';
 
 interface PasswordFormProps {
   password: string;
@@ -17,7 +18,7 @@ function PasswordForm({
   onChangeForm,
   setForm,
 }: {
-  form: PasswordFormProps;
+  form: SignUpScreenProps | PasswordFormProps;
   onChangeForm: any;
   setForm: any;
 }) {
