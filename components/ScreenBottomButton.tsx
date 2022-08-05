@@ -1,24 +1,36 @@
 import React from 'react';
-import {GestureResponderEvent, Pressable, StyleSheet, Text} from 'react-native';
+import {
+  ActivityIndicator,
+  GestureResponderEvent,
+  Pressable,
+  StyleSheet,
+  Text,
+} from 'react-native';
 import theme from '../assets/theme';
 
 function ScreenBottomButton({
   name,
   onPress,
   enabled = true,
+  isLoading = false,
 }: {
   name: string;
   onPress: (event: GestureResponderEvent) => void;
   enabled?: boolean;
+  isLoading?: boolean;
 }) {
   return (
     <Pressable
       onPress={onPress}
       disabled={!enabled}
       style={[styles.button, enabled ? styles.enabled : styles.disabled]}>
-      <Text style={enabled ? styles.enabledText : styles.disabledText}>
-        {name}
-      </Text>
+      {isLoading ? (
+        <ActivityIndicator size="small" color="white" />
+      ) : (
+        <Text style={enabled ? styles.enabledText : styles.disabledText}>
+          {name}
+        </Text>
+      )}
     </Pressable>
   );
 }

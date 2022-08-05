@@ -21,7 +21,6 @@ function PhoneAuthForm({
 }) {
   const [phoneNumberValid, setPhoneNumberValid] = useState<boolean>(true);
   const changePhoneNumberHandler = (value: string) => {
-    console.log(form);
     setForm({...form, state: 'default', authNumber: '', phoneNumber: value});
     setPhoneNumberValid(CheckPhoneNumber(value));
   };

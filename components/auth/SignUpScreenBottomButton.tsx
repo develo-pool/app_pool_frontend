@@ -9,10 +9,12 @@ function SignUpScreenBottomButton({
   current,
   form,
   onPress,
+  signUpLoading,
 }: {
   current: number;
   form: SignUpScreenProps;
   onPress: () => void;
+  signUpLoading: boolean;
 }) {
   const navigation = useNavigation<RootStackNavigationProp>();
 
@@ -67,7 +69,8 @@ function SignUpScreenBottomButton({
           onPress={() => {
             onPress();
           }}
-          enabled={form.category.length > 2}
+          isLoading={signUpLoading}
+          enabled={form.category.length > 2 && !signUpLoading}
         />
       );
   }
