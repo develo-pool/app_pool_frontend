@@ -16,6 +16,7 @@ import BrandAssignGuideScreen from './BrandAssignGuideScreen';
 import BrandAssignCompleteScreen from './BrandAssignCompleteScreen';
 import SettingStack from './SettingStack';
 import EditBrandProfile from './EditBrandProfileScreen';
+import FirebasePhoneAuth from '../components/FirebasePhoneAuth';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -23,6 +24,11 @@ function RootStack() {
   useAuthLoadEffect();
   return (
     <Stack.Navigator initialRouteName="Welcome">
+      <Stack.Screen
+        name="FirebasePhoneAuth"
+        component={FirebasePhoneAuth}
+        options={{headerShown: false}}
+      />
       <Stack.Screen
         name="Welcome"
         component={WelcomeScreen}
