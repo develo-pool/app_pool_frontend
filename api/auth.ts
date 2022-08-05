@@ -30,6 +30,14 @@ export async function getUser() {
   return response.data;
 }
 
+export async function refresh(params: {
+  accessToken: string;
+  refreshToken: string;
+}) {
+  const response = await client.post('/reIssue', params);
+  return response;
+}
+
 export interface SignUpParams {
   username: string;
   password: string;
