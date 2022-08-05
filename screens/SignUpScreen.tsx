@@ -80,6 +80,7 @@ function SignUpScreen() {
     usernameChecked: undefined,
     nickNameChecked: undefined,
   });
+  console.log(form);
   const createChangeTextHandler =
     (name: string) => (value: string | string[]) => {
       setForm({...form, [name]: value});

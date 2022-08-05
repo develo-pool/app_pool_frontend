@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: 'row',
-    marginBottom: 45,
+    marginBottom: 32,
   },
   column: {
     marginBottom: 30,

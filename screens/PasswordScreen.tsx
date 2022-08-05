@@ -70,11 +70,14 @@ function PasswordScreen() {
       ),
     });
   }, [current, navigation]);
+
   return (
     <>
       <MainContainer>
         {current ? (
-          <ScrollView showsVerticalScrollIndicator={false}>
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            keyboardShouldPersistTaps="handled">
             <View style={styles.block}>
               <Title title="비밀번호를" />
               <Title title="재설정해 주세요." hasMargin={true} />
@@ -86,7 +89,9 @@ function PasswordScreen() {
             </View>
           </ScrollView>
         ) : (
-          <ScrollView showsVerticalScrollIndicator={false}>
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            keyboardShouldPersistTaps="handled">
             <View style={styles.block}>
               <Title title="회원인증을" />
               <Title title="진행해주세요." hasMargin={true} />
@@ -156,7 +161,6 @@ function PasswordScreen() {
     </>
   );
 }
-
 const styles = StyleSheet.create({
   block: {
     flex: 1,

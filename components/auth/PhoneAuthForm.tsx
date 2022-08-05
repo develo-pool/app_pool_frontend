@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
-import {SignUpScreenProps} from '../../screens/SignUpScreen';
 import TextInputs from '../TextInputs';
 import {AuthButton, InputTitle} from './AuthComponents';
 import {CheckPhoneNumber} from './Validation';
@@ -16,7 +15,7 @@ function PhoneAuthForm({
   onChangeForm,
   setForm,
 }: {
-  form: SignUpScreenProps | PhoneAuthProps;
+  form: PhoneAuthProps;
   onChangeForm: any;
   setForm: any;
 }) {
@@ -61,7 +60,7 @@ function PhoneAuthForm({
         />
       </View>
       {form.state !== 'default' && (
-        <>
+        <View style={form.state !== 'confirm' && styles.margin}>
           <InputTitle title="인증번호" />
           <View style={styles.row}>
             <TextInputs
@@ -93,7 +92,7 @@ function PhoneAuthForm({
               }}
             />
           </View>
-        </>
+        </View>
       )}
     </>
   );
@@ -103,6 +102,9 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     marginBottom: 32,
+  },
+  margin: {
+    marginTop: 18,
   },
 });
 
