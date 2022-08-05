@@ -41,7 +41,9 @@ function SettingScreen() {
         <View style={styles.ProfileInfo}>
           {isBrandUser && <Text style={styles.BrandName}>더푸르</Text>}
           <Text style={styles.UserName}>김자네</Text>
-          <Pressable style={styles.FollowingContainer}>
+          <Pressable
+            style={styles.FollowingContainer}
+            onPress={() => navigation.navigate('FollowingList')}>
             <Text style={styles.Following}>팔로잉</Text>
             <Text style={styles.FollowingCount}>489</Text>
             <Icon
