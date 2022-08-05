@@ -29,12 +29,12 @@ function RootStack() {
         component={FirebasePhoneAuth}
         options={{headerShown: false}}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="Welcome"
         component={WelcomeScreen}
         options={{headerShown: false}}
-      />
-      <Stack.Screen
+      /> */}
+      {/* <Stack.Screen
         name="MainTab"
         component={MainTab}
         options={{headerShown: false}}
@@ -81,7 +81,7 @@ function RootStack() {
         name="EditProfile"
         component={EditBrandProfile}
         options={{headerShown: false}}
-      />
+      /> */}
     </Stack.Navigator>
   );
 }
