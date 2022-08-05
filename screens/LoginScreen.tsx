@@ -59,7 +59,7 @@ function LoginScreen() {
         />
       </View>
       <View style={styles.passwordContainer}>
-        <Pressable onPress={() => navigation.push('Password')}>
+        <Pressable onPress={() => navigation.push('Password', {current: 0})}>
           <Text style={[styles.subText, styles.bold]}>비밀번호 찾기</Text>
         </Pressable>
       </View>
