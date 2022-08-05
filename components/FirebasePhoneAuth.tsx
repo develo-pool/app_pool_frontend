@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {Button, StyleSheet, TextInput, View} from 'react-native';
-import messaging from '@react-native-firebase/messaging';
 
 // 요걸로다가 firebase의 auth를 사용할 예정...!
 import auth from '@react-native-firebase/auth';
@@ -30,16 +29,6 @@ function FirebasePhoneAuth() {
   async function signInWithPhoneNumber(phoneNumber: string) {
     const confirmation = await await auth().signInWithPhoneNumber(phoneNumber);
     setConfirm(confirmation);
-
-    const authStatus = await messaging().requestPermission();
-    const enabled =
-      authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
-      authStatus === messaging.AuthorizationStatus.PROVISIONAL;
-
-    if (enabled) {
-      const token = await messaging().getToken();
-      console.log('token', token);
-    }
   }
   // 요게 인증번호 textInput 옆에 들어갈 이벤트
   async function confirmCode() {
