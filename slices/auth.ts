@@ -1,5 +1,7 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {User} from '../api/types';
+import jwtDecode from 'jwt-decode';
+import {applyToken} from '../api/client';
+import {AccessToken, User} from '../api/types';
 
 interface AuthState {
   user: User | null;
@@ -13,8 +15,14 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    authorize(state, action: PayloadAction<User>) {
-      state.user = action.payload;
+    authorize(state, action: PayloadAction<string>) {
+      const decodedAccessToken: AccessToken = jwtDecode(action.payload);
+      state.user = {
+        username: decodedAccessToken.username,
+        nickName: decodedAccessToken.nickName,
+        role: decodedAccessToken.role,
+      };
+      applyToken(action.payload);
     },
     logout(state) {
       state.user = null;

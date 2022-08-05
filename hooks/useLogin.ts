@@ -5,7 +5,6 @@ import {useDispatch} from 'react-redux';
 import {authorize} from '../slices/auth';
 import {useNavigation} from '@react-navigation/native';
 import {RootStackNavigationProp} from '../screens/types';
-import {applyToken} from '../api/client';
 import authStorage from '../storages/authStorage';
 
 export default function useLogin() {
@@ -13,18 +12,11 @@ export default function useLogin() {
   const dispatch = useDispatch();
   const mutation = useMutation(login, {
     onSuccess: data => {
-      const User = {
-        username: data.username,
-        nickName: data.nickname,
-        userStatus: data.role,
-      };
-      dispatch(authorize(User));
+      dispatch(authorize(data.authorization));
       authStorage.set({
         accessToken: data.authorization,
         refreshToken: data['authorization-refresh'],
-        user: User,
       });
-      applyToken(data.authorization);
       navigation.navigate('MainTab');
     },
     onError: (error: AuthError) => {
