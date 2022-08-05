@@ -5,19 +5,19 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 interface Props {
   isFollowed: boolean;
-  onPress?: undefined;
+  onPress?: any;
 }
 
 function FollowButton({isFollowed, onPress}: Props) {
   return (
     <View style={styles.FollowButton}>
       <TouchableOpacity
-        style={[styles.ButtonFrame, !isFollowed && styles.Unfollowed]}
+        style={[styles.ButtonFrame, isFollowed && styles.Unfollowed]}
         onPress={onPress}>
-        <Text style={[styles.FollowText, !isFollowed && styles.UnfollowedText]}>
-          {isFollowed ? '팔로우' : '팔로잉'}
+        <Text style={[styles.FollowText, isFollowed && styles.UnfollowedText]}>
+          {isFollowed ? '팔로잉' : '팔로우'}
         </Text>
-        {!isFollowed && (
+        {isFollowed && (
           <Icon name="check-circle" size={12} style={styles.Checked} />
         )}
       </TouchableOpacity>
