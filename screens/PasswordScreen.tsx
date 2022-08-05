@@ -93,7 +93,7 @@ function PasswordScreen() {
             showsVerticalScrollIndicator={false}
             keyboardShouldPersistTaps="handled">
             <View style={styles.block}>
-              <Title title="회원인증을" />
+              <Title title="본인인증을" />
               <Title title="진행해주세요." hasMargin={true} />
               <InputTitle title="아이디" />
               <View style={styles.row}>
