@@ -18,6 +18,7 @@ import {clearToken} from '../api/client';
 import authStorage from '../storages/authStorage';
 import {useDispatch} from 'react-redux';
 import {logout} from '../slices/auth';
+import TermsModal from '../components/auth/TermsModal';
 
 const isBrandUser = false;
 
@@ -26,6 +27,7 @@ function SettingScreen() {
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
   const navigation = useNavigation<SettingStackNavigationProp>();
   const dispatch = useDispatch();
+  const [termModalVisible, setTermModalVisible] = useState<boolean>(false);
 
   const onLogout = () => {
     authStorage.clear();
@@ -87,7 +89,17 @@ function SettingScreen() {
           </View>
         </View>
         <SetArticle title="회원정보 수정" />
-        <SetArticle title="이용약관" />
+        <SetArticle
+          title="이용약관"
+          onPress={() => setTermModalVisible(true)}
+        />
+        <TermsModal
+          type="term"
+          setModalVisible={setTermModalVisible}
+          onPress={() => setTermModalVisible(true)}
+          visible={termModalVisible}
+          buttonEnabled={false}
+        />
         <SetArticle title="개인정보처리방침" />
         <SetArticle title="문의하기" />
         <Pressable style={styles.SeperatedSets} onPress={onLogout}>
@@ -98,7 +110,7 @@ function SettingScreen() {
         <Text style={styles.FooterText}>주식회사 더풀네트워크</Text>
         <Text style={styles.FooterText}>대표자 송진태</Text>
         <Text style={styles.FooterText}>
-          서울 종로구 종로 6 광화문 우체국 5층
+          서울 종로구 종로 6 광화문 우체국 5층 스타트업빌리지
         </Text>
         <Text style={styles.FooterText}>사업자등록번호 701-86-02478</Text>
         <Text style={styles.FooterText}>대표 이메일 info@thepool.network</Text>

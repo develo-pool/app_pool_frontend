@@ -10,11 +10,13 @@ function TermsModal({
   onPress,
   setModalVisible,
   visible,
+  buttonEnabled,
 }: {
   type: 'term' | 'privacy';
   onPress: any;
   setModalVisible: any;
   visible: boolean;
+  buttonEnabled?: boolean;
 }) {
   const onPressHandler = () => {
     onPress(true);
@@ -30,7 +32,15 @@ function TermsModal({
         </TouchableOpacity>
         <Terms type={type} />
       </MainContainer>
-      <ScreenBottomButton name="동의합니다." onPress={onPressHandler} />
+      {buttonEnabled ? (
+        <ScreenBottomButton name="동의합니다." onPress={onPressHandler} />
+      ) : (
+        <ScreenBottomButton
+          name="동의했습니다."
+          onPress={onPressHandler}
+          enabled={false}
+        />
+      )}
     </Modal>
   );
 }
