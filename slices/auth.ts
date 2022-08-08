@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import jwtDecode from 'jwt-decode';
-import {applyToken} from '../api/client';
+import {applyToken, clearToken} from '../api/client';
 import {AccessToken, User} from '../api/types';
 
 interface AuthState {
@@ -26,6 +26,7 @@ const authSlice = createSlice({
     },
     logout(state) {
       state.user = null;
+      clearToken();
     },
   },
 });
