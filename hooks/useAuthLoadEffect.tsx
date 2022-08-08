@@ -18,7 +18,7 @@ export default function useAuthLoadEffect() {
       }
       const decodedRefreshToken: RefreshToken = jwtDecode(auth.refreshToken);
       const date = new Date();
-      if (decodedRefreshToken.exp * 1000 < date.getTime()) {
+      if (decodedRefreshToken.exp * 1000 - date.getTime() < 60 * 1000) {
         authStorage.clear();
         return;
       }
