@@ -14,18 +14,12 @@ function BrandAssignTerm({
 }) {
   return (
     <ScrollView style={styles.block} showsVerticalScrollIndicator={false}>
-      <Title title="서비스 가이드를 읽고" alignCenter={true} />
-      <Title title="동의해주세요." alignCenter={true} />
-      <Text style={styles.subtitle}>제 1조</Text>
+      <Title title="브랜드 가이드를 읽고" alignCenter={true} />
+      <Title title="동의해주세요." alignCenter={true} hasMargin={true} />
       <Text style={styles.text}>
-        {`이제야 목적지를 정했지만 가려한 날 막아서네 난 갈 길이 먼데 새빨간 얼굴로 화를 냈던 친구가 생각나네
+        {`POOL은 브랜드와 팔로워의 소중한 만남이 이루어지는 공간입니다. 브랜드 등록정보가 가이드에 부합하지 않거나, 등록 이후 서비스 정책에 위배 되는 활동이 확인되는 경우 예고 없이 이용 제재될 수 있습니다. 유명 브랜드나 유명인을 사칭하는 경우, 일반명사, 음란/욕설 등의 단어가 포함된 이름 및 사진을 게시한 브랜드 사용자는 제재될 수있습니다.
 
-이미 난 발걸음을 떼었지만 가려한 날 재촉하네 걷기도 힘든데 새파랗게 겁에 질려 도망간 친구가 뇌에 맴도네
-
-건반처럼 생긴 도로 위 수많은 동그라미들 모두가 멈췄다 굴렀다 말은 잘 들어 그건 나도 문제가 아냐
-
-붉은색 푸른색 그 사이 3초 그 짧은 시간 노란색 빛을 내는 저기 저 신호등이 내 머릿속을 텅 비워버려 내가 빠른 지도 느린지도 모르겠어 그저 눈앞이 샛노랄 뿐이야
-      `}
+한국 인터넷 진흥원에서 배포한 불법 스팸 방지를 위한 정보통신망법 안내서의 관련 법률을 반드시 준수해야 합니다. 메시지가 사회적 이슈가 될 가능성이 있거나 이용자의 항의가 있는 경우 메시지 발송이 제한될 수 있습니다. 광고성 내용이 포함된 메시지 맨 앞에 (광고)를 표시해야 합니다.`}
       </Text>
       <Pressable
         onPress={() => onPress('brandAgreement')(!form.brandAgreement)}
@@ -57,14 +51,7 @@ const styles = StyleSheet.create({
     fontSize: theme.fontSize.P1,
     color: theme.colors.Grey50,
     lineHeight: 24,
-  },
-  subtitle: {
-    marginTop: 24,
-    marginBottom: 8,
-    fontFamily: theme.fontFamily.Pretendard,
-    fontSize: theme.fontSize.H5,
-    fontWeight: theme.fontWeight.Bold,
-    color: theme.colors.Grey50,
+    marginBottom: 24,
   },
   empty: {
     width: 20,
