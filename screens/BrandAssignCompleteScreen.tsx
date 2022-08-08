@@ -33,7 +33,7 @@ function BrandAssignCompleteScreen() {
             <Text
               style={
                 styles.guide
-              }>{`브랜드 등록이 완료되면 따로 알림을 드리겠습니다.\n등등 관련 안내문구 제공`}</Text>
+              }>{`브랜드 등록이 완료되면 알림을 드리겠습니다.${'\n'}*요청일 기준 3영업일 내 완료.`}</Text>
             <View style={styles.circle}>
               <Image
                 style={styles.circle}
