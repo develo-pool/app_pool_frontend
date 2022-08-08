@@ -7,15 +7,23 @@ import ProcessBar from '../components/ProcessBar';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import SignUpForm from '../components/auth/SignUpForm';
 import useSignUp from '../hooks/useSignUp';
-import {SignUpParams} from '../api/auth';
 import SignUpScreenBottomButton from '../components/auth/SignUpScreenBottomButton';
 
 const TOTAL = 4;
 
 type SignUpScreenRouteProp = RouteProp<RootStackParamList, 'SignUp'>;
 
-export interface TempProps {
-  firstState: 'default' | 'request' | 'confirm';
+export interface SignUpScreenProps {
+  username: string;
+  password: string;
+  nickName: string;
+  phoneNumber: string;
+  gender: 'male' | 'female' | '';
+  birthDay: string;
+  termAgreement: boolean;
+  privacyAgreement: boolean;
+  category: string[];
+  state: 'default' | 'request' | 'confirm';
   authNumber: string;
   confirm: string;
   usernameChecked: boolean | undefined;
@@ -55,7 +63,7 @@ function SignUpScreen() {
   }, [current, navigation]);
 
   const {mutate: signUp, isLoading: signUpLoading} = useSignUp();
-  const [form, setForm] = useState<SignUpParams>({
+  const [form, setForm] = useState<SignUpScreenProps>({
     username: '',
     password: '',
     nickName: '',
@@ -65,24 +73,16 @@ function SignUpScreen() {
     termAgreement: false,
     privacyAgreement: false,
     category: [],
-  });
-
-  const [temp, setTemp] = useState<TempProps>({
-    firstState: 'default',
+    state: 'default',
     authNumber: '',
     confirm: '',
     passwordValid: {first: false, second: false},
     usernameChecked: undefined,
     nickNameChecked: undefined,
   });
-
   const createChangeTextHandler =
     (name: string) => (value: string | string[]) => {
-      if (name in form) {
-        setForm({...form, [name]: value});
-      } else if (name in temp) {
-        setTemp({...temp, [name]: value});
-      }
+      setForm({...form, [name]: value});
     };
 
   const checkedItemHandler = (name: string, isChecked: boolean) => {
@@ -98,7 +98,17 @@ function SignUpScreen() {
     if (signUpLoading) {
       return;
     }
-    signUp(form);
+    signUp({
+      username: form.username,
+      password: form.password,
+      nickName: form.nickName,
+      phoneNumber: form.phoneNumber,
+      gender: form.gender,
+      birthDay: form.birthDay,
+      termAgreement: form.termAgreement,
+      privacyAgreement: form.privacyAgreement,
+      category: form.category,
+    });
   };
 
   return (
@@ -109,15 +119,14 @@ function SignUpScreen() {
           createChangeTextHandler={createChangeTextHandler}
           checkedItemHandler={checkedItemHandler}
           form={form}
-          temp={temp}
-          setTemp={setTemp}
+          setForm={setForm}
         />
       </MainContainer>
       <SignUpScreenBottomButton
         current={current}
         form={form}
-        temp={temp}
         onPress={onPress}
+        signUpLoading={signUpLoading}
       />
     </>
   );

@@ -16,7 +16,7 @@ export type RootStackParamList = {
   MainTab: undefined;
   Login: undefined;
   SignUp: {current: number};
-  Password: undefined;
+  Password: {current: number};
   Guide: undefined;
   Message: undefined;
   CreateMessage: undefined;
