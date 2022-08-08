@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   disabled: {
-    backgroundColor: '#d9d9d9',
+    backgroundColor: theme.colors.Grey30,
   },
   disabledText: {
     fontFamily: theme.fontFamily.Pretendard,

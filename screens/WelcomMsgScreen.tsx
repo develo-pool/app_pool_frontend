@@ -25,7 +25,7 @@ function WelcomeMessageScreen() {
       <View style={styles.UpperArea}>
         <View style={styles.TitleArea}>
           <Title title="웰컴메시지 설정" isSmall={true} />
-          <Pressable onPress={() => navigation.navigate('BrandProfile')}>
+          <Pressable onPress={() => navigation.goBack()}>
             <Icon name="clear" size={24} color={theme.colors.Black} />
           </Pressable>
         </View>

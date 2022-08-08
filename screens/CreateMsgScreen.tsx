@@ -43,7 +43,7 @@ function CreateMessageScreen() {
       <View style={styles.UpperArea}>
         <View style={styles.TitleArea}>
           <Title title="메시지 작성" isSmall={true} />
-          <Pressable onPress={() => navigation.navigate('BrandProfile')}>
+          <Pressable onPress={() => navigation.goBack()}>
             <Icon name="clear" size={24} color={theme.colors.Black} />
           </Pressable>
         </View>
