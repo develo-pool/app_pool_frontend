@@ -1,5 +1,13 @@
 import React, {useState} from 'react';
-import {Text, View, StyleSheet, Pressable, Image, Switch} from 'react-native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  Pressable,
+  Image,
+  Switch,
+  ScrollView,
+} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import theme from '../assets/theme';
@@ -27,7 +35,7 @@ function SettingScreen() {
   };
 
   return (
-    <View style={styles.block}>
+    <ScrollView style={styles.block}>
       <View style={styles.UserInfoContainer}>
         <View style={styles.ProfileImgContainer}>
           <Image
@@ -41,7 +49,9 @@ function SettingScreen() {
         <View style={styles.ProfileInfo}>
           {isBrandUser && <Text style={styles.BrandName}>더푸르</Text>}
           <Text style={styles.UserName}>김자네</Text>
-          <Pressable style={styles.FollowingContainer}>
+          <Pressable
+            style={styles.FollowingContainer}
+            onPress={() => navigation.navigate('FollowingList')}>
             <Text style={styles.Following}>팔로잉</Text>
             <Text style={styles.FollowingCount}>489</Text>
             <Icon
@@ -84,7 +94,19 @@ function SettingScreen() {
           <Text style={styles.Logout}>로그아웃</Text>
         </Pressable>
       </>
-    </View>
+      <View style={styles.Footer}>
+        <Text style={styles.FooterText}>주식회사 더풀네트워크</Text>
+        <Text style={styles.FooterText}>대표자 송진태</Text>
+        <Text style={styles.FooterText}>
+          서울 종로구 종로 6 광화문 우체국 5층
+        </Text>
+        <Text style={styles.FooterText}>사업자등록번호 701-86-02478</Text>
+        <Text style={styles.FooterText}>대표 이메일 info@thepool.network</Text>
+        <Text style={styles.FooterText}>
+          개인정보관리책임자 송진태 ttao@thepool.network
+        </Text>
+      </View>
+    </ScrollView>
   );
 }
 
@@ -173,6 +195,17 @@ const styles = StyleSheet.create({
     fontFamily: theme.fontFamily.Pretendard,
     color: theme.colors.Grey60,
     fontSize: 14,
+    fontWeight: '400',
+  },
+  Footer: {
+    paddingHorizontal: 16,
+    paddingVertical: 16,
+    justifyContent: 'center',
+  },
+  FooterText: {
+    fontFamily: theme.fontFamily.Pretendard,
+    color: theme.colors.Grey40,
+    fontSize: theme.fontSize.P3,
     fontWeight: '400',
   },
 });

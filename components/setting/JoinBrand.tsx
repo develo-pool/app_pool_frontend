@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   JoinBrandContainer: {
     flex: 1,
     flexDirection: 'row',
-    maxHeight: 84,
+    height: 75,
     paddingHorizontal: 24,
     backgroundColor: theme.colors.Skyblue,
     alignItems: 'center',

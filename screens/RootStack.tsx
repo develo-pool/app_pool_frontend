@@ -23,7 +23,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 function RootStack() {
   useAuthLoadEffect();
   return (
-    <Stack.Navigator initialRouteName="Welcome">
+    <Stack.Navigator initialRouteName="MainTab">
       <Stack.Screen
         name="FirebasePhoneAuth"
         component={FirebasePhoneAuth}
