@@ -1,5 +1,7 @@
 import React from 'react';
 import {StyleSheet, View, Image, Text, TouchableOpacity} from 'react-native';
+import FollowButton from '../profile/FollowButton';
+import theme from '../../assets/theme';
 
 function SearchResultBrandUserContainer({following, changeFollowing}) {
   return (
@@ -21,15 +23,7 @@ function SearchResultBrandUserContainer({following, changeFollowing}) {
               </View>
             </View>
             <View>
-              <TouchableOpacity
-                onPress={() => {
-                  changeFollowing();
-                }}
-                style={styles.followBtn}>
-                <Text style={styles.followText}>
-                  {following ? '팔로잉⭐️' : '팔로우'}
-                </Text>
-              </TouchableOpacity>
+              <FollowButton isFollowed={following} onPress={changeFollowing}/>
             </View>
           </View>
         </View>
@@ -75,37 +69,25 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
   followerText: {
-    color: '#c4c4c4',
+    color: theme.colors.Grey40,
+    fontSize: theme.fontSize.P3,
+    fontFamily: theme.fontFamily.Pretendard,
+    fontWeight: theme.fontWeight.Light,
+    marginRight: 4,
   },
   followerCount: {
-    marginLeft: 5,
+    color: theme.colors.Grey80,
+    fontSize: theme.fontSize.P3,
+    fontFamily: theme.fontFamily.Pretendard,
+    fontWeight: theme.fontWeight.Bold,
   },
-  followText: {
-    color: '#FFFFFF',
-    textAlign: 'center',
-    paddingHorizontal: 20,
-    fontWeight: '600',
-    fontSize: 15,
-  },
-  followBtn: {
-    backgroundColor: '#000000',
-    borderRadius: 20,
-    alignItems: 'center',
-    height: 40,
-    justifyContent: 'center',
-  },
-
   brandUserTexts: {
     padding: 10,
   },
   brandUsername: {
-    fontWeight: '700',
-    fontSize: 20,
-  },
-  brandUserIntro: {
-    fontWeight: '400',
-    fontSize: 12,
-    margin: 3,
+    fontWeight: theme.fontWeight.Bold,
+    fontSize: theme.fontSize.P2,
+    color: theme.colors.Grey80,
   },
   brandUserIntroContainer: {
     paddingVertical: 10,

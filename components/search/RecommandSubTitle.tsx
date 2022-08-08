@@ -1,5 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text} from 'react-native';
+import theme from '../../assets/theme';
 
 function RecommandSubTitle() {
   return <Text style={styles.subTitle}>추천 브랜드</Text>;
@@ -7,10 +8,11 @@ function RecommandSubTitle() {
 
 const styles = StyleSheet.create({
   subTitle: {
-    fontSize: 16,
-    color: 'black',
-    opacity: 0.7,
-    margin: 3,
+    fontSize: theme.fontSize.P2,
+    fontWeight: theme.fontWeight.Bold,
+    color: theme.colors.Grey50,
+    marginLeft: 16,
+    marginBottom: 12, 
   },
 });
 

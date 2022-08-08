@@ -10,7 +10,7 @@ import SearchResultSubTitle from '../components/search/SearchResultSubTitle';
 // interface User {
 //   name: string;
 //   profileImg: string;
-//   intro: string;
+//   intro: string; 
 //   follower: number;
 // }
 
@@ -32,7 +32,6 @@ function SearchScreen() {
   return (
     <View style={styles.container}>
       <ScrollView>
-        <Title title="탐색하기" alignCenter={false} />
         <SearchBar
           searchText={searchText}
           onChangeText={onChangeText}
@@ -72,8 +71,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#EEEEEE',
-    paddingHorizontal: 20,
-    marginTop: 10,
   },
   searchTitle: {
     margin: 10,

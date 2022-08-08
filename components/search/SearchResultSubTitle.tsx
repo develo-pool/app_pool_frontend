@@ -1,5 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
+import theme from '../../assets/theme';
 
 interface Props {
   searchCount?: number;
@@ -18,16 +19,17 @@ function SearchResultSubTitle({searchCount}: Props) {
 
 const styles = StyleSheet.create({
   subTitle: {
-    fontSize: 16,
-    color: 'black',
-    opacity: 0.7,
-    marginTop: 3,
+    fontSize: theme.fontSize.P2,
+    color: theme.colors.Poolgreen,
+    fontWeight: theme.fontWeight.Bold,
+    marginRight: 4,
   },
   subTitleContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    width: '100%',
-    backgroundColor: 'white',
+    height: 34,
+    paddingHorizontal: 16,
+    backgroundColor: theme.colors.White,
   },
   bottomBorderLine: {
     width: '100%',

@@ -1,5 +1,7 @@
 import React from 'react';
 import {StyleSheet, View, Image, Text, TouchableOpacity} from 'react-native';
+import theme from '../../assets/theme';
+import FollowButton from '../profile/FollowButton';
 // import FollowBtn from './FollowBtn';
 
 // Props까지 생각해서 넣어주려다가 머리가 팡팡할듯하여 일단은 넘기도록 하겠읍니다.
@@ -37,15 +39,7 @@ function RecommandBrandUserContainer({following, changeFollowing}) {
             </View>
           </View>
           <View>
-            <TouchableOpacity
-              onPress={() => {
-                changeFollowing();
-              }}
-              style={styles.followBtn}>
-              <Text style={styles.followText}>
-                {following ? '팔로잉⭐️' : '팔로우'}
-              </Text>
-            </TouchableOpacity>
+            <FollowButton isFollowed={following} onPress={changeFollowing}/>
           </View>
         </View>
       </View>
@@ -60,12 +54,12 @@ function RecommandBrandUserContainer({following, changeFollowing}) {
 
 const styles = StyleSheet.create({
   brandUserContainer: {
-    backgroundColor: 'white',
-    borderRadius: 10,
-    width: '100%',
-    margin: 5,
+    backgroundColor: theme.colors.White,
+    borderRadius: 4,
+    marginHorizontal: 16,
+    marginBottom: 12,
     flex: 1,
-    padding: 10,
+    padding: 12,
   },
   brandUserHorizontal: {
     flexDirection: 'row',
@@ -75,8 +69,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    marginVertical: 5,
-    marginRight: 5,
+    marginRight: 12,
   },
   spacebetween: {
     flexDirection: 'row',
@@ -93,13 +86,21 @@ const styles = StyleSheet.create({
   brandUserFollowerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: 5,
+    marginTop: 2,
+    marginBottom: 4,
   },
   followerText: {
-    color: '#c4c4c4',
+    color: theme.colors.Grey40,
+    fontSize: theme.fontSize.P3,
+    fontFamily: theme.fontFamily.Pretendard,
+    fontWeight: theme.fontWeight.Light,
+    marginRight: 4,
   },
   followerCount: {
-    marginLeft: 5,
+    color: theme.colors.Grey80,
+    fontSize: theme.fontSize.P3,
+    fontFamily: theme.fontFamily.Pretendard,
+    fontWeight: theme.fontWeight.Bold,
   },
   followText: {
     color: '#FFFFFF',
@@ -120,16 +121,18 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   brandUsername: {
-    fontWeight: '700',
-    fontSize: 20,
+    fontWeight: theme.fontWeight.Bold,
+    fontSize: theme.fontSize.P2,
+    color: theme.colors.Grey80,
   },
   brandUserIntro: {
-    fontWeight: '400',
-    fontSize: 12,
-    margin: 3,
+    color: theme.colors.Grey60,
+    fontSize: theme.fontSize.P3,
+    fontFamily: theme.fontFamily.Pretendard,
+    fontWeight: theme.fontWeight.Light,
   },
   brandUserIntroContainer: {
-    paddingVertical: 10,
+    marginTop: 12,
   },
 });
 
