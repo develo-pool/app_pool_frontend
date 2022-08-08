@@ -1,11 +1,19 @@
 import React, {useEffect, useState} from 'react';
-import {Pressable, StyleSheet, Text, View} from 'react-native';
+import {
+  Image,
+  ImageSourcePropType,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import theme from '../../assets/theme';
 
 export interface CategoryItemProps {
   id: string;
   name: string;
+  img: ImageSourcePropType;
 }
 
 export const BETWEEN = 50;
@@ -24,7 +32,6 @@ function CategoryItem({
   const [isChecked, setIsChecked] = useState(false);
   const id = parseInt(item.id, 10);
   const notLast = id % 3 !== 0;
-
   useEffect(() => {
     setIsChecked(checkedItems.includes(item.id));
   }, [checkedItems, item]);
@@ -43,8 +50,9 @@ function CategoryItem({
       ]}
       onPress={onCheck}>
       <View
-        style={[styles.circle, {height: size}, isChecked && styles.checked]}
-      />
+        style={[styles.circle, {height: size}, isChecked && styles.checked]}>
+        <Image source={item.img} style={styles.img} resizeMode="contain" />
+      </View>
       {isChecked && (
         <View style={[styles.tag, {top: size - 24}]}>
           <Icon name="check" color="white" size={15} />
@@ -60,8 +68,15 @@ function CategoryItem({
 const styles = StyleSheet.create({
   container: {marginBottom: 30},
   circle: {
-    backgroundColor: '#D9D9D9',
     borderRadius: 100,
+    borderWidth: 2,
+    borderColor: theme.colors.Grey10,
+    overflow: 'hidden',
+  },
+  img: {
+    flex: 1,
+    width: undefined,
+    height: undefined,
   },
   name: {
     marginTop: 10,
