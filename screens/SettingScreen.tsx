@@ -6,7 +6,6 @@ import theme from '../assets/theme';
 import JoinBrandContainer from '../components/setting/JoinBrand';
 import SetArticle from './../components/setting/SetArticle';
 import {SettingStackNavigationProp} from './types';
-import {clearToken} from '../api/client';
 import authStorage from '../storages/authStorage';
 import {useDispatch} from 'react-redux';
 import {logout} from '../slices/auth';
@@ -21,7 +20,6 @@ function SettingScreen() {
 
   const onLogout = () => {
     authStorage.clear();
-    clearToken();
     dispatch(logout());
     navigation.push('Welcome');
   };
