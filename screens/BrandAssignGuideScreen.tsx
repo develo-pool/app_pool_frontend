@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useEffect} from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import theme from '../assets/theme';
 import MainContainer from '../components/MainContainer';
@@ -26,7 +26,6 @@ function BrandAssignGuideScreen() {
     <>
       <MainContainer>
         <View style={styles.container}>
-          <Image source={require('../assets/logo/Logo.png')} />
           <Text style={styles.title}>브랜드 등록하기</Text>
           <Text>
             이제야 목적지를 정했지만 가려한 날 막아서네 난 갈 길이 먼데 새빨간
@@ -62,8 +61,7 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
   },
   container: {
-    flex: 1,
-    justifyContent: 'center',
+    marginTop: 140,
   },
 });
 
