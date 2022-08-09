@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.White,
   },
   input: {
-    fontSize: 16,
+    fontSize: theme.fontSize.P1,
     marginHorizontal: 16,
   },
   searchBar: {

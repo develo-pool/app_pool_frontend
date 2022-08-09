@@ -102,21 +102,6 @@ const styles = StyleSheet.create({
     fontFamily: theme.fontFamily.Pretendard,
     fontWeight: theme.fontWeight.Bold,
   },
-  followText: {
-    color: '#FFFFFF',
-    textAlign: 'center',
-    paddingHorizontal: 20,
-    fontWeight: '600',
-    fontSize: 15,
-  },
-  followBtn: {
-    backgroundColor: '#000000',
-    borderRadius: 20,
-    alignItems: 'center',
-    height: 40,
-    justifyContent: 'center',
-  },
-
   brandUserTexts: {
     padding: 10,
   },

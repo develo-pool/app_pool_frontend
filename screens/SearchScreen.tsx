@@ -30,7 +30,7 @@ function SearchScreen() {
   const DoSearching = () =>
     searchText !== '' ? setIsSearching(true) : setIsSearching(false);
   return (
-    <View style={styles.container}>
+    <View>
       <ScrollView>
         <SearchBar
           searchText={searchText}
@@ -69,26 +69,6 @@ function SearchScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#EEEEEE',
-  },
-  searchTitle: {
-    margin: 10,
-  },
-  searchBar: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  input: {
-    backgroundColor: '#666666',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 30,
-    margin: 10,
-    fontSize: 18,
-    color: 'FFFFFF',
-  },
   line: {
     backgroundColor: theme.colors.Grey20,
     height: 1,

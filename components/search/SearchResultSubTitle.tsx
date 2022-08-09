@@ -27,15 +27,14 @@ const styles = StyleSheet.create({
   subTitleContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    height: 34,
     paddingHorizontal: 16,
     backgroundColor: theme.colors.White,
-    marginTop: 16,
+    paddingVertical: 16,
   },
   bottomBorderLine: {
     width: '100%',
     height: 1,
-    backgroundColor: '#c5c5c5',
+    backgroundColor: theme.colors.Grey20,
   },
 });
 
