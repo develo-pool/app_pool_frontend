@@ -1,5 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
+import theme from '../../assets/theme';
 
 interface Props {
   user: User;
@@ -35,7 +36,9 @@ function MessageHeader({user, isDetailMessage, msgDate}: Props) {
               source={{uri: `${user.profileImg}`}}
               resizeMode="cover"
             />
-            <Text style={styles.feedOwnerUsername}>{user.name}</Text>
+            <View style={styles.usernameContainer}>
+              <Text style={styles.feedOwnerUsername}>{user.name}</Text>
+            </View>
           </View>
         </View>
       )}
@@ -51,28 +54,27 @@ const styles = StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    padding: 10,
     alignItems: 'center',
   },
   feedOwner: {
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     //   justifyContent: 'center',
   },
   feedOwnerProfileImg: {
     width: 30,
     height: 30,
+    borderRadius: 15,
     resizeMode: 'contain',
+    marginRight: 12,
   },
   feedOwnerUsername: {
-    fontSize: 15,
-    fontWeight: '600',
+    fontSize: theme.fontSize.P2,
+    fontWeight: theme.fontWeight.Bold,
   },
-  feedDate: {
-    fontSize: 15,
-    fontWeight: '400',
-    color: 'black',
-    opacity: 0.4,
+  usernameContainer: {
+    height: 21,
+    justifyContent: 'center',
   },
 
   detailHeader: {

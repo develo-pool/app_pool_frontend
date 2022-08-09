@@ -10,7 +10,9 @@ function MessageText({messageText}: Props) {
 }
 
 const styles = StyleSheet.create({
-  messageText: {},
+  messageText: {
+    
+  },
 });
 
 export default MessageText;

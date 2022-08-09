@@ -2,6 +2,7 @@ import {Text, View, StyleSheet, ScrollView} from 'react-native';
 import React from 'react';
 import Title from '../components/Title';
 import Feed from '../components/Feed';
+import { usernameExist } from '../api/auth';
 
 interface User {
   name: string;
@@ -37,10 +38,17 @@ function FeedScreen() {
     <View>
       <ScrollView>
         <View style={styles.feedScreenHeader}>
-          <Title title="피드" />
-          <View style={styles.followingCount}>
-            <Text style={styles.followingCountText}>2</Text>
-            <Text style={styles.followingCountText}>팔로잉</Text>
+          <View>
+            <Text>안녕하세요. {doha.name}님 :)</Text>
+            <Text>오늘의 메시지를 확인해 보세요.</Text>
+          </View>
+          <View>
+            <Text>
+              Today
+            </Text>
+            <Text>
+              {Date.now()}
+            </Text>
           </View>
         </View>
         <Feed user={doha} message={test} />

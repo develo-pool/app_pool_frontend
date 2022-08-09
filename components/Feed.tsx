@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     opacity: 0.4,
   },
   feed: {
-    padding: 10,
+    paddingLeft: 42,
   },
   feedText: {},
   feedImg: {
