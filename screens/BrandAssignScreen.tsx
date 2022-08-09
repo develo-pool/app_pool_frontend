@@ -3,13 +3,18 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {Text, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useMutation} from 'react-query';
+import {useDispatch} from 'react-redux';
+import {refresh} from '../api/auth';
 import {createBrand} from '../api/brand';
+import {AuthResult} from '../api/types';
 import BrandAssignForm from '../components/brand/BrandAssignForm';
 import BrandAssignTerm from '../components/brand/BrandAssignTerm';
 import Category from '../components/category/Category';
 import MainContainer from '../components/MainContainer';
 import ProcessBar from '../components/ProcessBar';
 import ScreenBottomButton from '../components/ScreenBottomButton';
+import {authorize} from '../slices/auth';
+import authStorage from '../storages/authStorage';
 import {RootStackNavigationProp, RootStackParamList} from './types';
 
 const TOTAL = 3;
@@ -66,9 +71,16 @@ function BrandAssignScreen() {
     brandAgreement: false,
     isExist: undefined,
   });
-
+  const dispatch = useDispatch();
   const {mutate: assign} = useMutation(createBrand, {
-    onSuccess: () => {
+    onSuccess: async () => {
+      const auth = await authStorage.get();
+      if (auth) {
+        await refresh(auth).then((value: AuthResult) => {
+          dispatch(authorize(value.accessToken));
+          authStorage.set(value);
+        });
+      }
       navigation.navigate('BrandAssignComplete');
     },
   });
