@@ -3,11 +3,14 @@ import {StyleSheet, View} from 'react-native';
 import TextInputs from '../TextInputs';
 import {AuthButton, InputTitle} from './AuthComponents';
 import {CheckPhoneNumber} from './Validation';
+import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 
 interface PhoneAuthProps {
   phoneNumber: string;
   authNumber: string;
   state: 'default' | 'request' | 'confirm';
+  authNumberError: boolean;
+  idError?: boolean;
 }
 
 function PhoneAuthForm({
@@ -20,11 +23,34 @@ function PhoneAuthForm({
   setForm: any;
 }) {
   const [phoneNumberValid, setPhoneNumberValid] = useState<boolean>(true);
+  const [confirmation, setConfirmation] =
+    useState<FirebaseAuthTypes.ConfirmationResult>();
   const changePhoneNumberHandler = (value: string) => {
     setForm({...form, state: 'default', authNumber: '', phoneNumber: value});
     setPhoneNumberValid(CheckPhoneNumber(value));
   };
   const authLen = form.authNumber.length;
+  const requestAuthNumber = async () => {
+    const response = await auth().signInWithPhoneNumber(
+      `+82${form.phoneNumber.substring(1)}`,
+    );
+    setConfirmation(response);
+    onChangeForm('state')('request');
+  };
+
+  const verifyAuthNumber = async () => {
+    try {
+      const data = await confirmation?.confirm(form.authNumber);
+      if (data !== undefined) {
+        onChangeForm('state')('confirm');
+      }
+    } catch (error) {
+      onChangeForm('authNumberError')(true);
+    } finally {
+      await auth().currentUser?.delete();
+    }
+  };
+
   return (
     <>
       <InputTitle title="휴대전화" />
@@ -54,7 +80,7 @@ function PhoneAuthForm({
             !(form.phoneNumber && phoneNumberValid && form.state === 'default')
           }
           onPress={() => {
-            onChangeForm('state')('request');
+            requestAuthNumber();
           }}
         />
       </View>
@@ -64,7 +90,7 @@ function PhoneAuthForm({
           <View style={styles.row}>
             <TextInputs
               type={
-                authLen !== 6 && authLen !== 0
+                (authLen !== 6 && authLen !== 0) || form.authNumberError
                   ? 'error'
                   : form.state === 'confirm'
                   ? 'disable'
@@ -72,14 +98,18 @@ function PhoneAuthForm({
               }
               placeholder="인증번호 입력"
               value={form.authNumber}
-              onChangeText={onChangeForm('authNumber')}
+              onChangeText={(value: string) => {
+                setForm({...form, authNumber: value, authNumberError: false});
+              }}
               keyboardType="number-pad"
               maxLength={6}
               alert={
                 form.state === 'confirm'
                   ? {type: 'Correct', text: '인증되었습니다.'}
                   : authLen === 6 || authLen === 0
-                  ? undefined
+                  ? form.authNumberError
+                    ? {type: 'Error', text: '인증번호가 유효하지 않습니다.'}
+                    : undefined
                   : {type: 'Error', text: '인증번호 6자리를 입력해 주세요.'}
               }
             />
@@ -87,7 +117,7 @@ function PhoneAuthForm({
               text="인증하기"
               disabled={authLen !== 6 || form.state === 'confirm'}
               onPress={() => {
-                onChangeForm('state')('confirm');
+                verifyAuthNumber();
               }}
             />
           </View>
