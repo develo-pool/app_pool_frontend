@@ -15,19 +15,21 @@ import JoinBrandContainer from '../components/setting/JoinBrand';
 import SetArticle from './../components/setting/SetArticle';
 import {SettingStackNavigationProp} from './types';
 import authStorage from '../storages/authStorage';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {logout} from '../slices/auth';
 import TermsModal from '../components/auth/TermsModal';
+import {RootState} from '../slices';
 
 const isBrandUser = false;
+//TODO Delete isBrandUser
 
 function SettingScreen() {
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
   const navigation = useNavigation<SettingStackNavigationProp>();
   const dispatch = useDispatch();
+  const user = useSelector((state: RootState) => state.auth.user);
   const [termModalVisible, setTermModalVisible] = useState<boolean>(false);
-
   const onLogout = () => {
     authStorage.clear();
     dispatch(logout());
@@ -62,12 +64,15 @@ function SettingScreen() {
           </Pressable>
         </View>
       </View>
-      {isBrandUser ? null : (
+      {user?.role === 'BRAND_USER' ? null : (
         <JoinBrandContainer
-          onPress={() => navigation.push('BrandAssignGuide')}
+          onPress={
+            user?.role === 'WAITING'
+              ? () => navigation.push('BrandAssignComplete')
+              : () => navigation.push('BrandAssignGuide')
+          }
         />
       )}
-
       <>
         <View style={styles.SeperatedSets}>
           <Text style={styles.NotiText}>알림 수신</Text>
