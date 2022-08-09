@@ -42,7 +42,6 @@ function SignUpScreen() {
       headerTitleAlign: 'center',
       headerBackVisible: false,
       headerShadowVisible: false,
-      // headerTransparent: true,
       headerLeft: () =>
         current === 0 ? undefined : (
           <TouchableOpacity
