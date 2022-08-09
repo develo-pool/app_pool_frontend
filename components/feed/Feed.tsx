@@ -1,12 +1,12 @@
 import React from 'react';
 import {StyleSheet, View, TouchableOpacity, Text} from 'react-native';
-import CommentFocusButton from './feed/CommentFocusButton';
-import MessageLink from './feed/MessageLink';
-import MessageImg from './feed/MessageImg';
-import MessageHeader from './feed/MessageHeader';
-import MessageText from './feed/MessageText';
+import CommentFocusButton from './CommentFocusButton';
+import MessageLink from './MessageLink';
+import MessageImg from './MessageImg';
+import MessageHeader from './MessageHeader';
+import MessageText from './MessageText';
 import {useNavigation} from '@react-navigation/native';
-import {RootStackNavigationProp} from '../screens/types';
+import {RootStackNavigationProp} from '../../screens/types';
 
 // 프롭스로는 유저, 메시지, 현재스크린을 넣어줍니다.
 interface Props {

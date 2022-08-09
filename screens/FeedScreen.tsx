@@ -1,7 +1,6 @@
 import {Text, View, StyleSheet, ScrollView} from 'react-native';
 import React from 'react';
-import Title from '../components/Title';
-import Feed from '../components/Feed';
+import Feed from '../components/feed/Feed';
 import { usernameExist } from '../api/auth';
 
 interface User {
