@@ -1,35 +1,31 @@
 import React from 'react';
-import {StyleSheet, View, Image, Text, TouchableOpacity} from 'react-native';
+import {StyleSheet, View, Image, Text} from 'react-native';
+import FollowButton from '../profile/FollowButton';
+import theme from '../../assets/theme';
 
 function SearchResultBrandUserContainer({following, changeFollowing}) {
   return (
     <View>
       <View style={styles.brandUserContainer}>
         <View style={styles.brandUserHorizontal}>
-          <Image
-            style={styles.searchBrandUserProfileImg}
-            source={{
-              uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpX76CrHxujOncRrHo9XMHks7UTYRpIbM_Mw&usqp=CAU',
-            }}
-          />
           <View style={styles.spacebetween}>
-            <View style={styles.brandUserTextContainer}>
-              <Text style={styles.brandUsername}>신규유튜버</Text>
-              <View style={styles.brandUserFollowerContainer}>
-                <Text style={styles.followerText}>팔로워</Text>
-                <Text style={styles.followerCount}>1.9K</Text>
+            <View style={styles.align}>
+              <Image
+                style={styles.searchBrandUserProfileImg}
+                source={{
+                  uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpX76CrHxujOncRrHo9XMHks7UTYRpIbM_Mw&usqp=CAU',
+                }}
+              />
+              <View style={styles.brandUserTextContainer}>
+                <Text style={styles.brandUsername}>신규유튜버</Text>
+                <View style={styles.brandUserFollowerContainer}>
+                  <Text style={styles.followerText}>팔로워</Text>
+                  <Text style={styles.followerCount}>1.9K</Text>
+                </View>
               </View>
             </View>
             <View>
-              <TouchableOpacity
-                onPress={() => {
-                  changeFollowing();
-                }}
-                style={styles.followBtn}>
-                <Text style={styles.followText}>
-                  {following ? '팔로잉⭐️' : '팔로우'}
-                </Text>
-              </TouchableOpacity>
+              <FollowButton isFollowed={following} onPress={changeFollowing} />
             </View>
           </View>
         </View>
@@ -41,8 +37,7 @@ function SearchResultBrandUserContainer({following, changeFollowing}) {
 
 const styles = StyleSheet.create({
   brandUserContainer: {
-    backgroundColor: 'white',
-    width: '100%',
+    backgroundColor: theme.colors.White,
     flex: 1,
     padding: 10,
   },
@@ -60,52 +55,43 @@ const styles = StyleSheet.create({
   spacebetween: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: '85%',
     alignItems: 'center',
-    paddingHorizontal: 5,
+    paddingRight: 5,
+    width: '100%',
   },
   brandUserTextContainer: {
     justifyContent: 'center',
-    alignItems: 'flex-start',
+    // alignItems: 'flex-start',
+    alignItems: 'center',
+    alignContent: 'center',
     margin: 3,
+    paddingLeft: 5,
   },
   brandUserFollowerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: 5,
+    marginTop: 2,
   },
   followerText: {
-    color: '#c4c4c4',
+    color: theme.colors.Grey40,
+    fontSize: theme.fontSize.P3,
+    fontFamily: theme.fontFamily.Pretendard,
+    fontWeight: theme.fontWeight.Light,
+    marginRight: 4,
   },
   followerCount: {
-    marginLeft: 5,
+    color: theme.colors.Grey80,
+    fontSize: theme.fontSize.P3,
+    fontFamily: theme.fontFamily.Pretendard,
+    fontWeight: theme.fontWeight.Bold,
   },
-  followText: {
-    color: '#FFFFFF',
-    textAlign: 'center',
-    paddingHorizontal: 20,
-    fontWeight: '600',
-    fontSize: 15,
-  },
-  followBtn: {
-    backgroundColor: '#000000',
-    borderRadius: 20,
-    alignItems: 'center',
-    height: 40,
-    justifyContent: 'center',
-  },
-
   brandUserTexts: {
     padding: 10,
   },
   brandUsername: {
-    fontWeight: '700',
-    fontSize: 20,
-  },
-  brandUserIntro: {
-    fontWeight: '400',
-    fontSize: 12,
-    margin: 3,
+    fontWeight: theme.fontWeight.Bold,
+    fontSize: theme.fontSize.P2,
+    color: theme.colors.Grey80,
   },
   brandUserIntroContainer: {
     paddingVertical: 10,
@@ -113,7 +99,10 @@ const styles = StyleSheet.create({
   bottomBorderLine: {
     width: '100%',
     height: 1,
-    backgroundColor: '#c5c5c5',
+    backgroundColor: theme.colors.Grey20,
+  },
+  align: {
+    flexDirection: 'row',
   },
 });
 

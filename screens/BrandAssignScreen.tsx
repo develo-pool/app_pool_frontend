@@ -3,13 +3,18 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {Text, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useMutation} from 'react-query';
+import {useDispatch} from 'react-redux';
+import {refresh} from '../api/auth';
 import {createBrand} from '../api/brand';
+import {AuthResult} from '../api/types';
 import BrandAssignForm from '../components/brand/BrandAssignForm';
 import BrandAssignTerm from '../components/brand/BrandAssignTerm';
 import Category from '../components/category/Category';
 import MainContainer from '../components/MainContainer';
 import ProcessBar from '../components/ProcessBar';
 import ScreenBottomButton from '../components/ScreenBottomButton';
+import {authorize} from '../slices/auth';
+import authStorage from '../storages/authStorage';
 import {RootStackNavigationProp, RootStackParamList} from './types';
 
 const TOTAL = 3;
@@ -50,7 +55,7 @@ export interface BrandAssignProps {
   brandInfo: string;
   brandAgreement: boolean;
   brandCategory: string[];
-  brandProfileImage: any;
+  brandProfileImage: {uri: string; type: string; name: string} | undefined;
   isExist: boolean | undefined;
 }
 
@@ -61,25 +66,32 @@ function BrandAssignScreen() {
   const [form, setForm] = useState<BrandAssignProps>({
     brandUsername: '',
     brandInfo: '',
-    brandProfileImage: '',
+    brandProfileImage: undefined,
     brandCategory: [],
     brandAgreement: false,
     isExist: undefined,
   });
-
+  const dispatch = useDispatch();
   const {mutate: assign} = useMutation(createBrand, {
-    onSuccess: () => {
-      navigation.navigate('BrandAssignComplete');
+    onSuccess: async () => {
+      const auth = await authStorage.get();
+      if (auth) {
+        await refresh(auth).then((value: AuthResult) => {
+          dispatch(authorize(value.accessToken));
+          authStorage.set(value);
+        });
+      }
+      navigation.reset({routes: [{name: 'BrandAssignComplete'}]});
     },
   });
   const onSubmit = useCallback(() => {
-    assign({
-      brandUsername: form.brandUsername,
-      brandInfo: form.brandInfo,
-      brandProfileImage: 'dummy img',
-      brandCategory: form.brandCategory,
-      brandAgreement: form.brandAgreement,
-    });
+    const formData = new FormData();
+    formData.append('brandUsername', form.brandUsername);
+    formData.append('brandInfo', form.brandInfo);
+    formData.append('multipartFile', form.brandProfileImage);
+    formData.append('brandCategory', form.brandCategory);
+    formData.append('brandAgreement', form.brandAgreement);
+    assign(formData);
   }, [assign, form]);
 
   const createChangeTextHandler = (name: string) => (value: string) => {
@@ -105,7 +117,7 @@ function BrandAssignScreen() {
         return (
           form.brandUsername !== '' &&
           form.brandInfo !== '' &&
-          form.brandProfileImage !== '' &&
+          form.brandProfileImage !== undefined &&
           form.isExist === false
         );
       case 1:
@@ -150,7 +162,7 @@ function BrandAssignScreen() {
         })}
       </MainContainer>
       <ScreenBottomButton
-        name="다음"
+        name={current === 2 ? '등록 요청하기' : '다음'}
         onPress={() => {
           current === 2
             ? onSubmit()

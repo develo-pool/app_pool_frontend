@@ -17,7 +17,7 @@ export default function useFirstLogin() {
         accessToken: data.authorization,
         refreshToken: data['authorization-refresh'],
       });
-      navigation.navigate('Guide');
+      navigation.reset({routes: [{name: 'Guide'}]});
     },
     onError: (error: AuthError) => {
       console.log(error);
