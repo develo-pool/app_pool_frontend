@@ -1,8 +1,10 @@
 import client from './client';
-import {BrandAssignParams, BrandResult} from './types';
+import {BrandResult} from './types';
 
-export async function createBrand(params: BrandAssignParams) {
-  const response = await client.post('/brand/create', params);
+export async function createBrand(formData: FormData) {
+  const response = await client.post('/brand/create', formData, {
+    headers: {'content-type': 'multipart/form-data'},
+  });
   return response;
 }
 

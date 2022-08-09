@@ -39,7 +39,13 @@ function BrandAssignForm({
         if (res.didCancel) {
           return;
         }
-        onChangeText('brandProfileImage')(res);
+        if (res.assets) {
+          onChangeText('brandProfileImage')({
+            uri: res.assets[0].uri,
+            type: res.assets[0].type,
+            name: res.assets[0].fileName,
+          });
+        }
       },
     );
   };
@@ -65,7 +71,7 @@ function BrandAssignForm({
           style={styles.circle}
           source={
             form.brandProfileImage
-              ? {uri: form.brandProfileImage.assets[0]?.uri}
+              ? {uri: form.brandProfileImage.uri}
               : require('../../assets/empty/EmptyProfile.png')
           }
           resizeMode="contain"
