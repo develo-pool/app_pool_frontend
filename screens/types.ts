@@ -20,6 +20,7 @@ export type RootStackParamList = {
   Guide: undefined;
   Message: undefined;
   CreateMessage: undefined;
+  WelcomeMessage: undefined;
   Profile: undefined;
   SettingStack: undefined;
   BrandAssign: {current: number};

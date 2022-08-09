@@ -6,6 +6,7 @@ import LoginScreen from './LoginScreen';
 import SignUpScreen from './SignUpScreen';
 import MessageScreen from './MessageScreen';
 import CreateMessageScreen from './CreateMsgScreen';
+import WelcomeMessageScreen from './WelcomeMsgScreen';
 import GuideScreen from './GuideScreen';
 import WelcomeScreen from './WelcomeScreen';
 import PasswordScreen from './PasswordScreen';
@@ -65,6 +66,11 @@ function RootStack() {
       <Stack.Screen
         name="CreateMessage"
         component={CreateMessageScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="WelcomeMessage"
+        component={WelcomeMessageScreen}
         options={{headerShown: false}}
       />
       <Stack.Screen
