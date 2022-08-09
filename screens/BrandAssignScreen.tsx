@@ -55,7 +55,7 @@ export interface BrandAssignProps {
   brandInfo: string;
   brandAgreement: boolean;
   brandCategory: string[];
-  brandProfileImage: any;
+  brandProfileImage: {uri: string; type: string; name: string} | undefined;
   isExist: boolean | undefined;
 }
 
@@ -66,7 +66,7 @@ function BrandAssignScreen() {
   const [form, setForm] = useState<BrandAssignProps>({
     brandUsername: '',
     brandInfo: '',
-    brandProfileImage: '',
+    brandProfileImage: undefined,
     brandCategory: [],
     brandAgreement: false,
     isExist: undefined,
@@ -81,17 +81,17 @@ function BrandAssignScreen() {
           authStorage.set(value);
         });
       }
-      navigation.navigate('BrandAssignComplete');
+      navigation.reset({routes: [{name: 'BrandAssignComplete'}]});
     },
   });
   const onSubmit = useCallback(() => {
-    assign({
-      brandUsername: form.brandUsername,
-      brandInfo: form.brandInfo,
-      brandProfileImage: 'dummy img',
-      brandCategory: form.brandCategory,
-      brandAgreement: form.brandAgreement,
-    });
+    const formData = new FormData();
+    formData.append('brandUsername', form.brandUsername);
+    formData.append('brandInfo', form.brandInfo);
+    formData.append('multipartFile', form.brandProfileImage);
+    formData.append('brandCategory', form.brandCategory);
+    formData.append('brandAgreement', form.brandAgreement);
+    assign(formData);
   }, [assign, form]);
 
   const createChangeTextHandler = (name: string) => (value: string) => {
@@ -117,7 +117,7 @@ function BrandAssignScreen() {
         return (
           form.brandUsername !== '' &&
           form.brandInfo !== '' &&
-          form.brandProfileImage !== '' &&
+          form.brandProfileImage !== undefined &&
           form.isExist === false
         );
       case 1:
@@ -162,7 +162,7 @@ function BrandAssignScreen() {
         })}
       </MainContainer>
       <ScreenBottomButton
-        name="다음"
+        name={current === 2 ? '등록 요청하기' : '다음'}
         onPress={() => {
           current === 2
             ? onSubmit()
