@@ -8,6 +8,7 @@ function RecommandSubTitle() {
 
 const styles = StyleSheet.create({
   subTitle: {
+    marginTop: 16,
     fontSize: theme.fontSize.P2,
     fontWeight: theme.fontWeight.Bold,
     color: theme.colors.Grey50,

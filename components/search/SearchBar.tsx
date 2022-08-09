@@ -1,38 +1,26 @@
 import React from 'react';
-import {
-  View,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-  Text,
-  KeyboardTypeOptions,
-} from 'react-native';
+import {View, StyleSheet, TextInput, TouchableOpacity} from 'react-native';
 import theme from '../../assets/theme';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import TextInputs from '../TextInputs';
 
 function SearchBar({searchText, onChangeText, DoSearching}) {
   return (
-    <View>
-      <TextInputs
-        type={DoSearching ? 'disable' : 'focus'}
-        placeholder="브랜드명을 입력해주세요."
-        value={searchText}
-        onChangeText={onChangeText}
-      />
+    <View style={styles.container}>
       <View style={styles.searchBar}>
-        <TextInput
-          value={searchText}
-          onChangeText={onChangeText}
-          // onSubmitEditing={DoSearching()}
-          returnKeyType="go"
-          placeholder={'브랜드명을 검색해주세요.'}
-          style={styles.input}
-        />
-        <TouchableOpacity
-          onPress={() => DoSearching()}
-          style={styles.searchIconContainer}>
-          <Text style={styles.searchIcon}>🥕</Text>
+        <View style={styles.searchBarContainer}>
+          <Icon name="search" size={24} color={theme.colors.Grey80}></Icon>
+          <TextInput
+            value={searchText}
+            onChangeText={onChangeText}
+            // onSubmitEditing={DoSearching()}
+            returnKeyType="go"
+            placeholder={'브랜드명을 검색해주세요.'}
+            placeholderTextColor={'rgba(0, 0, 0, 0.2)'}
+            style={styles.input}
+          />
+        </View>
+        <TouchableOpacity onPress={() => DoSearching()}>
+          <Icon name="cancel" size={16} color={theme.colors.Grey30} />
         </TouchableOpacity>
       </View>
     </View>
@@ -40,29 +28,34 @@ function SearchBar({searchText, onChangeText, DoSearching}) {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: theme.colors.White,
+  },
   input: {
-    // backgroundColor: '#666666',
-    fontSize: 18,
-    color: 'FFFFFF',
-    flex: 9,
-    marginHorizontal: 10,
+    fontSize: 16,
+    marginHorizontal: 16,
   },
   searchBar: {
     flexDirection: 'row',
     alignItems: 'center',
-    flex: 1,
-    width: '100%',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 30,
-    marginVertical: 20,
-    backgroundColor: '#333333',
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    borderRadius: 6,
+    marginVertical: 16,
+    marginHorizontal: 16,
+    justifyContent: 'space-between',
+    borderColor: theme.colors.Grey80,
+    borderWidth: 1,
   },
-  searchIconContainer: {
-    flex: 1,
+  searchBarContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
-  searchIcon: {
-    fontSize: 25,
+  default: {
+    backgroundColor: theme.colors.White,
+  },
+  focus: {
+    borderColor: theme.colors.Black,
   },
 });
 

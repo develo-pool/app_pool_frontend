@@ -30,6 +30,7 @@ const styles = StyleSheet.create({
     height: 34,
     paddingHorizontal: 16,
     backgroundColor: theme.colors.White,
+    marginTop: 16,
   },
   bottomBorderLine: {
     width: '100%',

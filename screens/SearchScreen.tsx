@@ -6,6 +6,8 @@ import RecommandBrandUserContainer from '../components/search/RecommandBrandUser
 import RecommandSubTitle from '../components/search/RecommandSubTitle';
 import SearchResultBrandUserContainer from '../components/search/SearchResultBrandUserContainer';
 import SearchResultSubTitle from '../components/search/SearchResultSubTitle';
+import BorderLine from '../components/message/BorderLine';
+import theme from '../assets/theme';
 
 // interface User {
 //   name: string;
@@ -37,6 +39,7 @@ function SearchScreen() {
           onChangeText={onChangeText}
           DoSearching={DoSearching}
         />
+        <View style={styles.line} />
         {isSearching ? (
           <ScrollView>
             <SearchResultSubTitle searchCount={9} />
@@ -88,17 +91,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: 'FFFFFF',
   },
-  subTitle: {},
-  subTitleContainer: {},
-  recommandBrandUserProfileImg: {},
-  recommandBrandUserList: {},
-  recommandBrandUser: {},
-  recommandBrandUserFollowBtn: {},
-  brandUsername: {},
-  brandUserFollowerContainer: {},
-  searchBrandUser: {},
-  searchBrandUserProfileImg: {},
-  searchBrandUserFollowBtn: {},
+  line: {
+    backgroundColor: theme.colors.Grey20,
+    height: 1,
+    width: '100%',
+  },
+
 });
 
 export default SearchScreen;
