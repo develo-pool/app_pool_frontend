@@ -1,5 +1,6 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
+import theme from '../../assets/theme';
 
 function BorderLine() {
   return <View style={styles.line} />;
@@ -7,7 +8,7 @@ function BorderLine() {
 
 const styles = StyleSheet.create({
   line: {
-    backgroundColor: '#c4c4c4',
+    backgroundColor: theme.colors.Grey20,
     height: 1,
     width: '100%',
     marginVertical: 10,

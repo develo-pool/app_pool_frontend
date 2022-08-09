@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import {View, ScrollView, StyleSheet} from 'react-native';
-import Title from '../components/Title';
 import SearchBar from '../components/search/SearchBar';
 import RecommandBrandUserContainer from '../components/search/RecommandBrandUserContainer';
 import RecommandSubTitle from '../components/search/RecommandSubTitle';
 import SearchResultBrandUserContainer from '../components/search/SearchResultBrandUserContainer';
 import SearchResultSubTitle from '../components/search/SearchResultSubTitle';
+import theme from '../assets/theme';
 
 // interface User {
 //   name: string;
@@ -30,14 +30,14 @@ function SearchScreen() {
   const DoSearching = () =>
     searchText !== '' ? setIsSearching(true) : setIsSearching(false);
   return (
-    <View style={styles.container}>
+    <View>
       <ScrollView>
-        <Title title="탐색하기" alignCenter={false} />
         <SearchBar
           searchText={searchText}
           onChangeText={onChangeText}
           DoSearching={DoSearching}
         />
+        <View style={styles.line} />
         {isSearching ? (
           <ScrollView>
             <SearchResultSubTitle searchCount={9} />
@@ -69,39 +69,11 @@ function SearchScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#EEEEEE',
-    paddingHorizontal: 20,
-    marginTop: 10,
+  line: {
+    backgroundColor: theme.colors.Grey20,
+    height: 1,
+    width: '100%',
   },
-  searchTitle: {
-    margin: 10,
-  },
-  searchBar: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  input: {
-    backgroundColor: '#666666',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 30,
-    margin: 10,
-    fontSize: 18,
-    color: 'FFFFFF',
-  },
-  subTitle: {},
-  subTitleContainer: {},
-  recommandBrandUserProfileImg: {},
-  recommandBrandUserList: {},
-  recommandBrandUser: {},
-  recommandBrandUserFollowBtn: {},
-  brandUsername: {},
-  brandUserFollowerContainer: {},
-  searchBrandUser: {},
-  searchBrandUserProfileImg: {},
-  searchBrandUserFollowBtn: {},
 });
 
 export default SearchScreen;
