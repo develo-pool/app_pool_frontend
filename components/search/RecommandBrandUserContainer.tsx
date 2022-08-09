@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: 2,
-    marginBottom: 4,
+    // marginBottom: 4,
   },
   followerText: {
     color: theme.colors.Grey40,

@@ -8,18 +8,20 @@ function SearchResultBrandUserContainer({following, changeFollowing}) {
     <View>
       <View style={styles.brandUserContainer}>
         <View style={styles.brandUserHorizontal}>
-          <Image
-            style={styles.searchBrandUserProfileImg}
-            source={{
-              uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpX76CrHxujOncRrHo9XMHks7UTYRpIbM_Mw&usqp=CAU',
-            }}
-          />
           <View style={styles.spacebetween}>
-            <View style={styles.brandUserTextContainer}>
-              <Text style={styles.brandUsername}>신규유튜버</Text>
-              <View style={styles.brandUserFollowerContainer}>
-                <Text style={styles.followerText}>팔로워</Text>
-                <Text style={styles.followerCount}>1.9K</Text>
+            <View style={styles.align}>
+              <Image
+                style={styles.searchBrandUserProfileImg}
+                source={{
+                  uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpX76CrHxujOncRrHo9XMHks7UTYRpIbM_Mw&usqp=CAU',
+                }}
+              />
+              <View style={styles.brandUserTextContainer}>
+                <Text style={styles.brandUsername}>신규유튜버</Text>
+                <View style={styles.brandUserFollowerContainer}>
+                  <Text style={styles.followerText}>팔로워</Text>
+                  <Text style={styles.followerCount}>1.9K</Text>
+                </View>
               </View>
             </View>
             <View>
@@ -35,8 +37,7 @@ function SearchResultBrandUserContainer({following, changeFollowing}) {
 
 const styles = StyleSheet.create({
   brandUserContainer: {
-    backgroundColor: 'white',
-    width: '100%',
+    backgroundColor: theme.colors.White,
     flex: 1,
     padding: 10,
   },
@@ -54,19 +55,22 @@ const styles = StyleSheet.create({
   spacebetween: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: '85%',
     alignItems: 'center',
-    paddingHorizontal: 5,
+    paddingRight: 5,
+    width: '100%',
   },
   brandUserTextContainer: {
     justifyContent: 'center',
-    alignItems: 'flex-start',
+    // alignItems: 'flex-start',
+    alignItems: 'center',
+    alignContent: 'center',
     margin: 3,
+    paddingLeft: 5,
   },
   brandUserFollowerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: 5,
+    marginTop: 2,
   },
   followerText: {
     color: theme.colors.Grey40,
@@ -95,7 +99,10 @@ const styles = StyleSheet.create({
   bottomBorderLine: {
     width: '100%',
     height: 1,
-    backgroundColor: '#c5c5c5',
+    backgroundColor: theme.colors.Grey20,
+  },
+  align: {
+    flexDirection: 'row',
   },
 });
 

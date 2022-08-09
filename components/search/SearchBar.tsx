@@ -8,7 +8,7 @@ function SearchBar({searchText, onChangeText, DoSearching}) {
     <View style={styles.container}>
       <View style={styles.searchBar}>
         <View style={styles.searchBarContainer}>
-          <Icon name="search" size={24} color={theme.colors.Grey80}></Icon>
+          <Icon name="search" size={24} color={theme.colors.Grey80} />
           <TextInput
             value={searchText}
             onChangeText={onChangeText}
