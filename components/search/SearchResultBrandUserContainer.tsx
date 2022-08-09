@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View, Image, Text, TouchableOpacity} from 'react-native';
+import {StyleSheet, View, Image, Text} from 'react-native';
 import FollowButton from '../profile/FollowButton';
 import theme from '../../assets/theme';
 
@@ -23,7 +23,7 @@ function SearchResultBrandUserContainer({following, changeFollowing}) {
               </View>
             </View>
             <View>
-              <FollowButton isFollowed={following} onPress={changeFollowing}/>
+              <FollowButton isFollowed={following} onPress={changeFollowing} />
             </View>
           </View>
         </View>

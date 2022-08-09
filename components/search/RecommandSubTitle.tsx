@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     fontWeight: theme.fontWeight.Bold,
     color: theme.colors.Grey50,
     marginLeft: 16,
-    marginBottom: 12, 
+    marginBottom: 12,
   },
 });
 

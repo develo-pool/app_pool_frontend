@@ -1,18 +1,16 @@
 import React, {useState} from 'react';
 import {View, ScrollView, StyleSheet} from 'react-native';
-import Title from '../components/Title';
 import SearchBar from '../components/search/SearchBar';
 import RecommandBrandUserContainer from '../components/search/RecommandBrandUserContainer';
 import RecommandSubTitle from '../components/search/RecommandSubTitle';
 import SearchResultBrandUserContainer from '../components/search/SearchResultBrandUserContainer';
 import SearchResultSubTitle from '../components/search/SearchResultSubTitle';
-import BorderLine from '../components/message/BorderLine';
 import theme from '../assets/theme';
 
 // interface User {
 //   name: string;
 //   profileImg: string;
-//   intro: string; 
+//   intro: string;
 //   follower: number;
 // }
 
@@ -96,7 +94,6 @@ const styles = StyleSheet.create({
     height: 1,
     width: '100%',
   },
-
 });
 
 export default SearchScreen;
