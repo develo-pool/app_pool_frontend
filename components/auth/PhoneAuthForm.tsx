@@ -108,7 +108,10 @@ function PhoneAuthForm({
                   ? {type: 'Correct', text: '인증되었습니다.'}
                   : authLen === 6 || authLen === 0
                   ? form.authNumberError
-                    ? {type: 'Error', text: '인증번호가 유효하지 않습니다.'}
+                    ? {
+                        type: 'Error',
+                        text: '인증에 실패했습니다. 다시 시도해 주세요.',
+                      }
                     : undefined
                   : {type: 'Error', text: '인증번호 6자리를 입력해 주세요.'}
               }
