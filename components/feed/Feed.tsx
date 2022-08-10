@@ -80,8 +80,9 @@ function Feed({user = doha, message = test, isFeedScreen = true}: Props) {
           ) : (
             <MessageLink messageLink={`${test.msgLink}`} />
           )}
+          <Text style={styles.msgDate}>{message.msgDate}</Text>
         </View>
-        <Text style={styles.msgDate}>{message.msgDate}</Text>
+        
       </TouchableOpacity>
       {/* 답장을 보냈는지 체크 */}
       {/* 요친구는 나중에 인풋박스 포커스까지 씌워줄거에요 */}
@@ -92,7 +93,6 @@ function Feed({user = doha, message = test, isFeedScreen = true}: Props) {
 
 const styles = StyleSheet.create({
   feedContainer: {
-    margin: 15,
     backgroundColor: 'white',
     borderRadius: 10,
     flex: 1,

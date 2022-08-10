@@ -1,7 +1,8 @@
 import {Text, View, StyleSheet, ScrollView} from 'react-native';
 import React from 'react';
 import Feed from '../components/feed/Feed';
-import { usernameExist } from '../api/auth';
+import {usernameExist} from '../api/auth';
+import theme from '../assets/theme';
 
 interface User {
   name: string;
@@ -34,20 +35,22 @@ const test: Message = {
 
 function FeedScreen() {
   return (
-    <View>
+    <View style={styles.container}>
       <ScrollView>
         <View style={styles.feedScreenHeader}>
           <View>
-            <Text>안녕하세요. {doha.name}님 :)</Text>
-            <Text>오늘의 메시지를 확인해 보세요.</Text>
+            <View style={styles.centerAlign}>
+              <Text style={styles.welcome}>안녕하세요</Text>
+              <Text style={styles.welcomeUsername}>{doha.name}</Text>
+              <Text style={styles.welcome}>님 :)</Text>
+            </View>
+            <View style={styles.centerAlign}>
+              <Text style={styles.welcome}>오늘의 메시지를 확인해 보세요</Text>
+            </View>
           </View>
-          <View>
-            <Text>
-              Today
-            </Text>
-            <Text>
-              {Date.now()}
-            </Text>
+          <View style={styles.date}>
+            <Text style={styles.today}>Today</Text>
+            <Text style={styles.dateNow}>{Date.now()}</Text>
           </View>
         </View>
         <Feed user={doha} message={test} />
@@ -59,9 +62,11 @@ function FeedScreen() {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    paddingHorizontal: 16,
+    backgroundColor: theme.colors.White,
+  },
   feedScreenHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
   },
   followingCount: {
     flexDirection: 'row',
@@ -70,6 +75,43 @@ const styles = StyleSheet.create({
   },
   followingCountText: {
     fontSize: 18,
+  },
+  centerAlign: {
+    height: 26,
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  welcome: {
+    fontSize: theme.fontSize.H4,
+    fontWeight: theme.fontWeight.Bold,
+    fontFamily: theme.fontFamily.Pretendard,
+  },
+  welcomeUsername: {
+    fontSize: theme.fontSize.H4,
+    fontWeight: theme.fontWeight.Bold,
+    fontFamily: theme.fontFamily.Pretendard,
+    color: theme.colors.Poolgreen,
+    marginLeft: 4,
+  },
+  date: {
+    height: 26,
+    width: 131,
+    backgroundColor: theme.colors.Skyblue,
+    borderRadius: 13,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 16,
+    marginBottom: 40,
+  },
+  today: {
+    fontSize: theme.fontSize.P3,
+    fontWeight: theme.fontWeight.Bold,
+    marginLeft: 10,
+  },
+  dateNow: {
+    fontSize: theme.fontSize.P3,
+    marginRight: 10,
+    marginLeft: 6,
   },
 });
 
