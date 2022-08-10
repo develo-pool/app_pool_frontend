@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-import {SignUpParams} from '../../api/auth';
+import {SignUpParams} from '../../api/auth/types';
 import TextInputs from '../TextInputs';
 import Title from '../Title';
 import {InputTitle, RadioButton} from './AuthComponents';
