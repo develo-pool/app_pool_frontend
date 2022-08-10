@@ -5,7 +5,7 @@ import {RootStackNavigationProp} from '../screens/types';
 import {authorize} from '../slices/auth';
 import authStorage from '../storages/authStorage';
 import jwtDecode from 'jwt-decode';
-import {RefreshToken} from '../api/types';
+import {RefreshToken} from '../api/auth/types';
 
 export default function useAuthLoadEffect() {
   const navigation = useNavigation<RootStackNavigationProp>();

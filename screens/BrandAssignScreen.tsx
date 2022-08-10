@@ -6,7 +6,7 @@ import {useMutation} from 'react-query';
 import {useDispatch} from 'react-redux';
 import {refresh} from '../api/auth';
 import {createBrand} from '../api/brand';
-import {AuthResult} from '../api/types';
+import {AuthResult} from '../api/auth/types';
 import BrandAssignForm from '../components/brand/BrandAssignForm';
 import BrandAssignTerm from '../components/brand/BrandAssignTerm';
 import Category from '../components/category/Category';

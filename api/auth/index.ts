@@ -1,4 +1,4 @@
-import client from './client';
+import client from '../client';
 import {AuthResult, User} from './types';
 
 export async function signUp(params: SignUpParams) {

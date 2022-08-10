@@ -1,4 +1,4 @@
-import client from './client';
+import client from '../client';
 import {BrandResult} from './types';
 
 export async function createBrand(formData: FormData) {

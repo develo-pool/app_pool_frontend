@@ -3,7 +3,7 @@ import store from '../slices';
 import {authorize} from '../slices/auth';
 import authStorage from '../storages/authStorage';
 import {refresh} from './auth';
-import {AuthResult} from './types';
+import {AuthResult} from './auth/types';
 
 const baseURL = 'http://3.39.176.13:8080/';
 
