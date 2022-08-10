@@ -20,6 +20,13 @@ export async function usernameExist(params: string) {
 
 export async function nickNameExist(params: string) {
   const response = await client.get<boolean>(
+    `/user-phoneNumbers/${params}/exists`,
+  );
+  return response.data;
+}
+
+export async function phoneNumberExist(params: string) {
+  const response = await client.get<boolean>(
     `/user-nickNames/${params}/exists`,
   );
   return response.data;
@@ -33,6 +40,16 @@ export async function getUser() {
 export async function refresh(params: AuthResult) {
   const response = await client.post('/reIssue', params);
   return response.data;
+}
+
+export async function updatePassword(params: UpdatePasswordParams) {
+  const response = await client.put('/user/password', params);
+  return response;
+}
+
+export async function checkMember(params: ChekMemberParams) {
+  const response = await client.post<boolean>('/checkMember', params);
+  return response;
 }
 
 export interface SignUpParams {
@@ -50,4 +67,14 @@ export interface SignUpParams {
 export interface LoginParams {
   username: string;
   password: string;
+}
+
+export interface UpdatePasswordParams {
+  username: string;
+  toBePassword: string;
+}
+
+export interface ChekMemberParams {
+  username: string;
+  phoneNumber: string;
 }
