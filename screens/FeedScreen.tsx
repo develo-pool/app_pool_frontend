@@ -3,6 +3,8 @@ import React from 'react';
 import Feed from '../components/feed/Feed';
 import {usernameExist} from '../api/auth';
 import theme from '../assets/theme';
+import NowDate from '../components/feed/NowDate';
+import Hello from '../components/feed/Hello';
 
 interface User {
   name: string;
@@ -37,22 +39,8 @@ function FeedScreen() {
   return (
     <View style={styles.container}>
       <ScrollView>
-        <View style={styles.feedScreenHeader}>
-          <View>
-            <View style={styles.centerAlign}>
-              <Text style={styles.welcome}>안녕하세요</Text>
-              <Text style={styles.welcomeUsername}>{doha.name}</Text>
-              <Text style={styles.welcome}>님 :)</Text>
-            </View>
-            <View style={styles.centerAlign}>
-              <Text style={styles.welcome}>오늘의 메시지를 확인해 보세요</Text>
-            </View>
-          </View>
-          <View style={styles.date}>
-            <Text style={styles.today}>Today</Text>
-            <Text style={styles.dateNow}>{Date.now()}</Text>
-          </View>
-        </View>
+        <Hello name={doha.name} />
+        <NowDate msgDate={Date.now()} />
         <Feed user={doha} message={test} />
         <Feed user={doha} message={test} />
         <Feed user={doha} message={test} />
@@ -65,53 +53,6 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 16,
     backgroundColor: theme.colors.White,
-  },
-  feedScreenHeader: {
-  },
-  followingCount: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-  },
-  followingCountText: {
-    fontSize: 18,
-  },
-  centerAlign: {
-    height: 26,
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
-  welcome: {
-    fontSize: theme.fontSize.H4,
-    fontWeight: theme.fontWeight.Bold,
-    fontFamily: theme.fontFamily.Pretendard,
-  },
-  welcomeUsername: {
-    fontSize: theme.fontSize.H4,
-    fontWeight: theme.fontWeight.Bold,
-    fontFamily: theme.fontFamily.Pretendard,
-    color: theme.colors.Poolgreen,
-    marginLeft: 4,
-  },
-  date: {
-    height: 26,
-    width: 131,
-    backgroundColor: theme.colors.Skyblue,
-    borderRadius: 13,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    marginTop: 16,
-    marginBottom: 40,
-  },
-  today: {
-    fontSize: theme.fontSize.P3,
-    fontWeight: theme.fontWeight.Bold,
-    marginLeft: 10,
-  },
-  dateNow: {
-    fontSize: theme.fontSize.P3,
-    marginRight: 10,
-    marginLeft: 6,
   },
 });
 
