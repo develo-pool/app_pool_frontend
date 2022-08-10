@@ -11,7 +11,11 @@ function CommentFocusButton({isComment}: Props) {
   return (
     // 댓글 작성 여부에 따라 메시지스크린 -> 입력창 포커스를 잡아주는 컴포넌트
     <View style={styles.isComment}>
-      <Icon name="comment" size={24} color= { isComment ? theme.colors.Grey30 : theme.colors.Grey60} />
+      <Icon
+        name="comment"
+        size={24}
+        color={isComment ? theme.colors.Grey30 : theme.colors.Grey60}
+      />
       {isComment ? (
         <Text style={styles.completeWord}>답장완료</Text>
       ) : (

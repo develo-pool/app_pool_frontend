@@ -1,7 +1,7 @@
-import {Text, View, StyleSheet, ScrollView} from 'react-native';
+import {View, StyleSheet, ScrollView} from 'react-native';
 import React from 'react';
 import Feed from '../components/feed/Feed';
-import {usernameExist} from '../api/auth';
+// import {usernameExist} from '../api/auth';
 import theme from '../assets/theme';
 import NowDate from '../components/feed/NowDate';
 import Hello from '../components/feed/Hello';

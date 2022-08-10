@@ -11,7 +11,12 @@ function MessageLink({messageLink}: Props) {
   return (
     // 댓글 작성 여부에 따라 메시지스크린 -> 입력창 포커스를 잡아주는 컴포넌트
     <TouchableOpacity style={styles.linkContainer}>
-      <Icon name="link" size={24} color={theme.colors.Poolblue} style={styles.icon}/>
+      <Icon
+        name="link"
+        size={24}
+        color={theme.colors.Poolblue}
+        style={styles.icon}
+      />
       <Text style={styles.messageLink}>{messageLink}</Text>
     </TouchableOpacity>
   );

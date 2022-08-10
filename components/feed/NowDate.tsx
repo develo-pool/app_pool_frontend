@@ -10,7 +10,7 @@ function NowDate({msgDate}: Props) {
   return (
     <View style={styles.date}>
       <Text style={styles.today}>Today</Text>
-      <Text style={styles.dateNow}>{Date.now()}</Text>
+      <Text style={styles.dateNow}>{msgDate}</Text>
     </View>
   );
 }

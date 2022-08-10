@@ -22,23 +22,23 @@ function Hello({name}: Props) {
 }
 
 const styles = StyleSheet.create({
-    centerAlign: {
-        height: 26,
-        alignItems: 'center',
-        flexDirection: 'row',
-      },
-      welcome: {
-        fontSize: theme.fontSize.H4,
-        fontWeight: theme.fontWeight.Bold,
-        fontFamily: theme.fontFamily.Pretendard,
-      },
-      welcomeUsername: {
-        fontSize: theme.fontSize.H4,
-        fontWeight: theme.fontWeight.Bold,
-        fontFamily: theme.fontFamily.Pretendard,
-        color: theme.colors.Poolgreen,
-        marginLeft: 4,
-      },
+  centerAlign: {
+    height: 26,
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  welcome: {
+    fontSize: theme.fontSize.H4,
+    fontWeight: theme.fontWeight.Bold,
+    fontFamily: theme.fontFamily.Pretendard,
+  },
+  welcomeUsername: {
+    fontSize: theme.fontSize.H4,
+    fontWeight: theme.fontWeight.Bold,
+    fontFamily: theme.fontFamily.Pretendard,
+    color: theme.colors.Poolgreen,
+    marginLeft: 4,
+  },
 });
 
 export default Hello;

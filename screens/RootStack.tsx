@@ -24,16 +24,11 @@ function RootStack() {
   useAuthLoadEffect();
   return (
     <Stack.Navigator initialRouteName="Welcome">
-      {/* <Stack.Screen
-        name="FirebasePhoneAuth"
-        component={FirebasePhoneAuth}
-        options={{headerShown: false}}
-      />
       <Stack.Screen
         name="Welcome"
         component={WelcomeScreen}
         options={{headerShown: false}}
-      /> */}
+      />
       <Stack.Screen
         name="MainTab"
         component={MainTab}
