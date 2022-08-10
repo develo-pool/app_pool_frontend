@@ -29,6 +29,7 @@ export interface SignUpScreenProps {
   usernameChecked: boolean | undefined;
   nickNameChecked: boolean | undefined;
   passwordValid: {first: boolean; second: boolean};
+  authNumberError: boolean;
 }
 
 function SignUpScreen() {
@@ -78,6 +79,7 @@ function SignUpScreen() {
     passwordValid: {first: false, second: false},
     usernameChecked: undefined,
     nickNameChecked: undefined,
+    authNumberError: false,
   });
   const createChangeTextHandler =
     (name: string) => (value: string | string[]) => {
