@@ -15,7 +15,7 @@ function CommentFocusButton({isComment}: Props) {
         name="comment"
         size={20}
         color={isComment ? theme.colors.Grey30 : theme.colors.Grey60}
-        style={{marginRight: 6}}
+        style={styles.commentIcon}
       />
       {isComment ? (
         <Text style={styles.completeWord}>답장완료</Text>
@@ -45,6 +45,9 @@ const styles = StyleSheet.create({
     fontWeight: theme.fontWeight.Light,
     color: theme.colors.Grey60,
     fontFamily: theme.fontFamily.Pretendard,
+  },
+  commentIcon: {
+    marginRight: 6,
   },
 });
 
