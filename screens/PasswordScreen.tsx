@@ -2,6 +2,8 @@ import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import {useMutation, useQuery} from 'react-query';
+import {checkMember, updatePassword} from '../api/auth';
 import {InputTitle} from '../components/auth/AuthComponents';
 import PasswordForm from '../components/auth/PasswordForm';
 import PhoneAuthForm from '../components/auth/PhoneAuthForm';
@@ -50,6 +52,29 @@ function PasswordScreen() {
     (name: string) => (value: string | undefined) => {
       setForm({...form, [name]: value});
     };
+  const {refetch: refetchUserExist, isLoading: userExistLoading} = useQuery(
+    ['userExist', form.username, form.phoneNumber],
+    () => {
+      checkMember({
+        username: form.username,
+        phoneNumber: form.phoneNumber,
+      }).then(value => {
+        if (value.data) {
+          navigation.navigate('Password', {current: 1});
+        } else {
+          console.log('다시 시도해주세요.');
+        }
+      });
+    },
+    {
+      enabled: false,
+    },
+  );
+  const {mutate} = useMutation(updatePassword, {
+    onSuccess: async () => {
+      navigation.reset({routes: [{name: 'Login'}]});
+    },
+  });
   useEffect(() => {
     navigation.setOptions({
       headerTitle: () => <ProcessBar total={TOTAL} current={current} />,
@@ -136,13 +161,9 @@ function PasswordScreen() {
       {current ? (
         <ScreenBottomButton
           name="재설정 완료"
-          onPress={
-            current
-              ? () => {}
-              : () => {
-                  navigation.navigate('Password', {current: 1});
-                }
-          }
+          onPress={() => {
+            mutate({username: form.username, toBePassword: form.password});
+          }}
           enabled={
             form.confirm === form.password &&
             form.passwordValid.first &&
@@ -152,14 +173,11 @@ function PasswordScreen() {
       ) : (
         <ScreenBottomButton
           name="비밀번호 재설정하기"
-          onPress={
-            current
-              ? () => {}
-              : () => {
-                  navigation.navigate('Password', {current: 1});
-                }
-          }
+          onPress={() => {
+            refetchUserExist();
+          }}
           enabled={form.state === 'confirm' && form.username.length > 2}
+          isLoading={userExistLoading}
         />
       )}
     </>

@@ -40,7 +40,6 @@ function PhoneAuthForm({
     setConfirmation(response);
     onChangeForm('state')('request');
   };
-
   const verifyAuthNumber = async () => {
     try {
       setIsLoading(true);
