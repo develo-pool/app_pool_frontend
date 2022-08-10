@@ -11,7 +11,7 @@ function SetWelcomeMsg() {
   return (
     <Pressable
       style={styles.SetWelcomeMessage}
-      onPress={() => navigation.navigate('CreateMessage')}>
+      onPress={() => navigation.navigate('WelcomeMessage')}>
       <Text style={styles.SetWelcomeText}>웰컴메시지를 설정해주세요</Text>
       <Icon name="arrow-forward-ios" size={12} style={styles.RightArrow} />
     </Pressable>

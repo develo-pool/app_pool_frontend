@@ -22,6 +22,13 @@ import {MainTabNatigationProp} from './types';
 function CreateMessageScreen() {
   const navigation = useNavigation<MainTabNatigationProp>();
   const [text, setText] = useState('');
+
+  // const onSubmit = useCallback(() => {
+  //   const formData = new FormData();
+  //   formData.append('', form.imgNewMessage);
+  //   assign(formData);
+  // }, [assign, form]);
+
   const onSelectImage = () => {
     launchImageLibrary(
       {
@@ -63,6 +70,10 @@ function CreateMessageScreen() {
           style={styles.InputMessage}
           placeholder="20자 이상,  1000자 이내로 입력"
         />
+        {/* <Image
+          style={styles.UploadImage}
+          source={{uri: response?.assets[0]?.uri}}
+        /> */}
       </View>
       <View style={styles.BottomArea}>
         <View style={styles.Line} />
@@ -127,6 +138,7 @@ const styles = StyleSheet.create({
     fontSize: theme.fontSize.P1,
     fontWeight: '400',
   },
+  UploadImage: {},
   Line: {
     height: 1,
     backgroundColor: '#E8E8E8',
