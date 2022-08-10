@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react';
 import {ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useMutation, useQuery} from 'react-query';
+import {useDispatch} from 'react-redux';
 import {checkMember, updatePassword} from '../api/auth';
 import {InputTitle} from '../components/auth/AuthComponents';
 import PasswordForm from '../components/auth/PasswordForm';
@@ -13,6 +14,7 @@ import ProcessBar from '../components/ProcessBar';
 import ScreenBottomButton from '../components/ScreenBottomButton';
 import TextInputs from '../components/TextInputs';
 import Title from '../components/Title';
+import {createAlert, deleteAlert} from '../slices/alert';
 import {RootStackNavigationProp, RootStackParamList} from './types';
 
 const TOTAL = 2;
@@ -32,6 +34,7 @@ interface PasswordScreenProps {
 type PasswordScreenRouteProp = RouteProp<RootStackParamList, 'Password'>;
 
 function PasswordScreen() {
+  const dispatch = useDispatch();
   const route = useRoute<PasswordScreenRouteProp>();
   const current = route.params.current;
   const navigation = useNavigation<RootStackNavigationProp>();
@@ -70,6 +73,10 @@ function PasswordScreen() {
   );
   const {mutate} = useMutation(updatePassword, {
     onSuccess: async () => {
+      dispatch(
+        createAlert({type: 'Complete', text: '비밀번호가 재설정되었습니다.'}),
+      );
+      setTimeout(() => dispatch(deleteAlert()), 5000);
       navigation.reset({routes: [{name: 'Login'}]});
     },
   });
