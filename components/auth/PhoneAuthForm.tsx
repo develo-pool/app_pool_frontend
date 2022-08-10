@@ -25,22 +25,27 @@ function PhoneAuthForm({
   const [phoneNumberValid, setPhoneNumberValid] = useState<boolean>(true);
   const [confirmation, setConfirmation] =
     useState<FirebaseAuthTypes.ConfirmationResult>();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const changePhoneNumberHandler = (value: string) => {
     setForm({...form, state: 'default', authNumber: '', phoneNumber: value});
     setPhoneNumberValid(CheckPhoneNumber(value));
   };
   const authLen = form.authNumber.length;
   const requestAuthNumber = async () => {
+    setIsLoading(true);
     const response = await auth().signInWithPhoneNumber(
       `+82${form.phoneNumber.substring(1)}`,
     );
+    setIsLoading(false);
     setConfirmation(response);
     onChangeForm('state')('request');
   };
 
   const verifyAuthNumber = async () => {
     try {
+      setIsLoading(true);
       const data = await confirmation?.confirm(form.authNumber);
+      setIsLoading(false);
       if (data !== undefined) {
         onChangeForm('state')('confirm');
       }
@@ -79,6 +84,7 @@ function PhoneAuthForm({
           disabled={
             !(form.phoneNumber && phoneNumberValid && form.state === 'default')
           }
+          isLoading={isLoading}
           onPress={() => {
             requestAuthNumber();
           }}
@@ -108,7 +114,10 @@ function PhoneAuthForm({
                   ? {type: 'Correct', text: '인증되었습니다.'}
                   : authLen === 6 || authLen === 0
                   ? form.authNumberError
-                    ? {type: 'Error', text: '인증번호가 유효하지 않습니다.'}
+                    ? {
+                        type: 'Error',
+                        text: '인증에 실패했습니다. 다시 시도해 주세요.',
+                      }
                     : undefined
                   : {type: 'Error', text: '인증번호 6자리를 입력해 주세요.'}
               }
@@ -116,6 +125,7 @@ function PhoneAuthForm({
             <AuthButton
               text="인증하기"
               disabled={authLen !== 6 || form.state === 'confirm'}
+              isLoading={isLoading}
               onPress={() => {
                 verifyAuthNumber();
               }}
