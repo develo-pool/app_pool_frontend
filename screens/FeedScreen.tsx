@@ -38,7 +38,7 @@ const test: Message = {
 function FeedScreen() {
   return (
     <View style={styles.container}>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <Hello name={doha.name} />
         <NowDate msgDate={Date.now()} />
         <Feed user={doha} message={test} />
@@ -54,6 +54,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     backgroundColor: theme.colors.White,
   },
+
 });
 
 export default FeedScreen;
