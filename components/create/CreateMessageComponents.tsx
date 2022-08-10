@@ -1,6 +1,8 @@
 import React from 'react';
 import {Text, Pressable, StyleSheet} from 'react-native';
 import theme from '../../assets/theme';
+import {useNavigation} from '@react-navigation/native';
+import {RootStackNavigationProp} from '../../screens/types';
 
 export function SendButton({
   text,
@@ -23,14 +25,13 @@ export function SendButton({
 export function PreviewButton({
   text,
   disabled,
-  onPress,
 }: {
   text: string;
   disabled: boolean;
-  onPress?: undefined;
 }) {
+  const navigation = useNavigation<RootStackNavigationProp>();
   return (
-    <Pressable onPress={onPress}>
+    <Pressable onPress={() => navigation.navigate('Preview')}>
       <Text style={[styles.Preview, disabled && styles.previewDisabled]}>
         {text}
       </Text>
