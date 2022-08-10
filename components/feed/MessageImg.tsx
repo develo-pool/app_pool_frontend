@@ -26,7 +26,7 @@ function MessageImg({messageImg}: Props) {
 const styles = StyleSheet.create({
   messageImg: {
     borderRadius: 8,
-    marginBottom: 15,
+    marginBottom: 12,
   },
 });
 

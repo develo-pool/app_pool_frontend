@@ -57,6 +57,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   feedOwner: {
+    marginBottom: -4,
     flexDirection: 'row',
     alignItems: 'flex-start',
     //   justifyContent: 'center',

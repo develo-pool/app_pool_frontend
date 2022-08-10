@@ -13,8 +13,9 @@ function CommentFocusButton({isComment}: Props) {
     <View style={styles.isComment}>
       <Icon
         name="comment"
-        size={24}
+        size={20}
         color={isComment ? theme.colors.Grey30 : theme.colors.Grey60}
+        style={{marginRight: 6}}
       />
       {isComment ? (
         <Text style={styles.completeWord}>답장완료</Text>
