@@ -87,17 +87,18 @@ const styles = StyleSheet.create({
   },
   titleText: {
     fontFamily: theme.fontFamily.Pretendard,
-    fontSize: theme.fontSize.P2,
+    fontSize: 15,
     fontWeight: theme.fontWeight.Bold,
     color: theme.colors.Black,
   },
   bodyText: {
     fontFamily: theme.fontFamily.Pretendard,
-    fontSize: theme.fontSize.P2,
+    fontSize: 15,
     fontWeight: theme.fontWeight.Light,
     color: theme.colors.Grey50,
     flexShrink: 1,
     maxWidth: 248,
+    marginBottom: 2,
   },
   infoContainer: {
     alignItems: 'flex-end',
