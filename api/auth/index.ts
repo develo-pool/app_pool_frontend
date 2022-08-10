@@ -27,14 +27,14 @@ export async function usernameExist(params: string) {
 
 export async function nickNameExist(params: string) {
   const response = await client.get<boolean>(
-    `/user-phoneNumbers/${params}/exists`,
+    `/user-nickNames/${params}/exists`,
   );
   return response.data;
 }
 
 export async function phoneNumberExist(params: string) {
   const response = await client.get<boolean>(
-    `/user-nickNames/${params}/exists`,
+    `/user-phoneNumbers/${params}/exists`,
   );
   return response.data;
 }

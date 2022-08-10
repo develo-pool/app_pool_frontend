@@ -4,30 +4,39 @@ import TextInputs from '../TextInputs';
 import {AuthButton, InputTitle} from './AuthComponents';
 import {CheckPhoneNumber} from './Validation';
 import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
+import {phoneNumberExist} from '../../api/auth';
+import {useQuery} from 'react-query';
 
 interface PhoneAuthProps {
   phoneNumber: string;
   authNumber: string;
   state: 'default' | 'request' | 'confirm';
   authNumberError: boolean;
-  idError?: boolean;
 }
 
 function PhoneAuthForm({
   form,
   onChangeForm,
   setForm,
+  mode,
 }: {
   form: PhoneAuthProps;
   onChangeForm: any;
   setForm: any;
+  mode: 'SIGN_UP' | 'CHANGE_PASSWORD';
 }) {
+  const isPhoneNumberValid = {
+    SIGN_UP: false,
+    CHANGE_PASSWORD: true,
+  };
   const [phoneNumberValid, setPhoneNumberValid] = useState<boolean>(true);
   const [confirmation, setConfirmation] =
     useState<FirebaseAuthTypes.ConfirmationResult>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isExist, setIsExist] = useState<boolean>(false);
   const changePhoneNumberHandler = (value: string) => {
     setForm({...form, state: 'default', authNumber: '', phoneNumber: value});
+    setIsExist(false);
     setPhoneNumberValid(CheckPhoneNumber(value));
   };
   const authLen = form.authNumber.length;
@@ -54,7 +63,21 @@ function PhoneAuthForm({
       await auth().currentUser?.delete();
     }
   };
-
+  const {refetch} = useQuery(
+    ['phoneNumberExist', form.phoneNumber],
+    () => {
+      phoneNumberExist(form.phoneNumber).then((value: boolean) => {
+        if (value === isPhoneNumberValid[mode] || mode === 'CHANGE_PASSWORD') {
+          requestAuthNumber();
+        } else {
+          setIsExist(true);
+        }
+      });
+    },
+    {
+      enabled: false,
+    },
+  );
   return (
     <>
       <InputTitle title="휴대전화" />
@@ -62,7 +85,9 @@ function PhoneAuthForm({
         <TextInputs
           type={
             phoneNumberValid || form.phoneNumber.length === 0
-              ? 'default'
+              ? isExist
+                ? 'error'
+                : 'default'
               : 'error'
           }
           placeholder="예.01012345678"
@@ -74,7 +99,9 @@ function PhoneAuthForm({
             form.state === 'request'
               ? {type: 'Correct', text: '인증번호가 전송되었습니다.'}
               : phoneNumberValid || form.phoneNumber.length === 0
-              ? undefined
+              ? isExist
+                ? {type: 'Error', text: '이미 등록된 휴대전화 번호입니다.'}
+                : undefined
               : {type: 'Error', text: '번호양식에 맞게 입력해 주세요.'}
           }
         />
@@ -85,7 +112,7 @@ function PhoneAuthForm({
           }
           isLoading={isLoading}
           onPress={() => {
-            requestAuthNumber();
+            refetch();
           }}
         />
       </View>

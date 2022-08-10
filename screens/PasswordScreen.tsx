@@ -27,7 +27,6 @@ interface PasswordScreenProps {
   passwordValid: {first: boolean; second: boolean};
   usernameChecked: boolean | undefined;
   authNumberError: boolean;
-  idError: boolean;
 }
 
 type PasswordScreenRouteProp = RouteProp<RootStackParamList, 'Password'>;
@@ -46,7 +45,6 @@ function PasswordScreen() {
     passwordValid: {first: false, second: false},
     usernameChecked: undefined,
     authNumberError: false,
-    idError: false,
   });
   const createChangeFormHandler =
     (name: string) => (value: string | undefined) => {
@@ -153,6 +151,7 @@ function PasswordScreen() {
                 form={form}
                 onChangeForm={createChangeFormHandler}
                 setForm={setForm}
+                mode="CHANGE_PASSWORD"
               />
             </View>
           </ScrollView>
