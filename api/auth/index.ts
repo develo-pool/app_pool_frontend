@@ -1,5 +1,12 @@
 import client from '../client';
-import {AuthResult, User} from './types';
+import {
+  AuthResult,
+  ChekMemberParams,
+  LoginParams,
+  SignUpParams,
+  UpdatePasswordParams,
+  User,
+} from './types';
 
 export async function signUp(params: SignUpParams) {
   const response = await client.post<AuthResult>('/signUp', params);
@@ -50,31 +57,4 @@ export async function updatePassword(params: UpdatePasswordParams) {
 export async function checkMember(params: ChekMemberParams) {
   const response = await client.post<boolean>('/checkMember', params);
   return response;
-}
-
-export interface SignUpParams {
-  username: string;
-  password: string;
-  nickName: string;
-  phoneNumber: string;
-  gender: 'male' | 'female' | '';
-  birthDay: string;
-  termAgreement: boolean;
-  privacyAgreement: boolean;
-  category: string[];
-}
-
-export interface LoginParams {
-  username: string;
-  password: string;
-}
-
-export interface UpdatePasswordParams {
-  username: string;
-  toBePassword: string;
-}
-
-export interface ChekMemberParams {
-  username: string;
-  phoneNumber: string;
 }
