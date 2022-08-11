@@ -8,21 +8,19 @@ function InputCommentContainer({
   addComments,
 }) {
   return (
-    <View>
-      <TextInput
-        value={commentText}
-        onChangeText={onChangeText}
-        onSubmitEditing={addComments}
-        returnKeyType="done"
-        placeholder={
-          isComment
-            ? '이미 작성한 메시지입니다.'
-            : '채팅은 1회만 발송할 수 있습니다.'
-        }
-        style={styles.input}
-        editable={!isComment}
-      />
-    </View>
+    <TextInput
+      value={commentText}
+      onChangeText={onChangeText}
+      onSubmitEditing={addComments}
+      returnKeyType="done"
+      placeholder={
+        isComment
+          ? '이미 작성한 메시지입니다.'
+          : '채팅은 1회만 발송할 수 있습니다.'
+      }
+      style={styles.input}
+      editable={!isComment}
+    />
   );
 }
 
@@ -32,7 +30,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 30,
-    marginVertical: 20,
+    marginVertical: 10,
     fontSize: 18,
     color: 'FFFFFF',
   },

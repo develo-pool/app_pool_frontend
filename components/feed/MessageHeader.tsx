@@ -20,34 +20,20 @@ function MessageHeader({user, isDetailMessage, msgDate}: Props) {
 
   return (
     // 댓글 작성 여부에 따라 메시지스크린 -> 입력창 포커스를 잡아주는 컴포넌트
-    <TouchableOpacity
-      style={styles.messageHeader}
-      onPress={() => navigation.navigate('BrandProfile')}>
-      {isDetailMessage ? (
-        <View style={styles.detailHeader}>
+    <TouchableOpacity style={styles.messageHeader} onPress={() => navigation.navigate('BrandProfile')}>
+      <View style={styles.feedHeader}>
+        <View style={styles.feedOwner}>
+
           <Image
-            style={styles.authorProfileImg}
+            style={styles.feedOwnerProfileImg}
             source={{uri: `${user.profileImg}`}}
+            resizeMode="cover"
           />
-          <View style={styles.msgHeader}>
-            <Text style={styles.msgSmallText}>{user.name}</Text>
-            <Text style={styles.msgDate}>{msgDate}</Text>
+          <View style={styles.usernameContainer}>
+            <Text style={styles.feedOwnerUsername}>{user.name}</Text>
           </View>
         </View>
-      ) : (
-        <View style={styles.feedHeader}>
-          <View style={styles.feedOwner}>
-            <Image
-              style={styles.feedOwnerProfileImg}
-              source={{uri: `${user.profileImg}`}}
-              resizeMode="cover"
-            />
-            <View style={styles.usernameContainer}>
-              <Text style={styles.feedOwnerUsername}>{user.name}</Text>
-            </View>
-          </View>
-        </View>
-      )}
+      </View>
     </TouchableOpacity>
   );
 }

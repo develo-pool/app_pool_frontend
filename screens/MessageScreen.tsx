@@ -1,14 +1,17 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   // ScrollView,
   StyleSheet,
+  TouchableOpacity,
   View,
 } from 'react-native';
-// import BorderLine from '../components/message/BorderLine';
+import theme from '../assets/theme';
 import Comment from '../components/message/Comment';
-// import CommentBar from '../components/message/CommentBar';
 import DetailMessageContainer from '../components/message/DetailMessageContainer';
 import InputCommentContainer from '../components/message/InputCommentContainer';
+import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
+import {RootStackNavigationProp, RootStackParamList} from './types';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 interface User {
   isBrand: boolean;
@@ -25,6 +28,7 @@ function MessageScreen() {
   const [commentText, setCommentText] = useState('');
   const onChangeText = payload => setCommentText(payload);
   const [commentList, setCommentList] = useState({});
+  const navigation = useNavigation<RootStackNavigationProp>();
 
   const addComments = async () => {
     const writtenTime = Date.now();
@@ -38,13 +42,25 @@ function MessageScreen() {
     setCommentList(newComments);
     setCommentText('');
   };
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerTitleAlign: 'center',
+      headerBackVisible: false,
+      headerShadowVisible: false,
+      headerTitle: '',
+      headerLeft: () =>(
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Icon name="arrow-back" size={24} color="black" />
+          </TouchableOpacity>
+        ),
+    });
+  }, [navigation]);
+
   return (
-    <View style={styles.container}>
+    <View style={styles.safetyArea}>
       <DetailMessageContainer user={undefined} message={undefined} />
-
-      {/* <BorderLine /> */}
-
-      {/* <CommentBar commentCount={927} /> */}
+      <View>
       {Object.keys(commentList).map(key => (
         <View key={key}>
           <Comment
@@ -55,9 +71,9 @@ function MessageScreen() {
           />
         </View>
       ))}
+      </View>
 
-      <View>
-        {/* <ScrollView style={styles.scrollview}> */}
+      <View style={styles.floatBottom}>
         {tester.isBrand ? null : (
           <InputCommentContainer
             commentText={commentText}
@@ -66,21 +82,17 @@ function MessageScreen() {
             addComments={addComments}
           />
         )}
-        {/* </ScrollView> */}
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#EEEEEE',
-    paddingHorizontal: 20,
+  safetyArea: {
   },
-  scrollview: {
-    flex: 1,
+  floatBottom: {
   },
+  scrollview: {},
 });
 
 export default MessageScreen;

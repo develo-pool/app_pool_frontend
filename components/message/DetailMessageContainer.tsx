@@ -1,9 +1,10 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-import MessageHeader from '../feed/MessageHeader';
+import MessageHeader from '../message/MessageHeader';
 import MessageImg from '../feed/MessageImg';
 import MessageLink from '../feed/MessageLink';
 import MessageText from '../feed/MessageText';
+import theme from '../../assets/theme';
 
 interface Props {
   user: User | undefined;
@@ -73,7 +74,10 @@ function DetailMessageContainer({message = test}: Props) {
 
 const styles = StyleSheet.create({
   detailMessageContainer: {
+    position: 'absolute',
     flex: 1,
+    paddingHorizontal: 16,
+    backgroundColor: theme.colors.White,
   },
   msgHeader: {
     // backgroundColor: '#555555',
@@ -113,7 +117,6 @@ const styles = StyleSheet.create({
     color: '#C4C4C4',
   },
   msg: {
-    flex: 5,
     //   flexDirection:'row',
   },
 });

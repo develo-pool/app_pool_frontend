@@ -24,12 +24,12 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 function RootStack() {
   useAuthLoadEffect();
   return (
-    <Stack.Navigator initialRouteName="MainTab">
-      <Stack.Screen
+    <Stack.Navigator initialRouteName="Welcome">
+      {/* <Stack.Screen
         name="Welcome"
         component={WelcomeScreen}
         options={{headerShown: false}}
-      />
+      /> */}
       <Stack.Screen
         name="MainTab"
         component={MainTab}
