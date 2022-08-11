@@ -16,7 +16,7 @@ function ProfileImageContainer({isEditable}: Props) {
     <View style={styles.ProfileImgContainer}>
       <Image
         style={styles.ImgSource}
-        source={require('../../assets/ProfileImage.png')}
+        source={require('../../assets/PoolLogo.png')}
       />
       {isEditable && (
         <TouchableOpacity
