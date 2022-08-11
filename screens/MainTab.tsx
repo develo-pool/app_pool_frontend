@@ -6,7 +6,6 @@ import SettingStack from './SettingStack';
 import BrandProfileScreen from './BrandProfileScreen';
 import {MainTabParamList} from './types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {View, StyleSheet} from 'react-native';
 import theme from './../assets/theme';
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
