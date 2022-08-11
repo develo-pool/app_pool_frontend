@@ -27,6 +27,7 @@ function MainTab() {
         name="Search"
         component={SearchScreen}
         options={{
+          headerShown: false,
           tabBarShowLabel: false,
           tabBarIcon: ({color}) => (
             <Icon name="search" size={24} color={color} />
@@ -37,6 +38,7 @@ function MainTab() {
         name="Feed"
         component={FeedScreen}
         options={{
+          headerShown: false,
           tabBarShowLabel: false,
           tabBarIcon: ({color}) => (
             <Icon name="view-agenda" size={24} color={color} />
@@ -48,6 +50,7 @@ function MainTab() {
           name="BrandProfile"
           component={BrandProfileScreen}
           options={{
+            headerShown: false,
             tabBarShowLabel: false,
             tabBarIcon: ({color}) => (
               <Icon name="person" size={24} color={color} />
@@ -59,6 +62,7 @@ function MainTab() {
         name="SettingStack"
         component={SettingStack}
         options={{
+          headerShown: false,
           tabBarShowLabel: false,
           tabBarIcon: ({color}) => (
             <Icon name="settings" size={24} color={color} />
