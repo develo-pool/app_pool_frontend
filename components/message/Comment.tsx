@@ -4,7 +4,7 @@ import {StyleSheet, Text, View, Image} from 'react-native';
 // 사용 시에는 user 프롭스를 아래에 넣어주세용
 function Comment({text, userName, userProfileImg, writenCommentTime}) {
   return (
-    <View>
+    <View style={styles.commentBox}>
       <View style={styles.commentUser}>
         <View style={styles.align}>
           <Image

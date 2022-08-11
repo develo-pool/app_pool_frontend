@@ -12,7 +12,7 @@ function MessageText({messageText}: Props) {
 
 const styles = StyleSheet.create({
   messageText: {
-    marginBottom: 12,
+    marginBottom: 18,
     fontSize: theme.fontSize.P1,
     fontWeight: theme.fontWeight.Light,
     color: theme.colors.Grey60,

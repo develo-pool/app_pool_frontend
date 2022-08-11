@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     borderColor: theme.colors.Grey20,
     alignItems: 'center',
     flexDirection: 'row',
-    marginBottom: 12,
+    marginBottom: 18,
   },
   icon: {
     marginHorizontal: 8,
