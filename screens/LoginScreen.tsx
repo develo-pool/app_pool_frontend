@@ -8,6 +8,7 @@ import {AuthButton, InputTitle} from '../components/auth/AuthComponents';
 import TextInputs from '../components/TextInputs';
 import theme from '../assets/theme';
 import useLogin from '../hooks/useLogin';
+import AlertBox from '../components/AlertBox';
 
 function LoginScreen() {
   const navigation = useNavigation<RootStackNavigationProp>();
@@ -30,6 +31,7 @@ function LoginScreen() {
 
   return (
     <MainContainer>
+      <AlertBox />
       <View style={styles.title}>
         <Title title="환영합니다!" subTitle="소통의 POOL에 빠져보세요" />
       </View>

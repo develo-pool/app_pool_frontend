@@ -32,6 +32,8 @@ client.interceptors.response.use(
         });
       }
       return axios(previousRequest);
+    } else {
+      throw error;
     }
   },
 );
