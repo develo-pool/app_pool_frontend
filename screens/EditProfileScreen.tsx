@@ -1,15 +1,15 @@
 import React from 'react';
-import {View, StyleSheet, TextInput, Text} from 'react-native';
+import {View, StyleSheet, TextInput, Text, SafeAreaView} from 'react-native';
 import theme from '../assets/theme';
 import {useState} from 'react';
 
-import ProfileImageContainer from './../components/profile/ProfileImageContainer';
+import ProfileImageContainer from '../components/profile/ProfileImageContainer';
 
-function EditBrandProfile() {
+function EditProfile() {
   const [count, setCount] = useState('');
 
   return (
-    <View style={styles.Container}>
+    <SafeAreaView style={styles.Container}>
       <View style={styles.UpperContainer}>
         <ProfileImageContainer isEditable={false} />
       </View>
@@ -22,7 +22,7 @@ function EditBrandProfile() {
       <View style={styles.InputTextCounter}>
         <Text style={styles.CounterText}>{count.length}/200</Text>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -52,4 +52,4 @@ const styles = StyleSheet.create({
     fontSize: theme.fontSize.P2,
   },
 });
-export default EditBrandProfile;
+export default EditProfile;
