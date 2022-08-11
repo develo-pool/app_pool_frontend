@@ -27,7 +27,7 @@ export default function useAuthLoadEffect() {
         dispatch(
           createAlert({
             type: 'Error',
-            text: '로그인 정보가 만료되었습니다. 다시 로그인 해주세요.',
+            text: '로그인 정보가 만료되었습니다. 다시 로그인해 주세요.',
           }),
         );
         setTimeout(() => dispatch(deleteAlert()), 3500);

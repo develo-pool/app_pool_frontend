@@ -2,6 +2,7 @@ import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
 import theme from '../assets/theme';
+import AlertBox from '../components/AlertBox';
 import {AuthButton} from '../components/auth/AuthComponents';
 import MainContainer from '../components/MainContainer';
 import Title from '../components/Title';
@@ -11,6 +12,7 @@ function WelcomeScreen() {
   const navigation = useNavigation<RootStackNavigationProp>();
   return (
     <MainContainer>
+      <AlertBox />
       <View style={styles.block}>
         <Image
           source={require('../assets/logo/Logo.png')}
