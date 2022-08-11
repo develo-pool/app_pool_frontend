@@ -37,7 +37,7 @@ function WelcomeMessageScreen() {
             />
             <Text style={styles.BrandName}>더푸르</Text>
           </View>
-          <PreviewButton text="미리보기" disabled={text.length < 20} />
+          <PreviewButton text="미리보기" isDisabled={text.length < 20} />
         </View>
         <TextInput
           value={text}
@@ -53,7 +53,7 @@ function WelcomeMessageScreen() {
             <Icon name="photo-camera" size={24} style={styles.Camera} />
             <Icon name="insert-link" size={26} style={styles.Link} />
           </View>
-          <SendButton text="발송하기" disabled={text.length < 20} />
+          <SendButton text="발송하기" isDisabled={text.length < 20} />
         </View>
       </View>
     </>

@@ -42,7 +42,7 @@ function SettingScreen() {
         <View style={styles.ProfileImgContainer}>
           <Image
             style={styles.ImgSource}
-            source={require('../assets/ProfileImage.png')}
+            source={require('../assets/PoolLogo.png')}
           />
           {isBrandUser && (
             <Icon name="check-circle" size={18} style={styles.BrandChecked} />

@@ -17,13 +17,14 @@ import BrandAssignGuideScreen from './BrandAssignGuideScreen';
 import BrandAssignCompleteScreen from './BrandAssignCompleteScreen';
 import SettingStack from './SettingStack';
 import EditBrandProfile from './EditBrandProfileScreen';
+import PreviewScreen from './PreviewScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootStack() {
   useAuthLoadEffect();
   return (
-    <Stack.Navigator initialRouteName="Welcome">
+    <Stack.Navigator initialRouteName="MainTab">
       <Stack.Screen
         name="Welcome"
         component={WelcomeScreen}
@@ -65,6 +66,11 @@ function RootStack() {
       <Stack.Screen
         name="WelcomeMessage"
         component={WelcomeMessageScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Preview"
+        component={PreviewScreen}
         options={{headerShown: false}}
       />
       <Stack.Screen

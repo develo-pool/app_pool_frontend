@@ -62,7 +62,7 @@ function CreateMessageScreen() {
             />
             <Text style={styles.BrandName}>더푸르</Text>
           </View>
-          <PreviewButton text="미리보기" disabled={text.length < 20} />
+          <PreviewButton text="미리보기" isDisabled={text.length < 20} />
         </View>
         <TextInput
           value={text}
@@ -86,7 +86,7 @@ function CreateMessageScreen() {
               <Icon name="insert-link" size={26} style={styles.Link} />
             </Pressable>
           </View>
-          <SendButton text="발송하기" disabled={text.length < 20} />
+          <SendButton text="발송하기" isDisabled={text.length < 20} />
         </View>
       </View>
     </>
