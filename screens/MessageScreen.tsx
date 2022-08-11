@@ -61,7 +61,7 @@ function MessageScreen() {
   }, [navigation]);
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
         <View style={styles.spacebetween}>
           <DetailMessageContainer user={undefined} message={undefined} />
@@ -90,9 +90,13 @@ function MessageScreen() {
 }
 
 const styles = StyleSheet.create({
+  safeArea: {
+    backgroundColor: theme.colors.White,
+  },
   container: {
     height: '100%',
     justifyContent: 'space-between',
+    backgroundColor: theme.colors.Grey10,
   },
   spacebetween: {},
   scrollview: {},
