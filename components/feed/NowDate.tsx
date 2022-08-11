@@ -18,24 +18,23 @@ function NowDate({msgDate}: Props) {
 const styles = StyleSheet.create({
   date: {
     height: 26,
-    width: 141,
-    backgroundColor: theme.colors.Skyblue,
-    borderRadius: 13,
-    flexDirection: 'row',
     alignItems: 'center',
     marginTop: 16,
     marginBottom: 40,
+    backgroundColor: theme.colors.Skyblue,
+    borderRadius: 13,
+    alignSelf: 'flex-start',
+    flexDirection: 'row',
   },
   today: {
     fontSize: theme.fontSize.P3,
     fontWeight: theme.fontWeight.Bold,
-    marginLeft: 10,
+    paddingLeft: 10,
   },
   dateNow: {
     fontSize: theme.fontSize.P3,
-    marginRight: 10,
-    marginLeft: 6,
-    // maxWidth: 70,
+    paddingRight: 10,
+    paddingLeft: 6,
   },
 });
 
