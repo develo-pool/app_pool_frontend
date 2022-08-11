@@ -1,14 +1,10 @@
 import React from 'react';
 import {Text, StyleSheet, View} from 'react-native';
-// import {useNavigation} from '@react-navigation/native';
-// import {RootStackNavigationProp} from './types';
 import theme from '../assets/theme';
-import FollowButton from './../components/profile/FollowButton';
+import FollowButton from '../components/profile/FollowButton';
 import ProfileImageContainer from '../components/profile/ProfileImageContainer';
 
 function BrandProfileScreen() {
-  // const navigation = useNavigation<RootStackNavigationProp>();
-
   return (
     <>
       <View style={styles.ProfileSection}>

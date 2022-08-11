@@ -2,7 +2,6 @@ import React from 'react';
 import {StyleSheet, View, Image, Text, Pressable} from 'react-native';
 import theme from '../../assets/theme';
 import FollowButton from '../profile/FollowButton';
-// import FollowBtn from './FollowBtn';
 import {useNavigation} from '@react-navigation/native';
 import {RootStackNavigationProp} from '../../screens/types';
 
