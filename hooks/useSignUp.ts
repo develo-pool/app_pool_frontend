@@ -1,7 +1,6 @@
-// import {useNavigation} from '@react-navigation/native';
 import {useMutation} from 'react-query';
 import {signUp} from '../api/auth';
-import {AuthError} from '../api/types';
+import {AuthError} from '../api/auth/types';
 import useFirstLogin from './useFirstLogin';
 
 export default function useSignUp() {

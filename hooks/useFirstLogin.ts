@@ -1,6 +1,6 @@
 import {login} from '../api/auth';
 import {useMutation} from 'react-query';
-import {AuthError} from '../api/types';
+import {AuthError} from '../api/auth/types';
 import {useDispatch} from 'react-redux';
 import {authorize} from '../slices/auth';
 import {useNavigation} from '@react-navigation/native';

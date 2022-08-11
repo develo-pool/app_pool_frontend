@@ -1,7 +1,7 @@
 import React from 'react';
 import {Pressable, ScrollView, StyleSheet, Text, View} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {BrandAssignParams} from '../../api/types';
+import {BrandAssignParams} from '../../api/brand/types';
 import theme from '../../assets/theme';
 import Title from '../Title';
 

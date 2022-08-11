@@ -21,6 +21,7 @@ function FirstForm({
         form={form}
         onChangeForm={onChangeText}
         setForm={setForm}
+        mode="SIGN_UP"
       />
     </View>
   );
