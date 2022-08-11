@@ -1,7 +1,10 @@
-import {Text, View, StyleSheet, ScrollView} from 'react-native';
+import {View, StyleSheet, ScrollView} from 'react-native';
 import React from 'react';
-import Title from '../components/Title';
-import Feed from '../components/Feed';
+import Feed from '../components/feed/Feed';
+// import {usernameExist} from '../api/auth';
+import theme from '../assets/theme';
+import NowDate from '../components/feed/NowDate';
+import Hello from '../components/feed/Hello';
 
 interface User {
   name: string;
@@ -34,15 +37,10 @@ const test: Message = {
 
 function FeedScreen() {
   return (
-    <View>
-      <ScrollView>
-        <View style={styles.feedScreenHeader}>
-          <Title title="피드" />
-          <View style={styles.followingCount}>
-            <Text style={styles.followingCountText}>2</Text>
-            <Text style={styles.followingCountText}>팔로잉</Text>
-          </View>
-        </View>
+    <View style={styles.container}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Hello name={doha.name} />
+        <NowDate msgDate={Date.now()} />
         <Feed user={doha} message={test} />
         <Feed user={doha} message={test} />
         <Feed user={doha} message={test} />
@@ -52,17 +50,9 @@ function FeedScreen() {
 }
 
 const styles = StyleSheet.create({
-  feedScreenHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  followingCount: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-  },
-  followingCountText: {
-    fontSize: 18,
+  container: {
+    paddingHorizontal: 16,
+    backgroundColor: theme.colors.White,
   },
 });
 

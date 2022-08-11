@@ -1,12 +1,12 @@
 import React from 'react';
 import {StyleSheet, View, TouchableOpacity, Text} from 'react-native';
-import CommentFocusButton from './feed/CommentFocusButton';
-import MessageLink from './feed/MessageLink';
-import MessageImg from './feed/MessageImg';
-import MessageHeader from './feed/MessageHeader';
-import MessageText from './feed/MessageText';
+import CommentFocusButton from '../feed/CommentFocusButton';
+import MessageLink from '../feed/MessageLink';
+import MessageImg from '../feed/MessageImg';
+import MessageHeader from '../message/MessageHeader';
+import MessageText from '../feed/MessageText';
 import {useNavigation} from '@react-navigation/native';
-import {RootStackNavigationProp} from '../screens/types';
+import {RootStackNavigationProp} from '../../screens/types';
 
 // 프롭스로는 유저, 메시지, 현재스크린을 넣어줍니다.
 interface Props {
@@ -83,8 +83,6 @@ function Feed({user = doha, message = test, isFeedScreen = true}: Props) {
         </View>
         <Text style={styles.msgDate}>{message.msgDate}</Text>
       </TouchableOpacity>
-      {/* 답장을 보냈는지 체크 */}
-      {/* 요친구는 나중에 인풋박스 포커스까지 씌워줄거에요 */}
       <CommentFocusButton isComment={true} />
     </View>
   );
@@ -125,7 +123,7 @@ const styles = StyleSheet.create({
     opacity: 0.4,
   },
   feed: {
-    padding: 10,
+    paddingLeft: 42,
   },
   feedText: {},
   feedImg: {
