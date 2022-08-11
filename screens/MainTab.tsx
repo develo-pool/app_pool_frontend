@@ -3,7 +3,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import SearchScreen from './SearchScreen';
 import FeedScreen from './FeedScreen';
 import SettingStack from './SettingStack';
-import BrandProfileScreen from './BrandProfileScreen';
+import ProfileScreen from './ProfileScreen';
 import {MainTabParamList} from './types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import theme from './../assets/theme';
@@ -47,8 +47,8 @@ function MainTab() {
       />
       {isBrandUser && (
         <Tab.Screen
-          name="BrandProfile"
-          component={BrandProfileScreen}
+          name="Profile"
+          component={ProfileScreen}
           options={{
             headerShown: false,
             tabBarShowLabel: false,
