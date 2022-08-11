@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
     fontSize: theme.fontSize.H4,
     fontWeight: theme.fontWeight.Bold,
     fontFamily: theme.fontFamily.Pretendard,
+    color: theme.colors.Black,
   },
   welcomeUsername: {
     fontSize: theme.fontSize.H4,
