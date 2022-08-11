@@ -1,9 +1,9 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import MessageHeader from '../message/MessageHeader';
-import MessageImg from '../feed/MessageImg';
-import MessageLink from '../feed/MessageLink';
-import MessageText from '../feed/MessageText';
+import MessageImg from '../message/MessageImg';
+import MessageLink from '../message/MessageLink';
+import MessageText from '../message/MessageText';
 import theme from '../../assets/theme';
 
 interface Props {
@@ -46,10 +46,8 @@ function DetailMessageContainer({message = test}: Props) {
     <View style={styles.detailMessageContainer}>
       <MessageHeader
         user={beom}
-        isDetailMessage={true}
         msgDate={test.msgDate}
       />
-
       <View style={styles.msg}>
         {/* 메시지의 구성에 따라 각각 다른 UI를 출력 */}
         {message.msgText === undefined ? (
@@ -74,8 +72,8 @@ function DetailMessageContainer({message = test}: Props) {
 
 const styles = StyleSheet.create({
   detailMessageContainer: {
-    position: 'absolute',
-    flex: 1,
+    
+    
     paddingHorizontal: 16,
     backgroundColor: theme.colors.White,
   },
@@ -84,7 +82,7 @@ const styles = StyleSheet.create({
   },
   authorProfile: {
     // backgroundColor: '#333333',
-    flex: 1,
+    
     flexDirection: 'row',
     alignItems: 'center',
     // justifyContent:"space-between",
@@ -106,7 +104,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
   },
   msgImg: {
-    flex: 1,
+    
     height: 300,
     width: '100%',
     resizeMode: 'contain',

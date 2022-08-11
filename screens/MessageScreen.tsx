@@ -1,20 +1,15 @@
 import React, {useEffect, useState} from 'react';
-import {
-  // ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {SafeAreaView, StyleSheet, TouchableOpacity, View} from 'react-native';
 import theme from '../assets/theme';
 import Comment from '../components/message/Comment';
 import DetailMessageContainer from '../components/message/DetailMessageContainer';
 import InputCommentContainer from '../components/message/InputCommentContainer';
-import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
-import {RootStackNavigationProp, RootStackParamList} from './types';
+import {useNavigation} from '@react-navigation/native';
+import {RootStackNavigationProp} from './types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 interface User {
-  isBrand: boolean;
+  isBrand?: boolean;
   userName: string;
   userProfileImg: string;
 }
@@ -23,6 +18,14 @@ const tester: User = {
   userName: '진세',
   userProfileImg: 'https://img.hankyung.com/photo/202111/03.28096495.1.jpg',
 };
+
+interface Message {
+  user: User | undefined;
+  msgText?: string;
+  msgImg?: string;
+  msgLink?: string;
+  msgDate: number;
+}
 
 function MessageScreen() {
   const [commentText, setCommentText] = useState('');
@@ -49,31 +52,30 @@ function MessageScreen() {
       headerBackVisible: false,
       headerShadowVisible: false,
       headerTitle: '',
-      headerLeft: () =>(
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Icon name="arrow-back" size={24} color="black" />
-          </TouchableOpacity>
-        ),
+      headerLeft: () => (
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Icon name="arrow-back" size={24} color="black" />
+        </TouchableOpacity>
+      ),
     });
   }, [navigation]);
 
   return (
-    <View style={styles.safetyArea}>
-      <DetailMessageContainer user={undefined} message={undefined} />
-      <View>
-      {Object.keys(commentList).map(key => (
-        <View key={key}>
-          <Comment
-            text={commentList[key].commentText}
-            userName={commentList[key].tester.userName}
-            userProfileImg={commentList[key].tester.userProfileImg}
-            writenCommentTime={commentList[key].writtenTime}
-          />
+    <SafeAreaView>
+      <View style={styles.container}>
+        <View style={styles.spacebetween}>
+          <DetailMessageContainer user={undefined} message={undefined} />
+          {Object.keys(commentList).map(key => (
+            <View key={key}>
+              <Comment
+                text={commentList[key].commentText}
+                userName={commentList[key].tester.userName}
+                userProfileImg={commentList[key].tester.userProfileImg}
+                writenCommentTime={commentList[key].writtenTime}
+              />
+            </View>
+          ))}
         </View>
-      ))}
-      </View>
-
-      <View style={styles.floatBottom}>
         {tester.isBrand ? null : (
           <InputCommentContainer
             commentText={commentText}
@@ -83,15 +85,16 @@ function MessageScreen() {
           />
         )}
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  safetyArea: {
+  container: {
+    height: '100%',
+    justifyContent: 'space-between',
   },
-  floatBottom: {
-  },
+  spacebetween: {},
   scrollview: {},
 });
 

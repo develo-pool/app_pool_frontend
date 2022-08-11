@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
   input: {
     fontSize: theme.fontSize.P1,
     marginHorizontal: 16,
+
   },
   searchBar: {
     flexDirection: 'row',
@@ -46,6 +47,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     borderColor: theme.colors.Grey80,
     borderWidth: 1,
+    maxHeight: 48,
   },
   searchBarContainer: {
     flexDirection: 'row',

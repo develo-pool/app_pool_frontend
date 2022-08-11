@@ -4,7 +4,6 @@ import theme from '../../assets/theme';
 
 interface Props {
   user: User;
-  isDetailMessage: boolean;
   msgDate: number;
 }
 
@@ -13,7 +12,7 @@ interface User {
   profileImg: string;
 }
 
-function MessageHeader({user, isDetailMessage, msgDate}: Props) {
+function MessageHeader({user, msgDate}: Props) {
   return (
     // 댓글 작성 여부에 따라 메시지스크린 -> 입력창 포커스를 잡아주는 컴포넌트
     <TouchableOpacity style={styles.messageHeader}>
@@ -37,9 +36,6 @@ function MessageHeader({user, isDetailMessage, msgDate}: Props) {
 
 const styles = StyleSheet.create({
   messageHeader: {
-    // position: 'absolute',
-    // left: 0,
-    // top: 0,
     marginBottom: 24,
     marginTop: 8,
   },
@@ -48,10 +44,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   detailHeader: {
-    // backgroundColor: '#333333',
     flexDirection: 'row',
     alignItems: 'center',
-    // justifyContent:"space-between",
   },
   authorProfileImg: {
     width: 40,

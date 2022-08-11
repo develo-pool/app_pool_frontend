@@ -6,6 +6,7 @@ import theme from '../assets/theme';
 import SetWelcomeMsg from '../components/profile/SetWelcomeMessage';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import ProfileImageContainer from '../components/profile/ProfileImageContainer';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 function ProfileScreen() {
   const navigation = useNavigation<RootStackNavigationProp>();

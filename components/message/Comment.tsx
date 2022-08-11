@@ -28,12 +28,10 @@ const styles = StyleSheet.create({
   commentBox: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
   },
   commentProfileImg: {
     width: 30,
     height: 30,
-    // backgroundColor: '#000000',
     borderRadius: 15,
     marginVertical: 10,
     marginRight: 5,
@@ -41,7 +39,6 @@ const styles = StyleSheet.create({
   commentUser: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
     marginHorizontal: 10,
   },
   commentText: {
