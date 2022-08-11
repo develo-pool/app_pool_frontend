@@ -6,6 +6,7 @@ import {
   TextInput,
   Image,
   Pressable,
+  SafeAreaView,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import theme from '../assets/theme';
@@ -21,7 +22,7 @@ function WelcomeMessageScreen() {
   const [text, setText] = useState('');
   const navigation = useNavigation<MainTabNatigationProp>();
   return (
-    <>
+    <SafeAreaView style={styles.container}>
       <View style={styles.UpperArea}>
         <View style={styles.TitleArea}>
           <Title title="웰컴메시지 설정" isSmall={true} />
@@ -56,11 +57,14 @@ function WelcomeMessageScreen() {
           <SendButton text="발송하기" isDisabled={text.length < 20} />
         </View>
       </View>
-    </>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   UpperArea: {
     flex: 1,
     paddingHorizontal: 16,

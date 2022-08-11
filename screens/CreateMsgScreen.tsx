@@ -7,6 +7,7 @@ import {
   Image,
   Pressable,
   Platform,
+  SafeAreaView,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import theme from '../assets/theme';
@@ -46,7 +47,7 @@ function CreateMessageScreen() {
   };
 
   return (
-    <>
+    <SafeAreaView style={styles.container}>
       <View style={styles.UpperArea}>
         <View style={styles.TitleArea}>
           <Title title="메시지 작성" isSmall={true} />
@@ -89,11 +90,14 @@ function CreateMessageScreen() {
           <SendButton text="발송하기" isDisabled={text.length < 20} />
         </View>
       </View>
-    </>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   UpperArea: {
     flex: 1,
     paddingHorizontal: 16,

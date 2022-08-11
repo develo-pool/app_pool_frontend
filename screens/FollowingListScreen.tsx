@@ -1,11 +1,11 @@
 import React from 'react';
-import {Text, View, StyleSheet, ScrollView} from 'react-native';
+import {Text, View, StyleSheet, ScrollView, SafeAreaView} from 'react-native';
 import theme from '../assets/theme';
 import FollowingList from '../components/setting/FollowingList';
 
 function FollowingListScreen() {
   return (
-    <View style={styles.Container}>
+    <SafeAreaView style={styles.Container}>
       <View style={styles.WholeFollowings}>
         <Text style={styles.WholeFollowingsText}> 총 12명</Text>
       </View>
@@ -23,7 +23,7 @@ function FollowingListScreen() {
         <FollowingList brandName="Jack" followers={3210} />
         <FollowingList brandName="Isaac" followers={22} />
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }
 

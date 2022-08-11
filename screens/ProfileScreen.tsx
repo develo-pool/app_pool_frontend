@@ -1,5 +1,11 @@
 import React from 'react';
-import {Text, StyleSheet, View, TouchableOpacity} from 'react-native';
+import {
+  Text,
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  SafeAreaView,
+} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {RootStackNavigationProp} from './types';
 import theme from '../assets/theme';
@@ -11,7 +17,7 @@ function ProfileScreen() {
   const navigation = useNavigation<RootStackNavigationProp>();
 
   return (
-    <>
+    <SafeAreaView>
       <View style={styles.ProfileSection}>
         <View style={styles.ProfileLayout}>
           <View style={styles.ProfileContainer}>
@@ -42,7 +48,7 @@ function ProfileScreen() {
         onPress={() => navigation.navigate('CreateMessage')}>
         <Icon name="border-color" size={24} style={styles.CreateMessage} />
       </TouchableOpacity>
-    </>
+    </SafeAreaView>
   );
 }
 
@@ -100,6 +106,7 @@ const styles = StyleSheet.create({
   }, //소개글 텍스트
   Message: {
     alignItems: 'center',
+    height: 460,
     paddingHorizontal: 16,
   }, //프로필 아래 메시지가 쌓이는 메시지 영역
   MessageNull: {

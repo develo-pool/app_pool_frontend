@@ -1,5 +1,12 @@
 import React from 'react';
-import {View, Text, StyleSheet, ImageBackground, Image} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ImageBackground,
+  Image,
+  SafeAreaView,
+} from 'react-native';
 import theme from '../assets/theme';
 import ScreenBottomButton from '../components/ScreenBottomButton';
 import {useNavigation} from '@react-navigation/native';
@@ -9,7 +16,7 @@ function PreviewScreen() {
   const navigation = useNavigation<RootStackNavigationProp>();
 
   return (
-    <>
+    <SafeAreaView style={styles.container}>
       <ImageBackground
         source={require('../assets/PreviewBackGround.png')}
         resizeMode="contain"
@@ -45,11 +52,14 @@ function PreviewScreen() {
         name="미리보기 종료"
         onPress={() => navigation.goBack()}
       />
-    </>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   backgroundImg: {
     flex: 1,
     paddingTop: 212,
