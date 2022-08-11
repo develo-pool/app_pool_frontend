@@ -1,12 +1,18 @@
 import React from 'react';
-import {StyleSheet, View, Image, Text} from 'react-native';
+import {StyleSheet, View, Image, Text, Pressable} from 'react-native';
 import FollowButton from '../profile/FollowButton';
 import theme from '../../assets/theme';
+import {useNavigation} from '@react-navigation/native';
+import {RootStackNavigationProp} from '../../screens/types';
 
 function SearchResultBrandUserContainer({following, changeFollowing}) {
+  const navigation = useNavigation<RootStackNavigationProp>();
+
   return (
     <View>
-      <View style={styles.brandUserContainer}>
+      <Pressable
+        style={styles.brandUserContainer}
+        onPress={() => navigation.navigate('BrandProfile')}>
         <View style={styles.brandUserHorizontal}>
           <View style={styles.spacebetween}>
             <View style={styles.align}>
@@ -29,7 +35,7 @@ function SearchResultBrandUserContainer({following, changeFollowing}) {
             </View>
           </View>
         </View>
-      </View>
+      </Pressable>
       <View style={styles.bottomBorderLine} />
     </View>
   );

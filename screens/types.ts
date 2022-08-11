@@ -6,7 +6,7 @@ import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
 export type MainTabParamList = {
   Feed: undefined;
   Search: undefined;
-  BrandProfile: undefined;
+  Profile: undefined;
   SettingStack: undefined;
 };
 
@@ -23,6 +23,7 @@ export type RootStackParamList = {
   WelcomeMessage: undefined;
   Preview: undefined;
   Profile: undefined;
+  BrandProfile: undefined;
   SettingStack: undefined;
   BrandAssign: {current: number};
   BrandAssignGuide: undefined;

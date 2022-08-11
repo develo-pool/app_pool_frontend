@@ -11,7 +11,7 @@ import GuideScreen from './GuideScreen';
 import WelcomeScreen from './WelcomeScreen';
 import PasswordScreen from './PasswordScreen';
 import useAuthLoadEffect from '../hooks/useAuthLoadEffect';
-import ProfileScreen from './ProfileScreen';
+import BrandProfileScreen from './BrandProfileScreen';
 import BrandAssignScreen from './BrandAssignScreen';
 import BrandAssignGuideScreen from './BrandAssignGuideScreen';
 import BrandAssignCompleteScreen from './BrandAssignCompleteScreen';
@@ -74,8 +74,8 @@ function RootStack() {
         options={{headerShown: false}}
       />
       <Stack.Screen
-        name="Profile"
-        component={ProfileScreen}
+        name="BrandProfile"
+        component={BrandProfileScreen}
         options={{headerShown: false}}
       />
       <Stack.Screen

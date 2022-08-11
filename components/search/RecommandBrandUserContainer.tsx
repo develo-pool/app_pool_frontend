@@ -1,8 +1,9 @@
 import React from 'react';
-import {StyleSheet, View, Image, Text} from 'react-native';
+import {StyleSheet, View, Image, Text, Pressable} from 'react-native';
 import theme from '../../assets/theme';
 import FollowButton from '../profile/FollowButton';
-// import FollowBtn from './FollowBtn';
+import {useNavigation} from '@react-navigation/native';
+import {RootStackNavigationProp} from '../../screens/types';
 
 // Props까지 생각해서 넣어주려다가 머리가 팡팡할듯하여 일단은 넘기도록 하겠읍니다.
 
@@ -21,8 +22,12 @@ import FollowButton from '../profile/FollowButton';
 //   };
 
 function RecommandBrandUserContainer({following, changeFollowing}) {
+  const navigation = useNavigation<RootStackNavigationProp>();
+
   return (
-    <View style={styles.brandUserContainer}>
+    <Pressable
+      style={styles.brandUserContainer}
+      onPress={() => navigation.navigate('BrandProfile')}>
       <View style={styles.brandUserHorizontal}>
         <Image
           style={styles.searchBrandUserProfileImg}
@@ -48,7 +53,7 @@ function RecommandBrandUserContainer({following, changeFollowing}) {
           더풀입니다. 많은 사랑과 관심 부탁드리며...!
         </Text>
       </View>
-    </View>
+    </Pressable>
   );
 }
 
