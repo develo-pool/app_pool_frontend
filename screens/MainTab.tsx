@@ -7,12 +7,13 @@ import ProfileScreen from './ProfileScreen';
 import {MainTabParamList} from './types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import theme from './../assets/theme';
+import {RootState} from '../slices';
+import {useSelector} from 'react-redux';
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
 
-const isBrandUser = true;
-
 function MainTab() {
+  const user = useSelector((state: RootState) => state.auth.user);
   return (
     <Tab.Navigator
       initialRouteName="Feed"
@@ -45,7 +46,7 @@ function MainTab() {
           ),
         }}
       />
-      {isBrandUser && (
+      {user?.role === 'BRAND_USER' ? (
         <Tab.Screen
           name="Profile"
           component={ProfileScreen}
@@ -57,7 +58,7 @@ function MainTab() {
             ),
           }}
         />
-      )}
+      ) : null}
       <Tab.Screen
         name="SettingStack"
         component={SettingStack}
