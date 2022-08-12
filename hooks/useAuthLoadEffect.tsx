@@ -34,7 +34,7 @@ export default function useAuthLoadEffect() {
         SplashScreen.hide();
         return;
       }
-      navigation.navigate('MainTab');
+      navigation.reset({routes: [{name: 'MainTab'}]});
       SplashScreen.hide();
       dispatch(authorize(auth.accessToken));
     };
