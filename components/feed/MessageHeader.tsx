@@ -15,15 +15,16 @@ interface User {
   profileImg: string;
 }
 
-function MessageHeader({user, isDetailMessage, msgDate}: Props) {
+function MessageHeader({user}: Props) {
   const navigation = useNavigation<RootStackNavigationProp>();
 
   return (
     // 댓글 작성 여부에 따라 메시지스크린 -> 입력창 포커스를 잡아주는 컴포넌트
-    <TouchableOpacity style={styles.messageHeader} onPress={() => navigation.navigate('BrandProfile')}>
+    <TouchableOpacity
+      style={styles.messageHeader}
+      onPress={() => navigation.navigate('BrandProfile')}>
       <View style={styles.feedHeader}>
         <View style={styles.feedOwner}>
-
           <Image
             style={styles.feedOwnerProfileImg}
             source={{uri: `${user.profileImg}`}}

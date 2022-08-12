@@ -13,14 +13,18 @@ function Comment({text, userName, userProfileImg, writenCommentTime}) {
             source={{uri: `${userProfileImg}`}}
           />
           <View>
-            <Text style={styles.username}>{userName}</Text>
-            <Text style={styles.commentText}>{text}</Text>
+            <View style={styles.usernameContainer}>
+              <Text style={styles.username}>{userName}</Text>
+            </View>
+            <View style={styles.commentContainer}>
+              <Text style={styles.commentText}>{text}</Text>
+            </View>
           </View>
         </View>
         {/* <Text style={styles.align}>{comments[0]}</Text> */}
       </View>
 
-      <View style={styles.commentText}>
+      <View style={styles.commentTimeContainer}>
         <Text style={styles.commentTime}>{writenCommentTime}</Text>
       </View>
     </View>
@@ -47,12 +51,12 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.White,
     borderRadius: 8,
     padding: 8,
+    paddingRight: 16,
     alignSelf: 'auto',
   },
 
   align: {flexDirection: 'row', alignItems: 'flex-start'},
   username: {
-    marginBottom: 2,
     fontSize: theme.fontSize.P3,
     fontWeight: theme.fontWeight.Bold,
     color: theme.colors.Grey60,
@@ -67,6 +71,19 @@ const styles = StyleSheet.create({
     fontWeight: theme.fontWeight.Light,
     color: theme.colors.Grey60,
     marginRight: 8,
+  },
+  commentTimeContainer: {
+    height: 18,
+    justifyContent: 'center',
+  },
+  usernameContainer: {
+    height: 18,
+    justifyContent: 'center',
+    marginBottom: 2,
+  },
+  commentContainer: {
+    height: 21,
+    justifyContent: 'center',
   },
 });
 

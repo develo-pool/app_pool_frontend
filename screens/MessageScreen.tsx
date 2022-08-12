@@ -19,14 +19,6 @@ const tester: User = {
   userProfileImg: 'https://img.hankyung.com/photo/202111/03.28096495.1.jpg',
 };
 
-interface Message {
-  user: User | undefined;
-  msgText?: string;
-  msgImg?: string;
-  msgLink?: string;
-  msgDate: number;
-}
-
 function MessageScreen() {
   const [commentText, setCommentText] = useState('');
   const onChangeText = payload => setCommentText(payload);

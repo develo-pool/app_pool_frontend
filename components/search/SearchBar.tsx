@@ -34,7 +34,6 @@ const styles = StyleSheet.create({
   input: {
     fontSize: theme.fontSize.P1,
     marginHorizontal: 16,
-
   },
   searchBar: {
     flexDirection: 'row',

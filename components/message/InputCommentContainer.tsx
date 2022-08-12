@@ -20,7 +20,7 @@ function InputCommentContainer({
             ? '이미 작성한 메시지입니다.'
             : '채팅은 1회만 발송할 수 있습니다.'
         }
-        style={isComment? styles.inputX : styles.input}
+        style={isComment ? styles.inputX : styles.input}
         editable={!isComment}
       />
     </View>
