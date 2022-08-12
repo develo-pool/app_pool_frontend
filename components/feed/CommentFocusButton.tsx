@@ -12,8 +12,8 @@ function CommentFocusButton({isComment}: Props) {
     // 댓글 작성 여부에 따라 메시지스크린 -> 입력창 포커스를 잡아주는 컴포넌트
     <View style={styles.isComment}>
       <Icon
-        name="comment"
-        size={20}
+        name="messenger-outline"
+        size={18}
         color={isComment ? theme.colors.Grey30 : theme.colors.Grey60}
         style={styles.commentIcon}
       />
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     fontFamily: theme.fontFamily.Pretendard,
   },
   commentIcon: {
-    marginRight: 6,
+    marginRight: 4,
   },
 });
 
