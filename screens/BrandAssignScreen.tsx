@@ -16,6 +16,7 @@ import ScreenBottomButton from '../components/ScreenBottomButton';
 import {authorize} from '../slices/auth';
 import authStorage from '../storages/authStorage';
 import {RootStackNavigationProp, RootStackParamList} from './types';
+import {createAlert, deleteAlert} from '../slices/alert';
 
 const TOTAL = 3;
 type BrandAssignScreenRouteProp = RouteProp<RootStackParamList, 'BrandAssign'>;
@@ -82,6 +83,16 @@ function BrandAssignScreen() {
         });
       }
       navigation.reset({routes: [{name: 'BrandAssignComplete'}]});
+    },
+    onError: () => {
+      dispatch(
+        createAlert({
+          type: 'Error',
+          text: '오류가 발생했습니다. 다시 시도해 주세요.',
+        }),
+      );
+      setTimeout(() => dispatch(deleteAlert()), 3500);
+      navigation.reset({routes: [{name: 'SettingStack'}]});
     },
   });
   const onSubmit = useCallback(() => {
