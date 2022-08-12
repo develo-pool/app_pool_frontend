@@ -1,10 +1,16 @@
-import {View, StyleSheet, ScrollView, SafeAreaView} from 'react-native';
+import {View, StyleSheet, ScrollView, SafeAreaView, Pressable, Text} from 'react-native';
 import React from 'react';
 import Feed from '../components/feed/Feed';
-// import {usernameExist} from '../api/auth';
+import {usernameExist} from '../api/auth';
 import theme from '../assets/theme';
 import NowDate from '../components/feed/NowDate';
 import Hello from '../components/feed/Hello';
+import {getUser} from '../api/auth';
+import {useQuery} from 'react-query';
+import {RefreshToken} from '../api/auth/types';
+import jwtDecode from 'jwt-decode';
+import client from '../api/client';
+import authStorage from '../storages/authStorage';
 
 interface User {
   name: string;
@@ -36,9 +42,33 @@ const test: Message = {
 };
 
 function FeedScreen() {
+  const auth = authStorage.get();
+  const {refetch: refetchGetUser} = useQuery(
+    'getUser',
+    () => {
+      console.log('request!');
+      console.log(auth);
+      const decodedRefreshToken: RefreshToken = jwtDecode(
+        String(client.defaults.headers.common.Authorization),
+      );
+      // console.log(decodedRefreshToken.exp * 1000);
+      const date = new Date();
+      // console.log(date.getTime());
+      getUser().then(value => {
+        console.log(value);
+      });
+    },
+    {
+      enabled: false,
+    },
+  );
+
   return (
     <SafeAreaView>
       <View style={styles.container}>
+        <Pressable onPress={() => refetchGetUser()}>
+          <Text>요청</Text>
+        </Pressable>
         <ScrollView showsVerticalScrollIndicator={false}>
           <Hello name={doha.name} />
           <NowDate msgDate={Date.now()} />
