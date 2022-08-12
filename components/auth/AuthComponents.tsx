@@ -107,6 +107,7 @@ export function CheckBox({
 const styles = StyleSheet.create({
   block: {
     borderRadius: 4,
+    height: 48,
     overflow: 'hidden',
   },
   text: {

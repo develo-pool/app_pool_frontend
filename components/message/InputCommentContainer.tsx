@@ -1,5 +1,6 @@
 import React from 'react';
-import {StyleSheet, View, TextInput} from 'react-native';
+import {StyleSheet, TextInput, View} from 'react-native';
+import theme from '../../assets/theme';
 
 function InputCommentContainer({
   commentText,
@@ -8,7 +9,7 @@ function InputCommentContainer({
   addComments,
 }) {
   return (
-    <View>
+    <View style={styles.commentInputContainer}>
       <TextInput
         value={commentText}
         onChangeText={onChangeText}
@@ -19,7 +20,7 @@ function InputCommentContainer({
             ? '이미 작성한 메시지입니다.'
             : '채팅은 1회만 발송할 수 있습니다.'
         }
-        style={styles.input}
+        style={isComment ? styles.inputX : styles.input}
         editable={!isComment}
       />
     </View>
@@ -27,14 +28,27 @@ function InputCommentContainer({
 }
 
 const styles = StyleSheet.create({
+  commentInputContainer: {
+    backgroundColor: theme.colors.White,
+    paddingHorizontal: 16,
+    paddingVertical: 6,
+  },
   input: {
-    backgroundColor: '#666666',
     paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 30,
-    marginVertical: 20,
-    fontSize: 18,
-    color: 'FFFFFF',
+    paddingHorizontal: 18,
+    borderRadius: 22,
+    maxHeight: 44,
+    borderWidth: 1,
+    borderColor: theme.colors.Grey30,
+  },
+  inputX: {
+    paddingVertical: 10,
+    paddingHorizontal: 18,
+    borderRadius: 22,
+    maxHeight: 44,
+    borderWidth: 1,
+    borderColor: theme.colors.Grey30,
+    backgroundColor: theme.colors.Grey10,
   },
 });
 

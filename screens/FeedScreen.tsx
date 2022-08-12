@@ -1,4 +1,4 @@
-import {View, StyleSheet, ScrollView} from 'react-native';
+import {View, StyleSheet, ScrollView, SafeAreaView} from 'react-native';
 import React from 'react';
 import Feed from '../components/feed/Feed';
 // import {usernameExist} from '../api/auth';
@@ -37,15 +37,17 @@ const test: Message = {
 
 function FeedScreen() {
   return (
-    <View style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <Hello name={doha.name} />
-        <NowDate msgDate={Date.now()} />
-        <Feed user={doha} message={test} />
-        <Feed user={doha} message={test} />
-        <Feed user={doha} message={test} />
-      </ScrollView>
-    </View>
+    <SafeAreaView>
+      <View style={styles.container}>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <Hello name={doha.name} />
+          <NowDate msgDate={Date.now()} />
+          <Feed user={doha} message={test} />
+          <Feed user={doha} message={test} />
+          <Feed user={doha} message={test} />
+        </ScrollView>
+      </View>
+    </SafeAreaView>
   );
 }
 
@@ -53,6 +55,7 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 16,
     backgroundColor: theme.colors.White,
+    paddingTop: 30,
   },
 });
 
