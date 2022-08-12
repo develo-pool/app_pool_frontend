@@ -94,9 +94,19 @@ function PasswordScreen() {
     },
   );
   const {mutate} = useMutation(updatePassword, {
-    onSuccess: async () => {
+    onSuccess: () => {
       dispatch(
         createAlert({type: 'Complete', text: '비밀번호가 재설정되었습니다.'}),
+      );
+      setTimeout(() => dispatch(deleteAlert()), 3500);
+      navigation.reset({routes: [{name: 'Login'}]});
+    },
+    onError: () => {
+      dispatch(
+        createAlert({
+          type: 'Error',
+          text: '오류가 발생했습니다. 다시 시도해 주세요.',
+        }),
       );
       setTimeout(() => dispatch(deleteAlert()), 3500);
       navigation.reset({routes: [{name: 'Login'}]});
