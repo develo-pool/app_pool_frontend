@@ -11,11 +11,16 @@ interface AlertState {
 }
 
 const initialState: AlertState = {
-  isVisible: false,
+  isVisible: true,
   alert: {
-    type: '',
-    text: '',
+    type: 'Error',
+    text: 'xptmxjf;oajf;',
   },
+  // isVisible: false,
+  // alert: {
+  //   type: '',
+  //   text: '',
+  // },
 };
 
 const alertSlice = createSlice({

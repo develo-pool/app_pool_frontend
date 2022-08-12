@@ -1,8 +1,7 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import theme from '../assets/theme';
 import {useSelector} from 'react-redux';
-import {PADDING} from './MainContainer';
 import {RootState} from '../slices';
 
 function AlertBox() {
@@ -10,19 +9,21 @@ function AlertBox() {
   return (
     <>
       {alertState.isVisible && (
-        <View
-          style={[
-            styles.box,
-            alertState.alert.type === 'Error' ? styles.red : styles.green,
-          ]}>
-          <Text
+        <SafeAreaView>
+          <View
             style={[
-              styles.text,
+              styles.box,
               alertState.alert.type === 'Error' ? styles.red : styles.green,
             ]}>
-            {alertState.alert.text}
-          </Text>
-        </View>
+            <Text
+              style={[
+                styles.text,
+                alertState.alert.type === 'Error' ? styles.red : styles.green,
+              ]}>
+              {alertState.alert.text}
+            </Text>
+          </View>
+        </SafeAreaView>
       )}
     </>
   );
@@ -32,7 +33,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 16,
     width: '100%',
-    marginHorizontal: PADDING,
     paddingHorizontal: 16,
     paddingVertical: 19,
     borderRadius: 8,
