@@ -7,15 +7,15 @@ import ProfileScreen from './ProfileScreen';
 import {MainTabParamList} from './types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import theme from './../assets/theme';
-import {RootState} from '../slices';
-import {useSelector} from 'react-redux';
+// import {RootState} from '../slices';
+// import {useSelector} from 'react-redux';
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
 
 const isBrandUser = true;
 
 function MainTab() {
-  const user = useSelector((state: RootState) => state.auth.user);
+  // const user = useSelector((state: RootState) => state.auth.user);
   return (
     <Tab.Navigator
       initialRouteName="Feed"
