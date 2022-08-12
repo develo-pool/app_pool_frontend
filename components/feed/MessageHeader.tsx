@@ -15,7 +15,7 @@ interface User {
   profileImg: string;
 }
 
-function MessageHeader({user, isDetailMessage, msgDate}: Props) {
+function MessageHeader({user}: Props) {
   const navigation = useNavigation<RootStackNavigationProp>();
 
   return (
@@ -23,31 +23,18 @@ function MessageHeader({user, isDetailMessage, msgDate}: Props) {
     <TouchableOpacity
       style={styles.messageHeader}
       onPress={() => navigation.navigate('BrandProfile')}>
-      {isDetailMessage ? (
-        <View style={styles.detailHeader}>
+      <View style={styles.feedHeader}>
+        <View style={styles.feedOwner}>
           <Image
-            style={styles.authorProfileImg}
+            style={styles.feedOwnerProfileImg}
             source={{uri: `${user.profileImg}`}}
+            resizeMode="cover"
           />
-          <View style={styles.msgHeader}>
-            <Text style={styles.msgSmallText}>{user.name}</Text>
-            <Text style={styles.msgDate}>{msgDate}</Text>
+          <View style={styles.usernameContainer}>
+            <Text style={styles.feedOwnerUsername}>{user.name}</Text>
           </View>
         </View>
-      ) : (
-        <View style={styles.feedHeader}>
-          <View style={styles.feedOwner}>
-            <Image
-              style={styles.feedOwnerProfileImg}
-              source={{uri: `${user.profileImg}`}}
-              resizeMode="cover"
-            />
-            <View style={styles.usernameContainer}>
-              <Text style={styles.feedOwnerUsername}>{user.name}</Text>
-            </View>
-          </View>
-        </View>
-      )}
+      </View>
     </TouchableOpacity>
   );
 }

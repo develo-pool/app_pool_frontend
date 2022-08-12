@@ -89,6 +89,7 @@ const styles = StyleSheet.create({
   inputStyle: {
     fontFamily: theme.fontFamily.Pretendard,
     fontSize: theme.fontSize.P1,
+    minHeight: 46,
   },
   default: {
     backgroundColor: theme.colors.White,

@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     borderColor: theme.colors.Grey80,
     borderWidth: 1,
+    maxHeight: 48,
   },
   searchBarContainer: {
     flexDirection: 'row',
