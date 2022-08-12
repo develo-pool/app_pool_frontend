@@ -10,18 +10,18 @@ import {
   SafeAreaView,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import {useDispatch, useSelector} from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import theme from '../assets/theme';
+import {SettingStackNavigationProp} from './types';
 import JoinBrandContainer from '../components/setting/JoinBrand';
 import SetArticle from './../components/setting/SetArticle';
-import {SettingStackNavigationProp} from './types';
-import authStorage from '../storages/authStorage';
-import {useDispatch, useSelector} from 'react-redux';
-import {logout} from '../slices/auth';
+import {PADDING} from '../components/MainContainer';
+import AlertBox from '../components/AlertBox';
 import TermsModal from '../components/auth/TermsModal';
 import {RootState} from '../slices';
-import AlertBox from '../components/AlertBox';
-import {PADDING} from '../components/MainContainer';
+import {logout} from '../slices/auth';
+import authStorage from '../storages/authStorage';
 
 const isBrandUser = false;
 //TODO Delete isBrandUser
@@ -52,17 +52,19 @@ function SettingScreen() {
                 style={styles.ImgSource}
                 source={require('../assets/PoolLogo.png')}
               />
-              {isBrandUser && (
+              {user?.role === 'BRAND_USER' ? (
                 <Icon
                   name="check-circle"
                   size={18}
                   style={styles.BrandChecked}
                 />
-              )}
+              ) : null}
             </View>
             <View style={styles.ProfileInfo}>
-              {isBrandUser && <Text style={styles.BrandName}>더푸르</Text>}
-              <Text style={styles.UserName}>김자네</Text>
+              {user?.role === 'BRAND_USER' ? (
+                <Text style={styles.BrandName}>더푸르</Text>
+              ) : null}
+              <Text style={styles.UserName}>{user?.nickName}</Text>
               <Pressable
                 style={styles.FollowingContainer}
                 onPress={() => navigation.navigate('FollowingList')}>
@@ -113,7 +115,7 @@ function SettingScreen() {
               setModalVisible={setTermModalVisible}
               onPress={() => setTermModalVisible(true)}
               visible={termModalVisible}
-              buttonEnabled={false}
+              buttonDisabled={true}
             />
             <SetArticle title="개인정보처리방침" />
             <SetArticle title="문의하기" />
