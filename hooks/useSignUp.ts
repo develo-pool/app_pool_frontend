@@ -22,7 +22,7 @@ export default function useSignUp() {
         }),
       );
       setTimeout(() => dispatch(deleteAlert()), 3500);
-      navigation.navigate('Welcome');
+      navigation.reset({routes: [{name: 'Welcome'}]});
     },
   });
   return mutation;
