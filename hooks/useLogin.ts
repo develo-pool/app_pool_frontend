@@ -18,7 +18,7 @@ export default function useLogin() {
           accessToken: data.authorization,
           refreshToken: data['authorization-refresh'],
         });
-        navigation.navigate('MainTab');
+        navigation.reset({routes: [{name: 'MainTab'}]});
       }
     },
     onError: () => {
