@@ -22,9 +22,8 @@ import TermsModal from '../components/auth/TermsModal';
 import {RootState} from '../slices';
 import {logout} from '../slices/auth';
 import authStorage from '../storages/authStorage';
-
-const isBrandUser = false;
-//TODO Delete isBrandUser
+import {useQuery} from 'react-query';
+import {getUser} from '../api/auth';
 
 function SettingScreen() {
   const [isEnabled, setIsEnabled] = useState(false);
@@ -32,6 +31,9 @@ function SettingScreen() {
   const navigation = useNavigation<SettingStackNavigationProp>();
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.auth.user);
+  const {data, isLoading, error} = useQuery('getUserResult', () => getUser(), {
+    refetchOnMount: 'always',
+  });
   const [termModalVisible, setTermModalVisible] = useState<boolean>(false);
   const onLogout = () => {
     authStorage.clear();
@@ -48,10 +50,18 @@ function SettingScreen() {
         <ScrollView>
           <View style={styles.UserInfoContainer}>
             <View style={styles.ProfileImgContainer}>
-              <Image
-                style={styles.ImgSource}
-                source={require('../assets/PoolLogo.png')}
-              />
+              {user?.role === 'BRAND_USER' ? (
+                <Image
+                  style={styles.ImgSource}
+                  source={require('../assets/PoolLogo.png')}
+                  //Brand Image Loading
+                />
+              ) : (
+                <Image
+                  style={styles.ImgSource}
+                  source={require('../assets/PoolLogo.png')}
+                />
+              )}
               {user?.role === 'BRAND_USER' ? (
                 <Icon
                   name="check-circle"
@@ -69,12 +79,9 @@ function SettingScreen() {
                 style={styles.FollowingContainer}
                 onPress={() => navigation.navigate('FollowingList')}>
                 <Text style={styles.Following}>팔로잉</Text>
-                <Text style={styles.FollowingCount}>489</Text>
-                <Icon
-                  name="arrow-forward-ios"
-                  size={12}
-                  style={styles.RightArrow}
-                />
+                <Text style={styles.FollowingCount}>
+                  {data?.userFollowingCount}
+                </Text>
               </Pressable>
             </View>
           </View>
@@ -94,9 +101,10 @@ function SettingScreen() {
                 <Switch
                   trackColor={{
                     false: theme.colors.Grey40,
-                    true: isBrandUser
-                      ? theme.colors.Poolblue
-                      : theme.colors.Poolgreen,
+                    true:
+                      user?.role === 'BRAND_USER'
+                        ? theme.colors.Poolblue
+                        : theme.colors.Poolgreen,
                   }}
                   thumbColor={theme.colors.White}
                   ios_backgroundColor="#3e3e3e"

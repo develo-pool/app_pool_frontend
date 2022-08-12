@@ -6,6 +6,17 @@ export interface User {
   role: 'USER' | 'BRAND_USER' | string;
 }
 
+export interface GetUserResult {
+  poolUserId: number;
+  username: string;
+  nickName: string;
+  userStatus: 'USER' | 'BRAND_USER' | string;
+  follow: boolean;
+  userFollowerCount: number;
+  userFollowingCount: number;
+  brandUserInfoDto: null;
+}
+
 export interface AuthResult {
   accessToken: string;
   refreshToken: string;
