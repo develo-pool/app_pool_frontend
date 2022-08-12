@@ -61,7 +61,9 @@ function SettingScreen() {
               ) : null}
             </View>
             <View style={styles.ProfileInfo}>
-              {isBrandUser && <Text style={styles.BrandName}>더푸르</Text>}
+              {user?.role === 'BRAND_USER' ? (
+                <Text style={styles.BrandName}>더푸르</Text>
+              ) : null}
               <Text style={styles.UserName}>{user?.nickName}</Text>
               <Pressable
                 style={styles.FollowingContainer}
@@ -113,7 +115,7 @@ function SettingScreen() {
               setModalVisible={setTermModalVisible}
               onPress={() => setTermModalVisible(true)}
               visible={termModalVisible}
-              buttonEnabled={false}
+              buttonDisabled={true}
             />
             <SetArticle title="개인정보처리방침" />
             <SetArticle title="문의하기" />

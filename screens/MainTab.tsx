@@ -12,6 +12,8 @@ import {useSelector} from 'react-redux';
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
 
+const isBrandUser = true;
+
 function MainTab() {
   const user = useSelector((state: RootState) => state.auth.user);
   return (
@@ -46,7 +48,7 @@ function MainTab() {
           ),
         }}
       />
-      {user?.role === 'BRAND_USER' ? (
+      {/* {user?.role === 'BRAND_USER' ? (
         <Tab.Screen
           name="Profile"
           component={ProfileScreen}
@@ -58,7 +60,20 @@ function MainTab() {
             ),
           }}
         />
-      ) : null}
+      ) : null} */}
+      {isBrandUser && (
+        <Tab.Screen
+          name="Profile"
+          component={ProfileScreen}
+          options={{
+            headerShown: false,
+            tabBarShowLabel: false,
+            tabBarIcon: ({color}) => (
+              <Icon name="person" size={24} color={color} />
+            ),
+          }}
+        />
+      )}
       <Tab.Screen
         name="SettingStack"
         component={SettingStack}
