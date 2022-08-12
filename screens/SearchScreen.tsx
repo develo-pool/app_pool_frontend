@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, ScrollView, StyleSheet} from 'react-native';
+import {View, ScrollView, StyleSheet, SafeAreaView} from 'react-native';
 import SearchBar from '../components/search/SearchBar';
 import RecommandBrandUserContainer from '../components/search/RecommandBrandUserContainer';
 import RecommandSubTitle from '../components/search/RecommandSubTitle';
@@ -30,8 +30,8 @@ function SearchScreen() {
   const DoSearching = () =>
     searchText !== '' ? setIsSearching(true) : setIsSearching(false);
   return (
-    <View>
-      <ScrollView>
+    <SafeAreaView style={styles.safeArea}>
+      <ScrollView style={styles.scroll}>
         <SearchBar
           searchText={searchText}
           onChangeText={onChangeText}
@@ -64,7 +64,7 @@ function SearchScreen() {
           </ScrollView>
         )}
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -73,6 +73,12 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.Grey20,
     height: 1,
     width: '100%',
+  },
+  safeArea: {
+    backgroundColor: theme.colors.White,
+  },
+  scroll: {
+    backgroundColor: theme.colors.Grey10,
   },
 });
 
