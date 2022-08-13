@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
+import {useQuery} from 'react-query';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import theme from '../assets/theme';
 import {SettingStackNavigationProp} from './types';
@@ -19,13 +20,12 @@ import SetArticle from './../components/setting/SetArticle';
 import {PADDING} from '../components/MainContainer';
 import AlertBox from '../components/AlertBox';
 import TermsModal from '../components/auth/TermsModal';
+import Footer from '../components/setting/footer';
 import {RootState} from '../slices';
 import {logout} from '../slices/auth';
 import authStorage from '../storages/authStorage';
-import {useQuery} from 'react-query';
 import {getUser} from '../api/auth';
 import {getBrand} from '../api/brand';
-import Footer from '../components/setting/footer';
 
 function SettingScreen() {
   const [isEnabled, setIsEnabled] = useState(false);
@@ -33,21 +33,13 @@ function SettingScreen() {
   const navigation = useNavigation<SettingStackNavigationProp>();
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.auth.user);
-  const {data: authData, isLoading: authLoading} = useQuery(
-    'getUserResult',
-    () => getUser(),
-    {
-      refetchOnMount: 'always',
-    },
-  );
+  const {data: userData} = useQuery('getUserResult', () => getUser(), {
+    refetchOnMount: 'always',
+  });
   const id = '';
-  const {data: brandData, isLoading: brandLoading} = useQuery(
-    'getBrand',
-    () => getBrand(id),
-    {
-      refetchOnMount: 'always',
-    },
-  );
+  const {data: brandData} = useQuery('getBrand', () => getBrand(id), {
+    refetchOnMount: 'always',
+  });
   const [termModalVisible, setTermModalVisible] = useState<boolean>(false);
   const onLogout = () => {
     authStorage.clear();
@@ -88,7 +80,7 @@ function SettingScreen() {
               onPress={() => navigation.navigate('FollowingList')}>
               <Text style={styles.Following}>팔로잉</Text>
               <Text style={styles.FollowingCount}>
-                {authData?.userFollowingCount}
+                {userData?.userFollowingCount}
               </Text>
             </Pressable>
           </View>
