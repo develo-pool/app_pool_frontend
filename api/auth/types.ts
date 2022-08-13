@@ -6,10 +6,8 @@ export interface User {
   role: 'USER' | 'BRAND_USER' | string;
 }
 
-export interface GetUserResult {
+export interface GetUserResult extends User {
   poolUserId: number;
-  username: string;
-  nickName: string;
   userStatus: 'USER' | 'BRAND_USER' | string;
   follow: boolean;
   userFollowerCount: number;

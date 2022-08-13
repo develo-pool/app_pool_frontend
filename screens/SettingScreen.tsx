@@ -24,6 +24,8 @@ import {logout} from '../slices/auth';
 import authStorage from '../storages/authStorage';
 import {useQuery} from 'react-query';
 import {getUser} from '../api/auth';
+import {getBrand} from '../api/brand';
+import Footer from '../components/setting/footer';
 
 function SettingScreen() {
   const [isEnabled, setIsEnabled] = useState(false);
@@ -31,9 +33,21 @@ function SettingScreen() {
   const navigation = useNavigation<SettingStackNavigationProp>();
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.auth.user);
-  const {data, isLoading, error} = useQuery('getUserResult', () => getUser(), {
-    refetchOnMount: 'always',
-  });
+  const {data: authData, isLoading: authLoading} = useQuery(
+    'getUserResult',
+    () => getUser(),
+    {
+      refetchOnMount: 'always',
+    },
+  );
+  const id = '';
+  const {data: brandData, isLoading: brandLoading} = useQuery(
+    'getBrand',
+    () => getBrand(id),
+    {
+      refetchOnMount: 'always',
+    },
+  );
   const [termModalVisible, setTermModalVisible] = useState<boolean>(false);
   const onLogout = () => {
     authStorage.clear();
@@ -42,112 +56,90 @@ function SettingScreen() {
   };
 
   return (
-    <>
-      <SafeAreaView>
-        <View style={styles.padding}>
-          <AlertBox />
-        </View>
-        <ScrollView>
-          <View style={styles.UserInfoContainer}>
-            <View style={styles.ProfileImgContainer}>
-              {user?.role === 'BRAND_USER' ? (
-                <Image
-                  style={styles.ImgSource}
-                  source={require('../assets/PoolLogo.png')}
-                  //Brand Image Loading
-                />
-              ) : (
-                <Image
-                  style={styles.ImgSource}
-                  source={require('../assets/PoolLogo.png')}
-                />
-              )}
-              {user?.role === 'BRAND_USER' ? (
-                <Icon
-                  name="check-circle"
-                  size={18}
-                  style={styles.BrandChecked}
-                />
-              ) : null}
-            </View>
-            <View style={styles.ProfileInfo}>
-              {user?.role === 'BRAND_USER' ? (
-                <Text style={styles.BrandName}>더푸르</Text>
-              ) : null}
-              <Text style={styles.UserName}>{user?.nickName}</Text>
-              <Pressable
-                style={styles.FollowingContainer}
-                onPress={() => navigation.navigate('FollowingList')}>
-                <Text style={styles.Following}>팔로잉</Text>
-                <Text style={styles.FollowingCount}>
-                  {data?.userFollowingCount}
-                </Text>
-              </Pressable>
-            </View>
+    <SafeAreaView>
+      <View style={styles.padding}>
+        <AlertBox />
+      </View>
+      <ScrollView>
+        <View style={styles.UserInfoContainer}>
+          <View style={styles.ProfileImgContainer}>
+            {user?.role === 'BRAND_USER' ? (
+              <Image
+                style={styles.ImgSource}
+                source={{uri: brandData?.brandProfileImage}}
+              />
+            ) : (
+              <Image
+                style={styles.ImgSource}
+                source={require('../assets/PoolLogo.png')}
+              />
+            )}
+            {user?.role === 'BRAND_USER' ? (
+              <Icon name="check-circle" size={18} style={styles.BrandChecked} />
+            ) : null}
           </View>
-          {user?.role === 'BRAND_USER' ? null : (
-            <JoinBrandContainer
-              onPress={
-                user?.role === 'WAITING'
-                  ? () => navigation.push('BrandAssignComplete')
-                  : () => navigation.push('BrandAssignGuide')
-              }
-            />
-          )}
-          <>
-            <View style={styles.SeperatedSets}>
-              <Text style={styles.NotiText}>알림 수신</Text>
-              <View style={styles.NotiSwitch}>
-                <Switch
-                  trackColor={{
-                    false: theme.colors.Grey40,
-                    true:
-                      user?.role === 'BRAND_USER'
-                        ? theme.colors.Poolblue
-                        : theme.colors.Poolgreen,
-                  }}
-                  thumbColor={theme.colors.White}
-                  ios_backgroundColor="#3e3e3e"
-                  onValueChange={toggleSwitch}
-                  value={isEnabled}
-                />
-              </View>
-            </View>
-            <SetArticle title="회원정보 수정" />
-            <SetArticle
-              title="이용약관"
-              onPress={() => setTermModalVisible(true)}
-            />
-            <TermsModal
-              type="term"
-              setModalVisible={setTermModalVisible}
-              onPress={() => setTermModalVisible(true)}
-              visible={termModalVisible}
-              buttonDisabled={true}
-            />
-            <SetArticle title="개인정보처리방침" />
-            <SetArticle title="문의하기" />
-            <Pressable style={styles.SeperatedSets} onPress={onLogout}>
-              <Text style={styles.Logout}>로그아웃</Text>
+          <View style={styles.ProfileInfo}>
+            {user?.role === 'BRAND_USER' ? (
+              <Text style={styles.BrandName}>{brandData?.brandUsername}</Text>
+            ) : null}
+            <Text style={styles.UserName}>{user?.nickName}</Text>
+            <Pressable
+              style={styles.FollowingContainer}
+              onPress={() => navigation.navigate('FollowingList')}>
+              <Text style={styles.Following}>팔로잉</Text>
+              <Text style={styles.FollowingCount}>
+                {authData?.userFollowingCount}
+              </Text>
             </Pressable>
-          </>
-          <View style={styles.Footer}>
-            <Text style={styles.FooterText}>주식회사 더풀네트워크</Text>
-            <Text style={styles.FooterText}>대표자 송진태</Text>
-            <Text style={styles.FooterText}>
-              서울 종로구 종로 6 광화문 우체국 5층 스타트업빌리지
-            </Text>
-            <Text style={styles.FooterText}>사업자등록번호 701-86-02478</Text>
-            <Text style={styles.FooterText}>
-              대표 이메일 info@thepool.network
-            </Text>
-            <Text style={styles.FooterText}>
-              개인정보관리책임자 송진태 ttao@thepool.network
-            </Text>
           </View>
-        </ScrollView>
-      </SafeAreaView>
-    </>
+        </View>
+        {user?.role === 'BRAND_USER' ? null : (
+          <JoinBrandContainer
+            onPress={
+              user?.role === 'WAITING'
+                ? () => navigation.push('BrandAssignComplete')
+                : () => navigation.push('BrandAssignGuide')
+            }
+          />
+        )}
+        <View style={styles.SeperatedSets}>
+          <Text style={styles.NotiText}>알림 수신</Text>
+          <View style={styles.NotiSwitch}>
+            <Switch
+              trackColor={{
+                false: theme.colors.Grey40,
+                true:
+                  user?.role === 'BRAND_USER'
+                    ? theme.colors.Poolblue
+                    : theme.colors.Poolgreen,
+              }}
+              thumbColor={theme.colors.White}
+              ios_backgroundColor="#3e3e3e"
+              onValueChange={toggleSwitch}
+              value={isEnabled}
+            />
+          </View>
+        </View>
+        <SetArticle title="회원정보 수정" />
+        <SetArticle
+          title="이용약관"
+          onPress={() => setTermModalVisible(true)}
+        />
+        <TermsModal
+          type="term"
+          setModalVisible={setTermModalVisible}
+          onPress={() => setTermModalVisible(true)}
+          visible={termModalVisible}
+          buttonDisabled={true}
+        />
+        <SetArticle title="개인정보처리방침" />
+        <SetArticle title="문의하기" />
+        <Pressable style={styles.SeperatedSets} onPress={onLogout}>
+          <Text style={styles.Logout}>로그아웃</Text>
+        </Pressable>
+        <Footer />
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
@@ -179,10 +171,6 @@ const styles = StyleSheet.create({
   FollowingContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-  },
-  RightArrow: {
-    marginLeft: 6,
-    color: theme.colors.Grey80,
   },
   BrandName: {
     fontFamily: theme.fontFamily.Pretendard,
@@ -228,22 +216,10 @@ const styles = StyleSheet.create({
   NotiSwitch: {
     marginLeft: 240,
   },
-
   Logout: {
     fontFamily: theme.fontFamily.Pretendard,
     color: theme.colors.Grey60,
     fontSize: 14,
-    fontWeight: '400',
-  },
-  Footer: {
-    paddingHorizontal: 16,
-    paddingVertical: 16,
-    justifyContent: 'center',
-  },
-  FooterText: {
-    fontFamily: theme.fontFamily.Pretendard,
-    color: theme.colors.Grey40,
-    fontSize: theme.fontSize.P3,
     fontWeight: '400',
   },
   padding: {
