@@ -6,6 +6,7 @@ import theme from '../assets/theme';
 import NowDate from '../components/feed/NowDate';
 import Hello from '../components/feed/Hello';
 import {getUser} from '../api/auth';
+// get방식 -> useQuery
 import {useQuery} from 'react-query';
 import {RefreshToken} from '../api/auth/types';
 import jwtDecode from 'jwt-decode';
