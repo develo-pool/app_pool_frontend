@@ -18,7 +18,7 @@ import JoinBrandContainer from '../components/setting/JoinBrand';
 import SetArticle from './../components/setting/SetArticle';
 import {PADDING} from '../components/MainContainer';
 import AlertBox from '../components/AlertBox';
-import TermsModal from '../components/auth/TermsModal';
+// import TermsModal from '../components/auth/TermsModal';
 import {RootState} from '../slices';
 import {logout} from '../slices/auth';
 import authStorage from '../storages/authStorage';
@@ -32,7 +32,7 @@ function SettingScreen() {
   const navigation = useNavigation<SettingStackNavigationProp>();
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.auth.user);
-  const [termModalVisible, setTermModalVisible] = useState<boolean>(false);
+  // const [termModalVisible, setTermModalVisible] = useState<boolean>(false);
   const onLogout = () => {
     authStorage.clear();
     dispatch(logout());
@@ -108,15 +108,15 @@ function SettingScreen() {
             <SetArticle title="회원정보 수정" />
             <SetArticle
               title="이용약관"
-              onPress={() => setTermModalVisible(true)}
+              // onPress={() => setTermModalVisible(true)}
             />
-            <TermsModal
+            {/* <TermsModal
               type="term"
               setModalVisible={setTermModalVisible}
               onPress={() => setTermModalVisible(true)}
               visible={termModalVisible}
               buttonDisabled={true}
-            />
+            /> */}
             <SetArticle title="개인정보처리방침" />
             <SetArticle title="문의하기" />
             <Pressable style={styles.SeperatedSets} onPress={onLogout}>

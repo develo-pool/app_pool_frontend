@@ -107,7 +107,6 @@ export function CheckBox({
 const styles = StyleSheet.create({
   block: {
     borderRadius: 4,
-    height: 48,
     overflow: 'hidden',
   },
   text: {
@@ -116,13 +115,23 @@ const styles = StyleSheet.create({
     fontFamily: theme.fontFamily.Pretendard,
   },
   checkButton: {
-    flex: 1,
     width: 90,
+    height: 48,
     marginLeft: 8,
     borderRadius: 4,
     backgroundColor: 'black',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  welcome: {
+    borderRadius: 4,
+    height: 55,
+    backgroundColor: 'black',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  welcomeText: {
+    fontSize: theme.fontSize.H5,
   },
   RadioButton: {
     flex: 1,
@@ -173,15 +182,5 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     marginRight: 10,
-  },
-  welcome: {
-    paddingVertical: 16,
-    borderRadius: 4,
-    backgroundColor: 'black',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  welcomeText: {
-    fontSize: theme.fontSize.H5,
   },
 });

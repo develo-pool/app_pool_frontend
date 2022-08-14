@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import React from 'react';
+import {Linking, StyleSheet, Text, View} from 'react-native';
 import {useQuery} from 'react-query';
 import {nickNameExist, usernameExist} from '../../api/auth';
 import theme from '../../assets/theme';
@@ -8,7 +8,6 @@ import TextInputs from '../TextInputs';
 import Title from '../Title';
 import {AuthButton, CheckBox, InputTitle} from './AuthComponents';
 import PasswordForm from './PasswordForm';
-import TermsModal from './TermsModal';
 import {CheckNickName, CheckUserName, ReplaceKorean} from './Validation';
 
 function ThirdForm({
@@ -42,9 +41,6 @@ function ThirdForm({
       enabled: false,
     },
   );
-  const [termModalVisible, setTermModalVisible] = useState<boolean>(false);
-  const [privacyModalVisible, setPrivacyModalVisible] =
-    useState<boolean>(false);
   return (
     <View style={styles.block}>
       <Title title="아이디 및 비밀번호를" />
@@ -135,25 +131,21 @@ function ThirdForm({
         title="이용약관 동의 (필수)"
         state={form.termAgreement}
         onPress={onChangeText('termAgreement')}
-        onPressText={() => setTermModalVisible(true)}
+        onPressText={() =>
+          Linking.openURL(
+            'https://pool-.notion.site/46307ef08b8a471a8b5f4f38a6add44b',
+          )
+        }
       />
       <CheckBox
         title="개인정보 처리방침 동의 (필수)"
         state={form.privacyAgreement}
         onPress={onChangeText('privacyAgreement')}
-        onPressText={() => setPrivacyModalVisible(true)}
-      />
-      <TermsModal
-        type="term"
-        setModalVisible={setTermModalVisible}
-        onPress={onChangeText('termAgreement')}
-        visible={termModalVisible}
-      />
-      <TermsModal
-        type="privacy"
-        setModalVisible={setPrivacyModalVisible}
-        onPress={onChangeText('privacyAgreement')}
-        visible={privacyModalVisible}
+        onPressText={() =>
+          Linking.openURL(
+            'https://pool-.notion.site/50c7bb1b42fe491cbaa8bc694f7c5ca1',
+          )
+        }
       />
     </View>
   );
