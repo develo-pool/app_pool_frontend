@@ -41,27 +41,27 @@ function PhoneAuthForm({
   };
   const authLen = form.authNumber.length;
   const requestAuthNumber = async () => {
-    // setIsLoading(true);
-    // const response = await auth().signInWithPhoneNumber(
-    //   `+82${form.phoneNumber.substring(1)}`,
-    // );
-    // setIsLoading(false);
-    // setConfirmation(response);
+    setIsLoading(true);
+    const response = await auth().signInWithPhoneNumber(
+      `+82${form.phoneNumber.substring(1)}`,
+    );
+    setIsLoading(false);
+    setConfirmation(response);
     onChangeForm('state')('request');
   };
   const verifyAuthNumber = async () => {
-    // try {
-    //   setIsLoading(true);
-    //   const data = await confirmation?.confirm(form.authNumber);
-    //   setIsLoading(false);
-    //   if (data !== undefined) {
-    onChangeForm('state')('confirm');
-    //   }
-    // } catch (error) {
-    //   onChangeForm('authNumberError')(true);
-    // } finally {
-    //   await auth().currentUser?.delete();
-    // }
+    try {
+      setIsLoading(true);
+      const data = await confirmation?.confirm(form.authNumber);
+      setIsLoading(false);
+      if (data !== undefined) {
+        onChangeForm('state')('confirm');
+      }
+    } catch (error) {
+      onChangeForm('authNumberError')(true);
+    } finally {
+      await auth().currentUser?.delete();
+    }
   };
   const {refetch} = useQuery(
     ['phoneNumberExist', form.phoneNumber],
