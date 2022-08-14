@@ -1,5 +1,6 @@
+import {Link} from '@react-navigation/native';
 import React, {useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {Linking, StyleSheet, Text, View} from 'react-native';
 import {useQuery} from 'react-query';
 import {nickNameExist, usernameExist} from '../../api/auth';
 import theme from '../../assets/theme';
@@ -135,7 +136,8 @@ function ThirdForm({
         title="이용약관 동의 (필수)"
         state={form.termAgreement}
         onPress={onChangeText('termAgreement')}
-        onPressText={() => setTermModalVisible(true)}
+        // onPressText={() => setTermModalVisible(true)}
+        onPressText={() => Linking.openURL('https://www.naver.com/')}
       />
       <CheckBox
         title="개인정보 처리방침 동의 (필수)"
