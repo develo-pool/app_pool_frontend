@@ -31,7 +31,7 @@ export async function nickNameExist(params: string) {
   );
   return response.data;
 }
-010101
+
 export async function phoneNumberExist(params: string) {
   const response = await client.get<boolean>(
     `/user-phoneNumbers/${params}/exists`,

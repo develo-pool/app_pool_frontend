@@ -1,17 +1,12 @@
-import {View, StyleSheet, ScrollView, SafeAreaView, Pressable, Text} from 'react-native';
+import {View, StyleSheet, ScrollView, SafeAreaView} from 'react-native';
 import React from 'react';
 import Feed from '../components/feed/Feed';
-import {usernameExist} from '../api/auth';
 import theme from '../assets/theme';
 import NowDate from '../components/feed/NowDate';
 import Hello from '../components/feed/Hello';
 import {getUser} from '../api/auth';
 // get방식 -> useQuery
 import {useQuery} from 'react-query';
-import {RefreshToken} from '../api/auth/types';
-import jwtDecode from 'jwt-decode';
-import client from '../api/client';
-import authStorage from '../storages/authStorage';
 
 interface User {
   name: string;
@@ -22,7 +17,7 @@ interface Message {
   msgText?: string;
   msgImg?: string;
   msgLink?: string;
-  msgDate: number;
+  msgDate: string;
   isComment: boolean;
 }
 
@@ -43,36 +38,25 @@ const test: Message = {
 };
 
 function FeedScreen() {
-  const auth = authStorage.get();
-  const {refetch: refetchGetUser} = useQuery(
-    'getUser',
-    () => {
-      console.log('request!');
-      console.log(auth);
-      const decodedRefreshToken: RefreshToken = jwtDecode(
-        String(client.defaults.headers.common.Authorization),
-      );
-      // console.log(decodedRefreshToken.exp * 1000);
-      const date = new Date();
-      // console.log(date.getTime());
-      getUser().then(value => {
-        console.log(value);
-      });
-    },
-    {
-      enabled: false,
-    },
-  );
+  const {data: userData} = useQuery('getUserResult', () => getUser(), {
+    refetchOnMount: 'always',
+  });
+  console.log(userData?.nickName);
+  const today = new Date();
+  const yy = today.getFullYear().toString().substring(2, 4);
+  const mm = today.getMonth();
+  const dd = today.getDay();
+  const yymmdd = yy + '년 ' + mm + '월 ' + dd + '일';
 
   return (
     <SafeAreaView>
       <View style={styles.container}>
-        <Pressable onPress={() => refetchGetUser()}>
+        {/* <Pressable onPress={() => refetchGetUser()}>
           <Text>요청</Text>
-        </Pressable>
+        </Pressable> */}
         <ScrollView showsVerticalScrollIndicator={false}>
-          <Hello name={doha.name} />
-          <NowDate msgDate={Date.now()} />
+          <Hello name={userData?.nickName} />
+          <NowDate msgDate={yymmdd} />
           <Feed user={doha} message={test} />
           <Feed user={doha} message={test} />
           <Feed user={doha} message={test} />
