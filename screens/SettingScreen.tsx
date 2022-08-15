@@ -8,6 +8,7 @@ import {
   Switch,
   ScrollView,
   SafeAreaView,
+  Linking,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
@@ -117,8 +118,22 @@ function SettingScreen() {
               </View>
             </View>
             <SetArticle title="회원정보 수정" />
-            <SetArticle title="이용약관" />
-            <SetArticle title="개인정보처리방침" />
+            <SetArticle
+              title="이용약관"
+              onPress={() =>
+                Linking.openURL(
+                  'https://pool-.notion.site/46307ef08b8a471a8b5f4f38a6add44b',
+                )
+              }
+            />
+            <SetArticle
+              title="개인정보처리방침"
+              onPress={() =>
+                Linking.openURL(
+                  'https://pool-.notion.site/50c7bb1b42fe491cbaa8bc694f7c5ca1',
+                )
+              }
+            />
             <SetArticle title="문의하기" />
             <Pressable style={styles.SeperatedSets} onPress={onLogout}>
               <Text style={styles.Logout}>로그아웃</Text>
