@@ -19,7 +19,6 @@ import JoinBrandContainer from '../components/setting/JoinBrand';
 import SetArticle from './../components/setting/SetArticle';
 import {PADDING} from '../components/MainContainer';
 import AlertBox from '../components/AlertBox';
-import TermsModal from '../components/auth/TermsModal';
 import Footer from '../components/setting/footer';
 import {RootState} from '../slices';
 import {logout} from '../slices/auth';
@@ -40,7 +39,6 @@ function SettingScreen() {
   const {data: brandData} = useQuery('getBrand', () => getBrand(id), {
     refetchOnMount: 'always',
   });
-  const [termModalVisible, setTermModalVisible] = useState<boolean>(false);
   const onLogout = () => {
     authStorage.clear();
     dispatch(logout());
@@ -48,90 +46,88 @@ function SettingScreen() {
   };
 
   return (
-    <SafeAreaView>
-      <View style={styles.padding}>
-        <AlertBox />
-      </View>
-      <ScrollView>
-        <View style={styles.UserInfoContainer}>
-          <View style={styles.ProfileImgContainer}>
-            {user?.role === 'BRAND_USER' ? (
-              <Image
-                style={styles.ImgSource}
-                source={{uri: brandData?.brandProfileImage}}
-              />
-            ) : (
-              <Image
-                style={styles.ImgSource}
-                source={require('../assets/PoolLogo.png')}
-              />
-            )}
-            {user?.role === 'BRAND_USER' ? (
-              <Icon name="check-circle" size={18} style={styles.BrandChecked} />
-            ) : null}
-          </View>
-          <View style={styles.ProfileInfo}>
-            {user?.role === 'BRAND_USER' ? (
-              <Text style={styles.BrandName}>{brandData?.brandUsername}</Text>
-            ) : null}
-            <Text style={styles.UserName}>{user?.nickName}</Text>
-            <Pressable
-              style={styles.FollowingContainer}
-              onPress={() => navigation.navigate('FollowingList')}>
-              <Text style={styles.Following}>팔로잉</Text>
-              <Text style={styles.FollowingCount}>
-                {userData?.userFollowingCount}
-              </Text>
-            </Pressable>
-          </View>
+    <>
+      <SafeAreaView>
+        <View style={styles.padding}>
+          <AlertBox />
         </View>
-        {user?.role === 'BRAND_USER' ? null : (
-          <JoinBrandContainer
-            onPress={
-              user?.role === 'WAITING'
-                ? () => navigation.push('BrandAssignComplete')
-                : () => navigation.push('BrandAssignGuide')
-            }
-          />
-        )}
-        <View style={styles.SeperatedSets}>
-          <Text style={styles.NotiText}>알림 수신</Text>
-          <View style={styles.NotiSwitch}>
-            <Switch
-              trackColor={{
-                false: theme.colors.Grey40,
-                true:
-                  user?.role === 'BRAND_USER'
-                    ? theme.colors.Poolblue
-                    : theme.colors.Poolgreen,
-              }}
-              thumbColor={theme.colors.White}
-              ios_backgroundColor="#3e3e3e"
-              onValueChange={toggleSwitch}
-              value={isEnabled}
+        <ScrollView>
+          <View style={styles.UserInfoContainer}>
+            <View style={styles.ProfileImgContainer}>
+              {user?.role === 'BRAND_USER' ? (
+                <Image
+                  style={styles.ImgSource}
+                  source={{uri: brandData?.brandProfileImage}}
+                />
+              ) : (
+                <Image
+                  style={styles.ImgSource}
+                  source={require('../assets/PoolLogo.png')}
+                />
+              )}
+              {user?.role === 'BRAND_USER' ? (
+                <Icon
+                  name="check-circle"
+                  size={18}
+                  style={styles.BrandChecked}
+                />
+              ) : null}
+            </View>
+            <View style={styles.ProfileInfo}>
+              {user?.role === 'BRAND_USER' ? (
+                <Text style={styles.BrandName}>{brandData?.brandUsername}</Text>
+              ) : null}
+              <Text style={styles.UserName}>{user?.nickName}</Text>
+              <Pressable
+                style={styles.FollowingContainer}
+                onPress={() => navigation.navigate('FollowingList')}>
+                <Text style={styles.Following}>팔로잉</Text>
+                <Text style={styles.FollowingCount}>
+                  {userData?.userFollowingCount}
+                </Text>
+              </Pressable>
+            </View>
+          </View>
+          {user?.role === 'BRAND_USER' ? null : (
+            <JoinBrandContainer
+              onPress={
+                user?.role === 'WAITING'
+                  ? () => navigation.push('BrandAssignComplete')
+                  : () => navigation.push('BrandAssignGuide')
+              }
             />
-          </View>
-        </View>
-        <SetArticle title="회원정보 수정" />
-        <SetArticle
-          title="이용약관"
-          onPress={() => setTermModalVisible(true)}
-        />
-        <TermsModal
-          type="term"
-          setModalVisible={setTermModalVisible}
-          onPress={() => setTermModalVisible(true)}
-          visible={termModalVisible}
-          buttonDisabled={true}
-        />
-        <SetArticle title="개인정보처리방침" />
-        <SetArticle title="문의하기" />
-        <Pressable style={styles.SeperatedSets} onPress={onLogout}>
-          <Text style={styles.Logout}>로그아웃</Text>
-        </Pressable>
-        <Footer />
-      </ScrollView>
-    </SafeAreaView>
+          )}
+          <>
+            <View style={styles.SeperatedSets}>
+              <Text style={styles.NotiText}>알림 수신</Text>
+              <View style={styles.NotiSwitch}>
+                <Switch
+                  trackColor={{
+                    false: theme.colors.Grey40,
+                    true:
+                      user?.role === 'BRAND_USER'
+                        ? theme.colors.Poolblue
+                        : theme.colors.Poolgreen,
+                  }}
+                  thumbColor={theme.colors.White}
+                  ios_backgroundColor="#3e3e3e"
+                  onValueChange={toggleSwitch}
+                  value={isEnabled}
+                />
+              </View>
+            </View>
+            <SetArticle title="회원정보 수정" />
+            <SetArticle title="이용약관" />
+            <SetArticle title="개인정보처리방침" />
+            <SetArticle title="문의하기" />
+            <Pressable style={styles.SeperatedSets} onPress={onLogout}>
+              <Text style={styles.Logout}>로그아웃</Text>
+            </Pressable>
+          </>
+          <Footer />
+        </ScrollView>
+      </SafeAreaView>
+    </>
   );
 }
 
