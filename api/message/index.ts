@@ -1,12 +1,17 @@
 import client from '../client';
 import {
-  AuthResult,
   ChekMemberParams,
   LoginParams,
   SignUpParams,
   UpdatePasswordParams,
   User,
+  Message
 } from './types';
+
+export async function getMessage(params:number) {
+  const response = await client.get<Message>(`/messages/${params}`);
+  return response.data;
+}
 
 export async function signUp(params: SignUpParams) {
   const response = await client.post<AuthResult>('/signUp', params);
