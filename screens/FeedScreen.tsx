@@ -64,7 +64,7 @@ function FeedScreen() {
                       source={{
                         uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/220px-React-icon.svg.png',
                       }}
-                      // source={require('../assets/NoMessage.png')}                      
+                      // source={require('../assets/NoMessage.png')}
                       resizeMode="contain"
                     />
                   </View>
