@@ -14,9 +14,9 @@ export interface User {
 }
 export interface Message {
   postId: number;
-  body: string;
-  messageLink: string;
-  filePath: string;
+  body?: string;
+  messageLink?: string;
+  filePath?: string;
   writerDto: object | undefined;
   commentAble: boolean;
   isWriter: boolean;

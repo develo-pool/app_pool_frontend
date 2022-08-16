@@ -10,22 +10,6 @@ import {useQuery} from 'react-query';
 import {getMessage, getAllMessage} from '../api/message/index';
 import {Message} from '../api/message/types';
 
-// 유저 예시를 위한 doha 객체
-// const doha: User = {
-//   name: '엄지렐라',
-//   profileImg:
-//     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpX76CrHxujOncRrHo9XMHks7UTYRpIbM_Mw&usqp=CAU',
-// };
-// // 메시지 예시를 위한 test 객체
-// const test: Message = {
-//   user: doha,
-//   isComment: false,
-//   msgImg: 'https://reactnative.dev/img/tiny_logo.png',
-//   msgLink: 'www.blank.com',
-//   msgText: '흐하하하핳하하하하하핳 이도하 어서 API를 내놔라',
-//   msgDate: Date.now(),
-// };
-
 function FeedScreen(message: Message) {
   const {data: userData} = useQuery('getUserResult', () => getUser(), {
     refetchOnMount: 'always',
@@ -64,8 +48,9 @@ function FeedScreen(message: Message) {
               isWriter: boolean;
               create_date: string;
             }) => {
-              console.log(messages.writerDto);
+              // console.log(messages.writerDto);
               return (<Feed
+                key={messages.postId}
                 postId={messages.postId}
                 body={messages.body}
                 messageLink={messages.messageLink}

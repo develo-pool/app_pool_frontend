@@ -4,9 +4,15 @@ import theme from '../assets/theme';
 import Comment from '../components/message/Comment';
 import DetailMessageContainer from '../components/message/DetailMessageContainer';
 import InputCommentContainer from '../components/message/InputCommentContainer';
-import {useNavigation} from '@react-navigation/native';
-import {RootStackNavigationProp} from './types';
+import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
+import {RootStackNavigationProp, RootStackParamList} from './types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import {getMessage} from '../api/message/index';
+import {Message} from '../api/message/types';
+import {getUser} from '../api/auth';
+import {useQuery} from 'react-query';
+
+type MessageScreenRouteProp = RouteProp<RootStackParamList, 'Message'>;
 
 interface User {
   isBrand?: boolean;
@@ -19,11 +25,16 @@ const tester: User = {
   userProfileImg: 'https://img.hankyung.com/photo/202111/03.28096495.1.jpg',
 };
 
-function MessageScreen() {
+function MessageScreen(detailmessage: Message) {
   const [commentText, setCommentText] = useState('');
   const onChangeText = payload => setCommentText(payload);
   const [commentList, setCommentList] = useState({});
+  const route = useRoute<MessageScreenRouteProp>();
+  const detail = route.params.detail;
+  console.log(JSON.stringify(detail));
   const navigation = useNavigation<RootStackNavigationProp>();
+  const {data: messageData} = useQuery('getMessage', () => getMessage(detail));
+  console.log(messageData?.postId)
 
   const addComments = async () => {
     const writtenTime = Date.now();
@@ -56,7 +67,18 @@ function MessageScreen() {
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
         <View style={styles.spacebetween}>
-          <DetailMessageContainer user={undefined} message={undefined} />
+          {/* <DetailMessageContainer user={undefined} message={undefined} /> */}
+          {messageData ? (<DetailMessageContainer
+                key={messageData?.postId}
+                postId={messageData.postId}
+                body={messageData?.body}
+                messageLink={messageData?.messageLink}
+                filePath={messageData?.filePath}
+                writerDto={messageData.writerDto}
+                commentAble={messageData.commentAble}
+                isWriter={messageData.isWriter}
+                create_date={messageData.create_date}
+              />) : ''}
           {Object.keys(commentList).map(key => (
             <View key={key}>
               <Comment
