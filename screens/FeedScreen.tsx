@@ -1,4 +1,4 @@
-import {View, StyleSheet, ScrollView, SafeAreaView} from 'react-native';
+import {View, StyleSheet, ScrollView, SafeAreaView, Image} from 'react-native';
 import React from 'react';
 import Feed from '../components/feed/Feed';
 import theme from '../assets/theme';
@@ -42,20 +42,34 @@ function FeedScreen() {
               isWriter: boolean;
               create_date: string;
             }) => {
-              // console.log(messages.writerDto);
-              return (
-                <Feed
-                  key={messages.postId}
-                  postId={messages.postId}
-                  body={messages.body}
-                  messageLink={messages.messageLink}
-                  filePath={messages.filePath}
-                  writerDto={messages.writerDto}
-                  commentAble={messages.commentAble}
-                  isWriter={messages.isWriter}
-                  create_date={messages.create_date}
-                />
-              );
+              try {
+                return (
+                  <Feed
+                    key={messages.postId}
+                    postId={messages.postId}
+                    body={messages.body}
+                    messageLink={messages.messageLink}
+                    filePath={messages.filePath}
+                    writerDto={messages.writerDto}
+                    commentAble={messages.commentAble}
+                    isWriter={messages.isWriter}
+                    create_date={messages.create_date}
+                  />
+                );
+              } catch {
+                return (
+                  <View style={styles.noMessageContainer}>
+                    <Image
+                      style={styles.noMessage}
+                      source={{
+                        uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/220px-React-icon.svg.png',
+                      }}
+                      // source={require('../assets/NoMessage.png')}                      
+                      resizeMode="contain"
+                    />
+                  </View>
+                );
+              }
             },
           )}
         </ScrollView>
@@ -69,6 +83,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     backgroundColor: theme.colors.White,
     paddingTop: 30,
+  },
+  noMessage: {
+    width: 151,
+    height: 96,
+  },
+  noMessageContainer: {
+    backgroundColor: theme.colors.White,
   },
 });
 
