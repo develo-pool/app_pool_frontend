@@ -101,21 +101,19 @@ function SettingScreen() {
           <>
             <View style={styles.SeperatedSets}>
               <Text style={styles.NotiText}>알림 수신</Text>
-              <View style={styles.NotiSwitch}>
-                <Switch
-                  trackColor={{
-                    false: theme.colors.Grey40,
-                    true:
-                      user?.role === 'BRAND_USER'
-                        ? theme.colors.Poolblue
-                        : theme.colors.Poolgreen,
-                  }}
-                  thumbColor={theme.colors.White}
-                  ios_backgroundColor="#3e3e3e"
-                  onValueChange={toggleSwitch}
-                  value={isEnabled}
-                />
-              </View>
+              <Switch
+                trackColor={{
+                  false: theme.colors.Grey40,
+                  true:
+                    user?.role === 'BRAND_USER'
+                      ? theme.colors.Poolblue
+                      : theme.colors.Poolgreen,
+                }}
+                thumbColor={theme.colors.White}
+                ios_backgroundColor="#3e3e3e"
+                onValueChange={toggleSwitch}
+                value={isEnabled}
+              />
             </View>
             <SetArticle title="회원정보 수정" />
             <SetArticle
@@ -205,19 +203,18 @@ const styles = StyleSheet.create({
     height: 60,
     marginTop: 8,
     marginBottom: 7,
-    paddingHorizontal: 24,
+    paddingLeft: 24,
+    paddingRight: 16,
     flexDirection: 'row',
     backgroundColor: 'white',
     alignItems: 'center',
+    justifyContent: 'space-between',
   },
   NotiText: {
     fontFamily: theme.fontFamily.Pretendard,
     color: theme.colors.Grey60,
     fontSize: 14,
     fontWeight: '700',
-  },
-  NotiSwitch: {
-    marginLeft: 240,
   },
   Logout: {
     fontFamily: theme.fontFamily.Pretendard,

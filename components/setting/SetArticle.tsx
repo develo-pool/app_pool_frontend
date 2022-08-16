@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Pressable, StyleSheet} from 'react-native';
+import {Text, Pressable, StyleSheet} from 'react-native';
 import theme from '../../assets/theme';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -11,9 +11,7 @@ interface Props {
 function SetArticle({title, onPress}: Props) {
   return (
     <Pressable style={styles.Article} onPress={onPress}>
-      <View style={styles.ArticleText}>
-        <Text style={styles.SetText}>{title}</Text>
-      </View>
+      <Text style={styles.SetText}>{title}</Text>
       <Icon name="arrow-forward-ios" size={14} style={styles.RightArrow} />
     </Pressable>
   );
@@ -25,16 +23,15 @@ const styles = StyleSheet.create({
     height: 60,
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
     marginTop: 1,
-    paddingHorizontal: 24,
-  },
-  ArticleText: {
-    width: 320,
+    paddingLeft: 24,
+    paddingRight: 20,
   },
   SetText: {
     fontFamily: theme.fontFamily.Pretendard,
     color: theme.colors.Grey60,
-    fontSize: 14,
+    fontSize: theme.fontSize.P2,
     fontWeight: '700',
   },
   RightArrow: {

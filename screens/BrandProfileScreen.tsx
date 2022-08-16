@@ -1,12 +1,42 @@
-import React from 'react';
-import {Text, StyleSheet, View} from 'react-native';
+import React, {useEffect} from 'react';
+import {
+  Text,
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  SafeAreaView,
+} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 import theme from '../assets/theme';
 import FollowButton from '../components/profile/FollowButton';
 import ProfileImageContainer from '../components/profile/ProfileImageContainer';
+import {RootStackNavigationProp} from './types';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 function BrandProfileScreen() {
+  const navigation = useNavigation<RootStackNavigationProp>();
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerBackVisible: false,
+      headerShadowVisible: false,
+      headerTitle: '',
+      headerLeft: () => (
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Icon name="arrow-back" size={24} color="black" />
+        </TouchableOpacity>
+      ),
+      headerRight: () => (
+        <TouchableOpacity>
+          {/* 외부 연결되는 링크 복사해주는 모달띄우기 */}
+          <Icon name="logout" size={24} color="black" style={styles.rotate} />
+        </TouchableOpacity>
+      ),
+    });
+  }, [navigation]);
+
   return (
-    <>
+    <SafeAreaView>
       <View style={styles.ProfileSection}>
         <View style={styles.ProfileLayout}>
           <View style={styles.ProfileContainer}>
@@ -31,11 +61,14 @@ function BrandProfileScreen() {
       <View style={styles.Message}>
         <Text style={styles.MessageNull}>등록된 메시지가 없습니다.</Text>
       </View>
-    </>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  rotate: {
+    transform: [{rotate: '270deg'}],
+  },
   ProfileSection: {
     height: 180,
     backgroundColor: theme.colors.White,

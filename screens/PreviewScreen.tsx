@@ -3,7 +3,7 @@ import {
   View,
   Text,
   StyleSheet,
-  ImageBackground,
+  // ImageBackground,
   Image,
   SafeAreaView,
 } from 'react-native';
@@ -17,10 +17,7 @@ function PreviewScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ImageBackground
-        source={require('../assets/PreviewBackGround.png')}
-        resizeMode="contain"
-        style={styles.backgroundImg}>
+      <View style={styles.background}>
         <View style={styles.alarmContainer}>
           <View style={styles.imgContainer}>
             <Image
@@ -47,7 +44,7 @@ function PreviewScreen() {
             />
           </View>
         </View>
-      </ImageBackground>
+      </View>
       <ScreenBottomButton
         name="미리보기 종료"
         onPress={() => navigation.goBack()}
@@ -60,8 +57,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  backgroundImg: {
+  background: {
     flex: 1,
+    backgroundColor: theme.colors.Grey30,
     paddingTop: 212,
   },
   alarmContainer: {
