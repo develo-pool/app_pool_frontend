@@ -22,7 +22,8 @@ function ProfileScreen() {
   });
 
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView>
+      {/*style={{flex: 1}*/}
       <View style={styles.ProfileSection}>
         <View style={styles.ProfileLayout}>
           <View style={styles.ProfileContainer}>

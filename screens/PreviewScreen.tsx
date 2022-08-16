@@ -3,7 +3,7 @@ import {
   View,
   Text,
   StyleSheet,
-  ImageBackground,
+  // ImageBackground,
   Image,
   SafeAreaView,
 } from 'react-native';
