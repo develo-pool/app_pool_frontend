@@ -8,44 +8,48 @@ import {getUser} from '../api/auth';
 // get방식 -> useQuery
 import {useQuery} from 'react-query';
 import {getMessage, getAllMessage} from '../api/message/index';
+import {Message} from '../api/message/types';
 
-interface User {
-  name: string;
-  profileImg: string;
-}
-interface Message {
-  user: User | undefined;
-  msgText?: string;
-  msgImg?: string;
-  msgLink?: string;
-  msgDate: string;
-  isComment: boolean;
-}
+// interface User {
+//   name: string;
+//   profileImg: string;
+// }
+// interface Message {
+//   user: User | undefined;
+//   msgText?: string;
+//   msgImg?: string;
+//   msgLink?: string;
+//   msgDate: string;
+//   isComment: boolean;
+// }
 
 // 유저 예시를 위한 doha 객체
-const doha: User = {
-  name: '엄지렐라',
-  profileImg:
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpX76CrHxujOncRrHo9XMHks7UTYRpIbM_Mw&usqp=CAU',
-};
-// 메시지 예시를 위한 test 객체
-const test: Message = {
-  user: doha,
-  isComment: false,
-  msgImg: 'https://reactnative.dev/img/tiny_logo.png',
-  msgLink: 'www.blank.com',
-  msgText: '흐하하하핳하하하하하핳 이도하 어서 API를 내놔라',
-  msgDate: Date.now(),
-};
+// const doha: User = {
+//   name: '엄지렐라',
+//   profileImg:
+//     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpX76CrHxujOncRrHo9XMHks7UTYRpIbM_Mw&usqp=CAU',
+// };
+// // 메시지 예시를 위한 test 객체
+// const test: Message = {
+//   user: doha,
+//   isComment: false,
+//   msgImg: 'https://reactnative.dev/img/tiny_logo.png',
+//   msgLink: 'www.blank.com',
+//   msgText: '흐하하하핳하하하하하핳 이도하 어서 API를 내놔라',
+//   msgDate: Date.now(),
+// };
 
 function FeedScreen() {
   const {data: userData} = useQuery('getUserResult', () => getUser(), {
     refetchOnMount: 'always',
   });
   // const {data: messageData} = useQuery(['getMessage', 3], ()=> getMessage());
-  const {data: allMessageData} = useQuery('getAllMessage', () => getAllMessage());
+  const {data: allMessageData} = useQuery('getAllMessage', () =>
+    getAllMessage(),
+  );
   // console.log(messageData);
   console.log(allMessageData);
+  // console.log(allMessageData?.writerDto)
   console.log(userData?.nickName);
   const today = new Date(Date.now());
   const yy = today.getFullYear().toString().substring(2, 4);
@@ -62,6 +66,12 @@ function FeedScreen() {
         <ScrollView showsVerticalScrollIndicator={false}>
           <Hello name={userData?.nickName} />
           <NowDate msgDate={yymmdd} />
+          {allMessageData.map((messages) => {
+            console.log(messages.postId)
+            <Feed postId={messages.postId} body 
+            // <Feed user={messages?.writerDto} message={messages?.body} />;
+          })
+          }
           <Feed user={doha} message={test} />
           <Feed user={doha} message={test} />
           <Feed user={doha} message={test} />
