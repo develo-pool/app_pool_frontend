@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  Text,
-  StyleSheet,
-  View,
-  TouchableOpacity,
-  SafeAreaView,
-} from 'react-native';
+import {Text, StyleSheet, View, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useQuery} from 'react-query';
@@ -15,6 +9,7 @@ import SetWelcomeMsg from '../components/profile/SetWelcomeMessage';
 import ProfileImageContainer from '../components/profile/ProfileImageContainer';
 import {getUser} from '../api/auth';
 import {getBrand} from '../api/brand';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 function ProfileScreen() {
   const navigation = useNavigation<RootStackNavigationProp>();
@@ -22,13 +17,12 @@ function ProfileScreen() {
   const {data: userData} = useQuery('getUserResult', () => getUser(), {
     refetchOnMount: 'always',
   });
-  const id = '';
-  const {data: brandData} = useQuery('getBrand', () => getBrand(id), {
+  const {data: brandData} = useQuery('getBrand', () => getBrand(''), {
     refetchOnMount: 'always',
   });
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex: 1}}>
       <View style={styles.ProfileSection}>
         <View style={styles.ProfileLayout}>
           <View style={styles.ProfileContainer}>
@@ -43,6 +37,10 @@ function ProfileScreen() {
               </View>
             </View>
           </View>
+          <TouchableOpacity style={styles.exportLink}>
+            {/* 외부 연결되는 링크 복사해주는 모달띄우기 */}
+            <Icon name="logout" size={24} color="black" style={styles.rotate} />
+          </TouchableOpacity>
         </View>
         <View style={styles.IntroContainer}>
           <Text style={styles.IntroText}>{brandData?.brandInfo}</Text>
@@ -53,18 +51,21 @@ function ProfileScreen() {
         <Text style={styles.MessageNull}>등록된 메시지가 없습니다.</Text>
       </View>
 
-      <TouchableOpacity
-        style={styles.CreateMessageButton}
-        onPress={() => navigation.navigate('CreateMessage')}>
-        <Icon name="border-color" size={24} style={styles.CreateMessage} />
-      </TouchableOpacity>
+      <View style={styles.createButtonLayout}>
+        <TouchableOpacity
+          style={styles.CreateMessageButton}
+          onPress={() => navigation.navigate('CreateMessage')}>
+          <Icon name="border-color" size={24} style={styles.CreateMessage} />
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   ProfileSection: {
-    height: 180,
+    paddingTop: 24,
+    height: 204,
     backgroundColor: theme.colors.White,
     paddingHorizontal: 16,
   }, //프로필 영역
@@ -104,6 +105,12 @@ const styles = StyleSheet.create({
     color: theme.colors.Grey80,
     marginLeft: 4,
   },
+  exportLink: {
+    paddingTop: 16,
+  },
+  rotate: {
+    transform: [{rotate: '270deg'}],
+  },
   IntroContainer: {
     alignItems: 'center',
     justifyContent: 'center',
@@ -116,7 +123,6 @@ const styles = StyleSheet.create({
   }, //소개글 텍스트
   Message: {
     alignItems: 'center',
-    height: 460,
     paddingHorizontal: 16,
   }, //프로필 아래 메시지가 쌓이는 메시지 영역
   MessageNull: {
@@ -124,14 +130,16 @@ const styles = StyleSheet.create({
     fontSize: theme.fontSize.P1,
     fontWeight: theme.fontWeight.Light,
   }, //동록한 메시지가 없습니다.
+  createButtonLayout: {
+    position: 'absolute',
+    marginLeft: 288,
+    marginTop: 600,
+  },
   CreateMessageButton: {
     height: 68,
     width: 68,
     borderRadius: 34,
     backgroundColor: theme.colors.Black,
-    position: 'absolute',
-    right: 16,
-    bottom: 16,
     justifyContent: 'center',
     alignItems: 'center',
   }, //새 메시지 작성 버튼

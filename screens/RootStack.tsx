@@ -73,11 +73,7 @@ function RootStack() {
         component={PreviewScreen}
         options={{headerShown: false}}
       />
-      <Stack.Screen
-        name="BrandProfile"
-        component={BrandProfileScreen}
-        options={{headerShown: false}}
-      />
+      <Stack.Screen name="BrandProfile" component={BrandProfileScreen} />
       <Stack.Screen
         name="SettingStack"
         component={SettingStack}

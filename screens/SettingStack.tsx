@@ -14,7 +14,11 @@ function SettingStack() {
         component={SettingScreen}
         options={{headerShown: false}}
       />
-      <Setting.Screen name="FollowingList" component={FollowingListScreen} />
+      <Setting.Screen
+        name="FollowingList"
+        component={FollowingListScreen}
+        options={{headerShadowVisible: false, title: ''}}
+      />
     </Setting.Navigator>
   );
 }
