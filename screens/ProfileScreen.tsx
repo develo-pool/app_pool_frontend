@@ -7,14 +7,25 @@ import {
   SafeAreaView,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import {useQuery} from 'react-query';
 import {RootStackNavigationProp} from './types';
 import theme from '../assets/theme';
 import SetWelcomeMsg from '../components/profile/SetWelcomeMessage';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import ProfileImageContainer from '../components/profile/ProfileImageContainer';
+import {getUser} from '../api/auth';
+import {getBrand} from '../api/brand';
 
 function ProfileScreen() {
   const navigation = useNavigation<RootStackNavigationProp>();
+
+  const {data: userData} = useQuery('getUserResult', () => getUser(), {
+    refetchOnMount: 'always',
+  });
+  const id = '';
+  const {data: brandData} = useQuery('getBrand', () => getBrand(id), {
+    refetchOnMount: 'always',
+  });
 
   return (
     <SafeAreaView>
@@ -23,19 +34,18 @@ function ProfileScreen() {
           <View style={styles.ProfileContainer}>
             <ProfileImageContainer isEditable={true} />
             <View style={styles.BrandInfo}>
-              <Text style={styles.BrandName}>김자네</Text>
+              <Text style={styles.BrandName}>{brandData?.brandUsername}</Text>
               <View style={styles.FollowerContainer}>
                 <Text style={styles.Follower}>팔로워</Text>
-                <Text style={styles.FollowerCount}>1.8k</Text>
+                <Text style={styles.FollowerCount}>
+                  {userData?.userFollowerCount}
+                </Text>
               </View>
             </View>
           </View>
         </View>
         <View style={styles.IntroContainer}>
-          <Text style={styles.IntroText}>
-            더푸르입니다. 소개글이 들어갑니다. 소개글이 들어갑니다. 소개글이
-            들어갑니다. 소개글이 들어갑니다.
-          </Text>
+          <Text style={styles.IntroText}>{brandData?.brandInfo}</Text>
         </View>
       </View>
       <SetWelcomeMsg />

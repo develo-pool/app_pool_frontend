@@ -2,10 +2,10 @@ import client from '../client';
 import {
   AuthResult,
   ChekMemberParams,
+  GetUserResult,
   LoginParams,
   SignUpParams,
   UpdatePasswordParams,
-  User,
 } from './types';
 
 export async function signUp(params: SignUpParams) {
@@ -40,7 +40,7 @@ export async function phoneNumberExist(params: string) {
 }
 
 export async function getUser() {
-  const response = await client.get<User>('/user');
+  const response = await client.get<GetUserResult>('/user');
   return response.data;
 }
 
