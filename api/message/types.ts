@@ -17,7 +17,10 @@ export interface Message {
   body: string;
   messageLink: string;
   filePath: string;
-  writerDto: object;
+  writerDto: object | undefined;
+  commentAble: boolean;
+  isWriter: boolean;
+  create_date: string;
 }
 
 export interface SignUpParams {

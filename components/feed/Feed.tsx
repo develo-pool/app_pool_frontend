@@ -8,15 +8,8 @@ import MessageText from './MessageText';
 import {useNavigation} from '@react-navigation/native';
 import {RootStackNavigationProp} from '../../screens/types';
 import theme from '../../assets/theme';
+import {Message} from '../../api/message/types';
 
-// 프롭스로는 유저, 메시지, 현재스크린을 넣어줍니다.
-interface Props {
-  postId : number;
-  body : string;
-  messageLink: string;
-  filePath: string;
-  writeDto: object;
-}
 
 // !!아래의 인터페이스와 객체들은 향후에 hook으로 분리할 듯 합니당 나중에 프롭스만 전달해주는걸로!!
 // 얘네는 유저들 !
@@ -53,7 +46,7 @@ interface Props {
 // };
 
 // 사용 시에는 user 프롭스를 아래에 넣어주세용
-function Feed({user = doha, message = test, isFeedScreen = true}: Props) {
+function Feed(message:Message) {
   // function Feed({}: Props) {
   const navigation = useNavigation<RootStackNavigationProp>();
   return (
@@ -61,31 +54,30 @@ function Feed({user = doha, message = test, isFeedScreen = true}: Props) {
       {/* 메시지헤더는 메시지 MessageScreen에 한해 다른 UI를 출력합니다 */}
       <TouchableOpacity>
         <MessageHeader
-          user={user}
-          isDetailMessage={!isFeedScreen}
-          msgDate={test.msgDate}
+          username={message.writerDto.brandUserInfoDto.brandUsername}
+          profileImg={message.writerDto.brandUserInfoDto.brandProfileImage}
         />
       </TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.navigate('Message')}>
         <View style={styles.feed}>
           {/* 메시지의 구성에 따라 각각 다른 UI를 출력 */}
-          {message.msgText === undefined ? (
+          {message.body === undefined ? (
             ''
           ) : (
-            <MessageText messageText={`${test.msgText}`} />
+            <MessageText messageText={`${message.body}`} />
           )}
-          {message.msgImg === undefined ? (
+          {message.filePath === undefined ? (
             ''
           ) : (
-            <MessageImg messageImg={`${test.msgImg}`} />
+            <MessageImg messageImg={`${message.filePath}`} />
           )}
-          {message.msgLink === undefined ? (
+          {message.messageLink === undefined ? (
             ''
           ) : (
-            <MessageLink messageLink={`${test.msgLink}`} />
+            <MessageLink messageLink={`${message.messageLink}`} />
           )}
           <View style={styles.feedBottom}>
-            <Text style={styles.msgDate}>{message.msgDate}</Text>
+            <Text style={styles.msgDate}>{message.create_date}</Text>
             <CommentFocusButton isComment={true} />
           </View>
         </View>
