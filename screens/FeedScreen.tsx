@@ -7,7 +7,7 @@ import Hello from '../components/feed/Hello';
 import {getUser} from '../api/auth';
 // get방식 -> useQuery
 import {useQuery} from 'react-query';
-import {message} from '../api/message';
+import {getMessage} from '../api/message';
 
 interface User {
   name: string;
@@ -42,7 +42,7 @@ function FeedScreen() {
   const {data: userData} = useQuery('getUserResult', () => getUser(), {
     refetchOnMount: 'always',
   });
-  const {data: messageData} = useQuery('message', ()=> message());
+  const {data: messageData} = useQuery('getMessage', (3)=> getMessage());
   console.log(messageData);
   console.log(userData?.nickName);
   const today = new Date();
