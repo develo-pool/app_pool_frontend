@@ -54,7 +54,7 @@ interface Props {
 
 // 사용 시에는 user 프롭스를 아래에 넣어주세용
 function Feed({user = doha, message = test, isFeedScreen = true}: Props) {
-  function Feed({}: Props) {
+  // function Feed({}: Props) {
   const navigation = useNavigation<RootStackNavigationProp>();
   return (
     <View style={styles.feedContainer}>

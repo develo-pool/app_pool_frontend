@@ -68,7 +68,7 @@ function FeedScreen() {
           <NowDate msgDate={yymmdd} />
           {allMessageData.map((messages) => {
             console.log(messages.postId)
-            <Feed postId={messages.postId} body 
+            // <Feed postId={messages.postId} body 
             // <Feed user={messages?.writerDto} message={messages?.body} />;
           })
           }
