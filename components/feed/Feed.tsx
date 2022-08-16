@@ -11,7 +11,7 @@ import theme from '../../assets/theme';
 import {Message} from '../../api/message/types';
 
 // 사용 시에는 user 프롭스를 아래에 넣어주세용
-function Feed(message:Message) {
+function Feed(message: Message) {
   // function Feed({}: Props) {
   const navigation = useNavigation<RootStackNavigationProp>();
   return (
@@ -23,7 +23,10 @@ function Feed(message:Message) {
           profileImg={message.writerDto.brandUserInfoDto.brandProfileImage}
         />
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('Message', {detail:message.postId})}>
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate('Message', {detail: message.postId})
+        }>
         <View style={styles.feed}>
           {/* 메시지의 구성에 따라 각각 다른 UI를 출력 */}
           {message.body === undefined ? (

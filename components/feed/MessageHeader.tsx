@@ -9,7 +9,6 @@ interface Props {
   profileImg: string;
 }
 
-
 function MessageHeader({username, profileImg}: Props) {
   const navigation = useNavigation<RootStackNavigationProp>();
 
