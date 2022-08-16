@@ -41,7 +41,6 @@ export async function phoneNumberExist(params: string) {
 
 export async function getUser() {
   const response = await client.get<GetUserResult>('/user');
-  console.log(response);
   return response.data;
 }
 
