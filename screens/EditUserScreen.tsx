@@ -8,9 +8,9 @@ import Title from '../components/Title';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useNavigation} from '@react-navigation/native';
 import {SettingStackNavigationProp} from './types';
-import {nickNameExist} from '../api/auth';
-import {useQuery} from 'react-query';
-import {CheckNickName} from '../components/auth/Validation';
+// import {nickNameExist} from '../api/auth';
+// import {useQuery} from 'react-query';
+// import {CheckNickName} from '../components/auth/Validation';
 import ScreenBottomButton from './../components/ScreenBottomButton';
 
 export interface EditUserProps {
@@ -19,15 +19,16 @@ export interface EditUserProps {
   nickNameChecked: boolean | undefined;
 }
 
-function EditUserScreen({
-  onChangeText,
-  form,
-  setForm,
-}: {
-  onChangeText: any;
-  form: EditUserProps;
-  setForm: any;
-}) {
+function EditUserScreen() {
+//     {
+//   onChangeText,
+//   form,
+//   setForm,
+// }: {
+//   onChangeText: any;
+//   form: EditUserProps;
+//   setForm: any;
+// }
   //   const {refetch: refetchNickname, isLoading: nickNameLoading} = useQuery(
   //     ['nickNameExist', form.nickName],
   //     () => {
