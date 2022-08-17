@@ -1,5 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {SafeAreaView, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import theme from '../assets/theme';
 import Comment from '../components/message/Comment';
 import DetailMessageContainer from '../components/message/DetailMessageContainer';
@@ -8,42 +14,21 @@ import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {RootStackNavigationProp, RootStackParamList} from './types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {getMessage} from '../api/message/index';
-import {useQuery} from 'react-query';
+import {useQuery, useMutation} from 'react-query';
+import {getComment, getAllComment, createComment} from '../api/comment/index';
+import {getUser} from '../api/auth';
 
 type MessageScreenRouteProp = RouteProp<RootStackParamList, 'Message'>;
-
-interface User {
-  isBrand?: boolean;
-  userName: string;
-  userProfileImg: string;
-}
-const tester: User = {
-  isBrand: false,
-  userName: '진세',
-  userProfileImg: 'https://img.hankyung.com/photo/202111/03.28096495.1.jpg',
-};
 
 function MessageScreen() {
   const [commentText, setCommentText] = useState('');
   const onChangeText = (payload: string) => setCommentText(payload);
-  const [commentList, setCommentList]: object[] | any = useState({});
   const route = useRoute<MessageScreenRouteProp>();
-  const detail = route.params.detail;
+  // const detail = route.params.detail;
   const navigation = useNavigation<RootStackNavigationProp>();
-  const {data: messageData} = useQuery('getMessage', () => getMessage(detail));
-
-  const addComments = async () => {
-    const writtenTime = Date.now();
-    if (commentText === '') {
-      return;
-    }
-    const newComments = {
-      ...commentList,
-      [tester.userName]: {commentText, tester, writtenTime},
-    };
-    setCommentList(newComments);
-    setCommentText('');
-  };
+  const {data: userData} = useQuery('getUserResult', () => getUser(), {
+    refetchOnMount: 'always',
+  });
 
   useEffect(() => {
     navigation.setOptions({
@@ -58,6 +43,29 @@ function MessageScreen() {
       ),
     });
   }, [navigation]);
+
+  const {data: messageData} = useQuery('getMessage', () => getMessage(4));
+  const {data: allCommentData} = useQuery('getAllComment', () =>
+    getAllComment(4),
+  );
+  const {data: commentData} = useQuery('getComment', () => getComment(4));
+
+  console.log(allCommentData);
+  console.log(userData);
+
+  const {mutate: writeComment} = useMutation(createComment, {
+    onSuccess: async () => {
+      await getComment(4);
+    },
+    onError: () => {},
+  });
+
+  const addComments = async () => {
+    if (commentText === '') {
+      return;
+    }
+    setCommentText('');
+  };
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -78,24 +86,42 @@ function MessageScreen() {
           ) : (
             ''
           )}
-          {Object.keys(commentList).map(key => (
-            <View key={key}>
-              <Comment
-                text={commentList[key].commentText}
-                userName={commentList[key].tester.userName}
-                userProfileImg={commentList[key].tester.userProfileImg}
-                writenCommentTime={commentList[key].writtenTime}
-              />
-            </View>
-          ))}
         </View>
-        {tester.isBrand ? null : (
-          <InputCommentContainer
-            commentText={commentText}
-            onChangeText={onChangeText}
-            isComment={Object.keys(commentList).length === 0 ? false : true}
-            addComments={addComments}
-          />
+
+        {userData?.userStatus == 'BRAND_USER' &&
+        userData.username == messageData?.writerDto?.username ? (
+          <ScrollView>
+            {allCommentData?.map(comments => {
+              return (
+                <Comment
+                  key={comments.id}
+                  text={comments.body}
+                  userName={comments.writer?.nickName}
+                  userProfileImg={comments.writer?.username}
+                  writenCommentTime={comments.writer?.username}
+                />
+              );
+            })}
+          </ScrollView>
+        ) : (
+          <View>
+            {commentData ? (
+              <Comment
+                text={commentData.body}
+                userName={commentData.writer?.nickName}
+                userProfileImg={commentData.writer?.username}
+                writenCommentTime={commentData.writer?.username}
+              />
+            ) : (
+              ''
+            )}
+            <InputCommentContainer
+              commentText={commentText}
+              onChangeText={onChangeText}
+              isComment={commentData ? false : true}
+              addComments={addComments}
+            />
+          </View>
         )}
       </View>
     </SafeAreaView>
