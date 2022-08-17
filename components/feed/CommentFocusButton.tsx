@@ -24,9 +24,8 @@ function CommentFocusButton({isComment, postId}: Props) {
       {isComment ? (
         <Text style={styles.completeWord}>답장완료</Text>
       ) : (
-        <TouchableOpacity onPress={() =>
-          navigation.navigate('Message', {detail: postId})
-        }>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Message', {detail: postId})}>
           <Text style={styles.goToCommentWord}>답장하기</Text>
         </TouchableOpacity>
       )}
