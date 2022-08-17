@@ -42,7 +42,7 @@ function FeedScreen() {
               isWriter: boolean;
               create_date: string;
             }) => {
-              try {
+              // try {
                 return (
                   <Feed
                     key={messages.postId}
@@ -56,20 +56,20 @@ function FeedScreen() {
                     create_date={messages.create_date}
                   />
                 );
-              } catch {
-                return (
-                  <View style={styles.noMessageContainer}>
-                    <Image
-                      style={styles.noMessage}
-                      // source={{
-                      //   uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/220px-React-icon.svg.png',
-                      // }}
-                      // source={require('../assets/NoMessage.png')}
-                      resizeMode="contain"
-                    />
-                  </View>
-                );
-              }
+              // } catch {
+              //   return (
+              //     <View style={styles.noMessageContainer}>
+              //       <Image
+              //         style={styles.noMessage}
+              //         // source={{
+              //         //   uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/220px-React-icon.svg.png',
+              //         // }}
+              //         // source={require('../assets/NoMessage.png')}
+              //         resizeMode="contain"
+              //       />
+              //     </View>
+              //   );
+              // }
             },
           )}
         </ScrollView>
