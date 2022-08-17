@@ -3,7 +3,7 @@ import {
   View,
   Text,
   StyleSheet,
-  // ImageBackground,
+  ImageBackground,
   Image,
   SafeAreaView,
 } from 'react-native';
@@ -17,24 +17,29 @@ function PreviewScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.background}>
+      <ImageBackground
+        source={require('../assets/PreviewBackGround.jpg')}
+        resizeMode="cover"
+        style={styles.backgroundImg}>
         <View style={styles.alarmContainer}>
-          <View style={styles.imgContainer}>
-            <Image
-              style={styles.profileImg}
-              source={require('../assets/Pool.png')}
-            />
-            <Image
-              style={styles.poolLogo}
-              source={require('../assets/PoolLogo.png')}
-            />
-          </View>
-          <View style={styles.textContainer}>
-            <Text style={styles.titleText}>더푸르</Text>
-            <Text style={styles.bodyText} numberOfLines={2}>
-              오늘은 샐러드 먹었어요 여러분은 뭘 드셨나요? 오늘은 샐러드
-              먹었어요 여러분은 뭘 드셨나요?
-            </Text>
+          <View style={styles.flexDirection}>
+            <View style={styles.imgContainer}>
+              <Image
+                style={styles.profileImg}
+                source={require('../assets/Pool.png')}
+              />
+              <Image
+                style={styles.poolLogo}
+                source={require('../assets/PoolLogo.png')}
+              />
+            </View>
+            <View style={styles.textContainer}>
+              <Text style={styles.titleText}>더푸르</Text>
+              <Text style={styles.bodyText} numberOfLines={2}>
+                오늘은 샐러드 먹었어요 여러분은 뭘 드셨나요? 오늘은 샐러드
+                먹었어요 여러분은 뭘 드셨나요?
+              </Text>
+            </View>
           </View>
           <View style={styles.infoContainer}>
             <Text style={styles.nowText}>지금</Text>
@@ -44,7 +49,7 @@ function PreviewScreen() {
             />
           </View>
         </View>
-      </View>
+      </ImageBackground>
       <ScreenBottomButton
         name="미리보기 종료"
         onPress={() => navigation.goBack()}
@@ -57,7 +62,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  background: {
+  backgroundImg: {
     flex: 1,
     backgroundColor: theme.colors.Grey30,
     paddingTop: 212,
@@ -71,6 +76,10 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.White,
     borderRadius: 16,
     opacity: 0.9,
+    justifyContent: 'space-between',
+  },
+  flexDirection: {
+    flexDirection: 'row',
   },
   imgContainer: {
     justifyContent: 'center',

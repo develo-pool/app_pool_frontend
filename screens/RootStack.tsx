@@ -15,7 +15,8 @@ import BrandProfileScreen from './BrandProfileScreen';
 import BrandAssignScreen from './BrandAssignScreen';
 import BrandAssignGuideScreen from './BrandAssignGuideScreen';
 import BrandAssignCompleteScreen from './BrandAssignCompleteScreen';
-import SettingStack from './SettingStack';
+import FollowingListScreen from './FollowingListScreen';
+import EditUserScreen from './EditUserScreen';
 import EditProfile from './EditProfileScreen';
 import PreviewScreen from './PreviewScreen';
 
@@ -74,14 +75,15 @@ function RootStack() {
         options={{headerShown: false}}
       />
       <Stack.Screen name="BrandProfile" component={BrandProfileScreen} />
+      <Stack.Screen name="EditProfile" component={EditProfile} />
       <Stack.Screen
-        name="SettingStack"
-        component={SettingStack}
-        options={{headerShown: false}}
+        name="FollowingList"
+        component={FollowingListScreen}
+        options={{headerShadowVisible: false, title: ''}}
       />
       <Stack.Screen
-        name="EditProfile"
-        component={EditProfile}
+        name="EditUser"
+        component={EditUserScreen}
         options={{headerShown: false}}
       />
     </Stack.Navigator>
