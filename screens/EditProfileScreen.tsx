@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {
   View,
   StyleSheet,
@@ -18,11 +18,19 @@ import {getBrand} from '../api/brand';
 import {updateBrandInfo} from '../api/brand';
 
 function EditProfile() {
-  const [count, setCount] = useState('');
+  const [info, setInfo] = useState('');
   const navigation = useNavigation<RootStackNavigationProp>();
   const {data: brandData} = useQuery('getBrand', () => getBrand(''), {
     refetchOnMount: 'always',
   });
+  const {mutate: write} = useMutation(updateBrandInfo, {
+    onSuccess: () => {
+      navigation.goBack();
+    },
+  });
+  const onSubmit = useCallback(() => {
+    write(info);
+  }, [write, info]);
 
   useEffect(() => {
     navigation.setOptions({
@@ -45,16 +53,17 @@ function EditProfile() {
         <TextInput
           style={styles.InputContainer}
           placeholder="소개 문구를 입력해주세요."
-          maxLength={200}
-          onChangeText={setCount}
           autoFocus={true}
+          maxLength={200}
           defaultValue={brandData?.brandInfo}
+          value={info}
+          onChangeText={setInfo}
         />
         <View style={styles.InputTextCounter}>
-          <Text style={styles.CounterText}>{count.length}/200</Text>
+          <Text style={styles.CounterText}>{info.length}/200</Text>
         </View>
       </View>
-      <ScreenBottomButton name="저장" onPress={() => navigation.goBack()} />
+      <ScreenBottomButton name="저장" onPress={onSubmit} />
     </SafeAreaView>
   );
 }
