@@ -20,7 +20,7 @@ const colors = {
 };
 
 const fontFamily = {
-  Pretendard: 'PretendardVariable',
+  Pretendard: 'Apple SD Gothic Neo',
 };
 
 const fontSize = {
