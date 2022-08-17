@@ -5,7 +5,12 @@ import theme from '../../assets/theme';
 import {useNavigation} from '@react-navigation/native';
 import {RootStackNavigationProp} from '../../screens/types';
 
-function SearchResultBrandUserContainer({following, changeFollowing}) {
+interface Props {
+  following?: any;
+  changeFollowing?: any;
+}
+
+function SearchResultBrandUserContainer({following, changeFollowing}: Props) {
   const navigation = useNavigation<RootStackNavigationProp>();
 
   return (
