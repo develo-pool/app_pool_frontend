@@ -1,4 +1,4 @@
-import {View, StyleSheet, ScrollView, SafeAreaView, Image} from 'react-native';
+import {View, StyleSheet, ScrollView, SafeAreaView} from 'react-native';
 import React from 'react';
 import Feed from '../components/feed/Feed';
 import theme from '../assets/theme';
@@ -43,19 +43,19 @@ function FeedScreen() {
               create_date: string;
             }) => {
               // try {
-                return (
-                  <Feed
-                    key={messages.postId}
-                    postId={messages.postId}
-                    body={messages.body}
-                    messageLink={messages.messageLink}
-                    filePath={messages.filePath}
-                    writerDto={messages.writerDto}
-                    commentAble={messages.commentAble}
-                    isWriter={messages.isWriter}
-                    create_date={messages.create_date}
-                  />
-                );
+              return (
+                <Feed
+                  key={messages.postId}
+                  postId={messages.postId}
+                  body={messages.body}
+                  messageLink={messages.messageLink}
+                  filePath={messages.filePath}
+                  writerDto={messages.writerDto}
+                  commentAble={messages.commentAble}
+                  isWriter={messages.isWriter}
+                  create_date={messages.create_date}
+                />
+              );
               // } catch {
               //   return (
               //     <View style={styles.noMessageContainer}>
