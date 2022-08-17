@@ -66,7 +66,7 @@ function ProfileScreen() {
 const styles = StyleSheet.create({
   ProfileSection: {
     paddingTop: 24,
-    height: 204,
+    height: 180,
     backgroundColor: theme.colors.White,
     paddingHorizontal: 16,
   }, //프로필 영역

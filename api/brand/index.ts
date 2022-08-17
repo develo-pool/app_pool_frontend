@@ -19,3 +19,8 @@ export async function getBrand(params: string) {
   const response = await client.get<BrandResult>(`/brand/${params}`);
   return response.data;
 }
+
+export async function updateBrandInfo(params: string) {
+  const response = await client.post('/brand/create', params);
+  return response.data;
+}

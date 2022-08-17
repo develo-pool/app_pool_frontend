@@ -168,6 +168,8 @@ const styles = StyleSheet.create({
     marginLeft: -18,
     marginTop: 44,
     color: theme.colors.Poolblue,
+    backgroundColor: theme.colors.White,
+    borderRadius: 10,
   },
   ProfileInfo: {
     marginLeft: 16,

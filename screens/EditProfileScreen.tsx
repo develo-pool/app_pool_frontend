@@ -13,10 +13,16 @@ import ScreenBottomButton from './../components/ScreenBottomButton';
 import {useNavigation} from '@react-navigation/native';
 import {RootStackNavigationProp} from './types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import {useQuery, useMutation} from 'react-query';
+import {getBrand} from '../api/brand';
+import {updateBrandInfo} from '../api/brand';
 
 function EditProfile() {
   const [count, setCount] = useState('');
   const navigation = useNavigation<RootStackNavigationProp>();
+  const {data: brandData} = useQuery('getBrand', () => getBrand(''), {
+    refetchOnMount: 'always',
+  });
 
   useEffect(() => {
     navigation.setOptions({
@@ -41,6 +47,8 @@ function EditProfile() {
           placeholder="소개 문구를 입력해주세요."
           maxLength={200}
           onChangeText={setCount}
+          autoFocus={true}
+          defaultValue={brandData?.brandInfo}
         />
         <View style={styles.InputTextCounter}>
           <Text style={styles.CounterText}>{count.length}/200</Text>
@@ -63,7 +71,7 @@ const styles = StyleSheet.create({
     marginTop: 52,
     paddingHorizontal: 16,
     fontFamily: theme.fontFamily.Pretendard,
-    color: theme.colors.Grey30,
+    color: theme.colors.Grey60,
     fontSize: theme.fontSize.P2,
   },
   InputTextCounter: {
