@@ -5,6 +5,8 @@
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
+    "web": "cd web && webpack-dev-server",
+    "build": "cd web && webpack",
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
@@ -19,17 +21,20 @@
     "@react-navigation/native-stack": "^6.7.0",
     "@reduxjs/toolkit": "^1.8.3",
     "@types/axios": "^0.14.0",
+    "@types/body-parser": "^1.19.2",
     "@types/react-redux": "^7.1.24",
     "axios": "^0.27.2",
     "glob-parent": "^6.0.2",
     "jwt-decode": "^3.1.2",
     "react": "18.0.0",
+    "react-dom": "^18.2.0",
     "react-native": "0.69.1",
     "react-native-image-picker": "^4.8.4",
     "react-native-safe-area-context": "^4.3.1",
     "react-native-screens": "^3.15.0",
     "react-native-splash-screen": "^3.3.0",
     "react-native-vector-icons": "^9.2.0",
+    "react-native-web": "^0.18.7",
     "react-query": "3.39.1",
     "react-redux": "^8.0.2",
     "redux": "^4.2.0"
@@ -47,10 +52,17 @@
     "@typescript-eslint/parser": "^5.29.0",
     "babel-jest": "^26.6.3",
     "eslint": "^7.32.0",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.5.0",
     "jest": "^26.6.3",
     "metro-react-native-babel-preset": "^0.70.3",
+    "react-native-typescript-transformer": "^1.2.13",
     "react-test-renderer": "18.0.0",
-    "typescript": "^4.4.4"
+    "ts-loader": "^9.3.1",
+    "typescript": "^4.7.4",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.10.0"
   },
   "resolutions": {
     "@types/react": "^18"
