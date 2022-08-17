@@ -31,12 +31,13 @@ export type RootStackParamList = {
   EditProfile: undefined;
   FirebasePhoneAuth: undefined;
   FirebaseAuth: undefined;
+  FollowingList: undefined;
+  EditUser: undefined;
 };
 
 /* SettingStack */
 export type SettingStackParamList = {
   Setting: undefined;
-  FollowingList: undefined;
 };
 
 export type RootStackNavigationProp =

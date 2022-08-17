@@ -1,33 +1,58 @@
-import React from 'react';
-import {View, StyleSheet, TextInput, Text, SafeAreaView} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {
+  View,
+  StyleSheet,
+  TextInput,
+  Text,
+  SafeAreaView,
+  TouchableOpacity,
+} from 'react-native';
 import theme from '../assets/theme';
-import {useState} from 'react';
-
 import ProfileImageContainer from '../components/profile/ProfileImageContainer';
+import ScreenBottomButton from './../components/ScreenBottomButton';
+import {useNavigation} from '@react-navigation/native';
+import {RootStackNavigationProp} from './types';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 function EditProfile() {
   const [count, setCount] = useState('');
+  const navigation = useNavigation<RootStackNavigationProp>();
 
+  useEffect(() => {
+    navigation.setOptions({
+      headerBackVisible: false,
+      headerShadowVisible: false,
+      headerTitle: '',
+      headerLeft: () => (
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Icon name="arrow-back" size={24} color="black" />
+        </TouchableOpacity>
+      ),
+    });
+  }, [navigation]);
   return (
-    <SafeAreaView style={styles.Container}>
-      <View style={styles.UpperContainer}>
-        <ProfileImageContainer isEditable={false} />
+    <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
+        <View style={styles.UpperContainer}>
+          <ProfileImageContainer isEditable={false} />
+        </View>
+        <TextInput
+          style={styles.InputContainer}
+          placeholder="소개 문구를 입력해주세요."
+          maxLength={200}
+          onChangeText={setCount}
+        />
+        <View style={styles.InputTextCounter}>
+          <Text style={styles.CounterText}>{count.length}/200</Text>
+        </View>
       </View>
-      <TextInput
-        style={styles.InputContainer}
-        placeholder="소개 문구를 입력해주세요."
-        maxLength={200}
-        onChangeText={setCount}
-      />
-      <View style={styles.InputTextCounter}>
-        <Text style={styles.CounterText}>{count.length}/200</Text>
-      </View>
+      <ScreenBottomButton name="저장" onPress={() => navigation.goBack()} />
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  Container: {
+  container: {
     flex: 1,
     backgroundColor: theme.colors.White,
   },

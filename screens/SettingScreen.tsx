@@ -15,7 +15,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {useQuery} from 'react-query';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import theme from '../assets/theme';
-import {SettingStackNavigationProp} from './types';
+import {RootStackNavigationProp} from './types';
 import JoinBrandContainer from '../components/setting/JoinBrand';
 import SetArticle from './../components/setting/SetArticle';
 import {PADDING} from '../components/MainContainer';
@@ -30,7 +30,7 @@ import {getBrand} from '../api/brand';
 function SettingScreen() {
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
-  const navigation = useNavigation<SettingStackNavigationProp>();
+  const navigation = useNavigation<RootStackNavigationProp>();
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.auth.user);
   const {data: userData} = useQuery('getUserResult', () => getUser(), {
@@ -115,7 +115,10 @@ function SettingScreen() {
                 value={isEnabled}
               />
             </View>
-            <SetArticle title="회원정보 수정" />
+            <SetArticle
+              title="회원정보 수정"
+              onPress={() => navigation.navigate('EditUser')}
+            />
             <SetArticle
               title="이용약관"
               onPress={() =>
