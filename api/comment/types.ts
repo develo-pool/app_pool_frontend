@@ -1,10 +1,3 @@
-// export interface Message {
-//   title: string;
-//   body: string;
-//   messageLink: string;
-//   multipartFiles: string;
-// }
-
 export interface User {
   username: string;
   nickName: string;
