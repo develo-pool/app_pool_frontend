@@ -3,7 +3,7 @@ import {StyleSheet, Text, View} from 'react-native';
 import theme from '../../assets/theme';
 
 interface Props {
-  msgDate: number;
+  msgDate: string;
 }
 
 function NowDate({msgDate}: Props) {
