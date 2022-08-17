@@ -7,6 +7,6 @@ export async function getMessage(params: number) {
 }
 
 export async function getAllMessage() {
-  const response = await client.get<Message>(`/messages?cursor=0`);
+  const response = await client.get<Message[]>('/messages?cursor=0');
   return response.data;
 }
