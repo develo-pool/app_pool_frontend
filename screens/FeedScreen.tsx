@@ -27,7 +27,7 @@ function FeedScreen() {
         {/* <Pressable onPress={() => refetchGetUser()}>
           <Text>요청</Text>
         </Pressable> */}
-        <ScrollView showsVerticalScrollIndicator={false} style={styles.scroll}>
+        <ScrollView showsVerticalScrollIndicator={false}>
           <Hello name={userData?.nickName} />
           <NowDate msgDate={yymmdd} />
 
@@ -48,7 +48,7 @@ function FeedScreen() {
           })}
           <View
             style={
-              allMessageData?.length == 0
+              allMessageData?.length === 0
                 ? styles.noMessageContainer
                 : styles.isMessageContainer
             }>
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     backgroundColor: theme.colors.White,
     paddingTop: 30,
-    height: '100%'
+    height: '100%',
   },
   noMessage: {
     width: 151,
