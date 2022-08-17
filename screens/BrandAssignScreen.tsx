@@ -17,6 +17,7 @@ import {authorize} from '../slices/auth';
 import authStorage from '../storages/authStorage';
 import {RootStackNavigationProp, RootStackParamList} from './types';
 import {createAlert, deleteAlert} from '../slices/alert';
+import {Asset} from 'react-native-image-picker';
 
 const TOTAL = 3;
 type BrandAssignScreenRouteProp = RouteProp<RootStackParamList, 'BrandAssign'>;
@@ -56,7 +57,7 @@ export interface BrandAssignProps {
   brandInfo: string;
   brandAgreement: boolean;
   brandCategory: string[];
-  brandProfileImage: {uri: string; type: string; name: string} | undefined;
+  brandProfileImage: Asset | undefined;
   isExist: boolean | undefined;
 }
 
@@ -99,9 +100,9 @@ function BrandAssignScreen() {
     const formData = new FormData();
     formData.append('brandUsername', form.brandUsername);
     formData.append('brandInfo', form.brandInfo);
-    formData.append('multipartFile', form.brandProfileImage);
-    formData.append('brandCategory', form.brandCategory);
-    formData.append('brandAgreement', form.brandAgreement);
+    formData.append('multipartFile', form.brandProfileImage as Blob);
+    formData.append('brandCategory', JSON.stringify(form.brandCategory));
+    formData.append('brandAgreement', JSON.stringify(form.brandAgreement));
     assign(formData);
   }, [assign, form]);
 
