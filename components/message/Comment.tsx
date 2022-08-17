@@ -2,8 +2,14 @@ import React from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
 import theme from '../../assets/theme';
 
+interface Props {
+  text?: string;
+  userName?: string;
+  userProfileImg?: string;
+  writenCommentTime?: string;
+}
 // 사용 시에는 user 프롭스를 아래에 넣어주세용
-function Comment({text, userName, userProfileImg, writenCommentTime}) {
+function Comment({text, userName, userProfileImg, writenCommentTime}: Props) {
   return (
     <View style={styles.commentBox}>
       <View style={styles.commentArea}>
