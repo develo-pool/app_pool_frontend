@@ -12,9 +12,11 @@ function DetailMessageContainer(detailmessage: Message) {
   return (
     <View style={styles.detailMessageContainer}>
       <MessageHeader
-        brandUsername={detailmessage.writerDto.brandUserInfoDto.brandUsername}
+        brandUsername={
+          detailmessage?.writerDto?.brandUserInfoDto?.brandUsername
+        }
         brandProfileImage={
-          detailmessage.writerDto.brandUserInfoDto.brandProfileImage
+          detailmessage?.writerDto?.brandUserInfoDto?.brandProfileImage
         }
         create_date={detailmessage.create_date}
       />

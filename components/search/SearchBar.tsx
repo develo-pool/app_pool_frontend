@@ -3,7 +3,13 @@ import {View, StyleSheet, TextInput, TouchableOpacity} from 'react-native';
 import theme from '../../assets/theme';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-function SearchBar({searchText, onChangeText, DoSearching}) {
+interface Props {
+  searchText?: string;
+  onChangeText?: any;
+  DoSearching?: any;
+}
+
+function SearchBar({searchText, onChangeText, DoSearching}: Props) {
   return (
     <View style={styles.container}>
       <View style={styles.searchBar}>

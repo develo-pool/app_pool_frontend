@@ -5,23 +5,12 @@ import FollowButton from '../profile/FollowButton';
 import {useNavigation} from '@react-navigation/native';
 import {RootStackNavigationProp} from '../../screens/types';
 
-// Props까지 생각해서 넣어주려다가 머리가 팡팡할듯하여 일단은 넘기도록 하겠읍니다.
+interface Props {
+  following?: any;
+  changeFollowing?: any;
+}
 
-// interface User {
-//     name: string;
-//     profileImg: string;
-//     intro: string;
-//     follower: number;
-//   }
-
-//   const hoon: User = {
-//     name: 'hoon',
-//     profileImg: 'https://reactnative.dev/img/tiny_logo.png',
-//     intro: '훈훈훈릠릠릠오오오늘늘늘수수수민민민화화화이이이팅팅팅',
-//     follower: 300,
-//   };
-
-function RecommandBrandUserContainer({following, changeFollowing}) {
+function RecommandBrandUserContainer({following, changeFollowing}: Props) {
   const navigation = useNavigation<RootStackNavigationProp>();
 
   return (

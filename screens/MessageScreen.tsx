@@ -25,8 +25,8 @@ const tester: User = {
 
 function MessageScreen() {
   const [commentText, setCommentText] = useState('');
-  const onChangeText = payload => setCommentText(payload);
-  const [commentList, setCommentList] = useState({});
+  const onChangeText = (payload: string) => setCommentText(payload);
+  const [commentList, setCommentList]: object[] | any = useState({});
   const route = useRoute<MessageScreenRouteProp>();
   const detail = route.params.detail;
   const navigation = useNavigation<RootStackNavigationProp>();
