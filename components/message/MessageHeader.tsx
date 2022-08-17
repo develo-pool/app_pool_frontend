@@ -3,9 +3,9 @@ import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
 import theme from '../../assets/theme';
 
 interface Props {
-  brandUsername: string;
-  brandProfileImage: string;
-  create_date: string;
+  brandUsername?: string;
+  brandProfileImage?: string;
+  create_date?: string;
 }
 
 function MessageHeader(message: Props) {

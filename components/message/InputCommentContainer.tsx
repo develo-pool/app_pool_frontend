@@ -2,12 +2,19 @@ import React from 'react';
 import {StyleSheet, TextInput, View} from 'react-native';
 import theme from '../../assets/theme';
 
+interface Props {
+  commentText?: string;
+  onChangeText?: any;
+  isComment?: boolean;
+  addComments?: any;
+}
+
 function InputCommentContainer({
   commentText,
   onChangeText,
   isComment,
   addComments,
-}) {
+}: Props) {
   return (
     <View style={styles.commentInputContainer}>
       <TextInput
