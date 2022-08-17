@@ -16,10 +16,10 @@ function FeedScreen() {
   const {data: allMessageData} = useQuery('getAllMessage', () =>
     getAllMessage(),
   );
-  const today = new Date(Date.now());
-  const yy = today.getFullYear().toString().substring(2, 4);
-  const mm = today.getMonth();
-  const dd = today.getDay();
+  const today = new Date().toLocaleDateString().replace(/\./g, '');
+  const yy = today.substring(6, 8);
+  const dd = today.substring(3, 5);
+  const mm = today.substring(0, 2);
   const yymmdd = yy + '년 ' + mm + '월 ' + dd + '일';
   return (
     <SafeAreaView>
@@ -30,7 +30,6 @@ function FeedScreen() {
         <ScrollView showsVerticalScrollIndicator={false}>
           <Hello name={userData?.nickName} />
           <NowDate msgDate={yymmdd} />
-
           {allMessageData?.map(messages => {
             return (
               <Feed
