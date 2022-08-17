@@ -2,12 +2,16 @@ import React from 'react';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import theme from '../../assets/theme';
+import {useNavigation} from '@react-navigation/native';
+import {RootStackNavigationProp} from '../../screens/types';
 
 interface Props {
   isComment: boolean;
+  postId: number;
 }
 
-function CommentFocusButton({isComment}: Props) {
+function CommentFocusButton({isComment, postId}: Props) {
+  const navigation = useNavigation<RootStackNavigationProp>();
   return (
     // 댓글 작성 여부에 따라 메시지스크린 -> 입력창 포커스를 잡아주는 컴포넌트
     <View style={styles.isComment}>
@@ -20,7 +24,9 @@ function CommentFocusButton({isComment}: Props) {
       {isComment ? (
         <Text style={styles.completeWord}>답장완료</Text>
       ) : (
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() =>
+          navigation.navigate('Message', {detail: postId})
+        }>
           <Text style={styles.goToCommentWord}>답장하기</Text>
         </TouchableOpacity>
       )}

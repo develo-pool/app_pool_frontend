@@ -46,7 +46,7 @@ function Feed(message: Message) {
           )}
           <View style={styles.feedBottom}>
             <Text style={styles.msgDate}>{message.create_date}</Text>
-            <CommentFocusButton isComment={message.commentAble} />
+            <CommentFocusButton isComment={message.commentAble} postId={message.postId} />
           </View>
         </View>
       </TouchableOpacity>
