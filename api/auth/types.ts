@@ -3,12 +3,12 @@ import {AxiosError} from 'axios';
 export interface User {
   username: string;
   nickName: string;
-  role: 'USER' | 'BRAND_USER' | string;
+  role: 'USER' | 'BRAND_USER' | 'WAITING' | string;
 }
 
 export interface GetUserResult extends User {
   poolUserId: number;
-  userStatus: 'USER' | 'BRAND_USER' | string;
+  userStatus: 'USER' | 'BRAND_USER' | 'WAITING' | string;
   follow: boolean;
   userFollowerCount: number;
   userFollowingCount: number;
@@ -23,7 +23,7 @@ export interface AuthResult {
 export interface AccessToken {
   exp: number;
   nickName: string;
-  role: 'USER' | 'BRAND_USER' | string;
+  role: 'USER' | 'BRAND_USER' | 'WAITING' | string;
   sub: string;
   username: string;
 }
