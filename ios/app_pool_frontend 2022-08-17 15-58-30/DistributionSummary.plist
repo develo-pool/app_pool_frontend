@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>app_pool_frontend.ipa</key>
+	<array>
+		<dict>
+			<key>architectures</key>
+			<array>
+				<string>arm64</string>
+			</array>
+			<key>bitcode</key>
+			<true/>
+			<key>buildNumber</key>
+			<string>1</string>
+			<key>certificate</key>
+			<dict>
+				<key>SHA1</key>
+				<string>D4036EBC57504F852E1B5B4E6487A3F5A9680B8B</string>
+				<key>dateExpires</key>
+				<string>2023/08/17</string>
+				<key>type</key>
+				<string>Cloud Managed Apple Distribution</string>
+			</dict>
+			<key>embeddedBinaries</key>
+			<array>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>arm64</string>
+					</array>
+					<key>bitcode</key>
+					<true/>
+					<key>buildNumber</key>
+					<string>1</string>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>D4036EBC57504F852E1B5B4E6487A3F5A9680B8B</string>
+						<key>dateExpires</key>
+						<string>2023/08/17</string>
+						<key>type</key>
+						<string>Cloud Managed Apple Distribution</string>
+					</dict>
+					<key>entitlements</key>
+					<dict>
+						<key>application-identifier</key>
+						<string>44RX94558K.org.reactjs.native.app-pool-frontend</string>
+						<key>beta-reports-active</key>
+						<true/>
+						<key>com.apple.developer.team-identifier</key>
+						<string>44RX94558K</string>
+						<key>get-task-allow</key>
+						<false/>
+					</dict>
+					<key>name</key>
+					<string>ImageNotification.appex</string>
+					<key>profile</key>
+					<dict>
+						<key>UUID</key>
+						<string>93c3816c-5a19-4d0e-80ed-581691cf7a16</string>
+						<key>dateExpires</key>
+						<string>2023/08/17</string>
+						<key>name</key>
+						<string>iOS Team Store Provisioning Profile: org.reactjs.native.app-pool-frontend</string>
+					</dict>
+					<key>symbols</key>
+					<true/>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>44RX94558K</string>
+						<key>name</key>
+						<string>Jintae Song</string>
+					</dict>
+					<key>versionNumber</key>
+					<string>1.0</string>
+				</dict>
+			</array>
+			<key>entitlements</key>
+			<dict>
+				<key>application-identifier</key>
+				<string>44RX94558K.org.reactjs.native.app-pool-frontend</string>
+				<key>aps-environment</key>
+				<string>production</string>
+				<key>beta-reports-active</key>
+				<true/>
+				<key>com.apple.developer.team-identifier</key>
+				<string>44RX94558K</string>
+				<key>get-task-allow</key>
+				<false/>
+			</dict>
+			<key>name</key>
+			<string>app_pool_frontend.app</string>
+			<key>profile</key>
+			<dict>
+				<key>UUID</key>
+				<string>93c3816c-5a19-4d0e-80ed-581691cf7a16</string>
+				<key>dateExpires</key>
+				<string>2023/08/17</string>
+				<key>name</key>
+				<string>iOS Team Store Provisioning Profile: org.reactjs.native.app-pool-frontend</string>
+			</dict>
+			<key>symbols</key>
+			<true/>
+			<key>team</key>
+			<dict>
+				<key>id</key>
+				<string>44RX94558K</string>
+				<key>name</key>
+				<string>Jintae Song</string>
+			</dict>
+			<key>versionNumber</key>
+			<string>1.0</string>
+		</dict>
+	</array>
+</dict>
+</plist>
