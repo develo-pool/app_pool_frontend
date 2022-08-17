@@ -1,4 +1,4 @@
-import {View, StyleSheet, ScrollView, SafeAreaView} from 'react-native';
+import {View, StyleSheet, ScrollView, SafeAreaView, Image} from 'react-native';
 import React from 'react';
 import Feed from '../components/feed/Feed';
 import theme from '../assets/theme';
@@ -31,36 +31,45 @@ function FeedScreen() {
         <ScrollView showsVerticalScrollIndicator={false}>
           <Hello name={userData?.nickName} />
           <NowDate msgDate={yymmdd} />
-          {allMessageData?.map(messages => {
-            // try {
-            return (
-              <Feed
-                key={messages.postId}
-                postId={messages.postId}
-                body={messages.body}
-                messageLink={messages.messageLink}
-                filePath={messages.filePath}
-                writerDto={messages.writerDto}
-                commentAble={messages.commentAble}
-                isWriter={messages.isWriter}
-                create_date={messages.create_date}
-              />
-            );
-            // } catch {
-            //   return (
-            //     <View style={styles.noMessageContainer}>
-            //       <Image
-            //         style={styles.noMessage}
-            //         // source={{
-            //         //   uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/220px-React-icon.svg.png',
-            //         // }}
-            //         // source={require('../assets/NoMessage.png')}
-            //         resizeMode="contain"
-            //       />
-            //     </View>
-            //   );
-            // }
-          })}
+
+          {allMessageData?.map(
+            (messages: {
+              postId: number;
+              body: string;
+              messageLink: string;
+              filePath: string;
+              writerDto: object | undefined;
+              commentAble: boolean;
+              isWriter: boolean;
+              create_date: string;
+            }) => {
+              try {
+                return (
+                  <Feed
+                    key={messages.postId}
+                    postId={messages.postId}
+                    body={messages.body}
+                    messageLink={messages.messageLink}
+                    filePath={messages.filePath}
+                    writerDto={messages.writerDto}
+                    commentAble={messages.commentAble}
+                    isWriter={messages.isWriter}
+                    create_date={messages.create_date}
+                  />
+                );
+              } catch {
+                return (
+                  <View style={styles.noMessageContainer}>
+                    <Image
+                      style={styles.noMessage}
+                      source={require('../assets/NoMessage.png')}
+                      resizeMode="contain"
+                    />
+                  </View>
+                );
+              }
+            },
+          )}
         </ScrollView>
       </View>
     </SafeAreaView>
