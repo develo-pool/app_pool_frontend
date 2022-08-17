@@ -12,9 +12,6 @@ export async function getAllComment(params: number) {
 }
 
 export async function createComment(params: CreateComment) {
-  const response = await client.post(
-    `/comments/${params.messageId}`,
-    params.body,
-  );
+  const response = await client.post(`/comments/${params.messageId}`, params);
   return response.data;
 }

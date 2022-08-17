@@ -60,12 +60,13 @@ function MessageScreen() {
     onError: () => {},
   });
 
-  const addComments = async () => {
+  const onPress = async () => {
     if (commentText === '') {
       return;
     }
+    writeComment({messageId:4, body:commentText});
     setCommentText('');
-  };
+  }
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -119,7 +120,7 @@ function MessageScreen() {
               commentText={commentText}
               onChangeText={onChangeText}
               isComment={commentData ? false : true}
-              addComments={addComments}
+              addComments={onPress}
             />
           </View>
         )}
