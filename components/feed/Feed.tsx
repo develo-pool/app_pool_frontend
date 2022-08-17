@@ -19,8 +19,8 @@ function Feed(message: Message) {
       {/* 메시지헤더는 메시지 MessageScreen에 한해 다른 UI를 출력합니다 */}
       <TouchableOpacity>
         <MessageHeader
-          username={message.writerDto.brandUserInfoDto.brandUsername}
-          profileImg={message.writerDto.brandUserInfoDto.brandProfileImage}
+          username={message?.writerDto?.brandUserInfoDto?.brandUsername}
+          profileImg={message?.writerDto?.brandUserInfoDto?.brandProfileImage}
         />
       </TouchableOpacity>
       <TouchableOpacity

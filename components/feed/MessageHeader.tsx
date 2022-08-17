@@ -5,8 +5,8 @@ import {useNavigation} from '@react-navigation/native';
 import {RootStackNavigationProp} from '../../screens/types';
 
 interface Props {
-  username: string;
-  profileImg: string;
+  username?: string;
+  profileImg?: string;
 }
 
 function MessageHeader({username, profileImg}: Props) {

@@ -3,7 +3,7 @@ import {StyleSheet, Text, View} from 'react-native';
 import theme from '../../assets/theme';
 
 interface Props {
-  name: string;
+  name?: string;
 }
 
 function Hello({name}: Props) {

@@ -15,7 +15,22 @@ export interface Message {
   body?: string;
   messageLink?: string;
   filePath?: string;
-  writerDto: object | undefined;
+  writerDto?: {
+    poolUserId?: number;
+    username?: string;
+    nickName?: string;
+    userStatus?: string;
+    follow?: boolean;
+    userFollowerCount?: number;
+    userFollowingCount?: number;
+    brandUserInfoDto?: {
+      brandUsername?: string;
+      brandInfo?: string;
+      brandProfileImage?: string;
+      userInfoDto?: string;
+      poolUserId?: string;
+    };
+  };
   commentAble: boolean;
   isWriter: boolean;
   create_date: string;
