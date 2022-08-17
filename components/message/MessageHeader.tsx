@@ -3,30 +3,26 @@ import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
 import theme from '../../assets/theme';
 
 interface Props {
-  user: User;
-  msgDate: number;
+  brandUsername: string;
+  brandProfileImage: string;
+  create_date: string;
 }
 
-interface User {
-  name: string;
-  profileImg: string;
-}
-
-function MessageHeader({user, msgDate}: Props) {
+function MessageHeader(message: Props) {
   return (
     // 댓글 작성 여부에 따라 메시지스크린 -> 입력창 포커스를 잡아주는 컴포넌트
     <TouchableOpacity style={styles.messageHeader}>
       <View style={styles.detailHeader}>
         <Image
           style={styles.authorProfileImg}
-          source={{uri: `${user.profileImg}`}}
+          source={{uri: `${message.brandProfileImage}`}}
         />
         <View style={styles.msgHeader}>
           <View style={styles.verticalCenter}>
-            <Text style={styles.msgSmallText}>{user.name}</Text>
+            <Text style={styles.msgSmallText}>{message.brandUsername}</Text>
           </View>
           <View style={styles.smallVerticalCenter}>
-            <Text style={styles.msgDate}>{msgDate}</Text>
+            <Text style={styles.msgDate}>{message.create_date}</Text>
           </View>
         </View>
       </View>

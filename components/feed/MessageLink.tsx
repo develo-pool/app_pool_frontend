@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, Linking} from 'react-native';
 import theme from '../../assets/theme';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -10,7 +10,9 @@ interface Props {
 function MessageLink({messageLink}: Props) {
   return (
     // 댓글 작성 여부에 따라 메시지스크린 -> 입력창 포커스를 잡아주는 컴포넌트
-    <TouchableOpacity style={styles.linkContainer}>
+    <TouchableOpacity
+      style={styles.linkContainer}
+      onPress={() => Linking.openURL('https://' + `${messageLink}`)}>
       <Icon
         name="link"
         size={24}

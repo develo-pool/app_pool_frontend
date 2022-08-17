@@ -18,7 +18,7 @@ export type RootStackParamList = {
   SignUp: {current: number};
   Password: {current: number};
   Guide: undefined;
-  Message: undefined;
+  Message: {detail: number};
   CreateMessage: undefined;
   WelcomeMessage: undefined;
   Preview: undefined;

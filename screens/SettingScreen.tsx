@@ -43,7 +43,7 @@ function SettingScreen() {
   const onLogout = () => {
     authStorage.clear();
     dispatch(logout());
-    navigation.push('Welcome');
+    navigation.reset({routes: [{name: 'Welcome'}]});
   };
 
   return (

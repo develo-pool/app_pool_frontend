@@ -5,17 +5,11 @@ import {useNavigation} from '@react-navigation/native';
 import {RootStackNavigationProp} from '../../screens/types';
 
 interface Props {
-  user: User;
-  isDetailMessage: boolean;
-  msgDate: number;
-}
-
-interface User {
-  name: string;
+  username: string;
   profileImg: string;
 }
 
-function MessageHeader({user}: Props) {
+function MessageHeader({username, profileImg}: Props) {
   const navigation = useNavigation<RootStackNavigationProp>();
 
   return (
@@ -27,11 +21,11 @@ function MessageHeader({user}: Props) {
         <View style={styles.feedOwner}>
           <Image
             style={styles.feedOwnerProfileImg}
-            source={{uri: `${user.profileImg}`}}
+            source={{uri: `${profileImg}`}}
             resizeMode="cover"
           />
           <View style={styles.usernameContainer}>
-            <Text style={styles.feedOwnerUsername}>{user.name}</Text>
+            <Text style={styles.feedOwnerUsername}>{username}</Text>
           </View>
         </View>
       </View>
