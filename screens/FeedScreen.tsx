@@ -21,73 +21,69 @@ function FeedScreen() {
   const mm = today.getMonth();
   const dd = today.getDay();
   const yymmdd = yy + '년 ' + mm + '월 ' + dd + '일';
-
   return (
     <SafeAreaView>
       <View style={styles.container}>
         {/* <Pressable onPress={() => refetchGetUser()}>
           <Text>요청</Text>
         </Pressable> */}
-        <ScrollView showsVerticalScrollIndicator={false}>
+        <ScrollView showsVerticalScrollIndicator={false} style={styles.scroll}>
           <Hello name={userData?.nickName} />
           <NowDate msgDate={yymmdd} />
 
-          {allMessageData?.map(
-            (messages: {
-              postId: number;
-              body: string;
-              messageLink: string;
-              filePath: string;
-              writerDto: object | undefined;
-              commentAble: boolean;
-              isWriter: boolean;
-              create_date: string;
-            }) => {
-              try {
-                return (
-                  <Feed
-                    key={messages.postId}
-                    postId={messages.postId}
-                    body={messages.body}
-                    messageLink={messages.messageLink}
-                    filePath={messages.filePath}
-                    writerDto={messages.writerDto}
-                    commentAble={messages.commentAble}
-                    isWriter={messages.isWriter}
-                    create_date={messages.create_date}
-                  />
-                );
-              } catch {
-                return (
-                  <View style={styles.noMessageContainer}>
-                    <Image
-                      style={styles.noMessage}
-                      source={require('../assets/NoMessage.png')}
-                      resizeMode="contain"
-                    />
-                  </View>
-                );
-              }
-            },
-          )}
+          {allMessageData?.map(messages => {
+            return (
+              <Feed
+                key={messages.postId}
+                postId={messages.postId}
+                body={messages.body}
+                messageLink={messages.messageLink}
+                filePath={messages.filePath}
+                writerDto={messages.writerDto}
+                commentAble={messages.commentAble}
+                isWriter={messages.isWriter}
+                create_date={messages.create_date}
+              />
+            );
+          })}
+          <View
+            style={
+              allMessageData?.length == 0
+                ? styles.noMessageContainer
+                : styles.isMessageContainer
+            }>
+            <Image
+              style={styles.noMessage}
+              source={require('../assets/NoMessage.png')}
+              resizeMode="contain"
+            />
+          </View>
         </ScrollView>
       </View>
     </SafeAreaView>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 16,
     backgroundColor: theme.colors.White,
     paddingTop: 30,
+    height: '100%'
   },
   noMessage: {
     width: 151,
     height: 96,
   },
   noMessageContainer: {
-    backgroundColor: theme.colors.White,
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    // API 붙이고 화면 너비 높이 계산해서 중앙으로...!
+    marginTop: 200,
+  },
+  isMessageContainer: {
+    width: 0,
+    height: 0,
   },
 });
 
