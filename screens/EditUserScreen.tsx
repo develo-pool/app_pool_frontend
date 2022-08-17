@@ -20,15 +20,15 @@ export interface EditUserProps {
 }
 
 function EditUserScreen() {
-//     {
-//   onChangeText,
-//   form,
-//   setForm,
-// }: {
-//   onChangeText: any;
-//   form: EditUserProps;
-//   setForm: any;
-// }
+  //     {
+  //   onChangeText,
+  //   form,
+  //   setForm,
+  // }: {
+  //   onChangeText: any;
+  //   form: EditUserProps;
+  //   setForm: any;
+  // }
   //   const {refetch: refetchNickname, isLoading: nickNameLoading} = useQuery(
   //     ['nickNameExist', form.nickName],
   //     () => {
