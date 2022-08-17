@@ -15,6 +15,7 @@
 		2D4EED3A13E2588E576F0A92 /* libPods-ImageNotification.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 060D16FC9A68D60B92D4040A /* libPods-ImageNotification.a */; };
 		7699B88040F8A987B510C191 /* libPods-app_pool_frontend-app_pool_frontendTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-app_pool_frontend-app_pool_frontendTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		D582F9B728ACCDCD00B46FCB /* AppIcon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D582F9B628ACCDCD00B46FCB /* AppIcon.xcassets */; };
 		D5C20B3F289AA008001F036B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D5C20B3E289AA008001F036B /* GoogleService-Info.plist */; };
 		D5D85435289D12AA00E2E7D0 /* NotificationService.m in Sources */ = {isa = PBXBuildFile; fileRef = D5D85434289D12AA00E2E7D0 /* NotificationService.m */; };
 		D5D85439289D12AA00E2E7D0 /* ImageNotification.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D5D85431289D12A900E2E7D0 /* ImageNotification.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -74,6 +75,7 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = app_pool_frontend/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		839D60C583A04A7CAAE2B036 /* PretendardVariable.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = PretendardVariable.ttf; path = ../assets/fonts/PretendardVariable.ttf; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-app_pool_frontend-app_pool_frontendTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-app_pool_frontend-app_pool_frontendTests.release.xcconfig"; path = "Target Support Files/Pods-app_pool_frontend-app_pool_frontendTests/Pods-app_pool_frontend-app_pool_frontendTests.release.xcconfig"; sourceTree = "<group>"; };
+		D582F9B628ACCDCD00B46FCB /* AppIcon.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AppIcon.xcassets; sourceTree = "<group>"; };
 		D5C20B3E289AA008001F036B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D5D8542C289CB84900E2E7D0 /* app_pool_frontend.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = app_pool_frontend.entitlements; path = app_pool_frontend/app_pool_frontend.entitlements; sourceTree = "<group>"; };
 		D5D85431289D12A900E2E7D0 /* ImageNotification.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ImageNotification.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -172,6 +174,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				D582F9B628ACCDCD00B46FCB /* AppIcon.xcassets */,
 				D5C20B3E289AA008001F036B /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* app_pool_frontend */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -341,6 +344,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D582F9B728ACCDCD00B46FCB /* AppIcon.xcassets in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				D5C20B3F289AA008001F036B /* GoogleService-Info.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
@@ -652,12 +656,14 @@
 			baseConfigurationReference = 3B4392A12AC88292D35C810B /* Pods-app_pool_frontend.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = app_pool_frontend/app_pool_frontend.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 44RX94558K;
+				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = NO;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = app_pool_frontend/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -683,12 +689,14 @@
 			baseConfigurationReference = 5709B34CF0A7D63546082F79 /* Pods-app_pool_frontend.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = app_pool_frontend/app_pool_frontend.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 44RX94558K;
+				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = NO;
 				INFOPLIST_FILE = app_pool_frontend/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -859,6 +867,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 44RX94558K;
+				ENABLE_ON_DEMAND_RESOURCES = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ImageNotification/Info.plist;
@@ -873,7 +882,7 @@
 				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.app-pool-frontend";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.app-pool-frontend.ImageNotificationServiceExtension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
@@ -898,6 +907,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 44RX94558K;
+				ENABLE_ON_DEMAND_RESOURCES = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ImageNotification/Info.plist;
@@ -911,7 +921,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.app-pool-frontend";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.app-pool-frontend.ImageNotificationServiceExtension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
