@@ -29,3 +29,9 @@ export async function getBrandProfile(params: number) {
   const response = await client.get<BrandProfileResult>(`/brand/${params}`);
   return response.data;
 }
+
+export async function getAllBrand() {
+  const response = await client.get<BrandResult[]>('/brands?cursor=0');
+  return response.data;
+}
+

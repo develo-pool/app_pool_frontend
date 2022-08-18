@@ -6,20 +6,9 @@ import RecommandSubTitle from '../components/search/RecommandSubTitle';
 import SearchResultBrandUserContainer from '../components/search/SearchResultBrandUserContainer';
 import SearchResultSubTitle from '../components/search/SearchResultSubTitle';
 import theme from '../assets/theme';
-
-// interface User {
-//   name: string;
-//   profileImg: string;
-//   intro: string;
-//   follower: number;
-// }
-
-// const hoon: User = {
-//   name: 'hoon',
-//   profileImg: 'https://reactnative.dev/img/tiny_logo.png',
-//   intro: ''
-//   follower: 300,
-// };
+import {getUser} from '../api/auth';
+import {useQuery} from 'react-query';
+import {getAllBrand} from '../api/brand/index';
 
 function SearchScreen() {
   const [following, setFollowing] = useState(false);
@@ -29,6 +18,11 @@ function SearchScreen() {
   const [isSearching, setIsSearching] = useState(false);
   const DoSearching = () =>
     searchText !== '' ? setIsSearching(true) : setIsSearching(false);
+  const {data: userData} = useQuery('getUserResult', () => getUser(), {
+    refetchOnMount: 'always',
+  });
+  const {data: allBrandData} = useQuery('getAllBrand', () => getAllBrand(),);
+  console.log(userData)
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView style={styles.scroll}>
