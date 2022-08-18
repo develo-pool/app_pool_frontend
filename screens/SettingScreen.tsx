@@ -49,7 +49,7 @@ function SettingScreen() {
     {
       user?.role === 'BRAND_USER' && refetch();
     }
-  }, []);
+  }, [user]);
 
   return (
     <>
