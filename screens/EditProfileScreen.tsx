@@ -29,8 +29,9 @@ function EditProfile() {
     },
   });
   const onSubmit = useCallback(() => {
+    console.log(info);
     write(info);
-  }, [write, info]);
+  }, []);
 
   useEffect(() => {
     navigation.setOptions({
@@ -56,7 +57,6 @@ function EditProfile() {
           autoFocus={true}
           maxLength={200}
           defaultValue={brandData?.brandInfo}
-          value={info}
           onChangeText={setInfo}
         />
         <View style={styles.InputTextCounter}>

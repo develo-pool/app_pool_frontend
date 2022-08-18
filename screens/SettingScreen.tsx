@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Text,
   View,
@@ -37,14 +37,17 @@ function SettingScreen() {
     refetchOnMount: 'always',
   });
   const id = '';
-  const {data: brandData} = useQuery('getBrand', () => getBrand(id), {
-    refetchOnMount: 'always',
+  const {data: brandData, refetch} = useQuery('getBrand', () => getBrand(id), {
+    enabled: false,
   });
   const onLogout = () => {
     authStorage.clear();
     dispatch(logout());
     navigation.reset({routes: [{name: 'Welcome'}]});
   };
+  useEffect(() => {
+    user?.role === 'BRAND_USER' && refetch();
+  }, []);
 
   return (
     <>

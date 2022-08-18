@@ -19,7 +19,11 @@ function ProfileScreen() {
   });
   const {data: brandData} = useQuery('getBrand', () => getBrand(''), {
     refetchOnMount: 'always',
+    enabled: false,
   });
+  // useEffect(() => {
+  //   userData?.userStatus === 'BRAND_USER' && refetch();
+  // }, []);
 
   return (
     <SafeAreaView>
@@ -113,19 +117,19 @@ const styles = StyleSheet.create({
     transform: [{rotate: '270deg'}],
   },
   IntroContainer: {
-    alignItems: 'center',
+    // alignItems: 'center',
     justifyContent: 'center',
-  }, //프로필 내 소개글이 담긴 영역
+  },
   IntroText: {
     fontSize: theme.fontSize.P2,
     color: theme.colors.Grey50,
     fontWeight: theme.fontWeight.Light,
-    paddingHorizontal: 4,
-  }, //소개글 텍스트
+    paddingTop: 4,
+  },
   Message: {
     alignItems: 'center',
     paddingHorizontal: 16,
-  }, //프로필 아래 메시지가 쌓이는 메시지 영역
+  },
   MessageNull: {
     marginTop: 32,
     fontSize: theme.fontSize.P1,
