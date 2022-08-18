@@ -11,3 +11,7 @@ export interface BrandAssignParams {
   brandCategory: string[];
   brandProfileImage: any;
 }
+
+export interface UpdateBrandInfoParams {
+  brandInfo: string;
+}

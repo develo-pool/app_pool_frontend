@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {
   View,
   StyleSheet,
@@ -13,10 +13,25 @@ import ScreenBottomButton from './../components/ScreenBottomButton';
 import {useNavigation} from '@react-navigation/native';
 import {RootStackNavigationProp} from './types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import {useQuery, useMutation} from 'react-query';
+import {getBrand} from '../api/brand';
+import {updateBrandInfo} from '../api/brand';
 
 function EditProfile() {
-  const [count, setCount] = useState('');
+  const [info, setInfo] = useState('');
   const navigation = useNavigation<RootStackNavigationProp>();
+  const {data: brandData} = useQuery('getBrand', () => getBrand(''), {
+    refetchOnMount: 'always',
+  });
+  const {mutate: write} = useMutation(updateBrandInfo, {
+    onSuccess: () => {
+      navigation.goBack();
+    },
+  });
+  const onSubmit = useCallback(() => {
+    console.log(info);
+    write(info);
+  }, [write, info]);
 
   useEffect(() => {
     navigation.setOptions({
@@ -39,14 +54,16 @@ function EditProfile() {
         <TextInput
           style={styles.InputContainer}
           placeholder="소개 문구를 입력해주세요."
+          autoFocus={true}
           maxLength={200}
-          onChangeText={setCount}
+          defaultValue={brandData?.brandInfo}
+          onChangeText={setInfo}
         />
         <View style={styles.InputTextCounter}>
-          <Text style={styles.CounterText}>{count.length}/200</Text>
+          <Text style={styles.CounterText}>{info.length}/200</Text>
         </View>
       </View>
-      <ScreenBottomButton name="저장" onPress={() => navigation.goBack()} />
+      <ScreenBottomButton name="저장" onPress={onSubmit} />
     </SafeAreaView>
   );
 }
@@ -63,7 +80,7 @@ const styles = StyleSheet.create({
     marginTop: 52,
     paddingHorizontal: 16,
     fontFamily: theme.fontFamily.Pretendard,
-    color: theme.colors.Grey30,
+    color: theme.colors.Grey60,
     fontSize: theme.fontSize.P2,
   },
   InputTextCounter: {
