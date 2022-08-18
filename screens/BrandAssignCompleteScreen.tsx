@@ -7,10 +7,10 @@ import theme from '../assets/theme';
 import MainContainer from '../components/MainContainer';
 import ScreenBottomButton from '../components/ScreenBottomButton';
 import Title from '../components/Title';
-import {RootStackNavigationProp} from './types';
+import {MainTabNatigationProp} from './types';
 
 function BrandAssignCompleteScreen() {
-  const navigation = useNavigation<RootStackNavigationProp>();
+  const navigation = useNavigation<MainTabNatigationProp>();
   const id = '';
   const {data, isLoading} = useQuery('getBrand', () => getBrand(id), {
     refetchOnMount: 'always',
@@ -49,7 +49,7 @@ function BrandAssignCompleteScreen() {
       </MainContainer>
       <ScreenBottomButton
         name="대기하면서 피드 구경하기"
-        onPress={() => navigation.push('MainTab')}
+        onPress={() => navigation.push('MainTab', {screen: 'Search'})}
       />
     </>
   );
