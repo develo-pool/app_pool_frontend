@@ -46,14 +46,12 @@ function RecommandBrandUserContainer({
             </View>
           </View>
           <View>
-            <FollowButton isFollowed={follow} />
+            <FollowButton isFollowed={follow} onPress={changeFollowing}/>
           </View>
         </View>
       </View>
       <View style={styles.brandUserIntroContainer}>
-        <Text style={styles.brandUserIntro}>
-          {brandInfo}
-        </Text>
+        <Text style={styles.brandUserIntro}>{brandInfo}</Text>
       </View>
     </Pressable>
   );

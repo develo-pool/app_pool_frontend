@@ -36,25 +36,32 @@ function SearchScreen() {
         {isSearching ? (
           <ScrollView>
             <SearchResultSubTitle searchCount={9} />
-            <SearchResultBrandUserContainer
-              following={following}
-              changeFollowing={changeFollowing}
-            />
-            <SearchResultBrandUserContainer
-              following={following}
-              changeFollowing={changeFollowing}
-            />
+            {allBrandData?.map(brandUser => {
+              // {userData?.userStatus === 'BRAND_USER' &&
+              // userData?.poolUserId === brandUser.poolUserId}
+              console.log(brandUser)
+              return (
+                <SearchResultBrandUserContainer
+                  key={brandUser.poolUserId}
+                  changeFollowing={changeFollowing}
+                  brandUsername={brandUser.brandUsername}
+                  brandProfileImage={brandUser.brandProfileImage}
+                  follow={brandUser.userInfoDto?.follow}
+                  userFollowerCount={brandUser.userInfoDto?.userFollowerCount}
+                  poolUserId={brandUser.poolUserId}
+                  userData={userData}
+                />
+              );
+            })}
           </ScrollView>
         ) : (
           <ScrollView>
             <RecommandSubTitle />
-            {allBrandData?.map( brandUser => {
+            {allBrandData?.map(brandUser => {
               // userData?.userStatus === 'BRAND_USER' &&
               // userData?.poolUserId === brandUser.poolUserId
-              // ? (
-              //   ''
-              // ) : (
-               return (<RecommandBrandUserContainer
+              return (
+                <RecommandBrandUserContainer
                   key={brandUser.poolUserId}
                   changeFollowing={changeFollowing}
                   brandUsername={brandUser.brandUsername}
@@ -63,8 +70,8 @@ function SearchScreen() {
                   follow={brandUser.userInfoDto?.follow}
                   userFollowerCount={brandUser.userInfoDto?.userFollowerCount}
                   poolUserId={brandUser.poolUserId}
-                />)
-              // );
+                />
+              );
             })}
           </ScrollView>
         )}
