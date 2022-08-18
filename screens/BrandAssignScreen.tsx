@@ -43,6 +43,7 @@ const CurrentPage = ({
         <Category
           checkedItems={form.brandCategory}
           checkedItemHandler={checkedItemHandler}
+          isBrandAssign={true}
         />
       );
     case 2:
