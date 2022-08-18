@@ -19,11 +19,7 @@ function ProfileScreen() {
   });
   const {data: brandData} = useQuery('getBrand', () => getBrand(''), {
     refetchOnMount: 'always',
-    enabled: false,
   });
-  // useEffect(() => {
-  //   userData?.userStatus === 'BRAND_USER' && refetch();
-  // }, []);
 
   return (
     <SafeAreaView>

@@ -9,13 +9,14 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import theme from '../assets/theme';
 import FollowButton from '../components/profile/FollowButton';
-import ProfileImageContainer from '../components/profile/ProfileImageContainer';
+import BrandProfileImageContainer from '../components/profile/BrandProfileImageContainer';
 import {RootStackNavigationProp} from './types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import {getBrand} from '../api/brand';
+import {useQuery} from 'react-query';
 
-function BrandProfileScreen() {
+function BrandProfileScreen(poolUserId: string) {
   const navigation = useNavigation<RootStackNavigationProp>();
-
   useEffect(() => {
     navigation.setOptions({
       headerBackVisible: false,
@@ -35,14 +36,21 @@ function BrandProfileScreen() {
     });
   }, [navigation]);
 
+  const {data} = useQuery('getBrand', () => getBrand(poolUserId), {
+    refetchOnMount: 'always',
+  });
+
   return (
     <SafeAreaView>
       <View style={styles.ProfileSection}>
         <View style={styles.ProfileLayout}>
           <View style={styles.ProfileContainer}>
-            <ProfileImageContainer isEditable={false} />
+            <BrandProfileImageContainer
+              isEditable={false}
+              poolUserId={poolUserId}
+            />
             <View style={styles.BrandInfo}>
-              <Text style={styles.BrandName}>김자네</Text>
+              <Text style={styles.BrandName}>{data?.brandUsername}</Text>
               <View style={styles.FollowerContainer}>
                 <Text style={styles.Follower}>팔로워</Text>
                 <Text style={styles.FollowerCount}>1.8k</Text>
@@ -52,10 +60,7 @@ function BrandProfileScreen() {
           <FollowButton isFollowed={false} />
         </View>
         <View style={styles.IntroContainer}>
-          <Text style={styles.IntroText}>
-            더푸르입니다. 소개글이 들어갑니다. 소개글이 들어갑니다. 소개글이
-            들어갑니다. 소개글이 들어갑니다.
-          </Text>
+          <Text style={styles.IntroText}>{data?.brandInfo}</Text>
         </View>
       </View>
       <View style={styles.Message}>
