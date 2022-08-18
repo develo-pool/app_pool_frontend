@@ -100,7 +100,8 @@ const styles = StyleSheet.create({
   }, //소개글 텍스트
   Message: {
     alignItems: 'center',
-    height: 460,
+    flex: 1,
+    // height: 460,
     paddingHorizontal: 16,
     backgroundColor: theme.colors.Ivory,
   }, //프로필 아래 메시지가 쌓이는 메시지 영역
