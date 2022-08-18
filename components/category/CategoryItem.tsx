@@ -51,7 +51,7 @@ function CategoryItem({
       onPress={onCheck}>
       <View
         style={[styles.circle, {height: size}, isChecked && styles.checked]}>
-        <Image source={item.img} style={styles.img} resizeMode="contain" />
+        <Image source={item.img} style={styles.img} resizeMode="cover" />
       </View>
       {isChecked && (
         <View style={[styles.tag, {top: size - 24}]}>
