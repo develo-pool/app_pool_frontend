@@ -1,5 +1,5 @@
 import client from '../client';
-import {BrandResult, UpdateBrandInfo} from './types';
+import {BrandResult, UpdateBrandInfoParams} from './types';
 
 export async function createBrand(formData: FormData) {
   const response = await client.post('/brand/create', formData, {
@@ -21,6 +21,9 @@ export async function getBrand(params: string) {
 }
 
 export async function updateBrandInfo(params: string) {
-  const response = await client.post<UpdateBrandInfo>('/brand/create', params);
+  const response = await client.post<UpdateBrandInfoParams>(
+    '/brand/create',
+    params,
+  );
   return response.data;
 }

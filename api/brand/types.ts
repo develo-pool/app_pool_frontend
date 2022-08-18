@@ -12,6 +12,6 @@ export interface BrandAssignParams {
   brandProfileImage: any;
 }
 
-export interface UpdateBrandInfo {
+export interface UpdateBrandInfoParams {
   brandInfo: string;
 }
