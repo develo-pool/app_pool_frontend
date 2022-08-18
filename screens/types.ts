@@ -1,4 +1,7 @@
-import {CompositeNavigationProp} from '@react-navigation/native';
+import {
+  CompositeNavigationProp,
+  NavigatorScreenParams,
+} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack/lib/typescript/src/types';
 import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
 
@@ -13,7 +16,7 @@ export type MainTabParamList = {
 /* RootStack */
 export type RootStackParamList = {
   Welcome: undefined;
-  MainTab: undefined;
+  MainTab: NavigatorScreenParams<MainTabParamList>;
   Login: undefined;
   SignUp: {current: number};
   Password: {current: number};
