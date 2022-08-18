@@ -21,8 +21,9 @@ function SearchScreen() {
   const {data: userData} = useQuery('getUserResult', () => getUser(), {
     refetchOnMount: 'always',
   });
-  const {data: allBrandData} = useQuery('getAllBrand', () => getAllBrand(),);
-  console.log(userData)
+  const {data: allBrandData} = useQuery('getAllBrand', () => getAllBrand());
+  // console.log(allBrandData);
+  console.log(userData);
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView style={styles.scroll}>
@@ -47,14 +48,24 @@ function SearchScreen() {
         ) : (
           <ScrollView>
             <RecommandSubTitle />
-            <RecommandBrandUserContainer
-              following={following}
-              changeFollowing={changeFollowing}
-            />
-            <RecommandBrandUserContainer
-              following={following}
-              changeFollowing={changeFollowing}
-            />
+            {allBrandData?.map( brandUser => {
+              // userData?.userStatus === 'BRAND_USER' &&
+              // userData?.poolUserId === brandUser.poolUserId
+              // ? (
+              //   ''
+              // ) : (
+               return (<RecommandBrandUserContainer
+                  key={brandUser.poolUserId}
+                  changeFollowing={changeFollowing}
+                  brandUsername={brandUser.brandUsername}
+                  brandInfo={brandUser.brandInfo}
+                  brandProfileImage={brandUser.brandProfileImage}
+                  follow={brandUser.userInfoDto?.follow}
+                  userFollowerCount={brandUser.userInfoDto?.userFollowerCount}
+                  poolUserId={brandUser.poolUserId}
+                />)
+              // );
+            })}
           </ScrollView>
         )}
       </ScrollView>

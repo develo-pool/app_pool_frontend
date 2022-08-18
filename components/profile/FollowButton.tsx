@@ -8,12 +8,11 @@ interface Props {
   onPress?: any;
 }
 
-function FollowButton({isFollowed, onPress}: Props) {
+function FollowButton({isFollowed}: Props) {
   return (
     <View style={styles.FollowButton}>
       <TouchableOpacity
-        style={[styles.ButtonFrame, isFollowed && styles.Unfollowed]}
-        onPress={onPress}>
+        style={[styles.ButtonFrame, isFollowed && styles.Unfollowed]}>
         <Text style={[styles.FollowText, isFollowed && styles.UnfollowedText]}>
           {isFollowed ? '팔로잉' : '팔로우'}
         </Text>

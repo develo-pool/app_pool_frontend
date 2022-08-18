@@ -23,5 +23,17 @@ export interface BrandProfileResult extends BrandResult {
 export interface AllBrandResult {
   brandUsername: string;
   brandInfo: string;
-  brandProfileImage: any;
+
+  brandProfileImage: string;
+  userInfoDto: {
+    poolUserId?: any;
+    username?: any;
+    nickName?: any;
+    userStatus?: any;
+    follow: boolean;
+    userFollowerCount: number;
+    userFollowingCount: number;
+    brandUserInfoDto?: any;
+  };
+  poolUserId: number;
 }
