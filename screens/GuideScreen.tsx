@@ -15,11 +15,12 @@ function GuideScreen() {
       {index === 3 ? (
         <ScreenBottomButton
           name="시작하기"
-          onPress={() => navigation.navigate('MainTab')}
+          onPress={() => navigation.navigate('MainTab', {screen: 'Search'})}
         />
       ) : (
         <View style={styles.skipContainer}>
-          <Pressable onPress={() => navigation.navigate('MainTab')}>
+          <Pressable
+            onPress={() => navigation.navigate('MainTab', {screen: 'Search'})}>
             <Text style={styles.skip}>사용법 건너뛰기</Text>
           </Pressable>
         </View>

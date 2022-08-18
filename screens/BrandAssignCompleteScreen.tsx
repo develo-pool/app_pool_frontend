@@ -49,7 +49,7 @@ function BrandAssignCompleteScreen() {
       </MainContainer>
       <ScreenBottomButton
         name="대기하면서 피드 구경하기"
-        onPress={() => navigation.push('MainTab', {screen: 'Search'})}
+        onPress={() => navigation.push('MainTab', {screen: 'Feed'})}
       />
     </>
   );
