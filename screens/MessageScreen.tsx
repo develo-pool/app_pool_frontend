@@ -24,12 +24,11 @@ function MessageScreen() {
   const [commentText, setCommentText] = useState('');
   const onChangeText = (payload: string) => setCommentText(payload);
   const route = useRoute<MessageScreenRouteProp>();
-  // const detail = route.params.detail;
+  const detail = route?.params?.detail;
   const navigation = useNavigation<RootStackNavigationProp>();
   const {data: userData} = useQuery('getUserResult', () => getUser(), {
     refetchOnMount: 'always',
   });
-
   useEffect(() => {
     navigation.setOptions({
       headerTitleAlign: 'center',
@@ -44,29 +43,25 @@ function MessageScreen() {
     });
   }, [navigation]);
 
-  const {data: messageData} = useQuery('getMessage', () => getMessage(4));
+  const {data: messageData} = useQuery('getMessage', () => getMessage(detail));
   const {data: allCommentData} = useQuery('getAllComment', () =>
-    getAllComment(4),
+    getAllComment(detail),
   );
-  const {data: commentData} = useQuery('getComment', () => getComment(4));
-
-  console.log(allCommentData);
-  console.log(userData);
 
   const {mutate: writeComment} = useMutation(createComment, {
-    onSuccess: async () => {
-      await getComment(4);
-    },
-    onError: () => {},
+    onSuccess: () => {},
   });
+  const {data: commentData} = useQuery('getComment', () => getComment(detail));
+  console.log(commentData);
 
   const onPress = async () => {
+    console.log(commentText);
     if (commentText === '') {
       return;
     }
-    writeComment({messageId:4, body:commentText});
+    writeComment({messageId: detail, body: commentText});
     setCommentText('');
-  }
+  };
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -99,19 +94,21 @@ function MessageScreen() {
                   text={comments.body}
                   userName={comments.writer?.nickName}
                   userProfileImg={comments.writer?.username}
-                  writenCommentTime={comments.writer?.username}
+                  writenCommentTime={comments?.create_date}
                 />
               );
             })}
           </ScrollView>
         ) : (
-          <View>
+          <ScrollView>
             {commentData ? (
               <Comment
-                text={commentData.body}
-                userName={commentData.writer?.nickName}
-                userProfileImg={commentData.writer?.username}
-                writenCommentTime={commentData.writer?.username}
+                text={commentData?.body}
+                userName={commentData?.writer?.nickName}
+                userProfileImg={
+                  commentData?.writer?.brandUserInfoDto?.brandProfileImage
+                }
+                writenCommentTime={commentData?.create_date}
               />
             ) : (
               ''
@@ -122,7 +119,7 @@ function MessageScreen() {
               isComment={commentData ? false : true}
               addComments={onPress}
             />
-          </View>
+          </ScrollView>
         )}
       </View>
     </SafeAreaView>

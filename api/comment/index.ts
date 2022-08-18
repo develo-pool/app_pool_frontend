@@ -2,7 +2,7 @@ import client from '../client';
 import {Comment, CreateComment} from './types';
 
 export async function getComment(params: number) {
-  const response = await client.get<Comment>(`/comments/${params}`);
+  const response = await client.get<Comment>(`/comments/${params}/my`);
   return response.data;
 }
 

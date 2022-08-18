@@ -14,8 +14,15 @@ export interface Comment {
     follow: boolean;
     userFollowerCount: number;
     userFollowingCount: number;
-    brandUserInfoDto?: any;
+    brandUserInfoDto: {
+      brandUsername?: string;
+      brandInfo?: string;
+      brandProfileImage?: string;
+      userInfoDto?: any;
+      poolUserId?: any;
+    };
   };
+  create_date: string;
 }
 
 export interface CreateComment {
