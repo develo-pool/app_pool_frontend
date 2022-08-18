@@ -31,7 +31,7 @@ function EditProfile() {
   const onSubmit = useCallback(() => {
     console.log(info);
     write(info);
-  }, []);
+  }, [write, info]);
 
   useEffect(() => {
     navigation.setOptions({
