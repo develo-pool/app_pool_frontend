@@ -74,7 +74,7 @@ function BrandAssignForm({
               ? {uri: form.brandProfileImage.uri}
               : require('../../assets/empty/EmptyProfile.png')
           }
-          resizeMode="contain"
+          resizeMode="cover"
         />
         <View style={styles.edit}>
           <Icon name="edit" size={18} color="white" />

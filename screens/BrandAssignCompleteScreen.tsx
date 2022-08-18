@@ -38,6 +38,7 @@ function BrandAssignCompleteScreen() {
               <Image
                 style={styles.circle}
                 source={{uri: data?.brandProfileImage}}
+                resizeMode="cover"
               />
             </View>
             <Text style={styles.name}>{data?.brandUsername}</Text>
