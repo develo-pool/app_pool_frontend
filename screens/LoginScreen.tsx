@@ -1,5 +1,12 @@
 import React, {useState} from 'react';
-import {Pressable, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {
+  Pressable,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {RootStackNavigationProp} from './types';
 import MainContainer from '../components/MainContainer';
@@ -35,7 +42,9 @@ function LoginScreen() {
         <ScrollView
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled">
-          <AlertBox />
+          <SafeAreaView>
+            <AlertBox />
+          </SafeAreaView>
           <View style={styles.title}>
             <Title title="환영합니다!" subTitle="소통의 POOL에 빠져보세요" />
           </View>
