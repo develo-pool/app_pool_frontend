@@ -19,7 +19,7 @@ function WelcomeScreen() {
   const navigation = useNavigation<RootStackNavigationProp>();
   return (
     <MainContainer>
-      <SafeAreaView>
+      <SafeAreaView style={styles.alert}>
         <View>
           <AlertBox />
         </View>
@@ -52,6 +52,9 @@ function WelcomeScreen() {
   );
 }
 const styles = StyleSheet.create({
+  alert: {
+    zIndex: 10,
+  },
   logo: {
     alignSelf: 'center',
     marginBottom: 25,

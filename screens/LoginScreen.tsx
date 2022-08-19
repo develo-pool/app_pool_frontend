@@ -38,7 +38,7 @@ function LoginScreen() {
 
   return (
     <MainContainer>
-      <SafeAreaView>
+      <SafeAreaView style={styles.alert}>
         <View>
           <AlertBox />
         </View>
@@ -100,6 +100,9 @@ function LoginScreen() {
 }
 
 const styles = StyleSheet.create({
+  alert: {
+    zIndex: 10,
+  },
   block: {
     flex: 1,
   },

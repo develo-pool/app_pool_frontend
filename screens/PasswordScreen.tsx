@@ -141,7 +141,7 @@ function PasswordScreen() {
   return (
     <>
       <MainContainer>
-        <SafeAreaView>
+        <SafeAreaView style={styles.front}>
           <View>
             <AlertBox />
           </View>
@@ -228,6 +228,9 @@ function PasswordScreen() {
   );
 }
 const styles = StyleSheet.create({
+  front: {
+    zIndex: 10,
+  },
   block: {
     flex: 1,
     marginTop: 60,
