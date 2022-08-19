@@ -234,6 +234,7 @@ const styles = StyleSheet.create({
   },
   padding: {
     paddingHorizontal: PADDING,
+    zIndex: 10,
   },
 });
 

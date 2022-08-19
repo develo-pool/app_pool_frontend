@@ -5,7 +5,7 @@ import authStorage from '../storages/authStorage';
 import {refresh} from './auth';
 import {AuthResult} from './auth/types';
 
-const baseURL = 'http://3.39.176.13:8080/';
+const baseURL = 'https://thepool.network';
 
 const client = axios.create({
   baseURL,

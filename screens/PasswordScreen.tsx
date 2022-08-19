@@ -2,6 +2,8 @@ import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {
   Dimensions,
+  KeyboardAvoidingView,
+  Platform,
   SafeAreaView,
   ScrollView,
   StyleSheet,
@@ -141,66 +143,69 @@ function PasswordScreen() {
   return (
     <>
       <MainContainer>
-        <SafeAreaView>
+        <SafeAreaView style={styles.front}>
           <View>
             <AlertBox />
           </View>
         </SafeAreaView>
-        {current ? (
-          <ScrollView
-            showsVerticalScrollIndicator={false}
-            keyboardShouldPersistTaps="handled">
-            <View style={styles.block}>
-              <Title title="비밀번호를" />
-              <Title title="재설정해 주세요." hasMargin={true} />
-              <PasswordForm
-                form={form}
-                onChangeForm={createChangeFormHandler}
-                setForm={setForm}
-              />
-            </View>
-          </ScrollView>
-        ) : (
-          <ScrollView
-            showsVerticalScrollIndicator={false}
-            keyboardShouldPersistTaps="handled">
-            <View style={[styles.block, isVisible && styles.alert]}>
-              <Title title="본인인증을" />
-              <Title title="진행해주세요." hasMargin={true} />
-              <InputTitle title="아이디" />
-              <View style={styles.row}>
-                <TextInputs
-                  type={
-                    form.username.length > 2 || !form.username
-                      ? 'default'
-                      : 'error'
-                  }
-                  placeholder="아이디를 입력해 주세요"
-                  value={form.username}
-                  onChangeText={(value: string) =>
-                    setForm({
-                      ...form,
-                      username: ReplaceKorean(value),
-                      usernameChecked: undefined,
-                    })
-                  }
-                  maxLength={20}
-                  alert={
-                    form.username.length > 2 || !form.username
-                      ? undefined
-                      : {type: 'Error', text: '3자 이상 입력해주세요.'}
-                  }
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+          {current ? (
+            <ScrollView
+              showsVerticalScrollIndicator={false}
+              keyboardShouldPersistTaps="handled">
+              <View style={styles.block}>
+                <Title title="비밀번호를" />
+                <Title title="재설정해 주세요." hasMargin={true} />
+                <PasswordForm
+                  form={form}
+                  onChangeForm={createChangeFormHandler}
+                  setForm={setForm}
                 />
               </View>
-              <PhoneAuthForm
-                form={form}
-                onChangeForm={createChangeFormHandler}
-                setForm={setForm}
-                mode="CHANGE_PASSWORD"
-              />
-            </View>
-          </ScrollView>
-        )}
+            </ScrollView>
+          ) : (
+            <ScrollView
+              showsVerticalScrollIndicator={false}
+              keyboardShouldPersistTaps="handled">
+              <View style={[styles.block, isVisible && styles.alert]}>
+                <Title title="본인인증을" />
+                <Title title="진행해주세요." hasMargin={true} />
+                <InputTitle title="아이디" />
+                <View style={styles.row}>
+                  <TextInputs
+                    type={
+                      form.username.length > 2 || !form.username
+                        ? 'default'
+                        : 'error'
+                    }
+                    placeholder="아이디를 입력해 주세요"
+                    value={form.username}
+                    onChangeText={(value: string) =>
+                      setForm({
+                        ...form,
+                        username: ReplaceKorean(value),
+                        usernameChecked: undefined,
+                      })
+                    }
+                    maxLength={20}
+                    alert={
+                      form.username.length > 2 || !form.username
+                        ? undefined
+                        : {type: 'Error', text: '3자 이상 입력해주세요.'}
+                    }
+                  />
+                </View>
+                <PhoneAuthForm
+                  form={form}
+                  onChangeForm={createChangeFormHandler}
+                  setForm={setForm}
+                  mode="CHANGE_PASSWORD"
+                />
+              </View>
+            </ScrollView>
+          )}
+        </KeyboardAvoidingView>
       </MainContainer>
       {current ? (
         <ScreenBottomButton
@@ -228,6 +233,9 @@ function PasswordScreen() {
   );
 }
 const styles = StyleSheet.create({
+  front: {
+    zIndex: 10,
+  },
   block: {
     flex: 1,
     marginTop: 60,
