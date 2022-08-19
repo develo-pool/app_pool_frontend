@@ -6,16 +6,25 @@ import {
   TouchableOpacity,
   SafeAreaView,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import theme from '../assets/theme';
 import FollowButton from '../components/profile/FollowButton';
-import ProfileImageContainer from '../components/profile/ProfileImageContainer';
-import {RootStackNavigationProp} from './types';
+import BrandProfileImageContainer from '../components/profile/BrandProfileImageContainer';
+import {RootStackNavigationProp, RootStackParamList} from './types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import {getBrandProfile} from '../api/brand';
+import {useQuery} from 'react-query';
+
+type BrandProfileScreenRouteProp = RouteProp<
+  RootStackParamList,
+  'BrandProfile'
+>;
 
 function BrandProfileScreen() {
+  const route = useRoute<BrandProfileScreenRouteProp>();
+  const poolUserId = route.params.poolUserId;
+  console.log(poolUserId);
   const navigation = useNavigation<RootStackNavigationProp>();
-
   useEffect(() => {
     navigation.setOptions({
       headerBackVisible: false,
@@ -35,27 +44,37 @@ function BrandProfileScreen() {
     });
   }, [navigation]);
 
+  const {data} = useQuery(
+    'getBrandProfile',
+    () => getBrandProfile(poolUserId),
+    {
+      refetchOnMount: true,
+    },
+  );
+
   return (
     <SafeAreaView>
       <View style={styles.ProfileSection}>
         <View style={styles.ProfileLayout}>
           <View style={styles.ProfileContainer}>
-            <ProfileImageContainer isEditable={false} />
+            <BrandProfileImageContainer
+              isEditable={false}
+              imgSource={{uri: data?.brandProfileImage}}
+            />
             <View style={styles.BrandInfo}>
-              <Text style={styles.BrandName}>김자네</Text>
+              <Text style={styles.BrandName}>{data?.brandUsername}</Text>
               <View style={styles.FollowerContainer}>
                 <Text style={styles.Follower}>팔로워</Text>
-                <Text style={styles.FollowerCount}>1.8k</Text>
+                <Text style={styles.FollowerCount}>
+                  {data?.userInfoDto.userFollowerCount}
+                </Text>
               </View>
             </View>
           </View>
           <FollowButton isFollowed={false} />
         </View>
         <View style={styles.IntroContainer}>
-          <Text style={styles.IntroText}>
-            더푸르입니다. 소개글이 들어갑니다. 소개글이 들어갑니다. 소개글이
-            들어갑니다. 소개글이 들어갑니다.
-          </Text>
+          <Text style={styles.IntroText}>{data?.brandInfo}</Text>
         </View>
       </View>
       <View style={styles.Message}>
@@ -122,14 +141,14 @@ const styles = StyleSheet.create({
     marginLeft: 4,
   },
   IntroContainer: {
-    alignItems: 'center',
+    // alignItems: 'center',
     justifyContent: 'center',
   }, //프로필 내 소개글이 담긴 영역
   IntroText: {
     fontSize: theme.fontSize.P2,
     color: theme.colors.Grey50,
     fontWeight: theme.fontWeight.Light,
-    paddingHorizontal: 4,
+    paddingTop: 4,
   }, //소개글 텍스트
   Message: {
     alignItems: 'center',
