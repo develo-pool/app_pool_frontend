@@ -1,14 +1,19 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import theme from '../assets/theme';
-import {useSelector} from 'react-redux';
-import {RootState} from '../slices';
+// import {useSelector} from 'react-redux';
+// import {RootState} from '../slices';
 
 function AlertBox() {
-  const alertState = useSelector((state: RootState) => state.alert);
+  // const alertState = useSelector((state: RootState) => state.alert);
   return (
     <>
-      {alertState.isVisible && (
+      <View style={[styles.box, styles.green]}>
+        <Text style={[styles.text, styles.green]}>
+          State Area View Test Alert!
+        </Text>
+      </View>
+      {/* {alertState.isVisible && (
         <View
           style={[
             styles.box,
@@ -22,7 +27,7 @@ function AlertBox() {
             {alertState.alert.text}
           </Text>
         </View>
-      )}
+      )} */}
     </>
   );
 }
