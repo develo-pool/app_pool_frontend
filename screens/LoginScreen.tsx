@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {
   KeyboardAvoidingView,
+  Platform,
   Pressable,
   SafeAreaView,
   ScrollView,
@@ -44,7 +45,8 @@ function LoginScreen() {
           <AlertBox />
         </View>
       </SafeAreaView>
-      <KeyboardAvoidingView>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
         <ScrollView
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled">
