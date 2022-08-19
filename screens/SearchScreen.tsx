@@ -23,16 +23,17 @@ function SearchScreen() {
   const {data: userData} = useQuery('getUserResult', () => getUser(), {
     refetchOnMount: 'always',
   });
-  const {data: allBrandData} = useQuery('getAllBrand', () => getAllBrand());
+  const {data:allBrandData} = useQuery('getAllBrand', () => getAllBrand());
   const filter = async () => {
     if (searchText === '') {
       return;
     } else {
-      setSearchBrand(allBrandData?.filter(brand =>
+      setSearchBrand(allBrandData.filter(brand =>
         brand.brandUsername.includes(`${searchText}`),
       ));
     }
   };
+  console.log(searchBrand)
   // const Searchfilter = () => {
   //   if (isSearching) {
   //     allBrandData?.filter;
@@ -54,8 +55,8 @@ function SearchScreen() {
   //     });
   //   }
   // };
-  let filter1 = allBrandData?.filter(it => it.brandUsername.includes('aaaa'));
-  console.log(filter);
+  // let filter1 = allBrandData?.filter(it => it.brandUsername.includes('aaaa'));
+  // console.log(filter);
 
   return (
     <SafeAreaView style={styles.safeArea}>
