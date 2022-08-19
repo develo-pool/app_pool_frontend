@@ -20,12 +20,11 @@ function SearchResultBrandUserContainer({
   brandProfileImage,
   follow,
   userFollowerCount,
-  poolUserId,
+  // poolUserId,
   changeFollowing,
   isLoginUser,
 }: Props) {
   const navigation = useNavigation<RootStackNavigationProp>();
-  // console.log(userData);
   return (
     <View>
       <Pressable

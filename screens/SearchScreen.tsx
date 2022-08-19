@@ -1,19 +1,12 @@
 import React, {useState} from 'react';
-import {
-  View,
-  ScrollView,
-  StyleSheet,
-  SafeAreaView,
-  Text,
-  Pressable,
-} from 'react-native';
+import {View, ScrollView, StyleSheet, SafeAreaView} from 'react-native';
 import SearchBar from '../components/search/SearchBar';
 import RecommandBrandUserContainer from '../components/search/RecommandBrandUserContainer';
 import RecommandSubTitle from '../components/search/RecommandSubTitle';
 import SearchResultBrandUserContainer from '../components/search/SearchResultBrandUserContainer';
 import SearchResultSubTitle from '../components/search/SearchResultSubTitle';
 import theme from '../assets/theme';
-import {getUser} from '../api/auth';
+// import {getUser} from '../api/auth';
 import {useQuery} from 'react-query';
 import {getAllBrand} from '../api/brand/index';
 
@@ -22,11 +15,9 @@ function SearchScreen() {
   const changeFollowing = () => setFollowing(!following);
   const [searchText, setSearchText] = useState('');
   const onChangeText = (payload: string) => setSearchText(payload);
-  const [isSearching, setIsSearching] = useState(false);
-
-  const {data: userData} = useQuery('getUserResult', () => getUser(), {
-    refetchOnMount: 'always',
-  });
+  // const {data: userData} = useQuery('getUserResult', () => getUser(), {
+  //   refetchOnMount: 'always',
+  // });
   const {data: allBrandData} = useQuery('getAllBrand', () => getAllBrand());
   const searchFilter = allBrandData?.filter(brand =>
     brand.brandUsername.includes(`${searchText}`),
@@ -35,17 +26,13 @@ function SearchScreen() {
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView style={styles.scroll}>
-        <SearchBar
-          searchText={searchText}
-          onChangeText={onChangeText}
-        />
+        <SearchBar searchText={searchText} onChangeText={onChangeText} />
         <View style={styles.line} />
         {searchText !== '' ? (
           <ScrollView>
-
             <SearchResultSubTitle searchCount={searchFilter?.length} />
-            {searchFilter?.map((brandUser:any) => 
-              (<SearchResultBrandUserContainer
+            {searchFilter?.map((brandUser: any) => (
+              <SearchResultBrandUserContainer
                 key={brandUser.poolUserId}
                 changeFollowing={changeFollowing}
                 brandUsername={brandUser.brandUsername}
@@ -54,9 +41,8 @@ function SearchScreen() {
                 userFollowerCount={brandUser.userInfoDto?.userFollowerCount}
                 poolUserId={brandUser.poolUserId}
                 isLoginUser={brandUser.isLoginUser}
-              />)
-            )}
-            
+              />
+            ))}
           </ScrollView>
         ) : (
           <ScrollView>

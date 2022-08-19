@@ -23,9 +23,13 @@ function SearchBar({searchText, onChangeText}: Props) {
             style={styles.input}
           />
         </View>
-        {searchText !== '' ? <TouchableOpacity onPress={() => onChangeText('')}>
-          <Icon name="cancel" size={16} color={theme.colors.Grey30} />
-        </TouchableOpacity> : <></>}
+        {searchText !== '' ? (
+          <TouchableOpacity onPress={() => onChangeText('')}>
+            <Icon name="cancel" size={16} color={theme.colors.Grey30} />
+          </TouchableOpacity>
+        ) : (
+          <></>
+        )}
       </View>
     </View>
   );

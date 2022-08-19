@@ -22,7 +22,7 @@ function RecommandBrandUserContainer({
   brandProfileImage,
   follow,
   userFollowerCount,
-  poolUserId,
+  // poolUserId,
   changeFollowing,
   isLoginUser,
 }: Props) {
@@ -48,12 +48,12 @@ function RecommandBrandUserContainer({
             </View>
           </View>
           {isLoginUser === true ? (
-              ''
-            ) : (
-              <View>
-                <FollowButton isFollowed={follow} onPress={changeFollowing} />
-              </View>
-            )}
+            ''
+          ) : (
+            <View>
+              <FollowButton isFollowed={follow} onPress={changeFollowing} />
+            </View>
+          )}
         </View>
       </View>
       <View style={styles.brandUserIntroContainer}>
