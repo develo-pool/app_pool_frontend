@@ -27,6 +27,7 @@ function FeedScreen() {
         {/* <Pressable onPress={() => refetchGetUser()}>
           <Text>요청</Text>
         </Pressable> */}
+        
         <ScrollView showsVerticalScrollIndicator={false}>
           <Hello name={userData?.nickName} />
           <NowDate msgDate={yymmdd} />
