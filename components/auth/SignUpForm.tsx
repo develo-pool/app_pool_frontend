@@ -37,7 +37,7 @@ const SignUpForm = ({
         <ScrollView
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled">
-          <SecondForm onChangeText={createChangeTextHandler} form={form} />;
+          <SecondForm onChangeText={createChangeTextHandler} form={form} />
         </ScrollView>
       );
     case 2:
