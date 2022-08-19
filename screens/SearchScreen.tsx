@@ -22,10 +22,16 @@ function SearchScreen() {
     refetchOnMount: 'always',
   });
   const {data: allBrandData} = useQuery('getAllBrand', () => getAllBrand());
-  const Search = () => {
+  const Searchfilter = (allBrandData, predicate) => {
+    let result = {},
+      key;
+    Object.keys(allBrandData).filter(key =>
+      predicate(allBrandData[key]).reduce((res, key) => (res[key], res)),
+    );
     if (isSearching) {
+      allBrandData?.filter;
       allBrandData?.map(brandUser => {
-        if (searchText == brandUser.brandUsername){
+        if (searchText == brandUser.brandUsername) {
           return (
             <SearchResultBrandUserContainer
               key={brandUser.poolUserId}
@@ -39,7 +45,7 @@ function SearchScreen() {
             />
           );
         }
-      })
+      });
     }
   };
   return (
