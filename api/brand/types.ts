@@ -26,14 +26,14 @@ export interface AllBrandResult {
 
   brandProfileImage: string;
   userInfoDto: {
-    poolUserId?: any;
-    username?: any;
-    nickName?: any;
-    userStatus?: any;
+    poolUserId: any;
+    username: any;
+    nickName: any;
+    userStatus: any;
     follow: boolean;
     userFollowerCount: number;
     userFollowingCount: number;
-    brandUserInfoDto?: any;
+    brandUserInfoDto: any;
   };
   poolUserId: number;
   isLoginUser: boolean;

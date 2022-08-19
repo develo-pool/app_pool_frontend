@@ -18,36 +18,45 @@ function SearchScreen() {
   const [isSearching, setIsSearching] = useState(false);
   const DoSearching = () =>
     searchText !== '' ? setIsSearching(true) : setIsSearching(false);
+  const [searchBrand, setSearchBrand] = useState({});
+
   const {data: userData} = useQuery('getUserResult', () => getUser(), {
     refetchOnMount: 'always',
   });
   const {data: allBrandData} = useQuery('getAllBrand', () => getAllBrand());
-  const Searchfilter = (allBrandData, predicate) => {
-    let result = {},
-      key;
-    Object.keys(allBrandData).filter(key =>
-      predicate(allBrandData[key]).reduce((res, key) => (res[key], res)),
-    );
-    if (isSearching) {
-      allBrandData?.filter;
-      allBrandData?.map(brandUser => {
-        if (searchText == brandUser.brandUsername) {
-          return (
-            <SearchResultBrandUserContainer
-              key={brandUser.poolUserId}
-              changeFollowing={changeFollowing}
-              brandUsername={brandUser.brandUsername}
-              brandProfileImage={brandUser.brandProfileImage}
-              follow={brandUser.userInfoDto?.follow}
-              userFollowerCount={brandUser.userInfoDto?.userFollowerCount}
-              poolUserId={brandUser.poolUserId}
-              isLoginUser={brandUser.isLoginUser}
-            />
-          );
-        }
-      });
+  const filter = async () => {
+    if (searchText === '') {
+      return;
+    } else {
+      setSearchBrand(allBrandData?.filter(brand =>
+        brand.brandUsername.includes(`${searchText}`),
+      ));
     }
   };
+  // const Searchfilter = () => {
+  //   if (isSearching) {
+  //     allBrandData?.filter;
+  //     allBrandData?.map(brandUser => {
+  //       if (searchText == brandUser.brandUsername) {
+  //         return (
+  //           <SearchResultBrandUserContainer
+  //             key={brandUser.poolUserId}
+  //             changeFollowing={changeFollowing}
+  //             brandUsername={brandUser.brandUsername}
+  //             brandProfileImage={brandUser.brandProfileImage}
+  //             follow={brandUser.userInfoDto?.follow}
+  //             userFollowerCount={brandUser.userInfoDto?.userFollowerCount}
+  //             poolUserId={brandUser.poolUserId}
+  //             isLoginUser={brandUser.isLoginUser}
+  //           />
+  //         );
+  //       }
+  //     });
+  //   }
+  // };
+  let filter1 = allBrandData?.filter(it => it.brandUsername.includes('aaaa'));
+  console.log(filter);
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView style={styles.scroll}>
@@ -60,8 +69,7 @@ function SearchScreen() {
         {isSearching === true ? (
           <ScrollView>
             <SearchResultSubTitle searchCount={9} />
-            {Search()}
-            {/* {allBrandData?.map(brandUser => {
+            {allBrandData?.map(brandUser => {
               return (
                 <SearchResultBrandUserContainer
                   key={brandUser.poolUserId}
@@ -74,7 +82,7 @@ function SearchScreen() {
                   isLoginUser={brandUser.isLoginUser}
                 />
               );
-            })} */}
+            })}
           </ScrollView>
         ) : (
           <ScrollView>
