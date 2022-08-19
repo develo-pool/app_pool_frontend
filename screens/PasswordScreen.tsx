@@ -142,7 +142,9 @@ function PasswordScreen() {
     <>
       <MainContainer>
         <SafeAreaView>
-          <AlertBox />
+          <View>
+            <AlertBox />
+          </View>
         </SafeAreaView>
         {current ? (
           <ScrollView
