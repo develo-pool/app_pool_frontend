@@ -6,10 +6,9 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 interface Props {
   searchText?: string;
   onChangeText?: any;
-  DoSearching?: any;
 }
 
-function SearchBar({searchText, onChangeText, DoSearching}: Props) {
+function SearchBar({searchText, onChangeText}: Props) {
   return (
     <View style={styles.container}>
       <View style={styles.searchBar}>
@@ -18,16 +17,15 @@ function SearchBar({searchText, onChangeText, DoSearching}: Props) {
           <TextInput
             value={searchText}
             onChangeText={onChangeText}
-            // onSubmitEditing={DoSearching()}
             returnKeyType="go"
             placeholder={'브랜드명을 검색해주세요.'}
             placeholderTextColor={'rgba(0, 0, 0, 0.2)'}
             style={styles.input}
           />
         </View>
-        <TouchableOpacity onPress={() => DoSearching()}>
+        {searchText !== '' ? <TouchableOpacity onPress={() => onChangeText('')}>
           <Icon name="cancel" size={16} color={theme.colors.Grey30} />
-        </TouchableOpacity>
+        </TouchableOpacity> : <></>}
       </View>
     </View>
   );

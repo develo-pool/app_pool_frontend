@@ -1,5 +1,12 @@
 import React, {useState} from 'react';
-import {View, ScrollView, StyleSheet, SafeAreaView, Text} from 'react-native';
+import {
+  View,
+  ScrollView,
+  StyleSheet,
+  SafeAreaView,
+  Text,
+  Pressable,
+} from 'react-native';
 import SearchBar from '../components/search/SearchBar';
 import RecommandBrandUserContainer from '../components/search/RecommandBrandUserContainer';
 import RecommandSubTitle from '../components/search/RecommandSubTitle';
@@ -16,47 +23,14 @@ function SearchScreen() {
   const [searchText, setSearchText] = useState('');
   const onChangeText = (payload: string) => setSearchText(payload);
   const [isSearching, setIsSearching] = useState(false);
-  const DoSearching = () =>
-    searchText !== '' ? setIsSearching(true) : setIsSearching(false);
-  const [searchBrand, setSearchBrand] = useState({});
 
   const {data: userData} = useQuery('getUserResult', () => getUser(), {
     refetchOnMount: 'always',
   });
-  const {data:allBrandData} = useQuery('getAllBrand', () => getAllBrand());
-  const filter = async () => {
-    if (searchText === '') {
-      return;
-    } else {
-      setSearchBrand(allBrandData.filter(brand =>
-        brand.brandUsername.includes(`${searchText}`),
-      ));
-    }
-  };
-  console.log(searchBrand)
-  // const Searchfilter = () => {
-  //   if (isSearching) {
-  //     allBrandData?.filter;
-  //     allBrandData?.map(brandUser => {
-  //       if (searchText == brandUser.brandUsername) {
-  //         return (
-  //           <SearchResultBrandUserContainer
-  //             key={brandUser.poolUserId}
-  //             changeFollowing={changeFollowing}
-  //             brandUsername={brandUser.brandUsername}
-  //             brandProfileImage={brandUser.brandProfileImage}
-  //             follow={brandUser.userInfoDto?.follow}
-  //             userFollowerCount={brandUser.userInfoDto?.userFollowerCount}
-  //             poolUserId={brandUser.poolUserId}
-  //             isLoginUser={brandUser.isLoginUser}
-  //           />
-  //         );
-  //       }
-  //     });
-  //   }
-  // };
-  // let filter1 = allBrandData?.filter(it => it.brandUsername.includes('aaaa'));
-  // console.log(filter);
+  const {data: allBrandData} = useQuery('getAllBrand', () => getAllBrand());
+  const searchFilter = allBrandData?.filter(brand =>
+    brand.brandUsername.includes(`${searchText}`),
+  );
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -64,26 +38,25 @@ function SearchScreen() {
         <SearchBar
           searchText={searchText}
           onChangeText={onChangeText}
-          DoSearching={DoSearching}
         />
         <View style={styles.line} />
-        {isSearching === true ? (
+        {searchText !== '' ? (
           <ScrollView>
-            <SearchResultSubTitle searchCount={9} />
-            {allBrandData?.map(brandUser => {
-              return (
-                <SearchResultBrandUserContainer
-                  key={brandUser.poolUserId}
-                  changeFollowing={changeFollowing}
-                  brandUsername={brandUser.brandUsername}
-                  brandProfileImage={brandUser.brandProfileImage}
-                  follow={brandUser.userInfoDto?.follow}
-                  userFollowerCount={brandUser.userInfoDto?.userFollowerCount}
-                  poolUserId={brandUser.poolUserId}
-                  isLoginUser={brandUser.isLoginUser}
-                />
-              );
-            })}
+
+            {/* <SearchResultSubTitle searchCount={9} /> */}
+            {searchFilter?.map((brandUser:any) => 
+              (<SearchResultBrandUserContainer
+                key={brandUser.poolUserId}
+                changeFollowing={changeFollowing}
+                brandUsername={brandUser.brandUsername}
+                brandProfileImage={brandUser.brandProfileImage}
+                follow={brandUser.userInfoDto?.follow}
+                userFollowerCount={brandUser.userInfoDto?.userFollowerCount}
+                poolUserId={brandUser.poolUserId}
+                isLoginUser={brandUser.isLoginUser}
+              />)
+            )}
+            
           </ScrollView>
         ) : (
           <ScrollView>
