@@ -2,6 +2,7 @@ import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {
   Dimensions,
+  SafeAreaView,
   ScrollView,
   StyleSheet,
   TouchableOpacity,
@@ -140,7 +141,9 @@ function PasswordScreen() {
   return (
     <>
       <MainContainer>
-        <AlertBox />
+        <SafeAreaView>
+          <AlertBox />
+        </SafeAreaView>
         {current ? (
           <ScrollView
             showsVerticalScrollIndicator={false}

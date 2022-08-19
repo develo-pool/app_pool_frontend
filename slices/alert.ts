@@ -11,12 +11,19 @@ interface AlertState {
 }
 
 const initialState: AlertState = {
-  isVisible: false,
+  isVisible: true,
   alert: {
-    type: '',
-    text: '',
+    type: 'Complete',
+    text: 'Safe Area View Test Alert',
   },
 };
+// const initialState: AlertState = {
+//   isVisible: false,
+//   alert: {
+//     type: '',
+//     text: '',
+//   },
+// };
 
 const alertSlice = createSlice({
   name: 'alert',
