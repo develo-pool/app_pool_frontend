@@ -6,16 +6,24 @@ import {
   TouchableOpacity,
   SafeAreaView,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import theme from '../assets/theme';
 import FollowButton from '../components/profile/FollowButton';
 import BrandProfileImageContainer from '../components/profile/BrandProfileImageContainer';
-import {RootStackNavigationProp} from './types';
+import {RootStackNavigationProp, RootStackParamList} from './types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {getBrandProfile} from '../api/profile';
+import {getBrandProfile} from '../api/brand';
 import {useQuery} from 'react-query';
 
-function BrandProfileScreen(poolUserId: string) {
+type BrandProfileScreenRouteProp = RouteProp<
+  RootStackParamList,
+  'BrandProfile'
+>;
+
+function BrandProfileScreen() {
+  const route = useRoute<BrandProfileScreenRouteProp>();
+  const poolUserId = route.params.poolUserId;
+  console.log(poolUserId);
   const navigation = useNavigation<RootStackNavigationProp>();
   useEffect(() => {
     navigation.setOptions({
@@ -43,7 +51,7 @@ function BrandProfileScreen(poolUserId: string) {
       refetchOnMount: true,
     },
   );
-  console.log(poolUserId);
+
   return (
     <SafeAreaView>
       <View style={styles.ProfileSection}>
@@ -51,16 +59,14 @@ function BrandProfileScreen(poolUserId: string) {
           <View style={styles.ProfileContainer}>
             <BrandProfileImageContainer
               isEditable={false}
-              poolUserId={poolUserId}
+              imgSource={{uri: data?.brandProfileImage}}
             />
             <View style={styles.BrandInfo}>
-              <Text style={styles.BrandName}>
-                {data?.writerDto.brandUserInfoDto.brandUsername}
-              </Text>
+              <Text style={styles.BrandName}>{data?.brandUsername}</Text>
               <View style={styles.FollowerContainer}>
                 <Text style={styles.Follower}>팔로워</Text>
                 <Text style={styles.FollowerCount}>
-                  {data?.writerDto.userFolloerCount}
+                  {data?.userInfoDto.userFollowerCount}
                 </Text>
               </View>
             </View>
@@ -68,9 +74,7 @@ function BrandProfileScreen(poolUserId: string) {
           <FollowButton isFollowed={false} />
         </View>
         <View style={styles.IntroContainer}>
-          <Text style={styles.IntroText}>
-            {data?.writerDto.brandUserInfoDto.brandInfo}
-          </Text>
+          <Text style={styles.IntroText}>{data?.brandInfo}</Text>
         </View>
       </View>
       <View style={styles.Message}>

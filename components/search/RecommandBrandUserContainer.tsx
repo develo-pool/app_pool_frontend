@@ -16,7 +16,7 @@ function RecommandBrandUserContainer({following, changeFollowing}: Props) {
   return (
     <Pressable
       style={styles.brandUserContainer}
-      onPress={() => navigation.navigate('BrandProfile', {poolUserId: '1'})}>
+      onPress={() => navigation.navigate('BrandProfile', {poolUserId: 1})}>
       <View style={styles.brandUserHorizontal}>
         <Image
           style={styles.searchBrandUserProfileImg}
