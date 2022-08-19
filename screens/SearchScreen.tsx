@@ -43,7 +43,7 @@ function SearchScreen() {
         {searchText !== '' ? (
           <ScrollView>
 
-            {/* <SearchResultSubTitle searchCount={9} /> */}
+            <SearchResultSubTitle searchCount={searchFilter?.length} />
             {searchFilter?.map((brandUser:any) => 
               (<SearchResultBrandUserContainer
                 key={brandUser.poolUserId}
