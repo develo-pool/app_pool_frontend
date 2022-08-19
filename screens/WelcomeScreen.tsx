@@ -20,7 +20,9 @@ function WelcomeScreen() {
   return (
     <MainContainer>
       <SafeAreaView>
-        <AlertBox />
+        <View>
+          <AlertBox />
+        </View>
       </SafeAreaView>
       <View style={styles.block}>
         <Image
