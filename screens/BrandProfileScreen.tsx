@@ -12,7 +12,7 @@ import FollowButton from '../components/profile/FollowButton';
 import BrandProfileImageContainer from '../components/profile/BrandProfileImageContainer';
 import {RootStackNavigationProp} from './types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {getBrand} from '../api/brand';
+import {getBrandProfile} from '../api/profile';
 import {useQuery} from 'react-query';
 
 function BrandProfileScreen(poolUserId: string) {
@@ -36,10 +36,14 @@ function BrandProfileScreen(poolUserId: string) {
     });
   }, [navigation]);
 
-  const {data} = useQuery('getBrand', () => getBrand(poolUserId), {
-    refetchOnMount: 'always',
-  });
-
+  const {data} = useQuery(
+    'getBrandProfile',
+    () => getBrandProfile(poolUserId),
+    {
+      refetchOnMount: true,
+    },
+  );
+  console.log(poolUserId);
   return (
     <SafeAreaView>
       <View style={styles.ProfileSection}>
@@ -50,17 +54,23 @@ function BrandProfileScreen(poolUserId: string) {
               poolUserId={poolUserId}
             />
             <View style={styles.BrandInfo}>
-              <Text style={styles.BrandName}>{data?.brandUsername}</Text>
+              <Text style={styles.BrandName}>
+                {data?.writerDto.brandUserInfoDto.brandUsername}
+              </Text>
               <View style={styles.FollowerContainer}>
                 <Text style={styles.Follower}>팔로워</Text>
-                <Text style={styles.FollowerCount}>1.8k</Text>
+                <Text style={styles.FollowerCount}>
+                  {data?.writerDto.userFolloerCount}
+                </Text>
               </View>
             </View>
           </View>
           <FollowButton isFollowed={false} />
         </View>
         <View style={styles.IntroContainer}>
-          <Text style={styles.IntroText}>{data?.brandInfo}</Text>
+          <Text style={styles.IntroText}>
+            {data?.writerDto.brandUserInfoDto.brandInfo}
+          </Text>
         </View>
       </View>
       <View style={styles.Message}>
@@ -127,14 +137,14 @@ const styles = StyleSheet.create({
     marginLeft: 4,
   },
   IntroContainer: {
-    alignItems: 'center',
+    // alignItems: 'center',
     justifyContent: 'center',
   }, //프로필 내 소개글이 담긴 영역
   IntroText: {
     fontSize: theme.fontSize.P2,
     color: theme.colors.Grey50,
     fontWeight: theme.fontWeight.Light,
-    paddingHorizontal: 4,
+    paddingTop: 4,
   }, //소개글 텍스트
   Message: {
     alignItems: 'center',

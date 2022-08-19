@@ -4,7 +4,7 @@ import {useNavigation} from '@react-navigation/native';
 import {RootStackNavigationProp} from '../../screens/types';
 import theme from '../../assets/theme';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {getBrand} from '../../api/brand';
+import {getBrandProfile} from '../../api/profile';
 import {useQuery} from 'react-query';
 
 interface Props {
@@ -14,15 +14,19 @@ interface Props {
 
 function BrandProfileImageContainer({isEditable, poolUserId}: Props) {
   const navigation = useNavigation<RootStackNavigationProp>();
-  const {data: brandData} = useQuery('getBrand', () => getBrand(poolUserId), {
-    refetchOnMount: 'always',
-  });
+  const {data} = useQuery(
+    'getBrandProfile',
+    () => getBrandProfile(poolUserId),
+    {
+      refetchOnMount: 'always',
+    },
+  );
 
   return (
     <View style={styles.ProfileImgContainer}>
       <Image
         style={styles.ImgSource}
-        source={{uri: brandData?.brandProfileImage}}
+        source={{uri: data?.writerDto.brandUserInfoDto.brandProfileImage}}
       />
       {isEditable && (
         <TouchableOpacity
