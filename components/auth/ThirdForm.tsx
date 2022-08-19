@@ -133,17 +133,17 @@ function ThirdForm({
         onPress={onChangeText('termAgreement')}
         onPressText={() =>
           Linking.openURL(
-            'https://pool-.notion.site/46307ef08b8a471a8b5f4f38a6add44b',
+            'https://bypool.notion.site/46307ef08b8a471a8b5f4f38a6add44b',
           )
         }
       />
       <CheckBox
-        title="개인정보 처리방침 동의 (필수)"
+        title="개인정보처리방침 동의 (필수)"
         state={form.privacyAgreement}
         onPress={onChangeText('privacyAgreement')}
         onPressText={() =>
           Linking.openURL(
-            'https://pool-.notion.site/50c7bb1b42fe491cbaa8bc694f7c5ca1',
+            'https://bypool.notion.site/50c7bb1b42fe491cbaa8bc694f7c5ca1',
           )
         }
       />
