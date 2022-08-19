@@ -3,6 +3,7 @@ import {
   ActivityIndicator,
   GestureResponderEvent,
   Pressable,
+  SafeAreaView,
   StyleSheet,
   Text,
 } from 'react-native';
@@ -20,18 +21,20 @@ function ScreenBottomButton({
   isLoading?: boolean;
 }) {
   return (
-    <Pressable
-      onPress={onPress}
-      disabled={!enabled}
-      style={[styles.button, enabled ? styles.enabled : styles.disabled]}>
-      {isLoading ? (
-        <ActivityIndicator size="small" color="white" />
-      ) : (
-        <Text style={enabled ? styles.enabledText : styles.disabledText}>
-          {name}
-        </Text>
-      )}
-    </Pressable>
+    <SafeAreaView>
+      <Pressable
+        onPress={onPress}
+        disabled={!enabled}
+        style={[styles.button, enabled ? styles.enabled : styles.disabled]}>
+        {isLoading ? (
+          <ActivityIndicator size="small" color="white" />
+        ) : (
+          <Text style={enabled ? styles.enabledText : styles.disabledText}>
+            {name}
+          </Text>
+        )}
+      </Pressable>
+    </SafeAreaView>
   );
 }
 
