@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, ScrollView, StyleSheet, SafeAreaView} from 'react-native';
+import {View, ScrollView, StyleSheet, SafeAreaView, Text} from 'react-native';
 import SearchBar from '../components/search/SearchBar';
 import RecommandBrandUserContainer from '../components/search/RecommandBrandUserContainer';
 import RecommandSubTitle from '../components/search/RecommandSubTitle';
@@ -14,7 +14,7 @@ function SearchScreen() {
   const [following, setFollowing] = useState(false);
   const changeFollowing = () => setFollowing(!following);
   const [searchText, setSearchText] = useState('');
-  const onChangeText = payload => setSearchText(payload);
+  const onChangeText = (payload: string) => setSearchText(payload);
   const [isSearching, setIsSearching] = useState(false);
   const DoSearching = () =>
     searchText !== '' ? setIsSearching(true) : setIsSearching(false);
@@ -22,8 +22,26 @@ function SearchScreen() {
     refetchOnMount: 'always',
   });
   const {data: allBrandData} = useQuery('getAllBrand', () => getAllBrand());
-  // console.log(allBrandData);
-  console.log(userData);
+  const Search = () => {
+    if (isSearching) {
+      allBrandData?.map(brandUser => {
+        if (searchText == brandUser.brandUsername){
+          return (
+            <SearchResultBrandUserContainer
+              key={brandUser.poolUserId}
+              changeFollowing={changeFollowing}
+              brandUsername={brandUser.brandUsername}
+              brandProfileImage={brandUser.brandProfileImage}
+              follow={brandUser.userInfoDto?.follow}
+              userFollowerCount={brandUser.userInfoDto?.userFollowerCount}
+              poolUserId={brandUser.poolUserId}
+              isLoginUser={brandUser.isLoginUser}
+            />
+          );
+        }
+      })
+    }
+  };
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView style={styles.scroll}>
@@ -33,13 +51,11 @@ function SearchScreen() {
           DoSearching={DoSearching}
         />
         <View style={styles.line} />
-        {isSearching ? (
+        {isSearching === true ? (
           <ScrollView>
             <SearchResultSubTitle searchCount={9} />
-            {allBrandData?.map(brandUser => {
-              // {userData?.userStatus === 'BRAND_USER' &&
-              // userData?.poolUserId === brandUser.poolUserId}
-              console.log(brandUser)
+            {Search()}
+            {/* {allBrandData?.map(brandUser => {
               return (
                 <SearchResultBrandUserContainer
                   key={brandUser.poolUserId}
@@ -49,17 +65,15 @@ function SearchScreen() {
                   follow={brandUser.userInfoDto?.follow}
                   userFollowerCount={brandUser.userInfoDto?.userFollowerCount}
                   poolUserId={brandUser.poolUserId}
-                  userData={userData}
+                  isLoginUser={brandUser.isLoginUser}
                 />
               );
-            })}
+            })} */}
           </ScrollView>
         ) : (
           <ScrollView>
             <RecommandSubTitle />
             {allBrandData?.map(brandUser => {
-              // userData?.userStatus === 'BRAND_USER' &&
-              // userData?.poolUserId === brandUser.poolUserId
               return (
                 <RecommandBrandUserContainer
                   key={brandUser.poolUserId}
@@ -70,6 +84,7 @@ function SearchScreen() {
                   follow={brandUser.userInfoDto?.follow}
                   userFollowerCount={brandUser.userInfoDto?.userFollowerCount}
                   poolUserId={brandUser.poolUserId}
+                  isLoginUser={brandUser.isLoginUser}
                 />
               );
             })}

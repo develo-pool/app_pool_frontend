@@ -13,6 +13,7 @@ interface Props {
   userFollowerCount: number;
   poolUserId: number;
   changeFollowing?: any;
+  isLoginUser?: boolean;
 }
 
 function RecommandBrandUserContainer({
@@ -23,6 +24,7 @@ function RecommandBrandUserContainer({
   userFollowerCount,
   poolUserId,
   changeFollowing,
+  isLoginUser,
 }: Props) {
   const navigation = useNavigation<RootStackNavigationProp>();
 
@@ -45,9 +47,13 @@ function RecommandBrandUserContainer({
               <Text style={styles.followerCount}>{userFollowerCount}</Text>
             </View>
           </View>
-          <View>
-            <FollowButton isFollowed={follow} onPress={changeFollowing}/>
-          </View>
+          {isLoginUser === true ? (
+              ''
+            ) : (
+              <View>
+                <FollowButton isFollowed={follow} onPress={changeFollowing} />
+              </View>
+            )}
         </View>
       </View>
       <View style={styles.brandUserIntroContainer}>

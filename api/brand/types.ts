@@ -36,4 +36,5 @@ export interface AllBrandResult {
     brandUserInfoDto?: any;
   };
   poolUserId: number;
+  isLoginUser: boolean;
 }

@@ -12,7 +12,7 @@ interface Props {
   userFollowerCount: number;
   poolUserId: number;
   changeFollowing?: any;
-  userData?: any;
+  isLoginUser?: boolean;
 }
 
 function SearchResultBrandUserContainer({
@@ -22,7 +22,7 @@ function SearchResultBrandUserContainer({
   userFollowerCount,
   poolUserId,
   changeFollowing,
-  userData,
+  isLoginUser,
 }: Props) {
   const navigation = useNavigation<RootStackNavigationProp>();
   // console.log(userData);
@@ -48,12 +48,13 @@ function SearchResultBrandUserContainer({
                 </View>
               </View>
             </View>
-            {
-
-            }
-            <View>
-              <FollowButton isFollowed={follow} onPress={changeFollowing} />
-            </View>
+            {isLoginUser === true ? (
+              ''
+            ) : (
+              <View>
+                <FollowButton isFollowed={follow} onPress={changeFollowing} />
+              </View>
+            )}
           </View>
         </View>
       </Pressable>
