@@ -6,29 +6,28 @@ import RecommandSubTitle from '../components/search/RecommandSubTitle';
 import SearchResultBrandUserContainer from '../components/search/SearchResultBrandUserContainer';
 import SearchResultSubTitle from '../components/search/SearchResultSubTitle';
 import theme from '../assets/theme';
-// import {getUser} from '../api/auth';
 import {useQuery} from 'react-query';
 import {getAllBrand} from '../api/brand/index';
-import { useEffect } from 'react';
+import {useEffect} from 'react';
 
 function SearchScreen() {
   const [following, setFollowing] = useState(false);
   const changeFollowing = () => setFollowing(!following);
   const [searchText, setSearchText] = useState('');
   const onChangeText = (payload: string) => setSearchText(payload);
-  // const {data: userData} = useQuery('getUserResult', () => getUser(), {
-  //   refetchOnMount: 'always',
-  // });
-  const {data: allBrandData, refetch} = useQuery('getAllBrand', () => getAllBrand(),{
-    enabled: false,
-  });
+  const {data: allBrandData, refetch} = useQuery(
+    'getAllBrand',
+    () => getAllBrand(),
+    {
+      enabled: false,
+    },
+  );
   const searchFilter = allBrandData?.filter(brand =>
     brand.brandUsername.includes(`${searchText}`),
   );
-  useEffect(()=>{
-    refetch()
-  }, [])
-  console.log(allBrandData)
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
 
   return (
     <SafeAreaView style={styles.safeArea}>
