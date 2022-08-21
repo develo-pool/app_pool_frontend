@@ -9,6 +9,7 @@ import theme from '../assets/theme';
 // import {getUser} from '../api/auth';
 import {useQuery} from 'react-query';
 import {getAllBrand} from '../api/brand/index';
+import { useEffect } from 'react';
 
 function SearchScreen() {
   const [following, setFollowing] = useState(false);
@@ -18,10 +19,16 @@ function SearchScreen() {
   // const {data: userData} = useQuery('getUserResult', () => getUser(), {
   //   refetchOnMount: 'always',
   // });
-  const {data: allBrandData} = useQuery('getAllBrand', () => getAllBrand());
+  const {data: allBrandData, refetch} = useQuery('getAllBrand', () => getAllBrand(),{
+    enabled: false,
+  });
   const searchFilter = allBrandData?.filter(brand =>
     brand.brandUsername.includes(`${searchText}`),
   );
+  useEffect(()=>{
+    refetch()
+  }, [])
+  console.log(allBrandData)
 
   return (
     <SafeAreaView style={styles.safeArea}>
