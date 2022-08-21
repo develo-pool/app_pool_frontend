@@ -1,5 +1,5 @@
 import {View, StyleSheet, ScrollView, SafeAreaView, Image} from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import Feed from '../components/feed/Feed';
 import theme from '../assets/theme';
 import NowDate from '../components/feed/NowDate';
@@ -13,21 +13,26 @@ function FeedScreen() {
   const {data: userData} = useQuery('getUserResult', () => getUser(), {
     refetchOnMount: 'always',
   });
-  const {data: allMessageData} = useQuery('getAllMessage', () =>
-    getAllMessage(),
+  const {data: allMessageData, refetch} = useQuery(
+    'getAllMessage',
+    () => getAllMessage(),
+    // {enabled: false,}
   );
+  useEffect(() => {});
   const today = new Date().toLocaleDateString().replace(/\./g, '');
   const yy = today.substring(6, 8);
   const dd = today.substring(3, 5);
   const mm = today.substring(0, 2);
   const yymmdd = yy + '년 ' + mm + '월 ' + dd + '일';
+  console.log(allMessageData);
+  console.log(today);
   return (
     <SafeAreaView>
       <View style={styles.container}>
         {/* <Pressable onPress={() => refetchGetUser()}>
           <Text>요청</Text>
         </Pressable> */}
-        
+
         <ScrollView showsVerticalScrollIndicator={false}>
           <Hello name={userData?.nickName} />
           <NowDate msgDate={yymmdd} />
