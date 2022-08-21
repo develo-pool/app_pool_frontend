@@ -13,12 +13,17 @@ function FeedScreen() {
   const {data: userData} = useQuery('getUserResult', () => getUser(), {
     refetchOnMount: 'always',
   });
+  console.log(userData)
   const {data: allMessageData, refetch} = useQuery(
     'getAllMessage',
     () => getAllMessage(),
-    // {enabled: false,}
+    {enabled: false,}
   );
-  useEffect(() => {});
+  useEffect(() => {
+    if (userData?.userFollowingCount !== 0){
+      refetch()
+    }
+  }, []);
   const today = new Date().toLocaleDateString().replace(/\./g, '');
   const yy = today.substring(6, 8);
   const dd = today.substring(3, 5);
