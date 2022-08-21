@@ -5,14 +5,14 @@ import theme from '../../assets/theme';
 interface Props {
   commentText?: string;
   onChangeText?: any;
-  isComment?: boolean;
+  commentAble?: boolean;
   addComments?: any;
 }
 
 function InputCommentContainer({
   commentText,
   onChangeText,
-  isComment,
+  commentAble,
   addComments,
 }: Props) {
   return (
@@ -23,12 +23,12 @@ function InputCommentContainer({
         onSubmitEditing={addComments}
         returnKeyType="done"
         placeholder={
-          isComment
-            ? '이미 작성한 메시지입니다.'
-            : '채팅은 1회만 발송할 수 있습니다.'
+          commentAble
+            ? '채팅은 1회만 발송할 수 있습니다.'
+            : '이미 작성한 메시지입니다.'
         }
-        style={isComment ? styles.inputX : styles.input}
-        editable={!isComment}
+        style={commentAble ? styles.input : styles.inputX}
+        editable={commentAble}
       />
     </View>
   );

@@ -44,16 +44,36 @@ function MessageScreen() {
   }, [navigation]);
 
   const {data: messageData} = useQuery('getMessage', () => getMessage(detail));
-  const {data: allCommentData} = useQuery('getAllComment', () =>
-    getAllComment(detail),
+  const {data: allCommentData, refetch: allCommentRefetch} = useQuery(
+    'getAllComment',
+    () => getAllComment(detail),
+    {enabled: false},
   );
-
+  const {data: commentData, refetch: commentRefetch} = useQuery(
+    'getComment',
+    () => getComment(detail),
+    {enabled: false},
+  );
   const {mutate: writeComment} = useMutation(createComment, {
-    onSuccess: () => {},
+    onSuccess: () => {
+      commentRefetch();
+    },
   });
-  const {data: commentData} = useQuery('getComment', () => getComment(detail));
-  console.log(commentData);
+  useEffect(() => {
+    if (
+      userData?.role == 'BRAND_USER' &&
+      userData.username == messageData?.writerDto?.username
+    ) {
+      allCommentRefetch();
+    } else if (messageData?.commentAble == false) {
+      commentRefetch();
+    }
+  }, [messageData]);
 
+  console.log(allCommentData);
+  console.log(userData);
+  console.log(messageData);
+  console.log(commentData);
   const onPress = async () => {
     console.log(commentText);
     if (commentText === '') {
@@ -116,7 +136,7 @@ function MessageScreen() {
             <InputCommentContainer
               commentText={commentText}
               onChangeText={onChangeText}
-              isComment={commentData ? false : true}
+              commentAble={messageData?.commentAble}
               addComments={onPress}
             />
           </ScrollView>
