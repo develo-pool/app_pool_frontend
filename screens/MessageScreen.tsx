@@ -61,19 +61,21 @@ function MessageScreen() {
   });
   useEffect(() => {
     if (
-      userData?.role == 'BRAND_USER' &&
-      userData.username == messageData?.writerDto?.username
+      userData?.role === 'BRAND_USER' &&
+      userData.username === messageData?.writerDto?.username
     ) {
       allCommentRefetch();
-    } else if (messageData?.commentAble == false) {
+    } else if (messageData?.commentAble === false) {
       commentRefetch();
     }
-  }, [messageData]);
+  }, [
+    messageData,
+    allCommentRefetch,
+    commentRefetch,
+    userData?.role,
+    userData?.username,
+  ]);
 
-  console.log(allCommentData);
-  console.log(userData);
-  console.log(messageData);
-  console.log(commentData);
   const onPress = async () => {
     console.log(commentText);
     if (commentText === '') {
@@ -104,8 +106,8 @@ function MessageScreen() {
           )}
         </View>
 
-        {userData?.userStatus == 'BRAND_USER' &&
-        userData.username == messageData?.writerDto?.username ? (
+        {userData?.userStatus === 'BRAND_USER' &&
+        userData.username === messageData?.writerDto?.username ? (
           <ScrollView>
             {allCommentData?.map(comments => {
               return (

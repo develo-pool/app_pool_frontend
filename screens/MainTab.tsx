@@ -4,7 +4,7 @@ import SearchScreen from './SearchScreen';
 import FeedScreen from './FeedScreen';
 import SettingStack from './SettingStack';
 import ProfileScreen from './ProfileScreen';
-import MessageScreen from './MessageScreen';
+// import MessageScreen from './MessageScreen';
 import {MainTabParamList} from './types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import theme from './../assets/theme';
@@ -49,7 +49,7 @@ function MainTab() {
           ),
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Message"
         component={MessageScreen}
         options={{
@@ -57,7 +57,7 @@ function MainTab() {
             <Icon name="view-agenda" size={24} color={color} />
           ),
         }}
-      />
+      /> */}
       {isBrandUser && (
         <Tab.Screen
           name="Profile"
