@@ -2,12 +2,13 @@ import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {
   Dimensions,
+  Keyboard,
   KeyboardAvoidingView,
   Platform,
   SafeAreaView,
-  ScrollView,
   StyleSheet,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   View,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -148,87 +149,81 @@ function PasswordScreen() {
             <AlertBox />
           </View>
         </SafeAreaView>
-        <KeyboardAvoidingView
-          behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           {current ? (
-            <ScrollView
-              showsVerticalScrollIndicator={false}
-              keyboardShouldPersistTaps="handled">
-              <View style={styles.block}>
-                <Title title="비밀번호를" />
-                <Title title="재설정해 주세요." hasMargin={true} />
-                <PasswordForm
-                  form={form}
-                  onChangeForm={createChangeFormHandler}
-                  setForm={setForm}
-                />
-              </View>
-            </ScrollView>
+            <View style={styles.block}>
+              <Title title="비밀번호를" />
+              <Title title="재설정해 주세요." hasMargin={true} />
+              <PasswordForm
+                form={form}
+                onChangeForm={createChangeFormHandler}
+                setForm={setForm}
+              />
+            </View>
           ) : (
-            <ScrollView
-              showsVerticalScrollIndicator={false}
-              keyboardShouldPersistTaps="handled">
-              <View style={[styles.block, isVisible && styles.alert]}>
-                <Title title="본인인증을" />
-                <Title title="진행해주세요." hasMargin={true} />
-                <InputTitle title="아이디" />
-                <View style={styles.row}>
-                  <TextInputs
-                    type={
-                      form.username.length > 2 || !form.username
-                        ? 'default'
-                        : 'error'
-                    }
-                    placeholder="아이디를 입력해 주세요"
-                    value={form.username}
-                    onChangeText={(value: string) =>
-                      setForm({
-                        ...form,
-                        username: ReplaceKorean(value),
-                        usernameChecked: undefined,
-                      })
-                    }
-                    maxLength={20}
-                    alert={
-                      form.username.length > 2 || !form.username
-                        ? undefined
-                        : {type: 'Error', text: '3자 이상 입력해주세요.'}
-                    }
-                  />
-                </View>
-                <PhoneAuthForm
-                  form={form}
-                  onChangeForm={createChangeFormHandler}
-                  setForm={setForm}
-                  mode="CHANGE_PASSWORD"
+            <View style={[styles.block, isVisible && styles.alert]}>
+              <Title title="본인인증을" />
+              <Title title="진행해주세요." hasMargin={true} />
+              <InputTitle title="아이디" />
+              <View style={styles.row}>
+                <TextInputs
+                  type={
+                    form.username.length > 2 || !form.username
+                      ? 'default'
+                      : 'error'
+                  }
+                  placeholder="아이디를 입력해 주세요"
+                  value={form.username}
+                  onChangeText={(value: string) =>
+                    setForm({
+                      ...form,
+                      username: ReplaceKorean(value),
+                      usernameChecked: undefined,
+                    })
+                  }
+                  maxLength={20}
+                  alert={
+                    form.username.length > 2 || !form.username
+                      ? undefined
+                      : {type: 'Error', text: '3자 이상 입력해주세요.'}
+                  }
                 />
               </View>
-            </ScrollView>
+              <PhoneAuthForm
+                form={form}
+                onChangeForm={createChangeFormHandler}
+                setForm={setForm}
+                mode="CHANGE_PASSWORD"
+              />
+            </View>
           )}
-        </KeyboardAvoidingView>
+        </TouchableWithoutFeedback>
       </MainContainer>
-      {current ? (
-        <ScreenBottomButton
-          name="재설정 완료"
-          onPress={() => {
-            mutate({username: form.username, toBePassword: form.password});
-          }}
-          enabled={
-            form.confirm === form.password &&
-            form.passwordValid.first &&
-            form.passwordValid.second
-          }
-        />
-      ) : (
-        <ScreenBottomButton
-          name="비밀번호 재설정하기"
-          onPress={() => {
-            refetchUserExist();
-          }}
-          enabled={form.state === 'confirm' && form.username.length > 2}
-          isLoading={userExistLoading}
-        />
-      )}
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+        {current ? (
+          <ScreenBottomButton
+            name="재설정 완료"
+            onPress={() => {
+              mutate({username: form.username, toBePassword: form.password});
+            }}
+            enabled={
+              form.confirm === form.password &&
+              form.passwordValid.first &&
+              form.passwordValid.second
+            }
+          />
+        ) : (
+          <ScreenBottomButton
+            name="비밀번호 재설정하기"
+            onPress={() => {
+              refetchUserExist();
+            }}
+            enabled={form.state === 'confirm' && form.username.length > 2}
+            isLoading={userExistLoading}
+          />
+        )}
+      </KeyboardAvoidingView>
     </>
   );
 }
@@ -237,7 +232,6 @@ const styles = StyleSheet.create({
     zIndex: 10,
   },
   block: {
-    flex: 1,
     marginTop: 60,
   },
   row: {
