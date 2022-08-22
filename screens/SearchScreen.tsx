@@ -6,61 +6,68 @@ import RecommandSubTitle from '../components/search/RecommandSubTitle';
 import SearchResultBrandUserContainer from '../components/search/SearchResultBrandUserContainer';
 import SearchResultSubTitle from '../components/search/SearchResultSubTitle';
 import theme from '../assets/theme';
-
-// interface User {
-//   name: string;
-//   profileImg: string;
-//   intro: string;
-//   follower: number;
-// }
-
-// const hoon: User = {
-//   name: 'hoon',
-//   profileImg: 'https://reactnative.dev/img/tiny_logo.png',
-//   intro: ''
-//   follower: 300,
-// };
+import {useQuery} from 'react-query';
+import {getAllBrand} from '../api/brand/index';
+import {useEffect} from 'react';
 
 function SearchScreen() {
   const [following, setFollowing] = useState(false);
   const changeFollowing = () => setFollowing(!following);
   const [searchText, setSearchText] = useState('');
-  const onChangeText = payload => setSearchText(payload);
-  const [isSearching, setIsSearching] = useState(false);
-  const DoSearching = () =>
-    searchText !== '' ? setIsSearching(true) : setIsSearching(false);
+  const onChangeText = (payload: string) => setSearchText(payload);
+  const {data: allBrandData, refetch} = useQuery(
+    'getAllBrand',
+    () => getAllBrand(),
+    {
+      enabled: false,
+    },
+  );
+  const searchFilter = allBrandData?.filter(brand =>
+    brand.brandUsername.includes(`${searchText}`),
+  );
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView style={styles.scroll}>
-        <SearchBar
-          searchText={searchText}
-          onChangeText={onChangeText}
-          DoSearching={DoSearching}
-        />
+        <SearchBar searchText={searchText} onChangeText={onChangeText} />
         <View style={styles.line} />
-        {isSearching ? (
+        {searchText !== '' ? (
           <ScrollView>
-            <SearchResultSubTitle searchCount={9} />
-            <SearchResultBrandUserContainer
-              following={following}
-              changeFollowing={changeFollowing}
-            />
-            <SearchResultBrandUserContainer
-              following={following}
-              changeFollowing={changeFollowing}
-            />
+            <SearchResultSubTitle searchCount={searchFilter?.length} />
+            {searchFilter?.map((brandUser: any) => (
+              <SearchResultBrandUserContainer
+                key={brandUser.poolUserId}
+                changeFollowing={changeFollowing}
+                brandUsername={brandUser.brandUsername}
+                brandProfileImage={brandUser.brandProfileImage}
+                follow={brandUser.userInfoDto?.follow}
+                userFollowerCount={brandUser.userInfoDto?.userFollowerCount}
+                // poolUserId={brandUser.poolUserId}
+                isLoginUser={brandUser.isLoginUser}
+              />
+            ))}
           </ScrollView>
         ) : (
           <ScrollView>
             <RecommandSubTitle />
-            <RecommandBrandUserContainer
-              following={following}
-              changeFollowing={changeFollowing}
-            />
-            <RecommandBrandUserContainer
-              following={following}
-              changeFollowing={changeFollowing}
-            />
+            {allBrandData?.map(brandUser => {
+              return (
+                <RecommandBrandUserContainer
+                  key={brandUser.poolUserId}
+                  changeFollowing={changeFollowing}
+                  brandUsername={brandUser.brandUsername}
+                  brandInfo={brandUser.brandInfo}
+                  brandProfileImage={brandUser.brandProfileImage}
+                  follow={brandUser.userInfoDto?.follow}
+                  userFollowerCount={brandUser.userInfoDto?.userFollowerCount}
+                  poolUserId={brandUser.poolUserId}
+                  isLoginUser={brandUser.isLoginUser}
+                />
+              );
+            })}
           </ScrollView>
         )}
       </ScrollView>

@@ -6,11 +6,26 @@ import {useNavigation} from '@react-navigation/native';
 import {RootStackNavigationProp} from '../../screens/types';
 
 interface Props {
-  following?: any;
+  brandUsername: string;
+  brandInfo: string;
+  brandProfileImage: string;
+  follow: boolean;
+  userFollowerCount: number;
+  poolUserId: number;
   changeFollowing?: any;
+  isLoginUser?: boolean;
 }
 
-function RecommandBrandUserContainer({following, changeFollowing}: Props) {
+function RecommandBrandUserContainer({
+  brandUsername,
+  brandInfo,
+  brandProfileImage,
+  follow,
+  userFollowerCount,
+  // poolUserId,
+  changeFollowing,
+  isLoginUser,
+}: Props) {
   const navigation = useNavigation<RootStackNavigationProp>();
 
   return (
@@ -21,26 +36,28 @@ function RecommandBrandUserContainer({following, changeFollowing}: Props) {
         <Image
           style={styles.searchBrandUserProfileImg}
           source={{
-            uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpX76CrHxujOncRrHo9XMHks7UTYRpIbM_Mw&usqp=CAU',
+            uri: brandProfileImage,
           }}
         />
         <View style={styles.spacebetween}>
           <View style={styles.brandUserTextContainer}>
-            <Text style={styles.brandUsername}>신규유튜버</Text>
+            <Text style={styles.brandUsername}>{brandUsername}</Text>
             <View style={styles.brandUserFollowerContainer}>
               <Text style={styles.followerText}>팔로워</Text>
-              <Text style={styles.followerCount}>1.9K</Text>
+              <Text style={styles.followerCount}>{userFollowerCount}</Text>
             </View>
           </View>
-          <View>
-            <FollowButton isFollowed={following} onPress={changeFollowing} />
-          </View>
+          {isLoginUser === true ? (
+            ''
+          ) : (
+            <View>
+              <FollowButton isFollowed={follow} onPress={changeFollowing} />
+            </View>
+          )}
         </View>
       </View>
       <View style={styles.brandUserIntroContainer}>
-        <Text style={styles.brandUserIntro}>
-          더풀입니다. 많은 사랑과 관심 부탁드리며...!
-        </Text>
+        <Text style={styles.brandUserIntro}>{brandInfo}</Text>
       </View>
     </Pressable>
   );
