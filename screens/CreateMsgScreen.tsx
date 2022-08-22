@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useCallback} from 'react';
 import {
   Text,
   View,
@@ -19,16 +19,24 @@ import {
 import {launchImageLibrary} from 'react-native-image-picker';
 import {useNavigation} from '@react-navigation/native';
 import {MainTabNatigationProp} from './types';
+import {useQuery, useMutation} from 'react-query';
+import {getBrand} from '../api/brand';
+import {Asset} from 'react-native-image-picker';
+import {createMessage} from '../api/message';
+
+export interface CreateMessageProps {
+  messageBody: string;
+  messageLink?: string;
+  messageImage?: Asset | undefined;
+}
 
 function CreateMessageScreen() {
   const navigation = useNavigation<MainTabNatigationProp>();
-  const [text, setText] = useState('');
-
-  // const onSubmit = useCallback(() => {
-  //   const formData = new FormData();
-  //   formData.append('', form.imgNewMessage);
-  //   assign(formData);
-  // }, [assign, form]);
+  const [form, setForm] = useState<CreateMessageProps>({
+    messageBody: '',
+    messageLink: '',
+    messageImage: undefined,
+  });
 
   const onSelectImage = () => {
     launchImageLibrary(
@@ -42,8 +50,41 @@ function CreateMessageScreen() {
         if (res.didCancel) {
           return;
         }
+        if (res.assets) {
+          setForm({
+            ...form,
+            messageImage: {
+              uri: res.assets[0].uri,
+              type: res.assets[0].type,
+              fileName: res.assets[0].fileName,
+            },
+          });
+        }
       },
     );
+  };
+  const {data: brandData} = useQuery('getBrand', () => getBrand(''), {
+    refetchOnMount: 'always',
+  });
+  const {mutate: create} = useMutation(createMessage, {
+    onSuccess: () => {
+      navigation.goBack();
+    },
+  });
+
+  const onSubmit = useCallback(() => {
+    const formData = new FormData();
+    formData.append('body', form.messageBody);
+    formData.append('messageLink', form.messageLink as string);
+    formData.append('multipartFiles', form.messageImage as Blob);
+    create(formData);
+  }, [create, form]);
+
+  const onChangeText = (prop: string) => (value: string) => {
+    setForm({
+      ...form,
+      [prop]: value,
+    });
   };
 
   return (
@@ -59,23 +100,32 @@ function CreateMessageScreen() {
           <View style={styles.BrandInfo}>
             <Image
               style={styles.ImgSource}
-              source={require('../assets/ProfileImage.png')}
+              source={{uri: brandData?.brandProfileImage}}
             />
-            <Text style={styles.BrandName}>더푸르</Text>
+            <Text style={styles.BrandName}>{brandData?.brandUsername}</Text>
           </View>
-          <PreviewButton text="미리보기" isDisabled={text.length < 20} />
+          <PreviewButton
+            text="미리보기"
+            isDisabled={form.messageBody.length < 20}
+          />
         </View>
         <TextInput
-          value={text}
-          onChangeText={setText}
+          value={form.messageBody}
+          onChangeText={onChangeText('messageBody')}
           style={styles.InputMessage}
           placeholder="20자 이상,  1000자 이내로 입력"
         />
-        {/* <Image
-          style={styles.UploadImage}
-          source={{uri: response?.assets[0]?.uri}}
-        /> */}
+        {form.messageImage && (
+          <Image
+            style={styles.UploadImage}
+            source={{uri: form.messageImage?.uri}}
+          />
+        )}
+        {form.messageLink && (
+          <Icon name="insert-link" size={26} style={styles.Link} />
+        )}
       </View>
+
       <View style={styles.BottomArea}>
         <View style={styles.Line} />
         <View style={styles.BottomBar}>
@@ -87,7 +137,11 @@ function CreateMessageScreen() {
               <Icon name="insert-link" size={26} style={styles.Link} />
             </Pressable>
           </View>
-          <SendButton text="발송하기" isDisabled={text.length < 20} />
+          <SendButton
+            text="발송하기"
+            isDisabled={form.messageBody.length < 20}
+            onPress={() => onSubmit()}
+          />
         </View>
       </View>
     </SafeAreaView>
@@ -133,16 +187,21 @@ const styles = StyleSheet.create({
     fontFamily: theme.fontFamily.Pretendard,
     fontSize: theme.fontSize.P3,
     color: theme.colors.Grey80,
-    fontWeight: '700',
+    fontWeight: theme.fontWeight.Bold,
     marginLeft: 8,
   },
   InputMessage: {
     paddingHorizontal: 4,
     fontFamily: theme.fontFamily.Pretendard,
     fontSize: theme.fontSize.P1,
-    fontWeight: '400',
+    color: theme.colors.Grey60,
+    fontWeight: theme.fontWeight.Light,
   },
-  UploadImage: {},
+  UploadImage: {
+    width: 340,
+    height: 252,
+    borderRadius: 5,
+  },
   Line: {
     height: 1,
     backgroundColor: '#E8E8E8',
@@ -161,9 +220,11 @@ const styles = StyleSheet.create({
   },
   Camera: {
     marginRight: 10,
+    color: theme.colors.Grey50,
   },
-  Link: {},
-  // Clock: {},
+  Link: {
+    color: theme.colors.Grey50,
+  },
 });
 
 export default CreateMessageScreen;

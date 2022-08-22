@@ -13,8 +13,6 @@ import theme from './../assets/theme';
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
 
-const isBrandUser = true;
-
 function MainTab() {
   // const user = useSelector((state: RootState) => state.auth.user);
   return (
@@ -49,28 +47,17 @@ function MainTab() {
           ),
         }}
       />
-      {/* <Tab.Screen
-        name="Message"
-        component={MessageScreen}
+      <Tab.Screen
+        name="Profile"
+        component={ProfileScreen}
         options={{
+          headerShown: false,
+          tabBarShowLabel: false,
           tabBarIcon: ({color}) => (
-            <Icon name="view-agenda" size={24} color={color} />
+            <Icon name="person" size={24} color={color} />
           ),
         }}
-      /> */}
-      {isBrandUser && (
-        <Tab.Screen
-          name="Profile"
-          component={ProfileScreen}
-          options={{
-            headerShown: false,
-            tabBarShowLabel: false,
-            tabBarIcon: ({color}) => (
-              <Icon name="person" size={24} color={color} />
-            ),
-          }}
-        />
-      )}
+      />
       <Tab.Screen
         name="SettingStack"
         component={SettingStack}
