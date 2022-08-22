@@ -16,7 +16,7 @@ function MessageHeader({username, profileImg}: Props) {
     // 댓글 작성 여부에 따라 메시지스크린 -> 입력창 포커스를 잡아주는 컴포넌트
     <TouchableOpacity
       style={styles.messageHeader}
-      onPress={() => navigation.navigate('BrandProfile', {poolUserId: '1'})}>
+      onPress={() => navigation.navigate('BrandProfile', {poolUserId: 1})}>
       {/* 여기 나중에 꼭 바꿔줘야함!!!! */}
       <View style={styles.feedHeader}>
         <View style={styles.feedOwner}>
