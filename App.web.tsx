@@ -1,9 +1,10 @@
-import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
 import {QueryClient, QueryClientProvider} from 'react-query';
 import {Provider} from 'react-redux';
 import store from './slices';
 import ProfileScreen from './web/ProfileScreen.web';
+import {Route, BrowserRouter, Routes} from 'react-router-dom';
+import NotFound from './web/NotFound.web';
 
 const queryClient = new QueryClient();
 
@@ -11,9 +12,13 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <Provider store={store}>
-        <NavigationContainer>
-          <ProfileScreen />
-        </NavigationContainer>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/:brandId" element={<ProfileScreen />} />
+            <Route path="/404" element={<NotFound />} />
+            <Route path="/" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
       </Provider>
     </QueryClientProvider>
   );

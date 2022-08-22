@@ -1,4 +1,3 @@
-import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import React from 'react';
 import {
   ActivityIndicator,
@@ -9,37 +8,32 @@ import {
   View,
 } from 'react-native';
 import {useQuery} from 'react-query';
+import {useNavigate, useParams} from 'react-router-dom';
 import {Message} from '../api/message/types';
 import {getBrandWebMessage, getBrandWebProfile} from '../api/web';
-import {RootStackNavigationProp, RootStackParamList} from '../App.web';
 import PoolLogo from '../assets/PoolLogo.png';
 import theme from '../assets/theme';
 import Footer from '../components/setting/footer';
 import MessageBlock from './MessageBlock.web';
 
-type ProfileScreenRouteProp = RouteProp<RootStackParamList, 'Profile'>;
-
 function ProfileScreen() {
-  const navigation = useNavigation<RootStackNavigationProp>();
-  const route = useRoute<ProfileScreenRouteProp>();
-  const brandId = route.params.brandId;
+  const navigation = useNavigate();
+  const {brandId = '0'} = useParams();
+  const id = parseInt(brandId, 10);
   const {data: profileData, isLoading: isProfileLoading} = useQuery(
     'getBrandWebProfile',
-    () => getBrandWebProfile(brandId),
+    () => getBrandWebProfile(id),
     {
       onError: () => {
-        navigation.navigate('NotFound');
+        navigation('/404');
       },
       refetchOnMount: true,
     },
   );
   const {data: messageData, isLoading: isMessageLoading} = useQuery(
     'getBrandWebMessage',
-    () => getBrandWebMessage({brandId: brandId, cursor: 0}),
+    () => getBrandWebMessage({brandId: id, cursor: 0}),
     {
-      onError: () => {
-        navigation.navigate('NotFound');
-      },
       refetchOnMount: true,
     },
   );
@@ -88,35 +82,34 @@ function ProfileScreen() {
           <ActivityIndicator />
         )}
       </View>
-      {!isMessageLoading && messageData ? (
-        messageData.length === 0 ? (
-          <View style={styles.Message}>
-            <Text style={styles.MessageNull}>등록된 메시지가 없습니다.</Text>
-          </View>
-        ) : (
-          <View>
-            {messageData.map((message: Message) => {
-              return (
-                <MessageBlock
-                  key={message.postId}
-                  postId={message.postId}
-                  body={message.body}
-                  messageLink={message.messageLink}
-                  filePath={message.filePath}
-                  writerDto={message.writerDto}
-                  commentAble={message.commentAble}
-                  isWriter={message.isWriter}
-                  create_date={message.create_date}
-                />
-              );
-            })}
-          </View>
-        )
-      ) : (
+      {isMessageLoading ? (
         <View style={styles.Message}>
           <ActivityIndicator />
         </View>
+      ) : messageData ? (
+        <View>
+          {messageData.map((message: Message) => {
+            return (
+              <MessageBlock
+                key={message.postId}
+                postId={message.postId}
+                body={message.body}
+                messageLink={message.messageLink}
+                filePath={message.filePath}
+                writerDto={message.writerDto}
+                commentAble={message.commentAble}
+                isWriter={message.isWriter}
+                create_date={message.create_date}
+              />
+            );
+          })}
+        </View>
+      ) : (
+        <View style={styles.Message}>
+          <Text style={styles.MessageNull}>등록된 메시지가 없습니다.</Text>
+        </View>
       )}
+
       <View style={styles.Ivory}>
         <Footer />
       </View>
