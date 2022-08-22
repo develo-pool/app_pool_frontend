@@ -8,6 +8,7 @@ import {getUser} from '../api/auth';
 import {useQuery} from 'react-query';
 import {getAllMessage} from '../api/message/index';
 
+
 function FeedScreen() {
   const {data: userData} = useQuery('getUserResult', () => getUser(), {
     refetchOnMount: 'always',
