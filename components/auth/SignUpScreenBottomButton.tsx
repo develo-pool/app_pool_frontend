@@ -1,5 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
+import {KeyboardAvoidingView, Platform} from 'react-native';
 import {SignUpScreenProps} from '../../screens/SignUpScreen';
 import {RootStackNavigationProp} from '../../screens/types';
 import ScreenBottomButton from '../ScreenBottomButton';
@@ -34,44 +35,56 @@ function SignUpScreenBottomButton({
   switch (current) {
     case 0:
       return (
-        <ScreenBottomButton
-          name="다음"
-          onPress={() => {
-            navigation.navigate('SignUp', {current: current + 1});
-          }}
-          enabled={FirstFormValid}
-        />
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+          <ScreenBottomButton
+            name="다음"
+            onPress={() => {
+              navigation.navigate('SignUp', {current: current + 1});
+            }}
+            enabled={FirstFormValid}
+          />
+        </KeyboardAvoidingView>
       );
     case 1:
       return (
-        <ScreenBottomButton
-          name="다음"
-          onPress={() => {
-            navigation.navigate('SignUp', {current: current + 1});
-          }}
-          enabled={SecondFormValid}
-        />
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+          <ScreenBottomButton
+            name="다음"
+            onPress={() => {
+              navigation.navigate('SignUp', {current: current + 1});
+            }}
+            enabled={SecondFormValid}
+          />
+        </KeyboardAvoidingView>
       );
     case 2:
       return (
-        <ScreenBottomButton
-          name="다음"
-          onPress={() => {
-            navigation.navigate('SignUp', {current: current + 1});
-          }}
-          enabled={ThirdFormValid}
-        />
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+          <ScreenBottomButton
+            name="다음"
+            onPress={() => {
+              navigation.navigate('SignUp', {current: current + 1});
+            }}
+            enabled={ThirdFormValid}
+          />
+        </KeyboardAvoidingView>
       );
     default:
       return (
-        <ScreenBottomButton
-          name="가입완료"
-          onPress={() => {
-            onPress();
-          }}
-          isLoading={signUpLoading}
-          enabled={form.category.length > 2 && !signUpLoading}
-        />
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+          <ScreenBottomButton
+            name="가입완료"
+            onPress={() => {
+              onPress();
+            }}
+            isLoading={signUpLoading}
+            enabled={form.category.length > 2 && !signUpLoading}
+          />
+        </KeyboardAvoidingView>
       );
   }
 }

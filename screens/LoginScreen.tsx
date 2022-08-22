@@ -1,12 +1,13 @@
 import React, {useState} from 'react';
 import {
+  Keyboard,
   KeyboardAvoidingView,
   Platform,
   Pressable,
   SafeAreaView,
-  ScrollView,
   StyleSheet,
   Text,
+  TouchableWithoutFeedback,
   View,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
@@ -47,10 +48,8 @@ function LoginScreen() {
       </SafeAreaView>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          keyboardShouldPersistTaps="handled">
-          <View style={styles.block}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View>
             <View style={styles.title}>
               <Title title="환영합니다!" subTitle="소통의 POOL에 빠져보세요" />
             </View>
@@ -101,7 +100,7 @@ function LoginScreen() {
               </Pressable>
             </View>
           </View>
-        </ScrollView>
+        </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
     </MainContainer>
   );
@@ -110,9 +109,6 @@ function LoginScreen() {
 const styles = StyleSheet.create({
   alert: {
     zIndex: 10,
-  },
-  block: {
-    flex: 1,
   },
   title: {
     marginTop: 120,
