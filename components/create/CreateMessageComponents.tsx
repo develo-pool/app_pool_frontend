@@ -1,8 +1,8 @@
 import React from 'react';
 import {Text, Pressable, StyleSheet, GestureResponderEvent} from 'react-native';
 import theme from '../../assets/theme';
-import {useNavigation} from '@react-navigation/native';
-import {RootStackNavigationProp} from '../../screens/types';
+// import {useNavigation} from '@react-navigation/native';
+// import {RootStackNavigationProp} from '../../screens/types';
 
 export function SendButton({
   text,
@@ -30,11 +30,9 @@ export function PreviewButton({
   text: string;
   isDisabled: boolean;
 }) {
-  const navigation = useNavigation<RootStackNavigationProp>();
+  // const navigation = useNavigation<RootStackNavigationProp>();
   return (
-    <Pressable
-      disabled={isDisabled}
-      onPress={() => navigation.navigate('Preview')}>
+    <Pressable disabled={isDisabled}>
       <Text style={[styles.Preview, isDisabled && styles.previewDisabled]}>
         {text}
       </Text>

@@ -50,6 +50,16 @@ function CreateMessageScreen() {
         if (res.didCancel) {
           return;
         }
+        if (res.assets) {
+          setForm({
+            ...form,
+            messageImage: {
+              uri: res.assets[0].uri,
+              type: res.assets[0].type,
+              fileName: res.assets[0].fileName,
+            },
+          });
+        }
       },
     );
   };
@@ -106,6 +116,16 @@ function CreateMessageScreen() {
           placeholder="20자 이상,  1000자 이내로 입력"
         />
       </View>
+      {form.messageImage && (
+        <Image
+          style={styles.UploadImage}
+          source={{uri: form.messageImage?.uri}}
+        />
+      )}
+      {form.messageLink && (
+        <Icon name="insert-link" size={26} style={styles.Link} />
+      )}
+
       <View style={styles.BottomArea}>
         <View style={styles.Line} />
         <View style={styles.BottomBar}>
@@ -197,7 +217,6 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   Link: {},
-  // Clock: {},
 });
 
 export default CreateMessageScreen;
