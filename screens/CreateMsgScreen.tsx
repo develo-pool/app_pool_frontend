@@ -115,16 +115,16 @@ function CreateMessageScreen() {
           style={styles.InputMessage}
           placeholder="20자 이상,  1000자 이내로 입력"
         />
+        {form.messageImage && (
+          <Image
+            style={styles.UploadImage}
+            source={{uri: form.messageImage?.uri}}
+          />
+        )}
+        {form.messageLink && (
+          <Icon name="insert-link" size={26} style={styles.Link} />
+        )}
       </View>
-      {form.messageImage && (
-        <Image
-          style={styles.UploadImage}
-          source={{uri: form.messageImage?.uri}}
-        />
-      )}
-      {form.messageLink && (
-        <Icon name="insert-link" size={26} style={styles.Link} />
-      )}
 
       <View style={styles.BottomArea}>
         <View style={styles.Line} />
@@ -187,16 +187,21 @@ const styles = StyleSheet.create({
     fontFamily: theme.fontFamily.Pretendard,
     fontSize: theme.fontSize.P3,
     color: theme.colors.Grey80,
-    fontWeight: '700',
+    fontWeight: theme.fontWeight.Bold,
     marginLeft: 8,
   },
   InputMessage: {
     paddingHorizontal: 4,
     fontFamily: theme.fontFamily.Pretendard,
     fontSize: theme.fontSize.P1,
-    fontWeight: '400',
+    color: theme.colors.Grey60,
+    fontWeight: theme.fontWeight.Light,
   },
-  UploadImage: {},
+  UploadImage: {
+    width: 340,
+    height: 252,
+    borderRadius: 5,
+  },
   Line: {
     height: 1,
     backgroundColor: '#E8E8E8',
@@ -215,8 +220,11 @@ const styles = StyleSheet.create({
   },
   Camera: {
     marginRight: 10,
+    color: theme.colors.Grey50,
   },
-  Link: {},
+  Link: {
+    color: theme.colors.Grey50,
+  },
 });
 
 export default CreateMessageScreen;
