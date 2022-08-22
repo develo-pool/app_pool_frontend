@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
   detailMessageContainer: {
     paddingHorizontal: 16,
     backgroundColor: theme.colors.White,
+    borderRadius: 10,
   },
 });
 
