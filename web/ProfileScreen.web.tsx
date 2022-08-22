@@ -1,52 +1,133 @@
-import {RouteProp, useRoute} from '@react-navigation/native';
+import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import React from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+  ActivityIndicator,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import {useQuery} from 'react-query';
+import {Message} from '../api/message/types';
+import {getBrandWebMessage, getBrandWebProfile} from '../api/web';
+import {RootStackNavigationProp, RootStackParamList} from '../App.web';
 import PoolLogo from '../assets/PoolLogo.png';
 import theme from '../assets/theme';
-import {RootStackParamList} from './RootStack.web';
+import Footer from '../components/setting/footer';
+import MessageBlock from './MessageBlock.web';
 
 type ProfileScreenRouteProp = RouteProp<RootStackParamList, 'Profile'>;
 
 function ProfileScreen() {
+  const navigation = useNavigation<RootStackNavigationProp>();
   const route = useRoute<ProfileScreenRouteProp>();
-  console.log(route);
+  const brandId = route.params.brandId;
+  const {data: profileData, isLoading: isProfileLoading} = useQuery(
+    'getBrandWebProfile',
+    () => getBrandWebProfile(brandId),
+    {
+      onError: () => {
+        navigation.navigate('NotFound');
+      },
+      refetchOnMount: true,
+    },
+  );
+  const {data: messageData, isLoading: isMessageLoading} = useQuery(
+    'getBrandWebMessage',
+    () => getBrandWebMessage({brandId: brandId, cursor: 0}),
+    {
+      onError: () => {
+        navigation.navigate('NotFound');
+      },
+      refetchOnMount: true,
+    },
+  );
   return (
-    <>
+    <View style={styles.block}>
       <View style={styles.ProfileSection}>
-        <View style={styles.ProfileLayout}>
-          <View style={styles.ProfileContainer}>
-            <View style={styles.ProfileImgContainer}>
-              <Image style={styles.ImgSource} source={PoolLogo} />
-            </View>
-            <View style={styles.BrandInfo}>
-              <Text style={styles.BrandName}>김자네</Text>
-              <View style={styles.FollowerContainer}>
-                <Text style={styles.Follower}>팔로워</Text>
-                <Text style={styles.FollowerCount}>1.8k</Text>
+        {!isProfileLoading && profileData ? (
+          <>
+            <View style={styles.ProfileLayout}>
+              <View style={styles.ProfileContainer}>
+                <View style={styles.ProfileImgContainer}>
+                  <Image
+                    style={styles.ImgSource}
+                    source={
+                      profileData.brandProfileImage
+                        ? {uri: profileData.brandProfileImage}
+                        : PoolLogo
+                    }
+                  />
+                </View>
+                <View style={styles.BrandInfo}>
+                  <Text style={styles.BrandName}>
+                    {profileData.brandUsername}
+                  </Text>
+                  <View style={styles.FollowerContainer}>
+                    <Text style={styles.Follower}>팔로워</Text>
+                    <Text style={styles.FollowerCount}>
+                      {profileData.userInfoDto.userFollowerCount}
+                    </Text>
+                  </View>
+                </View>
+              </View>
+              <View style={styles.FollowButton}>
+                <TouchableOpacity
+                  style={[styles.ButtonFrame]}
+                  onPress={() => {}}>
+                  <Text style={styles.FollowText}>팔로우</Text>
+                </TouchableOpacity>
               </View>
             </View>
-          </View>
-          <View style={styles.FollowButton}>
-            <TouchableOpacity style={[styles.ButtonFrame]} onPress={() => {}}>
-              <Text style={styles.FollowText}>팔로우</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-        <View style={styles.IntroContainer}>
-          <Text style={styles.IntroText}>
-            더푸르입니다. 소개글이 들어갑니다. 소개글이 들어갑니다. 소개글이
-            들어갑니다. 소개글이 들어갑니다.
-          </Text>
-        </View>
+            <View style={styles.IntroContainer}>
+              <Text style={styles.IntroText}>{profileData.brandInfo}</Text>
+            </View>
+          </>
+        ) : (
+          <ActivityIndicator />
+        )}
       </View>
-      <View style={styles.Message}>
-        <Text style={styles.MessageNull}>등록된 메시지가 없습니다.</Text>
+      {!isMessageLoading && messageData ? (
+        messageData.length === 0 ? (
+          <View style={styles.Message}>
+            <Text style={styles.MessageNull}>등록된 메시지가 없습니다.</Text>
+          </View>
+        ) : (
+          <View>
+            {messageData.map((message: Message) => {
+              return (
+                <MessageBlock
+                  key={message.postId}
+                  postId={message.postId}
+                  body={message.body}
+                  messageLink={message.messageLink}
+                  filePath={message.filePath}
+                  writerDto={message.writerDto}
+                  commentAble={message.commentAble}
+                  isWriter={message.isWriter}
+                  create_date={message.create_date}
+                />
+              );
+            })}
+          </View>
+        )
+      ) : (
+        <View style={styles.Message}>
+          <ActivityIndicator />
+        </View>
+      )}
+      <View style={styles.Ivory}>
+        <Footer />
       </View>
-    </>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  block: {
+    flex: 1,
+  },
   ProfileSection: {
     height: 180,
     backgroundColor: theme.colors.White,
@@ -96,11 +177,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 4,
   }, //소개글 텍스트
   Message: {
-    alignItems: 'center',
     flex: 1,
-    // height: 460,
-    paddingHorizontal: 16,
+    alignItems: 'center',
     backgroundColor: theme.colors.Ivory,
+    padding: 16,
   }, //프로필 아래 메시지가 쌓이는 메시지 영역
   MessageNull: {
     marginTop: 32,
@@ -136,6 +216,10 @@ const styles = StyleSheet.create({
     fontSize: theme.fontSize.P3,
     fontWeight: theme.fontWeight.Bold,
     color: theme.colors.White,
+  },
+  Ivory: {
+    paddingTop: 60,
+    backgroundColor: theme.colors.Ivory,
   },
 });
 
