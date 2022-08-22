@@ -2,8 +2,8 @@ import client from '../client';
 import {
   BrandResult,
   UpdateBrandInfoParams,
-  BrandProfileResult,
   AllBrandResult,
+  BrandProfileResult,
 } from './types';
 
 export async function createBrand(formData: FormData) {

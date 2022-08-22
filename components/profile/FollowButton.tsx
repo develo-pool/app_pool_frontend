@@ -2,17 +2,33 @@ import React from 'react';
 import {View, TouchableOpacity, Text, StyleSheet} from 'react-native';
 import theme from '../../assets/theme';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import {follow, unfollow} from '../../api/follow';
+import {useMutation} from 'react-query';
 
 interface Props {
   isFollowed: boolean;
-  onPress?: any;
+  poolUserId: number;
 }
 
-function FollowButton({isFollowed}: Props) {
+function FollowButton({isFollowed, poolUserId}: Props) {
+  const {mutate: onPressFollow} = useMutation(follow, {
+    onSuccess: () => {
+      isFollowed === !isFollowed;
+    },
+  });
+  const {mutate: onPressUnfollow} = useMutation(unfollow, {
+    onSuccess: () => {
+      isFollowed === !isFollowed;
+    },
+  });
+
   return (
     <View style={styles.FollowButton}>
       <TouchableOpacity
-        style={[styles.ButtonFrame, isFollowed && styles.Unfollowed]}>
+        style={[styles.ButtonFrame, isFollowed && styles.Unfollowed]}
+        onPress={() =>
+          isFollowed ? onPressUnfollow(poolUserId) : onPressFollow(poolUserId)
+        }>
         <Text style={[styles.FollowText, isFollowed && styles.UnfollowedText]}>
           {isFollowed ? '팔로잉' : '팔로우'}
         </Text>
