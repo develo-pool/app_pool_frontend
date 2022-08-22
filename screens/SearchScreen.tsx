@@ -45,7 +45,7 @@ function SearchScreen() {
                 brandProfileImage={brandUser.brandProfileImage}
                 follow={brandUser.userInfoDto?.follow}
                 userFollowerCount={brandUser.userInfoDto?.userFollowerCount}
-                poolUserId={brandUser.poolUserId}
+                // poolUserId={brandUser.poolUserId}
                 isLoginUser={brandUser.isLoginUser}
               />
             ))}
