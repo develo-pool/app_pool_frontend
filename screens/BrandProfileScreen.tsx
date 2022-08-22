@@ -48,7 +48,7 @@ function BrandProfileScreen() {
     'getBrandProfile',
     () => getBrandProfile(poolUserId),
     {
-      refetchOnMount: true,
+      refetchOnMount: 'always',
     },
   );
 
@@ -71,7 +71,10 @@ function BrandProfileScreen() {
               </View>
             </View>
           </View>
-          <FollowButton isFollowed={false} />
+          <FollowButton
+            isFollowed={data?.userInfoDto.follow as boolean}
+            poolUserId={poolUserId}
+          />
         </View>
         <View style={styles.IntroContainer}>
           <Text style={styles.IntroText}>{data?.brandInfo}</Text>

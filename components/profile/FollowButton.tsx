@@ -7,19 +7,18 @@ import {useMutation} from 'react-query';
 
 interface Props {
   isFollowed: boolean;
+  poolUserId: number;
 }
 
-function FollowButton({isFollowed}: Props) {
+function FollowButton({isFollowed, poolUserId}: Props) {
   const {mutate: onPressFollow} = useMutation(follow, {
     onSuccess: () => {
       isFollowed == !isFollowed;
-      console.log(isFollowed);
     },
   });
   const {mutate: onPressUnfollow} = useMutation(unfollow, {
     onSuccess: () => {
       isFollowed == !isFollowed;
-      console.log(isFollowed);
     },
   });
 
@@ -27,7 +26,9 @@ function FollowButton({isFollowed}: Props) {
     <View style={styles.FollowButton}>
       <TouchableOpacity
         style={[styles.ButtonFrame, isFollowed && styles.Unfollowed]}
-        onPress={() => (isFollowed ? onPressFollow : onPressUnfollow)}>
+        onPress={() =>
+          isFollowed ? onPressUnfollow(poolUserId) : onPressFollow(poolUserId)
+        }>
         <Text style={[styles.FollowText, isFollowed && styles.UnfollowedText]}>
           {isFollowed ? '팔로잉' : '팔로우'}
         </Text>

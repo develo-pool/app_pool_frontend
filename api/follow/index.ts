@@ -6,6 +6,6 @@ export async function follow(params: number) {
 }
 
 export async function unfollow(params: number) {
-  const response = await client.delete(`/unfollow/${params}`);
+  const response = await client.delete(`/follow/${params}`);
   return response.data;
 }
