@@ -4,6 +4,7 @@ import {QueryClient, QueryClientProvider} from 'react-query';
 import {Provider} from 'react-redux';
 import theme from './assets/theme';
 import store from './slices';
+import PoolLogo from './assets/PoolLogo.png';
 
 const queryClient = new QueryClient();
 
@@ -15,10 +16,7 @@ function App() {
           <View style={styles.ProfileLayout}>
             <View style={styles.ProfileContainer}>
               <View style={styles.ProfileImgContainer}>
-                <Image
-                  style={styles.ImgSource}
-                  source={require('./assets/PoolLogo.png')}
-                />
+                <Image style={styles.ImgSource} source={PoolLogo} />
               </View>
               <View style={styles.BrandInfo}>
                 <Text style={styles.BrandName}>김자네</Text>
@@ -136,7 +134,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   FollowText: {
-    fontFamily: theme.fontFamily.Pretendard,
     fontSize: theme.fontSize.P3,
     fontWeight: theme.fontWeight.Bold,
     color: theme.colors.White,
