@@ -22,20 +22,20 @@ function DetailMessageContainer(detailmessage: Message) {
       />
       <View>
         {/* 메시지의 구성에 따라 각각 다른 UI를 출력 */}
-        {detailmessage.body === undefined ? (
-          ''
-        ) : (
+        {detailmessage.body ? (
           <MessageText messageText={`${detailmessage.body}`} />
-        )}
-        {detailmessage.filePath === undefined ? (
-          ''
         ) : (
+          ''
+        )}
+        {detailmessage.filePath ? (
           <MessageImg messageImg={`${detailmessage.filePath}`} />
-        )}
-        {detailmessage.messageLink === undefined ? (
-          ''
         ) : (
+          ''
+        )}
+        {detailmessage.messageLink ? (
           <MessageLink messageLink={`${detailmessage.messageLink}`} />
+        ) : (
+          ''
         )}
       </View>
     </View>
