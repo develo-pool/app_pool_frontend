@@ -20,11 +20,7 @@ export interface BrandProfileResult extends BrandResult {
     userFollowerCount: number;
   };
 }
-export interface AllBrandResult {
-  brandUsername: string;
-  brandInfo: string;
-
-  brandProfileImage: string;
+export interface AllBrandResult extends BrandResult {
   userInfoDto: {
     poolUserId: any;
     username: any;
