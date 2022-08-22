@@ -8,21 +8,21 @@ interface Props {
   create_date?: string;
 }
 
-function MessageHeader(message: Props) {
+function MessageHeader({brandUsername, brandProfileImage, create_date}: Props) {
   return (
     // 댓글 작성 여부에 따라 메시지스크린 -> 입력창 포커스를 잡아주는 컴포넌트
     <TouchableOpacity style={styles.messageHeader}>
       <View style={styles.detailHeader}>
         <Image
           style={styles.authorProfileImg}
-          source={{uri: `${message.brandProfileImage}`}}
+          source={{uri: brandProfileImage}}
         />
         <View style={styles.msgHeader}>
           <View style={styles.verticalCenter}>
-            <Text style={styles.msgSmallText}>{message.brandUsername}</Text>
+            <Text style={styles.msgSmallText}>{brandUsername}</Text>
           </View>
           <View style={styles.smallVerticalCenter}>
-            <Text style={styles.msgDate}>{message.create_date}</Text>
+            <Text style={styles.msgDate}>{create_date}</Text>
           </View>
         </View>
       </View>

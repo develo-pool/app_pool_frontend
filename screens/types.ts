@@ -11,6 +11,7 @@ export type MainTabParamList = {
   Search: undefined;
   Profile: undefined;
   SettingStack: undefined;
+  Message: undefined;
 };
 
 /* RootStack */
