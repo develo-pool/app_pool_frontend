@@ -77,7 +77,6 @@ function MessageScreen() {
   ]);
 
   const onPress = async () => {
-    console.log(commentText);
     if (commentText === '') {
       return;
     }
@@ -91,11 +90,11 @@ function MessageScreen() {
         <View style={styles.spacebetween}>
           {messageData ? (
             <DetailMessageContainer
-              key={messageData?.postId}
+              key={messageData.postId}
               postId={messageData.postId}
-              body={messageData?.body}
-              messageLink={messageData?.messageLink}
-              filePath={messageData?.filePath}
+              body={messageData.body}
+              messageLink={messageData.messageLink}
+              filePath={messageData.filePath}
               writerDto={messageData.writerDto}
               commentAble={messageData.commentAble}
               isWriter={messageData.isWriter}

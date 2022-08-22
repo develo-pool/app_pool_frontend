@@ -12,23 +12,23 @@ export interface User {
 }
 export interface Message {
   postId: number;
-  body?: string;
-  messageLink?: string;
-  filePath?: string;
-  writerDto?: {
-    poolUserId?: number;
-    username?: string;
-    nickName?: string;
-    userStatus?: string;
-    follow?: boolean;
-    userFollowerCount?: number;
-    userFollowingCount?: number;
-    brandUserInfoDto?: {
-      brandUsername?: string;
-      brandInfo?: string;
-      brandProfileImage?: string;
-      userInfoDto?: string;
-      poolUserId?: string;
+  body: string;
+  messageLink: string;
+  filePath: string;
+  writerDto: {
+    poolUserId: number;
+    username: string;
+    nickName: string;
+    userStatus: string;
+    follow: boolean;
+    userFollowerCount: number;
+    userFollowingCount: number;
+    brandUserInfoDto: {
+      brandUsername: string;
+      brandInfo: string;
+      brandProfileImage: string;
+      userInfoDto: string;
+      poolUserId: string;
     };
   };
   commentAble: boolean;
