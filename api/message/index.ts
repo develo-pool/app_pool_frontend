@@ -10,3 +10,10 @@ export async function getAllMessage() {
   const response = await client.get<Message[]>('/messages?cursor=0');
   return response.data;
 }
+
+export async function createMessage(formData: FormData) {
+  const response = await client.post('/messages', formData, {
+    headers: {'content-type': 'multipart/form-data'},
+  });
+  return response;
+}

@@ -17,10 +17,16 @@ import {
 } from '../components/create/CreateMessageComponents';
 import {useNavigation} from '@react-navigation/native';
 import {MainTabNatigationProp} from './types';
+import {useQuery} from 'react-query';
+import {getBrand} from '../api/brand';
 
 function WelcomeMessageScreen() {
   const [text, setText] = useState('');
   const navigation = useNavigation<MainTabNatigationProp>();
+  const {data: brandData} = useQuery('getBrand', () => getBrand(''), {
+    refetchOnMount: 'always',
+  });
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.UpperArea}>
@@ -34,9 +40,9 @@ function WelcomeMessageScreen() {
           <View style={styles.BrandInfo}>
             <Image
               style={styles.ImgSource}
-              source={require('../assets/ProfileImage.png')}
+              source={{uri: brandData?.brandProfileImage}}
             />
-            <Text style={styles.BrandName}>더푸르</Text>
+            <Text style={styles.BrandName}>{brandData?.brandUsername}</Text>
           </View>
           <PreviewButton text="미리보기" isDisabled={text.length < 20} />
         </View>
@@ -54,7 +60,7 @@ function WelcomeMessageScreen() {
             <Icon name="photo-camera" size={24} style={styles.Camera} />
             <Icon name="insert-link" size={26} style={styles.Link} />
           </View>
-          <SendButton text="발송하기" isDisabled={text.length < 20} />
+          <SendButton text="설정하기" isDisabled={text.length < 20} />
         </View>
       </View>
     </SafeAreaView>

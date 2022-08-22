@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useCallback} from 'react';
 import {
   Text,
   View,
@@ -19,16 +19,24 @@ import {
 import {launchImageLibrary} from 'react-native-image-picker';
 import {useNavigation} from '@react-navigation/native';
 import {MainTabNatigationProp} from './types';
+import {useQuery, useMutation} from 'react-query';
+import {getBrand} from '../api/brand';
+import {Asset} from 'react-native-image-picker';
+import {createMessage} from '../api/message';
+
+export interface CreateMessageProps {
+  messageBody: string;
+  messageLink?: string;
+  messageImage?: Asset | undefined;
+}
 
 function CreateMessageScreen() {
   const navigation = useNavigation<MainTabNatigationProp>();
-  const [text, setText] = useState('');
-
-  // const onSubmit = useCallback(() => {
-  //   const formData = new FormData();
-  //   formData.append('', form.imgNewMessage);
-  //   assign(formData);
-  // }, [assign, form]);
+  const [form, setForm] = useState<CreateMessageProps>({
+    messageBody: '',
+    messageLink: '',
+    messageImage: undefined,
+  });
 
   const onSelectImage = () => {
     launchImageLibrary(
@@ -45,6 +53,29 @@ function CreateMessageScreen() {
       },
     );
   };
+  const {data: brandData} = useQuery('getBrand', () => getBrand(''), {
+    refetchOnMount: 'always',
+  });
+  const {mutate: create} = useMutation(createMessage, {
+    onSuccess: () => {
+      navigation.goBack();
+    },
+  });
+
+  const onSubmit = useCallback(() => {
+    const formData = new FormData();
+    formData.append('body', form.messageBody);
+    formData.append('messageLink', form.messageLink as string);
+    formData.append('multipartFiles', form.messageImage as Blob);
+    create(formData);
+  }, [create, form]);
+
+  const onChangeText = (prop: string) => (value: string) => {
+    setForm({
+      ...form,
+      [prop]: value,
+    });
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -59,22 +90,21 @@ function CreateMessageScreen() {
           <View style={styles.BrandInfo}>
             <Image
               style={styles.ImgSource}
-              source={require('../assets/ProfileImage.png')}
+              source={{uri: brandData?.brandProfileImage}}
             />
-            <Text style={styles.BrandName}>더푸르</Text>
+            <Text style={styles.BrandName}>{brandData?.brandUsername}</Text>
           </View>
-          <PreviewButton text="미리보기" isDisabled={text.length < 20} />
+          <PreviewButton
+            text="미리보기"
+            isDisabled={form.messageBody.length < 20}
+          />
         </View>
         <TextInput
-          value={text}
-          onChangeText={setText}
+          value={form.messageBody}
+          onChangeText={onChangeText('messageBody')}
           style={styles.InputMessage}
           placeholder="20자 이상,  1000자 이내로 입력"
         />
-        {/* <Image
-          style={styles.UploadImage}
-          source={{uri: response?.assets[0]?.uri}}
-        /> */}
       </View>
       <View style={styles.BottomArea}>
         <View style={styles.Line} />
@@ -87,7 +117,11 @@ function CreateMessageScreen() {
               <Icon name="insert-link" size={26} style={styles.Link} />
             </Pressable>
           </View>
-          <SendButton text="발송하기" isDisabled={text.length < 20} />
+          <SendButton
+            text="발송하기"
+            isDisabled={form.messageBody.length < 20}
+            onPress={() => onSubmit()}
+          />
         </View>
       </View>
     </SafeAreaView>

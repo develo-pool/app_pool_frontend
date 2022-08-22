@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, Pressable, StyleSheet} from 'react-native';
+import {Text, Pressable, StyleSheet, GestureResponderEvent} from 'react-native';
 import theme from '../../assets/theme';
 import {useNavigation} from '@react-navigation/native';
 import {RootStackNavigationProp} from '../../screens/types';
@@ -11,7 +11,7 @@ export function SendButton({
 }: {
   text: string;
   isDisabled: boolean;
-  onPress?: undefined;
+  onPress?: (event: GestureResponderEvent) => void;
 }) {
   return (
     <Pressable
