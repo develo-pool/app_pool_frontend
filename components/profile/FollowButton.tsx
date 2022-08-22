@@ -13,12 +13,12 @@ interface Props {
 function FollowButton({isFollowed, poolUserId}: Props) {
   const {mutate: onPressFollow} = useMutation(follow, {
     onSuccess: () => {
-      isFollowed == !isFollowed;
+      isFollowed === !isFollowed;
     },
   });
   const {mutate: onPressUnfollow} = useMutation(unfollow, {
     onSuccess: () => {
-      isFollowed == !isFollowed;
+      isFollowed === !isFollowed;
     },
   });
 
