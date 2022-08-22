@@ -128,7 +128,7 @@ function SettingScreen() {
               title="이용약관"
               onPress={() =>
                 Linking.openURL(
-                  'https://pool-.notion.site/46307ef08b8a471a8b5f4f38a6add44b',
+                  'https://bypool.notion.site/46307ef08b8a471a8b5f4f38a6add44b',
                 )
               }
             />
@@ -136,7 +136,7 @@ function SettingScreen() {
               title="개인정보처리방침"
               onPress={() =>
                 Linking.openURL(
-                  'https://pool-.notion.site/50c7bb1b42fe491cbaa8bc694f7c5ca1',
+                  'https://bypool.notion.site/50c7bb1b42fe491cbaa8bc694f7c5ca1',
                 )
               }
             />
@@ -234,6 +234,7 @@ const styles = StyleSheet.create({
   },
   padding: {
     paddingHorizontal: PADDING,
+    zIndex: 10,
   },
 });
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import theme from '../assets/theme';
 import {useSelector} from 'react-redux';
 import {RootState} from '../slices';
@@ -9,21 +9,19 @@ function AlertBox() {
   return (
     <>
       {alertState.isVisible && (
-        <SafeAreaView>
-          <View
+        <View
+          style={[
+            styles.box,
+            alertState.alert.type === 'Error' ? styles.red : styles.green,
+          ]}>
+          <Text
             style={[
-              styles.box,
+              styles.text,
               alertState.alert.type === 'Error' ? styles.red : styles.green,
             ]}>
-            <Text
-              style={[
-                styles.text,
-                alertState.alert.type === 'Error' ? styles.red : styles.green,
-              ]}>
-              {alertState.alert.text}
-            </Text>
-          </View>
-        </SafeAreaView>
+            {alertState.alert.text}
+          </Text>
+        </View>
       )}
     </>
   );

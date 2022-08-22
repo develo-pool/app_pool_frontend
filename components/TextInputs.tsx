@@ -53,6 +53,8 @@ function TextInputs({
           onFocus={onFocus}
           onBlur={onBlur}
           placeholderTextColor={'rgba(0, 0, 0, 0.2)'}
+          autoCapitalize={'none'}
+          autoComplete={'off'}
         />
         <TouchableOpacity onPress={() => onChangeText('')}>
           {value && type !== 'disable' && (

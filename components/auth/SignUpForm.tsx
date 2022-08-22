@@ -22,14 +22,24 @@ const SignUpForm = ({
   switch (current) {
     case 0:
       return (
-        <FirstForm
-          onChangeText={createChangeTextHandler}
-          form={form}
-          setForm={setForm}
-        />
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled">
+          <FirstForm
+            onChangeText={createChangeTextHandler}
+            form={form}
+            setForm={setForm}
+          />
+        </ScrollView>
       );
     case 1:
-      return <SecondForm onChangeText={createChangeTextHandler} form={form} />;
+      return (
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled">
+          <SecondForm onChangeText={createChangeTextHandler} form={form} />
+        </ScrollView>
+      );
     case 2:
       return (
         <ScrollView
