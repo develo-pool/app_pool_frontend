@@ -12,7 +12,6 @@ function FeedScreen() {
   const {data: userData} = useQuery('getUserResult', () => getUser(), {
     refetchOnMount: 'always',
   });
-  console.log(userData);
   const {data: allMessageData, refetch} = useQuery(
     'getAllMessage',
     () => getAllMessage(),
@@ -28,8 +27,6 @@ function FeedScreen() {
   const dd = today.substring(3, 5);
   const mm = today.substring(0, 2);
   const yymmdd = yy + '년 ' + mm + '월 ' + dd + '일';
-  console.log(allMessageData);
-  console.log(today);
   return (
     <SafeAreaView>
       <View style={styles.container}>
