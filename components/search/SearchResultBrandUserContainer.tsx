@@ -10,7 +10,7 @@ interface Props {
   brandProfileImage: string;
   follow: boolean;
   userFollowerCount: number;
-  poolUserId: number;
+  // poolUserId: number;
   changeFollowing?: any;
   isLoginUser?: boolean;
 }
