@@ -14,6 +14,12 @@ export interface BrandAssignParams {
 export interface UpdateBrandInfoParams {
   brandInfo: string;
 }
+export interface BrandProfileResult extends BrandResult {
+  userInfoDto: {
+    follow: boolean;
+    userFollowerCount: number;
+  };
+}
 export interface AllBrandResult extends BrandResult {
   userInfoDto: {
     poolUserId: any;
