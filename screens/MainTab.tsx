@@ -13,8 +13,6 @@ import theme from './../assets/theme';
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
 
-const isBrandUser = true;
-
 function MainTab() {
   // const user = useSelector((state: RootState) => state.auth.user);
   return (
