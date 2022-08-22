@@ -11,6 +11,8 @@ install! 'cocoapods', :deterministic_uuids => false
 target 'app_pool_frontend' do
   config = use_native_modules!
 
+
+
   # Flags change depending on the env values.
   flags = get_default_flags()
 
@@ -38,6 +40,10 @@ target 'app_pool_frontend' do
     react_native_post_install(installer)
     # __apply_Xcode_12_5_M1_post_install_workaround(installer)
   end
+
+  permissions_path = '../node_modules/react-native-permissions/ios'
+
+  pod 'Permission-AppTrackingTransparency', :path => "#{permissions_path}/AppTrackingTransparency"
 
 end
 
