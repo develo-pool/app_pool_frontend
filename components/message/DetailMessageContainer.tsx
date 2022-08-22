@@ -19,6 +19,7 @@ function DetailMessageContainer(detailmessage: Message) {
           detailmessage?.writerDto?.brandUserInfoDto?.brandProfileImage
         }
         create_date={detailmessage.create_date}
+        poolUserId={detailmessage.writerDto?.poolUserId}
       />
       <View>
         {/* 메시지의 구성에 따라 각각 다른 UI를 출력 */}

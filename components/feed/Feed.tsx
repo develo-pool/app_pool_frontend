@@ -17,7 +17,12 @@ function Feed(message: Message) {
   return (
     <View style={styles.feedContainer}>
       {/* 메시지헤더는 메시지 MessageScreen에 한해 다른 UI를 출력합니다 */}
-      <TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate('BrandProfile', {
+            poolUserId: message.writerDto.poolUserId,
+          });
+        }}>
         <MessageHeader
           username={message?.writerDto?.brandUserInfoDto?.brandUsername}
           profileImg={message?.writerDto?.brandUserInfoDto?.brandProfileImage}
