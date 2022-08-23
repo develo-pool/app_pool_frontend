@@ -8,7 +8,7 @@ interface Props {
 
 function Hello({name}: Props) {
   return (
-    <View>
+    <View style={styles.container}>
       <View style={styles.centerAlign}>
         <Text style={styles.welcome}>안녕하세요</Text>
         <Text style={styles.welcomeUsername}>{name}</Text>
@@ -22,6 +22,9 @@ function Hello({name}: Props) {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    marginTop: 30,
+  },
   centerAlign: {
     height: 26,
     alignItems: 'center',

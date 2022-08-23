@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 16,
     backgroundColor: theme.colors.White,
-    paddingTop: 30,
+    // paddingTop: 30,
     height: '100%',
   },
   noMessage: {
@@ -84,6 +84,7 @@ const styles = StyleSheet.create({
   isMessageContainer: {
     width: 0,
     height: 0,
+    opacity: 0,
   },
 });
 
