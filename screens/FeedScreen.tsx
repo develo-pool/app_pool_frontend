@@ -1,4 +1,12 @@
-import {View, StyleSheet, ScrollView, SafeAreaView, Image} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  SafeAreaView,
+  Image,
+  Button,
+  Alert,
+} from 'react-native';
 import React, {useEffect} from 'react';
 import Feed from '../components/feed/Feed';
 import theme from '../assets/theme';
@@ -49,19 +57,26 @@ function FeedScreen() {
     messaging().registerDeviceForRemoteMessages();
     getFcmToken();
   }, []);
-
+  // const checkToken = async () => {
+  //     const fcmToken = await messaging().getToken();
+  //     if (fcmToken) {
+  //       console.log(fcmToken);
+  //       Alert.alert(fcmToken);
+  //     }
+  //   };
   const today = new Date().toLocaleDateString().replace(/\./g, '');
   const yy = today.substring(6, 8);
   const dd = today.substring(3, 5);
   const mm = today.substring(0, 2);
   const yymmdd = yy + '년 ' + mm + '월 ' + dd + '일';
+
   return (
     <SafeAreaView>
       <View style={styles.container}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <Hello name={userData?.nickName} />
           <NowDate msgDate={yymmdd} />
-          {allMessageData?.map(messages => {
+          {/* {allMessageData?.map(messages => {
             return (
               <Feed
                 key={messages.postId}
@@ -75,7 +90,8 @@ function FeedScreen() {
                 create_date={messages.create_date}
               />
             );
-          })}
+          })} */}
+          {/* <Button title="FCM Token 퉤엣" onPress={() => checkToken()} /> */}
           <View
             style={
               allMessageData?.length === 0
