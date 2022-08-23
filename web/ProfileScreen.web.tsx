@@ -52,6 +52,7 @@ function ProfileScreen() {
                         ? {uri: profileData.brandProfileImage}
                         : PoolLogo
                     }
+                    resizeMode={'cover'}
                   />
                 </View>
                 <View style={styles.BrandInfo}>
