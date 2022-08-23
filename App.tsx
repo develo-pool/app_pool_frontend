@@ -11,8 +11,8 @@ import store from './slices';
 import {
   request,
   PERMISSIONS,
-  requestMultiple,
-  requestNotifications,
+  // requestMultiple,
+  // requestNotifications,
 } from 'react-native-permissions';
 
 import {AppState, Platform} from 'react-native';
