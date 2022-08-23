@@ -5,8 +5,11 @@ import theme from '../assets/theme';
 import NowDate from '../components/feed/NowDate';
 import Hello from '../components/feed/Hello';
 import {getUser} from '../api/auth';
-import {useQuery} from 'react-query';
+import {useQuery, useMutation} from 'react-query';
 import {getAllMessage} from '../api/message/index';
+import messaging from '@react-native-firebase/messaging';
+import {useAsyncStorage} from '@react-native-async-storage/async-storage';
+import {sendFCMToken} from '../api/fcm';
 
 function FeedScreen() {
   const {data: userData} = useQuery('getUserResult', () => getUser(), {
@@ -17,11 +20,36 @@ function FeedScreen() {
     () => getAllMessage(),
     {enabled: false},
   );
+  const {mutate: sendToken} = useMutation(sendFCMToken, {
+    onSuccess: () => {
+      console.log('Success!');
+    },
+  });
+
   useEffect(() => {
     if (userData?.userFollowingCount !== 0) {
       refetch();
     }
   }, [userData, refetch]);
+  const {getItem: getFcmItem, setItem: setFcmItem} =
+    useAsyncStorage('fcmToken');
+
+  const getFcmToken = async () => {
+    const fcmFS = await getFcmItem();
+    const fcmToken = await messaging().getToken();
+    if (fcmFS !== fcmToken) {
+      setFcmItem(fcmToken); // 회원가입, 로그인할 때 활용
+    }
+    console.log('🚒fcm token', fcmToken);
+    sendToken(fcmToken);
+  };
+
+  useEffect(() => {
+    messaging().requestPermission();
+    messaging().registerDeviceForRemoteMessages();
+    getFcmToken();
+  }, []);
+
   const today = new Date().toLocaleDateString().replace(/\./g, '');
   const yy = today.substring(6, 8);
   const dd = today.substring(3, 5);
