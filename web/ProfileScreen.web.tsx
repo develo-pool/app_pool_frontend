@@ -1,119 +1,90 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   ActivityIndicator,
-  Image,
+  FlatList,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from 'react-native';
 import {useQuery} from 'react-query';
-import {useNavigate, useParams} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import {Message} from '../api/message/types';
-import {getBrandWebMessage, getBrandWebProfile} from '../api/web';
-import PoolLogo from '../assets/PoolLogo.png';
+import {getBrandWebMessage} from '../api/web';
 import theme from '../assets/theme';
 import Footer from '../components/setting/footer';
 import MessageBlock from './MessageBlock.web';
+import Profile from './Profile.web';
+
+const LENGTH = 10;
 
 function ProfileScreen() {
-  const navigation = useNavigate();
   const {brandId = '0'} = useParams();
   const id = parseInt(brandId, 10);
-  const {data: profileData, isLoading: isProfileLoading} = useQuery(
-    'getBrandWebProfile',
-    () => getBrandWebProfile(id),
+
+  const [loadMessageList, setLoadMessageList] = useState<Message[]>([]);
+  const [cursor, setCursor] = useState<number>(0);
+  const [noMorePost, setNoMorePost] = useState<boolean>(false);
+
+  const {isLoading: isMessageLoading, refetch} = useQuery(
+    'getBrandWebMessage',
+    () => getBrandWebMessage({brandId: id, cursor: cursor}),
     {
-      onError: () => {
-        navigation('/404');
+      onSuccess: data => {
+        if (data.length < LENGTH) {
+          setNoMorePost(true);
+        }
+        if (data.length !== 0) {
+          setLoadMessageList(loadMessageList.concat(data));
+          setCursor(data[data.length - 1].postId);
+        }
       },
       refetchOnMount: true,
     },
   );
-  const {data: messageData, isLoading: isMessageLoading} = useQuery(
-    'getBrandWebMessage',
-    () => getBrandWebMessage({brandId: id, cursor: 0}),
-    {
-      refetchOnMount: true,
-    },
-  );
+
+  const RenderItem = ({item}) => {
+    return (
+      <MessageBlock
+        key={item.postId}
+        postId={item.postId}
+        body={item.body}
+        messageLink={item.messageLink}
+        filePath={item.filePath}
+        writerDto={item.writerDto}
+        commentAble={item.commentAble}
+        isWriter={item.isWriter}
+        create_date={item.create_date}
+      />
+    );
+  };
+
   return (
     <View style={styles.block}>
-      <View style={styles.ProfileSection}>
-        {!isProfileLoading && profileData ? (
-          <>
-            <View style={styles.ProfileLayout}>
-              <View style={styles.ProfileContainer}>
-                <View style={styles.ProfileImgContainer}>
-                  <Image
-                    style={styles.ImgSource}
-                    source={
-                      profileData.brandProfileImage
-                        ? {uri: profileData.brandProfileImage}
-                        : PoolLogo
-                    }
-                    resizeMode={'cover'}
-                  />
-                </View>
-                <View style={styles.BrandInfo}>
-                  <Text style={styles.BrandName}>
-                    {profileData.brandUsername}
-                  </Text>
-                  <View style={styles.FollowerContainer}>
-                    <Text style={styles.Follower}>팔로워</Text>
-                    <Text style={styles.FollowerCount}>
-                      {profileData.userInfoDto.userFollowerCount}
-                    </Text>
-                  </View>
-                </View>
-              </View>
-              <View style={styles.FollowButton}>
-                <TouchableOpacity
-                  style={[styles.ButtonFrame]}
-                  onPress={() => {}}>
-                  <Text style={styles.FollowText}>팔로우</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-            <View style={styles.IntroContainer}>
-              <Text style={styles.IntroText}>{profileData.brandInfo}</Text>
-            </View>
-          </>
-        ) : (
-          <ActivityIndicator />
-        )}
-      </View>
       {isMessageLoading ? (
         <View style={styles.Message}>
           <ActivityIndicator />
         </View>
-      ) : messageData ? (
-        <View>
-          {messageData.map((message: Message) => {
-            return (
-              <MessageBlock
-                key={message.postId}
-                postId={message.postId}
-                body={message.body}
-                messageLink={message.messageLink}
-                filePath={message.filePath}
-                writerDto={message.writerDto}
-                commentAble={message.commentAble}
-                isWriter={message.isWriter}
-                create_date={message.create_date}
-              />
-            );
-          })}
-        </View>
+      ) : loadMessageList ? (
+        <FlatList
+          data={loadMessageList}
+          renderItem={RenderItem}
+          onEndReached={() => {
+            if (!noMorePost) {
+              refetch();
+            }
+          }}
+          ListHeaderComponent={<Profile id={id} />}
+          ListFooterComponent={
+            <View style={styles.Ivory}>
+              <Footer />
+            </View>
+          }
+        />
       ) : (
         <View style={styles.Message}>
           <Text style={styles.MessageNull}>등록된 메시지가 없습니다.</Text>
         </View>
       )}
-
-      <View style={styles.Ivory}>
-        <Footer />
-      </View>
     </View>
   );
 }
