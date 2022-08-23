@@ -8,16 +8,18 @@ interface Props {
 function MessageImg({messageImg}: Props) {
   // 높이를 정해주기 위한 height useState와 Dimensions 사용
   const [height, setHeight] = useState(0);
-  const {width} = Dimensions.get('window');
-  // 아래는 이미지의 가로 세로를 가져와 setHeight로 높이 설정해주는..!
-  Image.getSize(messageImg, (w, h) => {
-    setHeight(h * ((width - 32) / w));
-  });
+  if (messageImg !== '') {
+    const {width} = Dimensions.get('window');
+    // 아래는 이미지의 가로 세로를 가져와 setHeight로 높이 설정해주는..!
+    Image.getSize(messageImg, (w, h) => {
+      setHeight(h * ((width - 32) / w));
+    });
+  }
 
   return (
     <Image
       style={styles.messageImg}
-      source={{uri: messageImg, height}}
+      source={{uri: messageImg !== '' ? messageImg : undefined , height}}
       resizeMode="contain"
     />
   );
