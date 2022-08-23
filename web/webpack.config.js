@@ -11,7 +11,7 @@ module.exports = {
   },
   output: {
     path: path.resolve(rootDir, 'dist'),
-    filename: 'app-[hash].bundle.js',
+    filename: 'index_bundle.js',
   },
   devtool: 'source-map',
   module: {
@@ -26,6 +26,9 @@ module.exports = {
         loader: 'file-loader',
       },
     ],
+  },
+  devServer: {
+    historyApiFallback: true,
   },
   plugins: [
     new HtmlWebpackPlugin({
