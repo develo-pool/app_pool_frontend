@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   commentBox: {
     flexDirection: 'row',
     alignItems: 'flex-end',
-    marginTop: 16,
+    marginVertical: 8,
     maxWidth: 250,
   },
   commentProfileImg: {
