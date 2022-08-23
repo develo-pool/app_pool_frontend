@@ -22,9 +22,9 @@ function FeedScreen() {
       refetch();
     }
   }, [userData, refetch]);
-  const nowYear = new Date().getFullYear()
-  const nowMonth = new Date().getMonth() + 1
-  const nowDate = new Date().getDate()
+  const nowYear = new Date().getFullYear();
+  const nowMonth = new Date().getMonth() + 1;
+  const nowDate = new Date().getDate();
   const yymmdd = nowYear + '년 ' + nowMonth + '월 ' + nowDate + '일';
   return (
     <SafeAreaView>
