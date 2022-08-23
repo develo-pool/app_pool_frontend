@@ -22,11 +22,12 @@ function FeedScreen() {
       refetch();
     }
   }, [userData, refetch]);
-  const today = new Date().toLocaleDateString().replace(/\./g, '');
+  const today = new Date().toLocaleDateString().replace( /\./g, '');
   const yy = today.substring(6, 8);
   const dd = today.substring(3, 5);
   const mm = today.substring(0, 2);
   const yymmdd = yy + '년 ' + mm + '월 ' + dd + '일';
+  console.log(today)
   return (
     <SafeAreaView>
       <View style={styles.container}>

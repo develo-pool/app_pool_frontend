@@ -14,13 +14,15 @@ import {Message} from '../../api/message/types';
 function Feed(message: Message) {
   // function Feed({}: Props) {
   const navigation = useNavigation<RootStackNavigationProp>();
+  const today = new Date().toString()
+  // console.log(today)
   const create_date = message.create_date.toString()
   const Month = create_date.substring(5, 7)
   const Day = create_date.substring(8, 10)
   const Hour = create_date.substring(11, 13)
   const Minute = create_date.substring(14, 16)
   const second = create_date.substring(17, 19)
-  console.log(create_date)
+  // console.log(create_date)
   return (
     <View style={styles.feedContainer}>
       {/* 메시지헤더는 메시지 MessageScreen에 한해 다른 UI를 출력합니다 */}
