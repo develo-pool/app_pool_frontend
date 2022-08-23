@@ -93,54 +93,6 @@ const styles = StyleSheet.create({
   block: {
     flex: 1,
   },
-  ProfileSection: {
-    height: 180,
-    backgroundColor: theme.colors.White,
-    paddingHorizontal: 16,
-  }, //프로필 영역
-  ProfileLayout: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  ProfileContainer: {
-    height: 120,
-    flexDirection: 'row',
-  }, // 프로필 내 브랜드 정보가 담긴 영역
-  BrandInfo: {
-    justifyContent: 'center',
-    marginLeft: 16,
-  },
-  BrandName: {
-    fontSize: theme.fontSize.P1,
-    fontWeight: theme.fontWeight.Bold,
-    color: theme.colors.Grey80,
-    marginBottom: 2,
-  },
-  FollowerContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  Follower: {
-    fontSize: theme.fontSize.P3,
-    fontWeight: theme.fontWeight.Light,
-    color: theme.colors.Grey40,
-  },
-  FollowerCount: {
-    fontSize: theme.fontSize.P3,
-    fontWeight: theme.fontWeight.Bold,
-    color: theme.colors.Grey80,
-    marginLeft: 4,
-  },
-  IntroContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  }, //프로필 내 소개글이 담긴 영역
-  IntroText: {
-    fontSize: theme.fontSize.P2,
-    color: theme.colors.Grey50,
-    fontWeight: theme.fontWeight.Light,
-    paddingHorizontal: 4,
-  }, //소개글 텍스트
   Message: {
     flex: 1,
     alignItems: 'center',
@@ -152,36 +104,6 @@ const styles = StyleSheet.create({
     fontSize: theme.fontSize.P1,
     fontWeight: theme.fontWeight.Light,
   }, //동록한 메시지가 없습니다.
-
-  ProfileImgContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-  }, //프로필 사진 영역
-  ImgSource: {
-    height: 90,
-    width: 90,
-    borderRadius: 45,
-    resizeMode: 'contain',
-  }, //프로필 사진
-
-  FollowButton: {
-    justifyContent: 'center',
-  },
-  ButtonFrame: {
-    backgroundColor: theme.colors.Poolgreen,
-    width: 64,
-    height: 32,
-    borderRadius: 100,
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'row',
-  },
-  FollowText: {
-    fontSize: theme.fontSize.P3,
-    fontWeight: theme.fontWeight.Bold,
-    color: theme.colors.White,
-  },
   Ivory: {
     paddingTop: 60,
     backgroundColor: theme.colors.Ivory,

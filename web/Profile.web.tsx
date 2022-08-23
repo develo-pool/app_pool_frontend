@@ -70,9 +70,6 @@ function Profile({id}: {id: number}) {
 }
 
 const styles = StyleSheet.create({
-  // block: {
-  //   flex: 1,
-  // },
   ProfileSection: {
     height: 180,
     backgroundColor: theme.colors.White,
@@ -121,18 +118,6 @@ const styles = StyleSheet.create({
     fontWeight: theme.fontWeight.Light,
     paddingHorizontal: 4,
   }, //소개글 텍스트
-  // Message: {
-  //   flex: 1,
-  //   alignItems: 'center',
-  //   backgroundColor: theme.colors.Ivory,
-  //   padding: 16,
-  // }, //프로필 아래 메시지가 쌓이는 메시지 영역
-  // MessageNull: {
-  //   marginTop: 32,
-  //   fontSize: theme.fontSize.P1,
-  //   fontWeight: theme.fontWeight.Light,
-  // }, //동록한 메시지가 없습니다.
-
   ProfileImgContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
@@ -162,10 +147,6 @@ const styles = StyleSheet.create({
     fontWeight: theme.fontWeight.Bold,
     color: theme.colors.White,
   },
-  // Ivory: {
-  //   paddingTop: 60,
-  //   backgroundColor: theme.colors.Ivory,
-  // },
 });
 
 export default Profile;
