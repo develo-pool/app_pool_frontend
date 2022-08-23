@@ -14,6 +14,13 @@ import {Message} from '../../api/message/types';
 function Feed(message: Message) {
   // function Feed({}: Props) {
   const navigation = useNavigation<RootStackNavigationProp>();
+  const create_date = message.create_date.toString()
+  const Month = create_date.substring(5, 7)
+  const Day = create_date.substring(8, 10)
+  const Hour = create_date.substring(11, 13)
+  const Minute = create_date.substring(14, 16)
+  const second = create_date.substring(17, 19)
+  console.log(create_date)
   return (
     <View style={styles.feedContainer}>
       {/* 메시지헤더는 메시지 MessageScreen에 한해 다른 UI를 출력합니다 */}
@@ -34,17 +41,17 @@ function Feed(message: Message) {
         }>
         <View style={styles.feed}>
           {/* 메시지의 구성에 따라 각각 다른 UI를 출력 */}
-          {message.body === undefined ? (
+          {message.body === null ? (
             ''
           ) : (
             <MessageText messageText={`${message.body}`} />
           )}
-          {message.filePath === undefined ? (
+          {message.filePath === null ? (
             ''
           ) : (
             <MessageImg messageImg={`${message.filePath}`} />
           )}
-          {message.messageLink === undefined ? (
+          {message.messageLink === null ? (
             ''
           ) : (
             <MessageLink messageLink={`${message.messageLink}`} />
