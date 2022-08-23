@@ -14,14 +14,30 @@ import {Message} from '../../api/message/types';
 function Feed(message: Message) {
   // function Feed({}: Props) {
   const navigation = useNavigation<RootStackNavigationProp>();
-  // const create_date = message.create_date.toString();
-  // const today = new Date().toString();
+  const create_date = message.create_date.toString();
   // const Month = create_date.substring(5, 7);
-  // const Day = create_date.substring(8, 10);
-  // const Hour = create_date.substring(11, 13);
-  // const Minute = create_date.substring(14, 16);
-  // const second = create_date.substring(17, 19);
-  // console.log(create_date)
+  const Day = create_date.substring(8, 10);
+  const Hour = create_date.substring(11, 13);
+  const Minute = create_date.substring(14, 16);
+  const Second = create_date.substring(17, 19);
+
+  const nowDay = new Date().getDate();
+  const nowHour = new Date().getHours();
+  const nowMinute = new Date().getMinutes();
+  const nowSecond = new Date().getSeconds();
+
+  const Ago = () => {
+    if (nowDay - parseInt(Day) !== 0) {
+      // console.log(Month + '월 ' + Day + '일');
+    } else if (nowHour - parseInt(Hour) !== 0) {
+      // console.log(nowHour - parseInt(Hour));
+    } else if (nowMinute - parseInt(Minute) !== 0) {
+      // console.log(nowMinute - parseInt(Minute));
+    } else if (nowSecond - parseInt(Second) !== 0) {
+      // console.log(nowSecond - parseInt(Second));
+    }
+  };
+  Ago();
   return (
     <View style={styles.feedContainer}>
       {/* 메시지헤더는 메시지 MessageScreen에 한해 다른 UI를 출력합니다 */}
