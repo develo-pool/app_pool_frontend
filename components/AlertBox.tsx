@@ -32,14 +32,13 @@ const styles = StyleSheet.create({
     top: 16,
     width: '100%',
     paddingHorizontal: 16,
-    paddingVertical: 19,
+    paddingVertical: 16,
     borderRadius: 8,
     zIndex: 10,
   },
   text: {
     fontFamily: theme.fontFamily.Pretendard,
     fontSize: theme.fontSize.P2,
-    lineHeight: 14,
   },
   red: {
     backgroundColor: '#FFE4E6',
