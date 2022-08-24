@@ -42,13 +42,13 @@ function FeedScreen() {
     }
     console.log('🚒fcm token', fcmToken);
     sendToken(fcmToken);
-  }, []);
+  }, [getFcmItem, setFcmItem, sendToken]);
 
   useEffect(() => {
     messaging().requestPermission();
     messaging().registerDeviceForRemoteMessages();
     getFcmToken();
-  }, []);
+  }, [getFcmToken]);
 
   const nowYear = new Date().getFullYear();
   const nowMonth = new Date().getMonth() + 1;
