@@ -41,7 +41,7 @@ function MessageContainer({brandUserName, brandProfileImage}: Props) {
 
 const styles = StyleSheet.create({
   container: {
-    width: 344,
+    marginHorizontal: 16,
     maxHeight: 400,
     paddingHorizontal: 12,
     paddingVertical: 12,
