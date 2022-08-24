@@ -127,12 +127,12 @@ function MessageScreen() {
             <ScrollView style={styles.scrollview}>
               {commentData ? (
                 <Comment
-                  text={commentData?.body}
-                  userName={commentData?.writer?.nickName}
+                  text={commentData.body}
+                  userName={commentData.writer.nickName}
                   userProfileImg={
-                    commentData?.writer?.brandUserInfoDto?.brandProfileImage
+                    commentData.writer.brandUserInfoDto.brandProfileImage
                   }
-                  writenCommentTime={commentData?.create_date}
+                  writenCommentTime={commentData.create_date}
                 />
               ) : (
                 ''
