@@ -48,7 +48,7 @@ function FeedScreen() {
     messaging().requestPermission();
     messaging().registerDeviceForRemoteMessages();
     getFcmToken();
-  }, [getFcmToken]);
+  }, []);
 
   const nowYear = new Date().getFullYear();
   const nowMonth = new Date().getMonth() + 1;
