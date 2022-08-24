@@ -18,6 +18,7 @@ function Comment({text, userName, userProfileImg, writenCommentTime}: Props) {
             style={styles.commentProfileImg}
             source={{uri: `${userProfileImg}`}}
           />
+          
           <View>
             <View style={styles.usernameContainer}>
               <Text style={styles.username}>{userName}</Text>
