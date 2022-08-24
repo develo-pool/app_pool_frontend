@@ -92,6 +92,7 @@ function ProfileScreen() {
 const styles = StyleSheet.create({
   block: {
     flex: 1,
+    backgroundColor: theme.colors.Ivory,
   },
   Message: {
     flex: 1,
