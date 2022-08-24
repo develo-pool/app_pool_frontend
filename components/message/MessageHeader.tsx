@@ -33,35 +33,23 @@ function MessageHeader({
     if (nowDay - Day !== 0) {
       // console.log(Month + '월 ' + Day + '일');
       return (
-        <View>
-          <Text style={styles.msgDate}>
-            {Month}월 {Day}일
-          </Text>
-        </View>
+        <Text style={styles.msgDate}>
+          {Month}월 {Day}일
+        </Text>
       );
     } else if (nowHour - Hour !== 0) {
       // console.log(nowHour - parseInt(Hour));
       return (
-        <View>
-          <Text style={styles.msgDate}>{Math.abs(nowHour - Hour)}시간 전</Text>
-        </View>
+        <Text style={styles.msgDate}>{Math.abs(nowHour - Hour)}시간 전</Text>
       );
     } else if (nowMinute - Minute !== 0) {
       // console.log(nowMinute - parseInt(Minute));
       return (
-        <View>
-          <Text style={styles.msgDate}>
-            {Math.abs(nowMinute - Minute)}분 전
-          </Text>
-        </View>
+        <Text style={styles.msgDate}>{Math.abs(nowMinute - Minute)}분 전</Text>
       );
     } else if (nowSecond - Second !== 0) {
       // console.log(nowSecond - parseInt(Second));
-      return (
-        <View>
-          <Text style={styles.msgDate}>방금 전</Text>
-        </View>
-      );
+      return <Text style={styles.msgDate}>방금 전</Text>;
     }
   };
   return (

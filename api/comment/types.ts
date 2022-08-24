@@ -6,20 +6,20 @@ export interface User {
 export interface Comment {
   id: number;
   body: string;
-  writer?: {
-    poolUserId?: any;
+  writer: {
+    poolUserId: any;
     username: string;
     nickName: string;
-    userStatus?: string;
+    userStatus: string;
     follow: boolean;
     userFollowerCount: number;
     userFollowingCount: number;
     brandUserInfoDto: {
-      brandUsername?: string;
-      brandInfo?: string;
-      brandProfileImage?: string;
-      userInfoDto?: any;
-      poolUserId?: any;
+      brandUsername: string;
+      brandInfo: string;
+      brandProfileImage: string;
+      userInfoDto: any;
+      poolUserId: any;
     };
   };
   create_date: string;
