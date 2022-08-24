@@ -1,5 +1,11 @@
 import React from 'react';
-import {Text, StyleSheet, View, TouchableOpacity} from 'react-native';
+import {
+  Text,
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  ScrollView,
+} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useQuery} from 'react-query';
@@ -10,6 +16,8 @@ import ProfileImageContainer from '../components/profile/ProfileImageContainer';
 import {getUser} from '../api/auth';
 import {getBrand} from '../api/brand';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import MessageContainer from '../components/profile/MessageContainer';
+import {getAllMessage} from '../api/message';
 
 function ProfileScreen() {
   const navigation = useNavigation<RootStackNavigationProp>();
@@ -20,38 +28,55 @@ function ProfileScreen() {
   const {data: brandData} = useQuery('getBrand', () => getBrand(''), {
     refetchOnMount: 'always',
   });
+  const {data: brandMessages} = useQuery(
+    'getAllMessage',
+    () => getAllMessage(),
+    {enabled: false},
+  );
 
   return (
     <SafeAreaView>
-      {/*style={{flex: 1}*/}
-      <View style={styles.ProfileSection}>
-        <View style={styles.ProfileLayout}>
-          <View style={styles.ProfileContainer}>
-            <ProfileImageContainer isEditable={true} />
-            <View style={styles.BrandInfo}>
-              <Text style={styles.BrandName}>{brandData?.brandUsername}</Text>
-              <View style={styles.FollowerContainer}>
-                <Text style={styles.Follower}>팔로워</Text>
-                <Text style={styles.FollowerCount}>
-                  {userData?.userFollowerCount}
-                </Text>
+      <ScrollView>
+        <View style={styles.ProfileSection}>
+          <View style={styles.ProfileLayout}>
+            <View style={styles.ProfileContainer}>
+              <ProfileImageContainer isEditable={true} />
+              <View style={styles.BrandInfo}>
+                <Text style={styles.BrandName}>{brandData?.brandUsername}</Text>
+                <View style={styles.FollowerContainer}>
+                  <Text style={styles.Follower}>팔로워</Text>
+                  <Text style={styles.FollowerCount}>
+                    {userData?.userFollowerCount}
+                  </Text>
+                </View>
               </View>
             </View>
+            <TouchableOpacity style={styles.exportLink}>
+              {/* 외부 연결되는 링크 복사해주는 모달띄우기 */}
+              <Icon
+                name="logout"
+                size={24}
+                color="black"
+                style={styles.rotate}
+              />
+            </TouchableOpacity>
           </View>
-          <TouchableOpacity style={styles.exportLink}>
-            {/* 외부 연결되는 링크 복사해주는 모달띄우기 */}
-            <Icon name="logout" size={24} color="black" style={styles.rotate} />
-          </TouchableOpacity>
+          <View style={styles.IntroContainer}>
+            <Text style={styles.IntroText}>{brandData?.brandInfo}</Text>
+          </View>
         </View>
-        <View style={styles.IntroContainer}>
-          <Text style={styles.IntroText}>{brandData?.brandInfo}</Text>
+        <SetWelcomeMsg />
+        <View style={styles.Message}>
+          {brandMessages?.length === 0 ? (
+            <Text style={styles.MessageNull}>등록된 메시지가 없습니다.</Text>
+          ) : (
+            <MessageContainer
+              brandProfileImage={brandData?.brandProfileImage}
+              brandUserName={brandData?.brandUsername as string}
+            />
+          )}
         </View>
-      </View>
-      <SetWelcomeMsg />
-      <View style={styles.Message}>
-        <Text style={styles.MessageNull}>등록된 메시지가 없습니다.</Text>
-      </View>
-
+      </ScrollView>
       <View style={styles.createButtonLayout}>
         <TouchableOpacity
           style={styles.CreateMessageButton}
@@ -133,8 +158,8 @@ const styles = StyleSheet.create({
   }, //동록한 메시지가 없습니다.
   createButtonLayout: {
     position: 'absolute',
-    marginLeft: 288,
-    marginTop: 600,
+    right: 16,
+    bottom: 10,
   },
   CreateMessageButton: {
     height: 68,
