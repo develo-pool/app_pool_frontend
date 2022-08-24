@@ -63,9 +63,11 @@ function CreateMessageScreen() {
       },
     );
   };
+
   const {data: brandData} = useQuery('getBrand', () => getBrand(''), {
     refetchOnMount: 'always',
   });
+
   const {mutate: create} = useMutation(createMessage, {
     onSuccess: () => {
       navigation.goBack();

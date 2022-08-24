@@ -1,16 +1,26 @@
 {
   "hosting": {
     "public": "dist",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
       {
         "source": "**",
         "destination": "/index.html"
       }
     ]
+  },
+  "react-native": {
+    "messaging_ios_auto_register_for_remote_messages": false,
+    "messaging_ios_foreground_presentation_options": [
+      "badge",
+      "sound",
+      "list",
+      "banner"
+    ],
+    "analytics_auto_collection_enabled": false,
+    "messaging_auto_init_enabled": false,
+    "messaging_android_headless_task_timeout": 30000,
+    "messaging_android_notification_channel_id": "high-priority",
+    "messaging_android_notification_color": "@color/blue"
   }
 }
