@@ -1,5 +1,5 @@
 import {View, StyleSheet, ScrollView, SafeAreaView, Image} from 'react-native';
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import Feed from '../components/feed/Feed';
 import theme from '../assets/theme';
 import NowDate from '../components/feed/NowDate';
@@ -34,7 +34,7 @@ function FeedScreen() {
   const {getItem: getFcmItem, setItem: setFcmItem} =
     useAsyncStorage('fcmToken');
 
-  const getFcmToken = async () => {
+  const getFcmToken = useCallback(async () => {
     const fcmFS = await getFcmItem();
     const fcmToken = await messaging().getToken();
     if (fcmFS !== fcmToken) {
@@ -42,7 +42,7 @@ function FeedScreen() {
     }
     console.log('🚒fcm token', fcmToken);
     sendToken(fcmToken);
-  };
+  }, []);
 
   useEffect(() => {
     messaging().requestPermission();
