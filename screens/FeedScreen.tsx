@@ -1,8 +1,12 @@
-import {View, StyleSheet, ScrollView, SafeAreaView, Image, FlatList} from 'react-native';
-import React, {
-  // useCallback,
-  useEffect,
-} from 'react';
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  SafeAreaView,
+  Image,
+  FlatList,
+} from 'react-native';
+import React, {useCallback, useEffect, useState} from 'react';
 
 import Feed from '../components/feed/Feed';
 import theme from '../assets/theme';
@@ -14,9 +18,11 @@ import {
   // , useMutation
 } from 'react-query';
 import {getAllMessage} from '../api/message/index';
+
 // import messaging from '@react-native-firebase/messaging';
 // import {useAsyncStorage} from '@react-native-async-storage/async-storage';
 // import {sendFCMToken} from '../api/fcm';
+import {Message} from '../api/message/types';
 
 function FeedScreen() {
   const [cursor, setCorsur] = useState(0);
@@ -36,13 +42,11 @@ function FeedScreen() {
   //   },
   // });
 
-
   useEffect(() => {
     if (userData?.userFollowingCount !== 0) {
       refetch();
       if (allMessageData !== undefined) {
         setCorsur(allMessageData.length);
-        
       }
     }
   }, [userData, refetch, allMessageData, cursor]);
@@ -86,15 +90,15 @@ function FeedScreen() {
   };
   const getRefreshData = async () => {
     setRefreshing(true);
-     await getAllMessage(cursor);
-     setRefreshing(false);
- };
- 
- const onRefresh = () => {
-   if(!refreshing) {
-       getRefreshData();
-     }
- }
+    await getAllMessage(cursor);
+    setRefreshing(false);
+  };
+
+  const onRefresh = () => {
+    if (!refreshing) {
+      getRefreshData();
+    }
+  };
   return (
     <SafeAreaView>
       <View style={styles.container}>
