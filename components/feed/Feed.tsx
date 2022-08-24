@@ -78,7 +78,6 @@ function Feed(message: Message) {
             <MessageLink messageLink={`${message.messageLink}`} />
           )}
           <View style={styles.feedBottom}>
-            <Text style={styles.msgDate}>{message.create_date}</Text>
             {Ago()}
             <CommentFocusButton
               isComment={message.commentAble}
