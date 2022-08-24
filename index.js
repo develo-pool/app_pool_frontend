@@ -14,7 +14,6 @@ messaging().setBackgroundMessageHandler(async remoteMessage => {
 
 const onMessageReceived = message => {
   console.log('background message: ', message);
-  Platform.OS === 'ios' && Vibration.vibrate([400]);
 };
 
 AppRegistry.registerComponent(appName, () => App);
