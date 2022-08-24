@@ -40,6 +40,7 @@ function Profile({id}: {id: number}) {
                       ? {uri: data.brandProfileImage}
                       : PoolLogo
                   }
+                  resizeMode="cover"
                 />
               </View>
               <View style={styles.BrandInfo}>
