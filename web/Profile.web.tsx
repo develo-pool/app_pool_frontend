@@ -12,6 +12,7 @@ import PoolLogo from '../assets/PoolLogo.png';
 import {useQuery} from 'react-query';
 import {getBrandWebProfile} from '../api/web';
 import {useNavigate} from 'react-router-dom';
+import {Helmet} from 'react-helmet';
 
 function Profile({id}: {id: number}) {
   const navigation = useNavigate();
@@ -30,6 +31,11 @@ function Profile({id}: {id: number}) {
     <View style={styles.ProfileSection}>
       {!isLoading && data ? (
         <>
+          <Helmet>
+            <meta property="og:title" content={data.brandUsername} />
+            <meta property="og:image" content={data.brandProfileImage} />
+            <meta property="og:description" content={data.brandInfo} />
+          </Helmet>
           <View style={styles.ProfileLayout}>
             <View style={styles.ProfileContainer}>
               <View style={styles.ProfileImgContainer}>
