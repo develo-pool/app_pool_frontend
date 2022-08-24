@@ -18,20 +18,24 @@ import {getBrand} from '../api/brand';
 import {updateBrandInfo} from '../api/brand';
 
 function EditProfile() {
-  const [info, setInfo] = useState('');
+  const [info, setInfo] = useState<string>('');
   const navigation = useNavigation<RootStackNavigationProp>();
   const {data: brandData} = useQuery('getBrand', () => getBrand(''), {
     refetchOnMount: 'always',
   });
-  const {mutate: write} = useMutation(updateBrandInfo, {
+  const {mutate: update} = useMutation(updateBrandInfo, {
+    onSettled: () => {
+      console.log(info);
+    },
     onSuccess: () => {
+      console.log('update Success!');
       navigation.goBack();
     },
   });
-  const onSubmit = useCallback(() => {
-    console.log(info);
-    write(info);
-  }, [write, info]);
+
+  // const onSubmit = useCallback(() => {
+  //   update(info);
+  // }, [update, info]);
 
   useEffect(() => {
     navigation.setOptions({
@@ -63,7 +67,7 @@ function EditProfile() {
           <Text style={styles.CounterText}>{info.length}/200</Text>
         </View>
       </View>
-      <ScreenBottomButton name="저장" onPress={onSubmit} />
+      <ScreenBottomButton name="저장" onPress={() => update(info)} />
     </SafeAreaView>
   );
 }
