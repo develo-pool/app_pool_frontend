@@ -1,6 +1,6 @@
 import React from 'react';
 import {Image, Text, Pressable, View, StyleSheet} from 'react-native';
-import FollowButton from '../profile/FollowButton';
+// import FollowButton from '../profile/FollowButton';
 import theme from '../../assets/theme';
 
 interface Props {
