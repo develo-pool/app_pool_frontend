@@ -21,52 +21,19 @@ function Comment({text, userName, userProfileImg, writenCommentTime}: Props) {
   const nowMinute = new Date().getMinutes();
   const nowSecond = new Date().getSeconds();
 
-  const ProfileImg = () => {
-    if (userProfileImg !== null) {
-      return (
-        <Image
-          style={styles.commentProfileImg}
-          source={{uri: `${userProfileImg}`}}
-        />
-      );
-    } else {
-      return (
-        <Image
-          style={styles.commentProfileImg}
-          source={require('../../assets/Pool.png')}
-        />
-      );
-    }
-  };
-
-  const Ago = () => {
-    if (nowDay - Day !== 0) {
-      return (
-        <Text style={styles.commentTime}>
-          {Month}월 {Day}일
-        </Text>
-      );
-    } else if (nowHour - Hour !== 0) {
-      return (
-        <Text style={styles.commentTime}>
-          {Math.abs(nowHour - Hour)}시간 전
-        </Text>
-      );
-    } else if (nowMinute - Minute !== 0) {
-      return (
-        <Text style={styles.commentTime}>
-          {Math.abs(nowMinute - Minute)}분 전
-        </Text>
-      );
-    } else if (nowSecond - Second !== 0) {
-      return <Text style={styles.commentTime}>방금 전</Text>;
-    }
-  };
   return (
     <View style={styles.commentBox}>
       <View style={styles.commentArea}>
         <View style={styles.align}>
-          {ProfileImg()}
+          {/* {ProfileImg()} */}
+          <Image
+            style={styles.commentProfileImg}
+            source={
+              userProfileImg !== null
+                ? {uri: {userProfileImg}}
+                : require('../../assets/Pool.png')
+            }
+          />
           <View>
             <View style={styles.usernameContainer}>
               <Text style={styles.username}>{userName}</Text>
@@ -79,7 +46,19 @@ function Comment({text, userName, userProfileImg, writenCommentTime}: Props) {
         {/* <Text style={styles.align}>{comments[0]}</Text> */}
       </View>
 
-      <View style={styles.commentTimeContainer}>{Ago()}</View>
+      <View style={styles.commentTimeContainer}>
+        <Text style={styles.commentTime}>
+          {nowDay - Day !== 0
+            ? `${Month}월 ${Day}일`
+            : nowHour - Hour !== 0
+            ? `${Math.abs(nowHour - Hour)}시간 전`
+            : nowMinute - Minute !== 0
+            ? `${Math.abs(nowMinute - Minute)}분 전`
+            : nowSecond - Second !== 0
+            ? '방금 전'
+            : ''}
+        </Text>
+      </View>
     </View>
   );
 }

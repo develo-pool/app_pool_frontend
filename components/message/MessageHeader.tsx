@@ -29,29 +29,6 @@ function MessageHeader({
   const nowMinute = new Date().getMinutes();
   const nowSecond = new Date().getSeconds();
 
-  const Ago = () => {
-    if (nowDay - Day !== 0) {
-      // console.log(Month + '월 ' + Day + '일');
-      return (
-        <Text style={styles.msgDate}>
-          {Month}월 {Day}일
-        </Text>
-      );
-    } else if (nowHour - Hour !== 0) {
-      // console.log(nowHour - parseInt(Hour));
-      return (
-        <Text style={styles.msgDate}>{Math.abs(nowHour - Hour)}시간 전</Text>
-      );
-    } else if (nowMinute - Minute !== 0) {
-      // console.log(nowMinute - parseInt(Minute));
-      return (
-        <Text style={styles.msgDate}>{Math.abs(nowMinute - Minute)}분 전</Text>
-      );
-    } else if (nowSecond - Second !== 0) {
-      // console.log(nowSecond - parseInt(Second));
-      return <Text style={styles.msgDate}>방금 전</Text>;
-    }
-  };
   return (
     // 댓글 작성 여부에 따라 메시지스크린 -> 입력창 포커스를 잡아주는 컴포넌트
     <TouchableOpacity
@@ -68,7 +45,19 @@ function MessageHeader({
           <View style={styles.verticalCenter}>
             <Text style={styles.msgSmallText}>{brandUsername}</Text>
           </View>
-          <View style={styles.smallVerticalCenter}>{Ago()}</View>
+          <View style={styles.smallVerticalCenter}>
+            <Text style={styles.msgDate}>
+              {nowDay - Day !== 0
+                ? `${Month}월 ${Day}일`
+                : nowHour - Hour !== 0
+                ? `${Math.abs(nowHour - Hour)}시간 전`
+                : nowMinute - Minute !== 0
+                ? `${Math.abs(nowMinute - Minute)}분 전`
+                : nowSecond - Second !== 0
+                ? '방금 전'
+                : ''}
+            </Text>
+          </View>
         </View>
       </View>
     </TouchableOpacity>
