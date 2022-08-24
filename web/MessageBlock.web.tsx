@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import {Message} from '../api/message/types';
 import theme from '../assets/theme';
-import MessageHeader from '../components/message/MessageHeader';
+import MessageHeader from './MessageHeader.web';
 import MessageImg from '../components/message/MessageImg';
 import MessageText from '../components/message/MessageText';
 import Link from './assets/Link.png';
@@ -27,19 +27,18 @@ function MessageBlock(detailmessage: Message) {
             detailmessage?.writerDto?.brandUserInfoDto?.brandProfileImage
           }
           create_date={detailmessage.create_date}
-          poolUserId={detailmessage.writerDto?.poolUserId}
         />
         <View>
           {/* 메시지의 구성에 따라 각각 다른 UI를 출력 */}
           {detailmessage.body ? (
             <MessageText messageText={`${detailmessage.body}`} />
           ) : (
-            ''
+            <></>
           )}
           {detailmessage.filePath ? (
             <MessageImg messageImg={`${detailmessage.filePath}`} />
           ) : (
-            ''
+            <></>
           )}
           {detailmessage.messageLink ? (
             <TouchableOpacity
@@ -48,12 +47,14 @@ function MessageBlock(detailmessage: Message) {
                 Linking.openURL('https://' + `${detailmessage.messageLink}`)
               }>
               <Image source={Link} style={styles.link} />
-              <Text style={styles.messageLink}>
-                {detailmessage.messageLink}
-              </Text>
+              <View>
+                <Text style={styles.messageLink}>
+                  {detailmessage.messageLink}
+                </Text>
+              </View>
             </TouchableOpacity>
           ) : (
-            ''
+            <></>
           )}
         </View>
       </View>

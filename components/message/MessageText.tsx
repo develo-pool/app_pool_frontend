@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import theme from '../../assets/theme';
 
 interface Props {
@@ -7,7 +7,11 @@ interface Props {
 }
 
 function MessageText({messageText}: Props) {
-  return <Text style={styles.messageText}>{messageText}</Text>;
+  return (
+    <View>
+      <Text style={styles.messageText}>{messageText}</Text>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
