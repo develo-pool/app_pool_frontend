@@ -29,16 +29,28 @@ function Feed(message: Message) {
   const Ago = () => {
     if (nowDay - parseInt(Day) !== 0) {
       // console.log(Month + '월 ' + Day + '일');
-      return (<Text style={styles.msgDate}>{Month}월 {Day}일</Text>)
+      return (
+        <Text style={styles.msgDate}>
+          {Month}월 {Day}일
+        </Text>
+      );
     } else if (nowHour - parseInt(Hour) !== 0) {
       // console.log(nowHour - parseInt(Hour));
-      return (<Text style={styles.msgDate}>{Math.abs(nowHour - parseInt(Hour))}시간 전</Text>)
+      return (
+        <Text style={styles.msgDate}>
+          {Math.abs(nowHour - parseInt(Hour))}시간 전
+        </Text>
+      );
     } else if (nowMinute - parseInt(Minute) !== 0) {
       // console.log(nowMinute - parseInt(Minute));
-      return (<Text style={styles.msgDate}>{Math.abs(nowMinute - parseInt(Minute))}분 전</Text>)
+      return (
+        <Text style={styles.msgDate}>
+          {Math.abs(nowMinute - parseInt(Minute))}분 전
+        </Text>
+      );
     } else if (nowSecond - parseInt(Second) !== 0) {
       // console.log(nowSecond - parseInt(Second));
-      return (<Text style={styles.msgDate}>방금 전</Text>)
+      return <Text style={styles.msgDate}>방금 전</Text>;
     }
   };
   Ago();
