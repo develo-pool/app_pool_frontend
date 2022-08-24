@@ -107,40 +107,44 @@ function MessageScreen() {
 
         {userData?.userStatus === 'BRAND_USER' &&
         userData.username === messageData?.writerDto?.username ? (
-          <ScrollView>
-            {allCommentData?.map(comments => {
-              return (
-                <Comment
-                  key={comments.id}
-                  text={comments.body}
-                  userName={comments.writer?.nickName}
-                  userProfileImg={comments.writer?.username}
-                  writenCommentTime={comments?.create_date}
-                />
-              );
-            })}
-          </ScrollView>
+          <View>
+            <ScrollView>
+              {allCommentData?.map(comments => {
+                return (
+                  <Comment
+                    key={comments.id}
+                    text={comments.body}
+                    userName={comments.writer?.nickName}
+                    userProfileImg={comments.writer?.username}
+                    writenCommentTime={comments?.create_date}
+                  />
+                );
+              })}
+            </ScrollView>
+          </View>
         ) : (
-          <ScrollView>
-            {commentData ? (
-              <Comment
-                text={commentData?.body}
-                userName={commentData?.writer?.nickName}
-                userProfileImg={
-                  commentData?.writer?.brandUserInfoDto?.brandProfileImage
-                }
-                writenCommentTime={commentData?.create_date}
-              />
-            ) : (
-              ''
-            )}
+          <View style={styles.spacebetween}>
+            <ScrollView style={styles.scrollview}>
+              {commentData ? (
+                <Comment
+                  text={commentData?.body}
+                  userName={commentData?.writer?.nickName}
+                  userProfileImg={
+                    commentData?.writer?.brandUserInfoDto?.brandProfileImage
+                  }
+                  writenCommentTime={commentData?.create_date}
+                />
+              ) : (
+                ''
+              )}
+            </ScrollView>
             <InputCommentContainer
               commentText={commentText}
               onChangeText={onChangeText}
               commentAble={messageData?.commentAble}
               addComments={onPress}
             />
-          </ScrollView>
+          </View>
         )}
       </View>
     </SafeAreaView>
@@ -156,8 +160,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     backgroundColor: theme.colors.Grey10,
   },
-  spacebetween: {},
-  scrollview: {},
+  spacebetween: {
+    justifyContent: 'space-between',
+    alignContent: 'space-between',
+  },
+  scrollview: {
+    // 부모의 높이를 가져와서 적용시켜줄 예정입니다...
+  },
 });
 
 export default MessageScreen;
