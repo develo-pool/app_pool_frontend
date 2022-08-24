@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {StyleSheet, View, Image, Text, Pressable} from 'react-native';
 import FollowButton from '../profile/FollowButton';
 import theme from '../../assets/theme';
