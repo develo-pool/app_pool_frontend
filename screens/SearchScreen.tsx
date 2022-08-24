@@ -22,6 +22,7 @@ function SearchScreen() {
       enabled: false,
     },
   );
+  console.log(allBrandData);
   const searchFilter = allBrandData?.filter(brand =>
     brand.brandUsername.includes(`${searchText}`),
   );
