@@ -18,11 +18,11 @@ function MessageHeader({
   poolUserId,
 }: Props) {
   const navigation = useNavigation<RootStackNavigationProp>();
-  const Month = create_date.substring(5, 7);
-  const Day = create_date.substring(8, 10);
-  const Hour = create_date.substring(11, 13);
-  const Minute = create_date.substring(14, 16);
-  const Second = create_date.substring(17, 19);
+  const Month = parseInt(create_date.substring(5, 7), 10);
+  const Day = parseInt(create_date.substring(8, 10), 10);
+  const Hour = parseInt(create_date.substring(11, 13), 10);
+  const Minute = parseInt(create_date.substring(14, 16), 10);
+  const Second = parseInt(create_date.substring(17, 19), 10);
 
   const nowDay = new Date().getDate();
   const nowHour = new Date().getHours();
@@ -30,7 +30,7 @@ function MessageHeader({
   const nowSecond = new Date().getSeconds();
 
   const Ago = () => {
-    if (nowDay - parseInt(Day) !== 0) {
+    if (nowDay - Day !== 0) {
       // console.log(Month + '월 ' + Day + '일');
       return (
         <View>
@@ -39,25 +39,23 @@ function MessageHeader({
           </Text>
         </View>
       );
-    } else if (nowHour - parseInt(Hour) !== 0) {
+    } else if (nowHour - Hour !== 0) {
       // console.log(nowHour - parseInt(Hour));
       return (
         <View>
-          <Text style={styles.msgDate}>
-            {Math.abs(nowHour - parseInt(Hour))}시간 전
-          </Text>
+          <Text style={styles.msgDate}>{Math.abs(nowHour - Hour)}시간 전</Text>
         </View>
       );
-    } else if (nowMinute - parseInt(Minute) !== 0) {
+    } else if (nowMinute - Minute !== 0) {
       // console.log(nowMinute - parseInt(Minute));
       return (
         <View>
           <Text style={styles.msgDate}>
-            {Math.abs(nowMinute - parseInt(Minute))}분 전
+            {Math.abs(nowMinute - Minute)}분 전
           </Text>
         </View>
       );
-    } else if (nowSecond - parseInt(Second) !== 0) {
+    } else if (nowSecond - Second !== 0) {
       // console.log(nowSecond - parseInt(Second));
       return (
         <View>

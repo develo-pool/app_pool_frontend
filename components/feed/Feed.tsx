@@ -15,11 +15,11 @@ function Feed(message: Message) {
   // function Feed({}: Props) {
   const navigation = useNavigation<RootStackNavigationProp>();
   const create_date = message.create_date.toString();
-  const Month = create_date.substring(5, 7);
-  const Day = create_date.substring(8, 10);
-  const Hour = create_date.substring(11, 13);
-  const Minute = create_date.substring(14, 16);
-  const Second = create_date.substring(17, 19);
+  const Month = parseInt(create_date.substring(5, 7), 10);
+  const Day = parseInt(create_date.substring(8, 10), 10);
+  const Hour = parseInt(create_date.substring(11, 13), 10);
+  const Minute = parseInt(create_date.substring(14, 16), 10);
+  const Second = parseInt(create_date.substring(17, 19), 10);
 
   const nowDay = new Date().getDate();
   const nowHour = new Date().getHours();
@@ -27,28 +27,24 @@ function Feed(message: Message) {
   const nowSecond = new Date().getSeconds();
 
   const Ago = () => {
-    if (nowDay - parseInt(Day) !== 0) {
+    if (nowDay - Day !== 0) {
       // console.log(Month + '월 ' + Day + '일');
       return (
         <Text style={styles.msgDate}>
           {Month}월 {Day}일
         </Text>
       );
-    } else if (nowHour - parseInt(Hour) !== 0) {
+    } else if (nowHour - Hour !== 0) {
       // console.log(nowHour - parseInt(Hour));
       return (
-        <Text style={styles.msgDate}>
-          {Math.abs(nowHour - parseInt(Hour))}시간 전
-        </Text>
+        <Text style={styles.msgDate}>{Math.abs(nowHour - Hour)}시간 전</Text>
       );
-    } else if (nowMinute - parseInt(Minute) !== 0) {
+    } else if (nowMinute - Minute !== 0) {
       // console.log(nowMinute - parseInt(Minute));
       return (
-        <Text style={styles.msgDate}>
-          {Math.abs(nowMinute - parseInt(Minute))}분 전
-        </Text>
+        <Text style={styles.msgDate}>{Math.abs(nowMinute - Minute)}분 전</Text>
       );
-    } else if (nowSecond - parseInt(Second) !== 0) {
+    } else if (nowSecond - Second !== 0) {
       // console.log(nowSecond - parseInt(Second));
       return <Text style={styles.msgDate}>방금 전</Text>;
     }
