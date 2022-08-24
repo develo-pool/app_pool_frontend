@@ -24,7 +24,7 @@ function FollowingList({brandName, followers}: Props) {
             <Text style={styles.Followers}>{followers}</Text>
           </View>
         </View>
-        <FollowButton isFollowed={true} />
+        {/* <FollowButton isFollowed={true} /> */}
       </Pressable>
     </>
   );
