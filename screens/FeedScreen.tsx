@@ -22,11 +22,10 @@ function FeedScreen() {
       refetch();
     }
   }, [userData, refetch]);
-  const today = new Date().toLocaleDateString().replace(/\./g, '');
-  const yy = today.substring(6, 8);
-  const dd = today.substring(3, 5);
-  const mm = today.substring(0, 2);
-  const yymmdd = yy + '년 ' + mm + '월 ' + dd + '일';
+  const nowYear = new Date().getFullYear();
+  const nowMonth = new Date().getMonth() + 1;
+  const nowDate = new Date().getDate();
+  const yymmdd = nowYear + '년 ' + nowMonth + '월 ' + nowDate + '일';
   return (
     <SafeAreaView>
       <View style={styles.container}>
@@ -69,7 +68,7 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 16,
     backgroundColor: theme.colors.White,
-    paddingTop: 30,
+    // paddingTop: 30,
     height: '100%',
   },
   noMessage: {
@@ -85,6 +84,7 @@ const styles = StyleSheet.create({
   isMessageContainer: {
     width: 0,
     height: 0,
+    opacity: 0,
   },
 });
 

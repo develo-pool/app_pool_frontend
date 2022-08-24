@@ -14,6 +14,46 @@ import {Message} from '../../api/message/types';
 function Feed(message: Message) {
   // function Feed({}: Props) {
   const navigation = useNavigation<RootStackNavigationProp>();
+  const create_date = message.create_date.toString();
+  const Month = create_date.substring(5, 7);
+  const Day = create_date.substring(8, 10);
+  const Hour = create_date.substring(11, 13);
+  const Minute = create_date.substring(14, 16);
+  const Second = create_date.substring(17, 19);
+
+  const nowDay = new Date().getDate();
+  const nowHour = new Date().getHours();
+  const nowMinute = new Date().getMinutes();
+  const nowSecond = new Date().getSeconds();
+
+  const Ago = () => {
+    if (nowDay - parseInt(Day) !== 0) {
+      // console.log(Month + '월 ' + Day + '일');
+      return (
+        <Text style={styles.msgDate}>
+          {Month}월 {Day}일
+        </Text>
+      );
+    } else if (nowHour - parseInt(Hour) !== 0) {
+      // console.log(nowHour - parseInt(Hour));
+      return (
+        <Text style={styles.msgDate}>
+          {Math.abs(nowHour - parseInt(Hour))}시간 전
+        </Text>
+      );
+    } else if (nowMinute - parseInt(Minute) !== 0) {
+      // console.log(nowMinute - parseInt(Minute));
+      return (
+        <Text style={styles.msgDate}>
+          {Math.abs(nowMinute - parseInt(Minute))}분 전
+        </Text>
+      );
+    } else if (nowSecond - parseInt(Second) !== 0) {
+      // console.log(nowSecond - parseInt(Second));
+      return <Text style={styles.msgDate}>방금 전</Text>;
+    }
+  };
+  Ago();
   return (
     <View style={styles.feedContainer}>
       {/* 메시지헤더는 메시지 MessageScreen에 한해 다른 UI를 출력합니다 */}
@@ -34,23 +74,23 @@ function Feed(message: Message) {
         }>
         <View style={styles.feed}>
           {/* 메시지의 구성에 따라 각각 다른 UI를 출력 */}
-          {message.body === undefined ? (
+          {message.body === null ? (
             ''
           ) : (
             <MessageText messageText={`${message.body}`} />
           )}
-          {message.filePath === undefined ? (
+          {message.filePath === null ? (
             ''
           ) : (
             <MessageImg messageImg={`${message.filePath}`} />
           )}
-          {message.messageLink === undefined ? (
+          {message.messageLink === null ? (
             ''
           ) : (
             <MessageLink messageLink={`${message.messageLink}`} />
           )}
           <View style={styles.feedBottom}>
-            <Text style={styles.msgDate}>{message.create_date}</Text>
+            {Ago()}
             <CommentFocusButton
               isComment={message.commentAble}
               postId={message.postId}
