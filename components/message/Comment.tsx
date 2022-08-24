@@ -3,22 +3,80 @@ import {StyleSheet, Text, View, Image} from 'react-native';
 import theme from '../../assets/theme';
 
 interface Props {
-  text?: string;
-  userName?: string;
-  userProfileImg?: string;
-  writenCommentTime?: string;
+  text: string;
+  userName: string;
+  userProfileImg: string;
+  writenCommentTime: string;
 }
 // 사용 시에는 user 프롭스를 아래에 넣어주세용
 function Comment({text, userName, userProfileImg, writenCommentTime}: Props) {
+  const Month = parseInt(writenCommentTime.substring(5, 7), 10);
+  const Day = parseInt(writenCommentTime.substring(8, 10), 10);
+  const Hour = parseInt(writenCommentTime.substring(11, 13), 10);
+  const Minute = parseInt(writenCommentTime.substring(14, 16), 10);
+  const Second = parseInt(writenCommentTime.substring(17, 19), 10);
+
+  const nowDay = new Date().getDate();
+  const nowHour = new Date().getHours();
+  const nowMinute = new Date().getMinutes();
+  const nowSecond = new Date().getSeconds();
+
+  const ProfileImg = () => {
+    if (userProfileImg !== null) {
+      return (
+        <Image
+          style={styles.commentProfileImg}
+          source={{uri: `${userProfileImg}`}}
+        />
+      );
+    } else {
+      return (
+        <Image
+          style={styles.commentProfileImg}
+          source={require('../../assets/Pool.png')}
+        />
+      );
+    }
+  };
+
+  const Ago = () => {
+    if (nowDay - Day !== 0) {
+      return (
+        <View>
+          <Text style={styles.commentTime}>
+            {Month}월 {Day}일
+          </Text>
+        </View>
+      );
+    } else if (nowHour - Hour !== 0) {
+      return (
+        <View>
+          <Text style={styles.commentTime}>
+            {Math.abs(nowHour - Hour)}시간 전
+          </Text>
+        </View>
+      );
+    } else if (nowMinute - Minute !== 0) {
+      return (
+        <View>
+          <Text style={styles.commentTime}>
+            {Math.abs(nowMinute - Minute)}분 전
+          </Text>
+        </View>
+      );
+    } else if (nowSecond - Second !== 0) {
+      return (
+        <View>
+          <Text style={styles.commentTime}>방금 전</Text>
+        </View>
+      );
+    }
+  };
   return (
     <View style={styles.commentBox}>
       <View style={styles.commentArea}>
         <View style={styles.align}>
-          <Image
-            style={styles.commentProfileImg}
-            source={{uri: `${userProfileImg}`}}
-          />
-          
+          {ProfileImg()}
           <View>
             <View style={styles.usernameContainer}>
               <Text style={styles.username}>{userName}</Text>
@@ -31,9 +89,7 @@ function Comment({text, userName, userProfileImg, writenCommentTime}: Props) {
         {/* <Text style={styles.align}>{comments[0]}</Text> */}
       </View>
 
-      <View style={styles.commentTimeContainer}>
-        <Text style={styles.commentTime}>{writenCommentTime}</Text>
-      </View>
+      <View style={styles.commentTimeContainer}>{Ago()}</View>
     </View>
   );
 }
