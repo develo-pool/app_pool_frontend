@@ -15,7 +15,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/:brandId" element={<ProfileScreen />} />
-            <Route path="/404" element={<NotFound />} />
+            <Route path="/none" element={<NotFound />} />
             <Route path="/" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

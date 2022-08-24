@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const rootDir = path.join(__dirname, '..');
 const webpackEnv = process.env.NODE_ENV || 'development';
 
@@ -35,6 +36,10 @@ module.exports = {
       template: path.join(__dirname, './index.html'),
     }),
     new webpack.HotModuleReplacementPlugin(),
+    new FaviconsWebpackPlugin({
+      logo: path.join(rootDir, './web/assets/favicon.ico'),
+      manifest: path.join(rootDir, './web/assets/site.webmanifest'),
+    }),
   ],
   resolve: {
     extensions: [

@@ -10,7 +10,7 @@ interface Props {
   brandProfileImage: string;
   follow: boolean;
   userFollowerCount: number;
-  // poolUserId: number;
+  poolUserId: number;
   changeFollowing?: any;
   isLoginUser?: boolean;
 }
@@ -20,8 +20,8 @@ function SearchResultBrandUserContainer({
   brandProfileImage,
   follow,
   userFollowerCount,
-  // poolUserId,
-  changeFollowing,
+  poolUserId,
+  // changeFollowing,
   isLoginUser,
 }: Props) {
   const navigation = useNavigation<RootStackNavigationProp>();
@@ -51,7 +51,7 @@ function SearchResultBrandUserContainer({
               ''
             ) : (
               <View>
-                <FollowButton isFollowed={follow} onPress={changeFollowing} />
+                <FollowButton isFollowed={follow} poolUserId={poolUserId} />
               </View>
             )}
           </View>

@@ -18,6 +18,44 @@ function MessageHeader({
   poolUserId,
 }: Props) {
   const navigation = useNavigation<RootStackNavigationProp>();
+  const Month = create_date.substring(5, 7);
+  const Day = create_date.substring(8, 10);
+  const Hour = create_date.substring(11, 13);
+  const Minute = create_date.substring(14, 16);
+  const Second = create_date.substring(17, 19);
+
+  const nowDay = new Date().getDate();
+  const nowHour = new Date().getHours();
+  const nowMinute = new Date().getMinutes();
+  const nowSecond = new Date().getSeconds();
+
+  const Ago = () => {
+    if (nowDay - parseInt(Day) !== 0) {
+      // console.log(Month + '월 ' + Day + '일');
+      return (
+        <Text style={styles.msgDate}>
+          {Month}월 {Day}일
+        </Text>
+      );
+    } else if (nowHour - parseInt(Hour) !== 0) {
+      // console.log(nowHour - parseInt(Hour));
+      return (
+        <Text style={styles.msgDate}>
+          {Math.abs(nowHour - parseInt(Hour))}시간 전
+        </Text>
+      );
+    } else if (nowMinute - parseInt(Minute) !== 0) {
+      // console.log(nowMinute - parseInt(Minute));
+      return (
+        <Text style={styles.msgDate}>
+          {Math.abs(nowMinute - parseInt(Minute))}분 전
+        </Text>
+      );
+    } else if (nowSecond - parseInt(Second) !== 0) {
+      // console.log(nowSecond - parseInt(Second));
+      return <Text style={styles.msgDate}>방금 전</Text>;
+    }
+  };
   return (
     // 댓글 작성 여부에 따라 메시지스크린 -> 입력창 포커스를 잡아주는 컴포넌트
     <TouchableOpacity
@@ -34,9 +72,7 @@ function MessageHeader({
           <View style={styles.verticalCenter}>
             <Text style={styles.msgSmallText}>{brandUsername}</Text>
           </View>
-          <View style={styles.smallVerticalCenter}>
-            <Text style={styles.msgDate}>{create_date}</Text>
-          </View>
+          <View style={styles.smallVerticalCenter}>{Ago()}</View>
         </View>
       </View>
     </TouchableOpacity>

@@ -18,16 +18,16 @@ function CommentFocusButton({isComment, postId}: Props) {
       <Icon
         name="messenger-outline"
         size={18}
-        color={isComment ? theme.colors.Grey30 : theme.colors.Grey60}
+        color={isComment ? theme.colors.Grey60 : theme.colors.Grey30}
         style={styles.commentIcon}
       />
       {isComment ? (
-        <Text style={styles.completeWord}>답장완료</Text>
-      ) : (
         <TouchableOpacity
           onPress={() => navigation.navigate('Message', {detail: postId})}>
           <Text style={styles.goToCommentWord}>답장하기</Text>
         </TouchableOpacity>
+      ) : (
+        <Text style={styles.completeWord}>답장완료</Text>
       )}
     </View>
   );
