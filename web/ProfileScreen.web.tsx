@@ -7,7 +7,7 @@ import {
   View,
 } from 'react-native';
 import {useQuery} from 'react-query';
-import {useParams} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import {Message} from '../api/message/types';
 import {getBrandWebMessage} from '../api/web';
 import theme from '../assets/theme';
@@ -20,11 +20,10 @@ const LENGTH = 10;
 function ProfileScreen() {
   const {brandId = '0'} = useParams();
   const id = parseInt(brandId, 10);
-
+  const navigation = useNavigate();
   const [loadMessageList, setLoadMessageList] = useState<Message[]>([]);
   const [cursor, setCursor] = useState<number>(0);
   const [noMorePost, setNoMorePost] = useState<boolean>(false);
-
   const {isLoading: isMessageLoading, refetch} = useQuery(
     'getBrandWebMessage',
     () => getBrandWebMessage({brandId: id, cursor: cursor}),
@@ -37,6 +36,9 @@ function ProfileScreen() {
           setLoadMessageList(loadMessageList.concat(data));
           setCursor(data[data.length - 1].postId);
         }
+      },
+      onError: () => {
+        navigation('/none');
       },
       refetchOnMount: true,
     },
@@ -75,7 +77,7 @@ function ProfileScreen() {
           }}
           ListHeaderComponent={<Profile id={id} />}
           ListFooterComponent={
-            <View style={styles.Ivory}>
+            <View style={styles.margin}>
               <Footer />
             </View>
           }
@@ -92,10 +94,12 @@ function ProfileScreen() {
 const styles = StyleSheet.create({
   block: {
     flex: 1,
+    backgroundColor: theme.colors.Ivory,
   },
   Message: {
     flex: 1,
     alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: theme.colors.Ivory,
     padding: 16,
   }, //프로필 아래 메시지가 쌓이는 메시지 영역
@@ -104,9 +108,8 @@ const styles = StyleSheet.create({
     fontSize: theme.fontSize.P1,
     fontWeight: theme.fontWeight.Light,
   }, //동록한 메시지가 없습니다.
-  Ivory: {
+  margin: {
     paddingTop: 60,
-    backgroundColor: theme.colors.Ivory,
   },
 });
 

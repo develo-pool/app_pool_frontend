@@ -15,7 +15,6 @@ import {useNavigate} from 'react-router-dom';
 
 function Profile({id}: {id: number}) {
   const navigation = useNavigate();
-
   const {data, isLoading} = useQuery(
     'getBrandWebProfile',
     () => getBrandWebProfile(id),
@@ -40,6 +39,7 @@ function Profile({id}: {id: number}) {
                       ? {uri: data.brandProfileImage}
                       : PoolLogo
                   }
+                  resizeMode="cover"
                 />
               </View>
               <View style={styles.BrandInfo}>
