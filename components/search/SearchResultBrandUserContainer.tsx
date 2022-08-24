@@ -29,7 +29,7 @@ function SearchResultBrandUserContainer({
     <View>
       <Pressable
         style={styles.brandUserContainer}
-        onPress={() => navigation.navigate('BrandProfile', {poolUserId: 1})}>
+        onPress={() => navigation.navigate('BrandProfile', {poolUserId: poolUserId})}>
         <View style={styles.brandUserHorizontal}>
           <View style={styles.spacebetween}>
             <View style={styles.align}>
