@@ -9,11 +9,15 @@ import {
 } from 'react-native';
 import theme from '../assets/theme';
 import ScreenBottomButton from '../components/ScreenBottomButton';
-import {useNavigation} from '@react-navigation/native';
-import {RootStackNavigationProp} from './types';
+import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
+import {RootStackNavigationProp, RootStackParamList} from './types';
+
+type PreviewScreenRouteProp = RouteProp<RootStackParamList, 'Preview'>;
 
 function PreviewScreen() {
   const navigation = useNavigation<RootStackNavigationProp>();
+  const route = useRoute<PreviewScreenRouteProp>();
+  const messageBody = route.params.messageBody;
 
   return (
     <SafeAreaView style={styles.container}>
@@ -36,8 +40,7 @@ function PreviewScreen() {
             <View style={styles.textContainer}>
               <Text style={styles.titleText}>더푸르</Text>
               <Text style={styles.bodyText} numberOfLines={2}>
-                오늘은 샐러드 먹었어요 여러분은 뭘 드셨나요? 오늘은 샐러드
-                먹었어요 여러분은 뭘 드셨나요?
+                {messageBody}
               </Text>
             </View>
           </View>

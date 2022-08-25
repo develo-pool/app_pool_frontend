@@ -109,6 +109,7 @@ function CreateMessageScreen() {
           <PreviewButton
             text="미리보기"
             isDisabled={form.messageBody.length < 20}
+            formBody={form.messageBody}
           />
         </View>
         <TextInput

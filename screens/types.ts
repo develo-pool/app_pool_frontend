@@ -25,7 +25,7 @@ export type RootStackParamList = {
   Message: {detail: number};
   CreateMessage: undefined;
   WelcomeMessage: undefined;
-  Preview: undefined;
+  Preview: {messageBody: string};
   Profile: undefined;
   BrandProfile: {brandUserId: number; poolUserId: number};
   SettingStack: undefined;
