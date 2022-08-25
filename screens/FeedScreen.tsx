@@ -31,24 +31,24 @@ function FeedScreen() {
       refetch();
     }
   }, [userData, refetch]);
-  // const {getItem: getFcmItem, setItem: setFcmItem} =
-  //   useAsyncStorage('fcmToken');
+  const {getItem: getFcmItem, setItem: setFcmItem} =
+    useAsyncStorage('fcmToken');
 
-  // const getFcmToken = useCallback(async () => {
-  //   const fcmFS = await getFcmItem();
-  //   const fcmToken = await messaging().getToken();
-  //   if (fcmFS !== fcmToken) {
-  //     setFcmItem(fcmToken); // 회원가입, 로그인할 때 활용
-  //   }
-  //   console.log('🚒fcm token', fcmToken);
-  //   sendToken(fcmToken);
-  // }, [getFcmItem, setFcmItem, sendToken]);
+  const getFcmToken = useCallback(async () => {
+    const fcmFS = await getFcmItem();
+    const fcmToken = await messaging().getToken();
+    if (fcmFS !== fcmToken) {
+      setFcmItem(fcmToken); // 회원가입, 로그인할 때 활용
+    }
+    console.log('🚒fcm token', fcmToken);
+    sendToken(fcmToken);
+  }, [getFcmItem, setFcmItem, sendToken]);
 
-  // useEffect(() => {
-  //   messaging().requestPermission();
-  //   messaging().registerDeviceForRemoteMessages();
-  //   getFcmToken();
-  // }, [getFcmToken]);
+  useEffect(() => {
+    messaging().requestPermission();
+    messaging().registerDeviceForRemoteMessages();
+    getFcmToken();
+  }, [getFcmToken]);
 
   const nowYear = new Date().getFullYear();
   const nowMonth = new Date().getMonth() + 1;
