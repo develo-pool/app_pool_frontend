@@ -45,6 +45,7 @@ function SearchScreen() {
                 brandProfileImage={brandUser.brandProfileImage}
                 follow={brandUser.userInfoDto?.follow}
                 userFollowerCount={brandUser.userInfoDto?.userFollowerCount}
+                brandUserId={brandUser.brandUserId}
                 poolUserId={brandUser.poolUserId}
                 isLoginUser={brandUser.isLoginUser}
               />
@@ -53,21 +54,20 @@ function SearchScreen() {
         ) : (
           <ScrollView>
             <RecommandSubTitle />
-            {allBrandData?.map(brandUser => {
-              return (
-                <RecommandBrandUserContainer
-                  key={brandUser.poolUserId}
-                  changeFollowing={changeFollowing}
-                  brandUsername={brandUser.brandUsername}
-                  brandInfo={brandUser.brandInfo}
-                  brandProfileImage={brandUser.brandProfileImage}
-                  follow={brandUser.userInfoDto?.follow}
-                  userFollowerCount={brandUser.userInfoDto?.userFollowerCount}
-                  poolUserId={brandUser.poolUserId}
-                  isLoginUser={brandUser.isLoginUser}
-                />
-              );
-            })}
+            {allBrandData?.map((brandUser: any) => (
+              <RecommandBrandUserContainer
+                key={brandUser.poolUserId}
+                changeFollowing={changeFollowing}
+                brandUsername={brandUser.brandUsername}
+                brandInfo={brandUser.brandInfo}
+                brandProfileImage={brandUser.brandProfileImage}
+                follow={brandUser.userInfoDto?.follow}
+                userFollowerCount={brandUser.userInfoDto?.userFollowerCount}
+                brandUserId={brandUser.brandUserId}
+                poolUserId={brandUser.poolUserId}
+                isLoginUser={brandUser.isLoginUser}
+              />
+            ))}
           </ScrollView>
         )}
       </ScrollView>
