@@ -1,13 +1,15 @@
 import {
   View,
   StyleSheet,
-  ScrollView,
   SafeAreaView,
   Image,
   FlatList,
   ActivityIndicator,
 } from 'react-native';
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {
+  // useCallback,
+  useState,
+} from 'react';
 
 import Feed from '../components/feed/Feed';
 import theme from '../assets/theme';
@@ -68,12 +70,6 @@ function FeedScreen() {
   //     console.log('Success!');
   //   },
   // });
-
-  useEffect(() => {
-    if (userData?.userFollowingCount !== 0) {
-      refetch();
-    }
-  }, [refetch, cursor, isMessageLoading, Messages]);
 
   // const {getItem: getFcmItem, setItem: setFcmItem} =
   //   useAsyncStorage('fcmToken');
@@ -153,7 +149,8 @@ function FeedScreen() {
               />
               {isMessageLoading && <ActivityIndicator />}
             </View>
-          }></FlatList>
+          }
+        />
       </View>
     </SafeAreaView>
   );
