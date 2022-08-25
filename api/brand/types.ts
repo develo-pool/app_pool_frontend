@@ -29,6 +29,7 @@ export interface AllBrandResult extends BrandResult {
     brandUserInfoDto: any;
   };
   poolUserId: number;
+  brandUserId: number;
   isLoginUser: boolean;
 }
 

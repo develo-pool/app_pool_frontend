@@ -22,8 +22,8 @@ type BrandProfileScreenRouteProp = RouteProp<
 
 function BrandProfileScreen() {
   const route = useRoute<BrandProfileScreenRouteProp>();
+  const brandUserId = route.params.brandUserId;
   const poolUserId = route.params.poolUserId;
-  console.log(poolUserId);
   const navigation = useNavigation<RootStackNavigationProp>();
   useEffect(() => {
     navigation.setOptions({
@@ -44,9 +44,9 @@ function BrandProfileScreen() {
     });
   }, [navigation]);
 
-  const {data} = useQuery(
+  const {data: brandData} = useQuery(
     'getBrandProfile',
-    () => getBrandProfile(poolUserId),
+    () => getBrandProfile(brandUserId),
     {
       refetchOnMount: 'always',
     },
@@ -59,25 +59,25 @@ function BrandProfileScreen() {
           <View style={styles.ProfileContainer}>
             <BrandProfileImageContainer
               isEditable={false}
-              imgSource={{uri: data?.brandProfileImage}}
+              imgSource={{uri: brandData?.brandProfileImage}}
             />
             <View style={styles.BrandInfo}>
-              <Text style={styles.BrandName}>{data?.brandUsername}</Text>
+              <Text style={styles.BrandName}>{brandData?.brandUsername}</Text>
               <View style={styles.FollowerContainer}>
                 <Text style={styles.Follower}>팔로워</Text>
                 <Text style={styles.FollowerCount}>
-                  {data?.userInfoDto.userFollowerCount}
+                  {brandData?.userInfoDto.userFollowerCount}
                 </Text>
               </View>
             </View>
           </View>
           <FollowButton
-            isFollowed={data?.userInfoDto.follow as boolean}
+            isFollowed={brandData?.userInfoDto.follow as boolean}
             poolUserId={poolUserId}
           />
         </View>
         <View style={styles.IntroContainer}>
-          <Text style={styles.IntroText}>{data?.brandInfo}</Text>
+          <Text style={styles.IntroText}>{brandData?.brandInfo}</Text>
         </View>
       </View>
       <View style={styles.Message}>

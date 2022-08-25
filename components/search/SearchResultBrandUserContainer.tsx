@@ -11,6 +11,7 @@ interface Props {
   follow: boolean;
   userFollowerCount: number;
   poolUserId: number;
+  brandUserId: number;
   changeFollowing?: any;
   isLoginUser?: boolean;
 }
@@ -21,15 +22,20 @@ function SearchResultBrandUserContainer({
   follow,
   userFollowerCount,
   poolUserId,
-  // changeFollowing,
   isLoginUser,
+  brandUserId,
 }: Props) {
   const navigation = useNavigation<RootStackNavigationProp>();
   return (
     <View>
       <Pressable
         style={styles.brandUserContainer}
-        onPress={() => navigation.navigate('BrandProfile', {poolUserId: 1})}>
+        onPress={() =>
+          navigation.navigate('BrandProfile', {
+            brandUserId: brandUserId,
+            poolUserId: poolUserId,
+          })
+        }>
         <View style={styles.brandUserHorizontal}>
           <View style={styles.spacebetween}>
             <View style={styles.align}>

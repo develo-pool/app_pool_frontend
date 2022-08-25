@@ -20,7 +20,7 @@ const colors = {
 };
 
 const fontFamily = {
-  Pretendard: 'PretendardVariable',
+  // Pretendard: 'PretendardVariable',
 };
 
 const fontSize = {
