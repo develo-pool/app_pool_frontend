@@ -50,7 +50,6 @@ function FeedScreen() {
   //   console.log('🚒fcm token', fcmToken);
   //   sendToken(fcmToken);
   // }, [getFcmItem, setFcmItem, sendToken]);
-
   // useEffect(() => {
   //   messaging().requestPermission();
   //   messaging().registerDeviceForRemoteMessages();
