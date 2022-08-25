@@ -17,6 +17,7 @@ export interface Message {
     userFollowerCount: number;
     userFollowingCount: number;
     brandUserInfoDto: {
+      brandUserId: number;
       brandUsername: string;
       brandInfo: string;
       brandProfileImage: string;

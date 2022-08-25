@@ -57,6 +57,7 @@ function Feed(message: Message) {
         onPress={() => {
           navigation.navigate('BrandProfile', {
             poolUserId: message.writerDto.poolUserId,
+            brandUserId: message.writerDto.brandUserInfoDto.brandUserId,
           });
         }}>
         <MessageHeader

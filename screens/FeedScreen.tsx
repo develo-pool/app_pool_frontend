@@ -1,8 +1,9 @@
-import {View, StyleSheet, ScrollView, SafeAreaView, Image} from 'react-native';
+import {View, StyleSheet, ScrollView, SafeAreaView, Image, FlatList} from 'react-native';
 import React, {
   // useCallback,
   useEffect,
 } from 'react';
+
 import Feed from '../components/feed/Feed';
 import theme from '../assets/theme';
 import NowDate from '../components/feed/NowDate';
@@ -18,25 +19,33 @@ import {getAllMessage} from '../api/message/index';
 // import {sendFCMToken} from '../api/fcm';
 
 function FeedScreen() {
+  const [cursor, setCorsur] = useState(0);
+  const [allMessage, setAllMessage] = useState([]);
   const {data: userData} = useQuery('getUserResult', () => getUser(), {
     refetchOnMount: 'always',
   });
   const {data: allMessageData, refetch} = useQuery(
     'getAllMessage',
-    () => getAllMessage(),
+    () => getAllMessage(cursor),
     {enabled: false},
   );
+
   // const {mutate: sendToken} = useMutation(sendFCMToken, {
   //   onSuccess: () => {
   //     console.log('Success!');
   //   },
   // });
 
+
   useEffect(() => {
     if (userData?.userFollowingCount !== 0) {
       refetch();
+      if (allMessageData !== undefined) {
+        setCorsur(allMessageData.length);
+        
+      }
     }
-  }, [userData, refetch]);
+  }, [userData, refetch, allMessageData, cursor]);
 
   // const {getItem: getFcmItem, setItem: setFcmItem} =
   //   useAsyncStorage('fcmToken');
@@ -60,10 +69,89 @@ function FeedScreen() {
   const nowMonth = new Date().getMonth() + 1;
   const nowDate = new Date().getDate();
   const yymmdd = nowYear + '년 ' + nowMonth + '월 ' + nowDate + '일';
+  const [loading, setLoading] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const getData = async () => {
+    if (allMessageData !== undefined && allMessageData.length >= 10) {
+      setLoading(true);
+      await getAllMessage(cursor);
+      setLoading(false);
+    }
+  };
+  const onEndReached = () => {
+    if (!loading) {
+      getData();
+    }
+  };
+  const getRefreshData = async () => {
+    setRefreshing(true);
+     await getAllMessage(cursor);
+     setRefreshing(false);
+ };
+ 
+ const onRefresh = () => {
+   if(!refreshing) {
+       getRefreshData();
+     }
+ }
   return (
     <SafeAreaView>
       <View style={styles.container}>
-        <ScrollView showsVerticalScrollIndicator={false}>
+        <FlatList
+          data={allMessageData}
+          style={styles.container}
+          showsVerticalScrollIndicator={false}
+          onEndReached={onEndReached}
+          onEndReachedThreshold={0.8}
+          onRefresh={onRefresh}
+          refreshing={refreshing}
+          ListHeaderComponent={
+            <View>
+              <Hello name={userData?.nickName} />
+              <NowDate msgDate={yymmdd} />
+            </View>
+          }
+          ListFooterComponent={
+            <View
+              style={
+                allMessageData?.length === 0
+                  ? styles.noMessageContainer
+                  : styles.isMessageContainer
+              }>
+              <Image
+                style={styles.noMessage}
+                source={require('../assets/NoMessage.png')}
+                resizeMode="contain"
+              />
+            </View>
+          }
+          renderItem={({item}) => {
+            const {
+              postId,
+              body,
+              messageLink,
+              filePath,
+              writerDto,
+              commentAble,
+              isWriter,
+              create_date,
+            } = item;
+            return (
+              <Feed
+                key={postId}
+                postId={postId}
+                body={body}
+                messageLink={messageLink}
+                filePath={filePath}
+                writerDto={writerDto}
+                commentAble={commentAble}
+                isWriter={isWriter}
+                create_date={create_date}
+              />
+            );
+          }}></FlatList>
+        {/* <ScrollView showsVerticalScrollIndicator={false}>
           <Hello name={userData?.nickName} />
           <NowDate msgDate={yymmdd} />
           {allMessageData?.map(messages => {
@@ -94,7 +182,7 @@ function FeedScreen() {
               resizeMode="contain"
             />
           </View>
-        </ScrollView>
+        </ScrollView> */}
       </View>
     </SafeAreaView>
   );
