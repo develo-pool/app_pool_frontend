@@ -9,9 +9,10 @@ import {useMutation} from 'react-query';
 interface Props {
   isFollowed: boolean;
   poolUserId: number;
+  refetch: any;
 }
 
-function FollowButton({isFollowed, poolUserId}: Props) {
+function FollowButton({isFollowed, poolUserId, refetch}: Props) {
   const {mutate: sendWelcomeMessage} = useMutation(sendSingleAlarm, {
     onSuccess: () => {
       console.log('Success Alarm Send!');
@@ -20,12 +21,12 @@ function FollowButton({isFollowed, poolUserId}: Props) {
 
   const {mutate: onPressFollow} = useMutation(follow, {
     onSuccess: () => {
-      isFollowed === !isFollowed;
+      refetch();
     },
   });
   const {mutate: onPressUnfollow} = useMutation(unfollow, {
     onSuccess: () => {
-      isFollowed === !isFollowed;
+      refetch();
     },
   });
 

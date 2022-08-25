@@ -48,6 +48,7 @@ function SearchScreen() {
                 brandUserId={brandUser.brandUserId}
                 poolUserId={brandUser.poolUserId}
                 isLoginUser={brandUser.isLoginUser}
+                refetch={refetch}
               />
             ))}
           </ScrollView>
@@ -66,6 +67,7 @@ function SearchScreen() {
                 brandUserId={brandUser.brandUserId}
                 poolUserId={brandUser.poolUserId}
                 isLoginUser={brandUser.isLoginUser}
+                refetch={refetch}
               />
             ))}
           </ScrollView>
