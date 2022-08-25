@@ -140,7 +140,10 @@ function SettingScreen() {
                 )
               }
             />
-            <SetArticle title="문의하기" />
+            <SetArticle
+              title="문의하기"
+              onPress={() => Linking.openURL('http://pf.kakao.com/_ebksb')}
+            />
             <Pressable style={styles.SeperatedSets} onPress={onLogout}>
               <Text style={styles.Logout}>로그아웃</Text>
             </Pressable>
