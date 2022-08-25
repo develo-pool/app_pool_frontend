@@ -1,13 +1,13 @@
 import client from '../client';
-import {Comment, CreateComment} from './types';
+import {Comment, CreateComment, getAllCommentParams} from './types';
 
 export async function getComment(params: number) {
   const response = await client.get<Comment>(`/comments/${params}/my`);
   return response.data;
 }
 
-export async function getAllComment(params: number) {
-  const response = await client.get<Comment[]>(`/comments/${params}?cursor=0`);
+export async function getAllComment(params: getAllCommentParams) {
+  const response = await client.get<Comment[]>(`/comments/${params.detail}?cursor=${params.cursor}`);
   return response.data;
 }
 
