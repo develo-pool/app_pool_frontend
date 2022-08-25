@@ -24,7 +24,7 @@ function MessageScreen() {
   const [commentText, setCommentText] = useState('');
   const onChangeText = (payload: string) => setCommentText(payload);
   const route = useRoute<MessageScreenRouteProp>();
-  const detail = route?.params?.detail;
+  const detail = route.params.detail;
   const navigation = useNavigation<RootStackNavigationProp>();
   const {data: userData} = useQuery('getUserResult', () => getUser(), {
     refetchOnMount: 'always',
@@ -43,7 +43,7 @@ function MessageScreen() {
     });
   }, [navigation]);
 
-  const {data: messageData} = useQuery('getMessage', () => getMessage(detail));
+  const {data: messageData, refetch:messageRefetch} = useQuery('getMessage', () => getMessage(detail));
   const {data: allCommentData, refetch: allCommentRefetch} = useQuery(
     'getAllComment',
     () => getAllComment(detail),
@@ -82,6 +82,7 @@ function MessageScreen() {
     }
     writeComment({messageId: detail, body: commentText});
     setCommentText('');
+    messageRefetch();
   };
 
   return (
