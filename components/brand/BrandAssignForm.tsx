@@ -64,7 +64,10 @@ function BrandAssignForm({
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-      <ScrollView style={styles.block} showsVerticalScrollIndicator={false}>
+      <ScrollView
+        style={styles.block}
+        showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="handled">
         <Title title="브랜드에 대해" alignCenter={true} />
         <Title title="알려주세요." alignCenter={true} hasMargin={true} />
         <Pressable
