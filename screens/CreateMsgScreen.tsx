@@ -113,10 +113,13 @@ function CreateMessageScreen() {
           />
         </View>
         <TextInput
+          style={styles.InputMessage}
           value={form.messageBody}
           onChangeText={onChangeText('messageBody')}
-          style={styles.InputMessage}
           placeholder="20자 이상,  1000자 이내로 입력"
+          maxLength={1000}
+          multiline={true}
+          placeholderTextColor={'rgba(0, 0, 0, 0.2)'}
         />
         {form.messageImage && (
           <Image

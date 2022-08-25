@@ -30,7 +30,6 @@ export interface WelcomeMessageProps {
 }
 
 function WelcomeMessageScreen() {
-  const [text, setText] = useState('');
   const navigation = useNavigation<MainTabNatigationProp>();
   const [form, setForm] = useState<WelcomeMessageProps>({
     messageBody: '',
@@ -109,10 +108,13 @@ function WelcomeMessageScreen() {
           />
         </View>
         <TextInput
+          style={styles.InputMessage}
           value={form.messageBody}
           onChangeText={onChangeText('messageBody')}
-          style={styles.InputMessage}
           placeholder="20자 이상 입력"
+          maxLength={1000}
+          multiline={true}
+          placeholderTextColor={'rgba(0, 0, 0, 0.2)'}
         />
         {form.messageImage && (
           <Image
