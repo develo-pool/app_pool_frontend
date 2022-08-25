@@ -4,6 +4,12 @@ import theme from '../../assets/theme';
 import FollowButton from '../profile/FollowButton';
 import {useNavigation} from '@react-navigation/native';
 import {RootStackNavigationProp} from '../../screens/types';
+import {
+  QueryObserverResult,
+  RefetchOptions,
+  RefetchQueryFilters,
+} from 'react-query';
+import {AllBrandResult} from '../../api/brand/types';
 
 interface Props {
   brandUsername: string;
@@ -15,6 +21,9 @@ interface Props {
   changeFollowing?: any;
   isLoginUser?: boolean;
   poolUserId: number;
+  refetch: <TPageData>(
+    options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined,
+  ) => Promise<QueryObserverResult<AllBrandResult[], unknown>>;
 }
 
 function RecommandBrandUserContainer({
@@ -26,6 +35,7 @@ function RecommandBrandUserContainer({
   brandUserId,
   isLoginUser,
   poolUserId,
+  refetch,
 }: Props) {
   const navigation = useNavigation<RootStackNavigationProp>();
   return (
@@ -56,7 +66,11 @@ function RecommandBrandUserContainer({
             ''
           ) : (
             <View>
-              <FollowButton isFollowed={follow} poolUserId={poolUserId} />
+              <FollowButton
+                isFollowed={follow}
+                poolUserId={poolUserId}
+                refetch={refetch}
+              />
             </View>
           )}
         </View>
