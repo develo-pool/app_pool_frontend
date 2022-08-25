@@ -11,9 +11,10 @@ interface Props {
   brandProfileImage: string;
   follow: boolean;
   userFollowerCount: number;
-  poolUserId: number;
+  brandUserId: number;
   changeFollowing?: any;
   isLoginUser?: boolean;
+  poolUserId: number;
 }
 
 function RecommandBrandUserContainer({
@@ -22,16 +23,19 @@ function RecommandBrandUserContainer({
   brandProfileImage,
   follow,
   userFollowerCount,
-  poolUserId,
+  brandUserId,
   isLoginUser,
+  poolUserId,
 }: Props) {
   const navigation = useNavigation<RootStackNavigationProp>();
-
   return (
     <Pressable
       style={styles.brandUserContainer}
       onPress={() =>
-        navigation.navigate('BrandProfile', {poolUserId: poolUserId})
+        navigation.navigate('BrandProfile', {
+          brandUserId: brandUserId,
+          poolUserId: poolUserId,
+        })
       }>
       <View style={styles.brandUserHorizontal}>
         <Image

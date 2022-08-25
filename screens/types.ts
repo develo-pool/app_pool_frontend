@@ -27,7 +27,7 @@ export type RootStackParamList = {
   WelcomeMessage: undefined;
   Preview: undefined;
   Profile: undefined;
-  BrandProfile: {poolUserId: number};
+  BrandProfile: {brandUserId: number , poolUserId: number};
   SettingStack: undefined;
   BrandAssign: {current: number};
   BrandAssignGuide: undefined;
