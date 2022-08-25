@@ -44,7 +44,7 @@ function BrandProfileScreen() {
     });
   }, [navigation]);
 
-  const {data: brandData} = useQuery(
+  const {data: brandData, refetch} = useQuery(
     'getBrandProfile',
     () => getBrandProfile(brandUserId),
     {
@@ -74,6 +74,7 @@ function BrandProfileScreen() {
           <FollowButton
             isFollowed={brandData?.userInfoDto.follow as boolean}
             poolUserId={poolUserId}
+            refetch={refetch}
           />
         </View>
         <View style={styles.IntroContainer}>
