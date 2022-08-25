@@ -19,7 +19,6 @@ import {
   // , useMutation
 } from 'react-query';
 import {getAllMessage} from '../api/message/index';
-
 // import messaging from '@react-native-firebase/messaging';
 // import {useAsyncStorage} from '@react-native-async-storage/async-storage';
 // import {sendFCMToken} from '../api/fcm';
@@ -32,7 +31,7 @@ function FeedScreen() {
   const [Messages, setMessages] = useState<Message[]>([]);
   const [noMorePost, setNoMorePost] = useState<boolean>(false);
   const {isLoading: isMessageLoading, refetch} = useQuery(
-    'getBrandWebMessage',
+    'getAllMessage',
     () => getAllMessage(cursor),
     {
       onSuccess: data => {
@@ -44,7 +43,6 @@ function FeedScreen() {
           setCursor(data[data.length - 1].postId);
         }
       },
-      refetchOnMount: true,
     },
   );
   const RenderItem = ({item}) => {
@@ -65,24 +63,17 @@ function FeedScreen() {
   const {data: userData} = useQuery('getUserResult', () => getUser(), {
     refetchOnMount: 'always',
   });
-
-  // const {data: allMessageData, refetch} = useQuery(
-  //   'getAllMessage',
-  //   () => getAllMessage(cursor),
-  //   {enabled: false},
-  // );
   // const {mutate: sendToken} = useMutation(sendFCMToken, {
   //   onSuccess: () => {
   //     console.log('Success!');
   //   },
   // });
 
-
   useEffect(() => {
     if (userData?.userFollowingCount !== 0) {
       refetch();
     }
-  }, [userData, refetch, cursor]);
+  }, [refetch, cursor, isMessageLoading, Messages]);
 
   // const {getItem: getFcmItem, setItem: setFcmItem} =
   //   useAsyncStorage('fcmToken');
@@ -106,33 +97,19 @@ function FeedScreen() {
   const nowMonth = new Date().getMonth() + 1;
   const nowDate = new Date().getDate();
   const yymmdd = nowYear + '년 ' + nowMonth + '월 ' + nowDate + '일';
-  const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
 
-  // 데이터를 가져오는 녀석..!
-  // const getData = async () => {
-  //   if (allMessageData !== undefined && allMessageData.length >= 10) {
-  //     setLoading(true);
-
-  //     setCursor(cursor + 10);
-
-  //     await getAllMessage(cursor);
-  //     setLoading(false);
-  //   }
-  //   allMessageData !== undefined &&
-  //     setMessages(Object.assign({}, allMessageData, Messages));
-  //   console.log(Messages);
-  // };
   // 스크롤이 끝에 인접하면 실행
-  // const onEndReached = () => {
-  //   if (!loading) {
-  //     getData();
-  //   }
-  // };
+  const onEndReached = () => {
+    if (!noMorePost) {
+      refetch();
+    }
+  };
   // 테이터 새로고침
   const getRefreshData = async () => {
     setRefreshing(true);
-    await getAllMessage(cursor);
+    // await getAllMessage(0);
+    await refetch();
     setRefreshing(false);
   };
 
@@ -145,12 +122,15 @@ function FeedScreen() {
   return (
     <SafeAreaView>
       <View style={styles.container}>
-      <FlatList
+        <FlatList
           data={Messages}
           style={styles.container}
           renderItem={RenderItem}
           showsVerticalScrollIndicator={false}
-          onEndReachedThreshold={0.5}
+          onEndReached={() => {
+            onEndReached();
+          }}
+          onEndReachedThreshold={0.6}
           onRefresh={onRefresh}
           refreshing={refreshing}
           ListHeaderComponent={
@@ -171,96 +151,9 @@ function FeedScreen() {
                 source={require('../assets/NoMessage.png')}
                 resizeMode="contain"
               />
-              {isMessageLoading && <ActivityIndicator/>}
+              {isMessageLoading && <ActivityIndicator />}
             </View>
-          }
-          ></FlatList>
-        {/* <FlatList
-          data={allMessageData}
-          style={styles.container}
-          // keyExtractor={_ => _.postId.toString()}
-          showsVerticalScrollIndicator={false}
-          onEndReached={onEndReached}
-          onEndReachedThreshold={0.8}
-          onRefresh={onRefresh}
-          refreshing={refreshing}
-          ListHeaderComponent={
-            <View>
-              <Hello name={userData?.nickName} />
-              <NowDate msgDate={yymmdd} />
-            </View>
-          }
-          ListFooterComponent={
-            <View
-              style={
-                allMessageData?.length === 0
-                  ? styles.noMessageContainer
-                  : styles.isMessageContainer
-              }>
-              <Image
-                style={styles.noMessage}
-                source={require('../assets/NoMessage.png')}
-                resizeMode="contain"
-              />
-            </View>
-          }
-          renderItem={({item}) => {
-            const {
-              postId,
-              body,
-              messageLink,
-              filePath,
-              writerDto,
-              commentAble,
-              isWriter,
-              create_date,
-            } = item;
-            return (
-              <Feed
-                key={postId}
-                postId={postId}
-                body={body}
-                messageLink={messageLink}
-                filePath={filePath}
-                writerDto={writerDto}
-                commentAble={commentAble}
-                isWriter={isWriter}
-                create_date={create_date}
-              />
-            );
-          }}></FlatList> */}
-        {/* <ScrollView showsVerticalScrollIndicator={false}>
-          <Hello name={userData?.nickName} />
-          <NowDate msgDate={yymmdd} />
-          {allMessageData?.map(messages => {
-            return (
-              <Feed
-                key={messages.postId}
-                postId={messages.postId}
-                body={messages.body}
-                messageLink={messages.messageLink}
-                filePath={messages.filePath}
-                writerDto={messages.writerDto}
-                commentAble={messages.commentAble}
-                isWriter={messages.isWriter}
-                create_date={messages.create_date}
-              />
-            );
-          })}
-
-          <View
-            style={
-              allMessageData?.length === 0
-                ? styles.noMessageContainer
-                : styles.isMessageContainer
-            }>
-            <Image
-              style={styles.noMessage}
-              source={require('../assets/NoMessage.png')}
-              resizeMode="contain"
-            />
-          </View>
-        </ScrollView> */}
+          }></FlatList>
       </View>
     </SafeAreaView>
   );
