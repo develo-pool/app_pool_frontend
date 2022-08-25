@@ -35,48 +35,56 @@ function ProfileScreen() {
   );
 
   return (
-    <SafeAreaView>
-      <ScrollView>
-        <View style={styles.ProfileSection}>
-          <View style={styles.ProfileLayout}>
-            <View style={styles.ProfileContainer}>
-              <ProfileImageContainer isEditable={true} />
-              <View style={styles.BrandInfo}>
-                <Text style={styles.BrandName}>{brandData?.brandUsername}</Text>
-                <View style={styles.FollowerContainer}>
-                  <Text style={styles.Follower}>팔로워</Text>
-                  <Text style={styles.FollowerCount}>
-                    {userData?.userFollowerCount}
+    <>
+      <SafeAreaView>
+        <ScrollView>
+          <View style={styles.ProfileSection}>
+            <View style={styles.ProfileLayout}>
+              <View style={styles.ProfileContainer}>
+                <ProfileImageContainer isEditable={true} />
+                <View style={styles.BrandInfo}>
+                  <Text style={styles.BrandName}>
+                    {brandData?.brandUsername}
                   </Text>
+                  <View style={styles.FollowerContainer}>
+                    <Text style={styles.Follower}>팔로워</Text>
+                    <Text style={styles.FollowerCount}>
+                      {userData?.userFollowerCount}
+                    </Text>
+                  </View>
                 </View>
               </View>
+              <TouchableOpacity style={styles.exportLink}>
+                {/* 외부 연결되는 링크 복사해주는 모달띄우기 */}
+                <Icon
+                  name="logout"
+                  size={24}
+                  color="black"
+                  style={styles.rotate}
+                />
+              </TouchableOpacity>
             </View>
-            <TouchableOpacity style={styles.exportLink}>
-              {/* 외부 연결되는 링크 복사해주는 모달띄우기 */}
-              <Icon
-                name="logout"
-                size={24}
-                color="black"
-                style={styles.rotate}
+            <View style={styles.IntroContainer}>
+              <Text style={styles.IntroText}>{brandData?.brandInfo}</Text>
+            </View>
+          </View>
+          <SetWelcomeMsg />
+          <View style={styles.Message}>
+            {brandMessages?.length === 0 ? (
+              <Text style={styles.MessageNull}>등록된 메시지가 없습니다.</Text>
+            ) : (
+              <MessageContainer
+                brandProfileImage={brandData?.brandProfileImage}
+                brandUserName={brandData?.brandUsername as string}
               />
-            </TouchableOpacity>
-          </View>
-          <View style={styles.IntroContainer}>
-            <Text style={styles.IntroText}>{brandData?.brandInfo}</Text>
-          </View>
-        </View>
-        <SetWelcomeMsg />
-        <View style={styles.Message}>
-          {brandMessages?.length === 0 ? (
-            <Text style={styles.MessageNull}>등록된 메시지가 없습니다.</Text>
-          ) : (
+            )}
             <MessageContainer
               brandProfileImage={brandData?.brandProfileImage}
               brandUserName={brandData?.brandUsername as string}
             />
-          )}
-        </View>
-      </ScrollView>
+          </View>
+        </ScrollView>
+      </SafeAreaView>
       <View style={styles.createButtonLayout}>
         <TouchableOpacity
           style={styles.CreateMessageButton}
@@ -84,7 +92,7 @@ function ProfileScreen() {
           <Icon name="border-color" size={24} style={styles.CreateMessage} />
         </TouchableOpacity>
       </View>
-    </SafeAreaView>
+    </>
   );
 }
 
@@ -159,7 +167,7 @@ const styles = StyleSheet.create({
   createButtonLayout: {
     position: 'absolute',
     right: 16,
-    bottom: 10,
+    bottom: 16,
   },
   CreateMessageButton: {
     height: 68,

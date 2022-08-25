@@ -11,9 +11,6 @@ export interface BrandAssignParams {
   brandCategory: string[];
   brandProfileImage: any;
 }
-export interface UpdateBrandInfoParams {
-  brandInfo: string;
-}
 export interface BrandProfileResult extends BrandResult {
   userInfoDto: {
     follow: boolean;
@@ -34,4 +31,8 @@ export interface AllBrandResult extends BrandResult {
   poolUserId: number;
   brandUserId: number;
   isLoginUser: boolean;
+}
+
+export interface UpdateInfoParams {
+  brandInfo: string;
 }

@@ -12,7 +12,7 @@ function SetWelcomeMsg() {
     <Pressable
       style={styles.SetWelcomeMessage}
       onPress={() => navigation.navigate('WelcomeMessage')}>
-      <Text style={styles.SetWelcomeText}>웰컴메시지를 설정해주세요</Text>
+      <Text style={styles.SetWelcomeText}>웰컴메시지 설정</Text>
       <Icon name="arrow-forward-ios" size={12} style={styles.RightArrow} />
     </Pressable>
   );
@@ -27,14 +27,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   SetWelcomeText: {
-    color: theme.colors.Grey50,
+    color: theme.colors.Poolblue,
     fontSize: theme.fontSize.P3,
     fontWeight: theme.fontWeight.Bold,
     // color:theme.colors.Poolblue,
   },
   RightArrow: {
     marginLeft: 6,
-    color: theme.colors.Grey80,
+    color: theme.colors.Poolblue,
     // color:theme.colors.Poolblue,
   },
 });
