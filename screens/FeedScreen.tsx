@@ -25,8 +25,8 @@ import {getAllMessage} from '../api/message/index';
 import {Message} from '../api/message/types';
 
 function FeedScreen() {
-  const [cursor, setCorsur] = useState(0);
-  const [allMessage, setAllMessage] = useState([]);
+  const [cursor, setCursor] = useState(0);
+  const [Messages, setMessages] = useState([]);
   const {data: userData} = useQuery('getUserResult', () => getUser(), {
     refetchOnMount: 'always',
   });
@@ -45,11 +45,8 @@ function FeedScreen() {
   useEffect(() => {
     if (userData?.userFollowingCount !== 0) {
       refetch();
-      if (allMessageData !== undefined) {
-        setCorsur(allMessageData.length);
-      }
     }
-  }, [userData, refetch, allMessageData, cursor]);
+  }, [userData, refetch, cursor]);
 
   // const {getItem: getFcmItem, setItem: setFcmItem} =
   //   useAsyncStorage('fcmToken');
@@ -76,24 +73,34 @@ function FeedScreen() {
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
 
+  // 데이터를 가져오는 녀석..!
   const getData = async () => {
     if (allMessageData !== undefined && allMessageData.length >= 10) {
       setLoading(true);
+
+      setCursor(cursor + 10);
+
       await getAllMessage(cursor);
       setLoading(false);
     }
+    allMessageData !== undefined &&
+      setMessages(Object.assign({}, allMessageData, Messages));
+    console.log(Messages);
   };
+  // 스크롤이 끝에 인접하면 실행
   const onEndReached = () => {
     if (!loading) {
       getData();
     }
   };
+  // 테이터 새로고침
   const getRefreshData = async () => {
     setRefreshing(true);
     await getAllMessage(cursor);
     setRefreshing(false);
   };
 
+  // 새로고침 실행
   const onRefresh = () => {
     if (!refreshing) {
       getRefreshData();
@@ -105,6 +112,7 @@ function FeedScreen() {
         <FlatList
           data={allMessageData}
           style={styles.container}
+          // keyExtractor={_ => _.postId.toString()}
           showsVerticalScrollIndicator={false}
           onEndReached={onEndReached}
           onEndReachedThreshold={0.8}
