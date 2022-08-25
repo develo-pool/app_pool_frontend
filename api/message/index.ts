@@ -17,3 +17,10 @@ export async function createMessage(formData: FormData) {
   });
   return response;
 }
+
+export async function createWelcomeMessage(formData: FormData) {
+  const response = await client.post('/welcome', formData, {
+    headers: {'content-type': 'multipart/form-data'},
+  });
+  return response;
+}

@@ -11,13 +11,21 @@ import theme from '../assets/theme';
 import ScreenBottomButton from '../components/ScreenBottomButton';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {RootStackNavigationProp, RootStackParamList} from './types';
+import {useQuery} from 'react-query';
+import {getBrand} from '../api/brand';
 
 type PreviewScreenRouteProp = RouteProp<RootStackParamList, 'Preview'>;
 
 function PreviewScreen() {
+  const {data: brandData} = useQuery('getBrand', () => getBrand(''), {
+    refetchOnMount: 'always',
+  });
+
   const navigation = useNavigation<RootStackNavigationProp>();
   const route = useRoute<PreviewScreenRouteProp>();
   const messageBody = route.params.messageBody;
+
+  const isImageExist = true;
 
   return (
     <SafeAreaView style={styles.container}>
@@ -30,7 +38,7 @@ function PreviewScreen() {
             <View style={styles.imgContainer}>
               <Image
                 style={styles.profileImg}
-                source={require('../assets/Pool.png')}
+                source={{uri: brandData?.brandProfileImage}}
               />
               <Image
                 style={styles.poolLogo}
@@ -38,7 +46,7 @@ function PreviewScreen() {
               />
             </View>
             <View style={styles.textContainer}>
-              <Text style={styles.titleText}>더푸르</Text>
+              <Text style={styles.titleText}>{brandData?.brandUsername}</Text>
               <Text style={styles.bodyText} numberOfLines={2}>
                 {messageBody}
               </Text>
@@ -46,10 +54,15 @@ function PreviewScreen() {
           </View>
           <View style={styles.infoContainer}>
             <Text style={styles.nowText}>지금</Text>
-            <Image
-              style={styles.uploadedImg}
-              source={require('../assets/Salad.png')}
-            />
+            {isImageExist ? (
+              <Image
+                style={styles.uploadedImg}
+                source={require('../assets/Salad.png')}
+                // 이미지 첨부 링크 넣어야함
+              />
+            ) : (
+              <View style={styles.dummyContainer} />
+            )}
           </View>
         </View>
       </ImageBackground>
@@ -133,6 +146,11 @@ const styles = StyleSheet.create({
     marginBottom: 6,
   },
   uploadedImg: {
+    width: 32,
+    height: 32,
+    borderRadius: 8,
+  },
+  dummyContainer: {
     width: 32,
     height: 32,
     borderRadius: 8,

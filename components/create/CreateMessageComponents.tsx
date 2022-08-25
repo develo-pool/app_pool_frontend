@@ -27,12 +27,10 @@ export function PreviewButton({
   text,
   isDisabled,
   formBody,
-}: // form,
-{
+}: {
   text: string;
   isDisabled: boolean;
   formBody: string;
-  // form:string;
 }) {
   const navigation = useNavigation<RootStackNavigationProp>();
   return (
