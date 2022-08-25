@@ -127,7 +127,7 @@ function MessageScreen() {
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
-        <View style={styles.spacebetween}>
+        <View>
           {messageData ? (
             <DetailMessageContainer
               key={messageData.postId}
@@ -199,9 +199,7 @@ function MessageScreen() {
                 writenCommentTime={commentData.create_date}
               />
             ) : (
-              <View>
-                <Text>등록된 댓글이 없습니다.</Text>
-              </View>
+              <View/>
             )}
             <InputCommentContainer
               commentText={commentText}
@@ -222,15 +220,12 @@ const styles = StyleSheet.create({
   },
   container: {
     height: '100%',
-    // justifyContent: 'space-between',
+    justifyContent: 'space-between',
     backgroundColor: theme.colors.Grey10,
   },
   spacebetween: {
-    // justifyContent: 'space-between',
-    alignContent: 'space-between',
-  },
-  scrollview: {
-    // 부모의 높이를 가져와서 적용시켜줄 예정입니다...
+    justifyContent: 'space-between',
+    flex: 1,
   },
 });
 
