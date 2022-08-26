@@ -13,7 +13,12 @@ import theme from '../assets/theme';
 import Commentcomponent from '../components/message/Commentcomponent';
 import DetailMessageContainer from '../components/message/DetailMessageContainer';
 import InputCommentContainer from '../components/message/InputCommentContainer';
-import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
+import {
+  RouteProp,
+  useNavigation,
+  useRoute,
+  CommonActions,
+} from '@react-navigation/native';
 import {RootStackNavigationProp, RootStackParamList} from './types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {getMessage} from '../api/message/index';
@@ -45,7 +50,8 @@ function MessageScreen() {
       headerShadowVisible: false,
       headerTitle: '',
       headerLeft: () => (
-        <TouchableOpacity onPress={() => navigation.goBack()}>
+        <TouchableOpacity
+          onPress={() => navigation.dispatch(CommonActions.goBack())}>
           <Icon name="arrow-back" size={24} color="black" />
         </TouchableOpacity>
       ),
