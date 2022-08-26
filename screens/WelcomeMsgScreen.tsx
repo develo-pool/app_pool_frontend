@@ -8,6 +8,7 @@ import {
   Pressable,
   SafeAreaView,
   Platform,
+  KeyboardAvoidingView,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import theme from '../assets/theme';
@@ -126,24 +127,27 @@ function WelcomeMessageScreen() {
           <Icon name="insert-link" size={26} style={styles.Link} />
         )}
       </View>
-      <View style={styles.BottomArea}>
-        <View style={styles.Line} />
-        <View style={styles.BottomBar}>
-          <View style={styles.ElementsContainer}>
-            <Pressable onPress={onSelectImage}>
-              <Icon name="photo-camera" size={24} style={styles.Camera} />
-            </Pressable>
-            <Pressable>
-              <Icon name="insert-link" size={26} style={styles.Link} />
-            </Pressable>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+        <View style={styles.BottomArea}>
+          <View style={styles.Line} />
+          <View style={styles.BottomBar}>
+            <View style={styles.ElementsContainer}>
+              <Pressable onPress={onSelectImage}>
+                <Icon name="photo-camera" size={24} style={styles.Camera} />
+              </Pressable>
+              <Pressable>
+                <Icon name="insert-link" size={26} style={styles.Link} />
+              </Pressable>
+            </View>
+            <SendButton
+              text="설정하기"
+              isDisabled={form.messageBody.length < 20}
+              onPress={() => onSubmit()}
+            />
           </View>
-          <SendButton
-            text="설정하기"
-            isDisabled={form.messageBody.length < 20}
-            onPress={() => onSubmit()}
-          />
         </View>
-      </View>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }
