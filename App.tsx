@@ -19,7 +19,6 @@ import {AppState, Platform} from 'react-native';
 
 import messaging from '@react-native-firebase/messaging';
 
-
 const queryClient = new QueryClient();
 
 async function requestUserPermission() {
@@ -40,7 +39,6 @@ requestUserPermission();
 
 function App() {
   useEffect(() => {
-
     messaging().onNotificationOpenedApp(remoteMessage => {
       console.log(
         'Notification caused app to open from background state:',
@@ -69,7 +67,8 @@ function App() {
     });
     return unsubscribe;
   }, []);
-
+  
+  useEffect(() => {
     const listener = AppState.addEventListener('change', status => {
       if (Platform.OS === 'ios' && status === 'active') {
         request(PERMISSIONS.IOS.APP_TRACKING_TRANSPARENCY)
