@@ -93,13 +93,13 @@ const styles = StyleSheet.create({
   scroll: {
     backgroundColor: theme.colors.Grey10,
   },
-  noSearchTextContainer:{
+  noSearchTextContainer: {
     backgroundColor: theme.colors.Grey10,
     alignItems: 'center',
     padding: 4,
     paddingTop: 32,
   },
-  noSearchText:{
+  noSearchText: {
     color: theme.colors.Grey40,
     fontSize: theme.fontSize.P1,
     fontFamily: theme.fontFamily.Pretendard,

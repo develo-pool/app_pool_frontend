@@ -1,6 +1,5 @@
 import React from 'react';
-import {StyleSheet, TextInput, TouchableOpacity, View} from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import {StyleSheet, TextInput, View} from 'react-native';
 import theme from '../../assets/theme';
 
 interface Props {

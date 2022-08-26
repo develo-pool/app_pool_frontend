@@ -7,7 +7,9 @@ export async function getComment(params: number) {
 }
 
 export async function getAllComment(params: getAllCommentParams) {
-  const response = await client.get<Comment[]>(`/comments/${params.detail}?cursor=${params.cursor}`);
+  const response = await client.get<Comment[]>(
+    `/comments/${params.detail}?cursor=${params.cursor}`,
+  );
   return response.data;
 }
 
