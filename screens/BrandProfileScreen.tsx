@@ -14,6 +14,7 @@ import {RootStackNavigationProp, RootStackParamList} from './types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {getBrandProfile} from '../api/brand';
 import {useQuery} from 'react-query';
+import ShareButton from '../components/profile/ShareButton';
 
 type BrandProfileScreenRouteProp = RouteProp<
   RootStackParamList,
@@ -25,6 +26,15 @@ function BrandProfileScreen() {
   const brandUserId = route.params.brandUserId;
   const poolUserId = route.params.poolUserId;
   const navigation = useNavigation<RootStackNavigationProp>();
+
+  const {data: brandData, refetch} = useQuery(
+    'getBrandProfile',
+    () => getBrandProfile(brandUserId),
+    {
+      refetchOnMount: 'always',
+    },
+  );
+
   useEffect(() => {
     navigation.setOptions({
       headerBackVisible: false,
@@ -35,22 +45,16 @@ function BrandProfileScreen() {
           <Icon name="arrow-back" size={24} color="black" />
         </TouchableOpacity>
       ),
-      headerRight: () => (
-        <TouchableOpacity>
-          {/* 외부 연결되는 링크 복사해주는 모달띄우기 */}
-          <Icon name="logout" size={24} color="black" style={styles.rotate} />
-        </TouchableOpacity>
-      ),
-    });
-  }, [navigation]);
 
-  const {data: brandData, refetch} = useQuery(
-    'getBrandProfile',
-    () => getBrandProfile(brandUserId),
-    {
-      refetchOnMount: 'always',
-    },
-  );
+      headerRight: () =>
+        brandData && (
+          <ShareButton
+            brandUserName={brandData?.brandUsername}
+            brandId={brandUserId}
+          />
+        ),
+    });
+  }, [navigation, brandUserId, brandData]);
 
   return (
     <SafeAreaView>
