@@ -27,8 +27,11 @@ function InputCommentContainer({
             ? '채팅은 1회만 발송할 수 있습니다.'
             : '이미 작성한 메시지입니다.'
         }
+        placeholderTextColor={'rgba(0, 0, 0, 0.2)'}
         style={commentAble ? styles.input : styles.inputX}
         editable={commentAble}
+        autoCapitalize={'none'}
+        autoComplete={'off'}
       />
     </View>
   );

@@ -1,13 +1,16 @@
 import React, {useEffect, useState} from 'react';
 import {
+  ActivityIndicator,
+  FlatList,
+  KeyboardAvoidingView,
   SafeAreaView,
-  ScrollView,
   StyleSheet,
+  Text,
   TouchableOpacity,
   View,
 } from 'react-native';
 import theme from '../assets/theme';
-import Comment from '../components/message/Comment';
+import Commentcomponent from '../components/message/Commentcomponent';
 import DetailMessageContainer from '../components/message/DetailMessageContainer';
 import InputCommentContainer from '../components/message/InputCommentContainer';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
@@ -17,14 +20,20 @@ import {getMessage} from '../api/message/index';
 import {useQuery, useMutation} from 'react-query';
 import {getComment, getAllComment, createComment} from '../api/comment/index';
 import {getUser} from '../api/auth';
+import {Comment} from '../api/comment/types';
 
 type MessageScreenRouteProp = RouteProp<RootStackParamList, 'Message'>;
+
+const LENGTH = 10;
 
 function MessageScreen() {
   const [commentText, setCommentText] = useState('');
   const onChangeText = (payload: string) => setCommentText(payload);
   const route = useRoute<MessageScreenRouteProp>();
-  const detail = route?.params?.detail;
+  const detail = route.params.detail;
+  const [loadCommentList, setLoadCommentList] = useState<Comment[]>([]);
+  const [cursor, setCursor] = useState<number>(0);
+  const [noMoreComment, setNoMoreComment] = useState<boolean>(false);
   const navigation = useNavigation<RootStackNavigationProp>();
   const {data: userData} = useQuery('getUserResult', () => getUser(), {
     refetchOnMount: 'always',
@@ -43,12 +52,42 @@ function MessageScreen() {
     });
   }, [navigation]);
 
-  const {data: messageData} = useQuery('getMessage', () => getMessage(detail));
-  const {data: allCommentData, refetch: allCommentRefetch} = useQuery(
-    'getAllComment',
-    () => getAllComment(detail),
-    {enabled: false},
+  const {data: messageData, refetch: messageRefetch} = useQuery(
+    'getMessage',
+    () => getMessage(detail),
   );
+  // const {data: allCommentData, refetch: allCommentRefetch} = useQuery(
+  //   'getAllComment',
+  //   () => getAllComment(detail, cursor),
+  //   {enabled: false},
+  // );
+  const {isLoading: isMessageLoading, refetch: commentListrefetch} = useQuery(
+    'getAllComment',
+    () => getAllComment({detail: detail, cursor: cursor}),
+    {
+      onSuccess: data => {
+        if (data.length < LENGTH) {
+          setNoMoreComment(true);
+        }
+        if (data.length !== 0) {
+          setLoadCommentList(loadCommentList.concat(data));
+          setCursor(data[data.length - 1].id);
+        }
+      },
+      refetchOnMount: true,
+    },
+  );
+  const RenderItem = ({item}) => {
+    return (
+      <Commentcomponent
+        key={item.id}
+        text={item.body}
+        userName={item.writer?.nickName}
+        userProfileImg={item.writer?.username}
+        writenCommentTime={item?.create_date}
+      />
+    );
+  };
   const {data: commentData, refetch: commentRefetch} = useQuery(
     'getComment',
     () => getComment(detail),
@@ -56,7 +95,8 @@ function MessageScreen() {
   );
   const {mutate: writeComment} = useMutation(createComment, {
     onSuccess: () => {
-      commentRefetch();
+      // commentRefetch();
+      messageRefetch();
     },
   });
   useEffect(() => {
@@ -64,13 +104,13 @@ function MessageScreen() {
       userData?.role === 'BRAND_USER' &&
       userData.username === messageData?.writerDto?.username
     ) {
-      allCommentRefetch();
+      commentListrefetch();
     } else if (messageData?.commentAble === false) {
       commentRefetch();
     }
   }, [
     messageData,
-    allCommentRefetch,
+    commentListrefetch,
     commentRefetch,
     userData?.role,
     userData?.username,
@@ -82,12 +122,13 @@ function MessageScreen() {
     }
     writeComment({messageId: detail, body: commentText});
     setCommentText('');
+    // await messageRefetch();
   };
 
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
-        <View style={styles.spacebetween}>
+        <View>
           {messageData ? (
             <DetailMessageContainer
               key={messageData.postId}
@@ -108,10 +149,10 @@ function MessageScreen() {
         {userData?.userStatus === 'BRAND_USER' &&
         userData.username === messageData?.writerDto?.username ? (
           <View>
-            <ScrollView>
+            {/* <ScrollView>
               {allCommentData?.map(comments => {
                 return (
-                  <Comment
+                  <Commentcomponent
                     key={comments.id}
                     text={comments.body}
                     userName={comments.writer?.nickName}
@@ -120,30 +161,55 @@ function MessageScreen() {
                   />
                 );
               })}
-            </ScrollView>
+            </ScrollView> */}
+            {isMessageLoading ? (
+              <View>
+                <ActivityIndicator />
+              </View>
+            ) : loadCommentList ? (
+              <FlatList
+                data={loadCommentList}
+                renderItem={RenderItem}
+                onEndReached={() => {
+                  if (!noMoreComment) {
+                    commentListrefetch();
+                  }
+                }}
+                // ListHeaderComponent={<Profile id={id} />}
+                // ListFooterComponent={
+                //   <View style={styles.margin}>
+                //     <Footer />
+                //   </View>
+                // }
+              />
+            ) : (
+              <View>
+                <Text>등록된 댓글이 없습니다.</Text>
+              </View>
+            )}
           </View>
         ) : (
           <View style={styles.spacebetween}>
-            <ScrollView style={styles.scrollview}>
-              {commentData ? (
-                <Comment
-                  text={commentData.body}
-                  userName={commentData.writer.nickName}
-                  userProfileImg={
-                    commentData.writer.brandUserInfoDto.brandProfileImage
-                  }
-                  writenCommentTime={commentData.create_date}
-                />
-              ) : (
-                ''
-              )}
-            </ScrollView>
-            <InputCommentContainer
-              commentText={commentText}
-              onChangeText={onChangeText}
-              commentAble={messageData?.commentAble}
-              addComments={onPress}
-            />
+            {commentData ? (
+              <Commentcomponent
+                text={commentData.body}
+                userName={commentData.writer.nickName}
+                userProfileImg={
+                  commentData.writer.brandUserInfoDto.brandProfileImage
+                }
+                writenCommentTime={commentData.create_date}
+              />
+            ) : (
+              <View />
+            )}
+            <KeyboardAvoidingView>
+              <InputCommentContainer
+                commentText={commentText}
+                onChangeText={onChangeText}
+                commentAble={messageData?.commentAble}
+                addComments={onPress}
+              />
+            </KeyboardAvoidingView>
           </View>
         )}
       </View>
@@ -162,10 +228,7 @@ const styles = StyleSheet.create({
   },
   spacebetween: {
     justifyContent: 'space-between',
-    alignContent: 'space-between',
-  },
-  scrollview: {
-    // 부모의 높이를 가져와서 적용시켜줄 예정입니다...
+    flex: 1,
   },
 });
 

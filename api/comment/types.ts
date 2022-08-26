@@ -29,3 +29,8 @@ export interface CreateComment {
   messageId: number;
   body: string;
 }
+
+export interface getAllCommentParams {
+  detail: number;
+  cursor: number;
+}

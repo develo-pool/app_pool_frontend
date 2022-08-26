@@ -116,7 +116,7 @@ function FeedScreen() {
     }
   };
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
         <FlatList
           data={Messages}
@@ -156,6 +156,9 @@ function FeedScreen() {
   );
 }
 const styles = StyleSheet.create({
+  safeArea: {
+    backgroundColor: theme.colors.White,
+  },
   container: {
     paddingHorizontal: 16,
     backgroundColor: theme.colors.White,
