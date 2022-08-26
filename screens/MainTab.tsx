@@ -34,6 +34,7 @@ function MainTab() {
           tabBarIcon: ({color}) => (
             <Icon name="search" size={24} color={color} />
           ),
+          unmountOnBlur: true,
         }}
       />
       <Tab.Screen
@@ -45,6 +46,7 @@ function MainTab() {
           tabBarIcon: ({color}) => (
             <Icon name="view-agenda" size={24} color={color} />
           ),
+          unmountOnBlur: true,
         }}
       />
       {user?.role === 'BRAND_USER' ? (

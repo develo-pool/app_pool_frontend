@@ -13,7 +13,13 @@ import theme from '../assets/theme';
 import Commentcomponent from '../components/message/Commentcomponent';
 import DetailMessageContainer from '../components/message/DetailMessageContainer';
 import InputCommentContainer from '../components/message/InputCommentContainer';
-import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
+import {
+  RouteProp,
+  useNavigation,
+  useRoute,
+  useIsFocused,
+  CommonActions,
+} from '@react-navigation/native';
 import {RootStackNavigationProp, RootStackParamList} from './types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {getMessage} from '../api/message/index';
@@ -27,6 +33,7 @@ type MessageScreenRouteProp = RouteProp<RootStackParamList, 'Message'>;
 const LENGTH = 10;
 
 function MessageScreen() {
+  const isFocused = useIsFocused();
   const [commentText, setCommentText] = useState('');
   const onChangeText = (payload: string) => setCommentText(payload);
   const route = useRoute<MessageScreenRouteProp>();
@@ -45,16 +52,22 @@ function MessageScreen() {
       headerShadowVisible: false,
       headerTitle: '',
       headerLeft: () => (
-        <TouchableOpacity onPress={() => navigation.goBack()}>
+        <TouchableOpacity
+          onPress={() => navigation.dispatch(CommonActions.goBack())}>
           <Icon name="arrow-back" size={24} color="black" />
         </TouchableOpacity>
       ),
     });
-  }, [navigation]);
+  }, [navigation, isFocused]);
 
   const {data: messageData, refetch: messageRefetch} = useQuery(
     'getMessage',
     () => getMessage(detail),
+    {
+      onSuccess: () => {
+        messageRefetch;
+      },
+    },
   );
   // const {data: allCommentData, refetch: allCommentRefetch} = useQuery(
   //   'getAllComment',
@@ -95,7 +108,7 @@ function MessageScreen() {
   );
   const {mutate: writeComment} = useMutation(createComment, {
     onSuccess: () => {
-      // commentRefetch();
+      commentRefetch();
       messageRefetch();
     },
   });
@@ -175,6 +188,7 @@ function MessageScreen() {
                     commentListrefetch();
                   }
                 }}
+                // showsVerticalScrollIndicator={false}
                 // ListHeaderComponent={<Profile id={id} />}
                 // ListFooterComponent={
                 //   <View style={styles.margin}>
