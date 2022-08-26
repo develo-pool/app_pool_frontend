@@ -49,7 +49,7 @@ function EditUserScreen() {
     {
       setForm({...form, username: userData?.username as string});
     }
-  }, [setForm, userData?.username]);
+  }, [form, userData?.username]);
 
   const navigation = useNavigation<SettingStackNavigationProp>();
   return (
