@@ -35,7 +35,7 @@ export async function getAllBrand() {
   return response.data;
 }
 
-export async function updateBrandInfo(params: string) {
-  const response = await client.put<UpdateInfoParams>('/brand/update', params);
+export async function updateBrandInfo(params: UpdateInfoParams) {
+  const response = await client.put('/brand/update', params);
   return response.data.brandInfo;
 }

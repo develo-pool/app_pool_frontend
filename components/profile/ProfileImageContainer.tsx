@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     height: 90,
     width: 90,
     borderRadius: 45,
-    resizeMode: 'contain',
+    resizeMode: 'cover',
   }, //프로필 사진
   EditProfile: {
     width: 32,
