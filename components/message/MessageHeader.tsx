@@ -36,7 +36,10 @@ function MessageHeader({
     <TouchableOpacity
       style={styles.messageHeader}
       onPress={() =>
-        navigation.navigate('BrandProfile', {poolUserId: poolUserId, brandUserId : brandUserId})
+        navigation.navigate('BrandProfile', {
+          poolUserId: poolUserId,
+          brandUserId: brandUserId,
+        })
       }>
       <View style={styles.detailHeader}>
         <Image
