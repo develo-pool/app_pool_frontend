@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   Text,
   StyleSheet,
@@ -18,22 +18,42 @@ import {getUser} from '../api/auth';
 import {getBrand} from '../api/brand';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import MessageContainer from '../components/profile/MessageContainer';
-import {getAllMessage} from '../api/message';
+import {getMyProfile} from '../api/profile';
 import ShareButton from '../components/profile/ShareButton';
 
 function ProfileScreen() {
   const navigation = useNavigation<RootStackNavigationProp>();
+  // const [cursor, setCursor] = useState<number>(0);
   const {data: userData} = useQuery('getUserResult', () => getUser(), {
     refetchOnMount: 'always',
   });
   const {data: brandData} = useQuery('getBrand', () => getBrand(''), {
     refetchOnMount: 'always',
   });
-  const {data: brandMessages} = useQuery(
-    'getAllMessage',
-    () => getAllMessage(),
-    {enabled: false},
-  );
+  // const {data: brandMessages} = useQuery(
+  //   'getMyProfile',
+  //   () => getMyProfile(cursor),
+  //   {
+  //     refetchOnMount: 'always',
+  //   },
+  // );
+
+  // const RenderItem = ({item}) => {
+  //   return (
+  //     <ProfileFeed
+  //       key={item.postId}
+  //       postId={item.postId}
+  //       body={item.body}
+  //       messageLink={item.messageLink}
+  //       filePath={item.filePath}
+  //       writerDto={item.writerDto}
+  //       commentAble={item.commentAble}
+  //       isWriter={item.isWriter}
+  //       create_date={item.create_date}
+  //     />
+  //   );
+  // };
+
   return (
     <>
       <SafeAreaView>
@@ -71,7 +91,8 @@ function ProfileScreen() {
           </View>
           <SetWelcomeMsg />
           <View style={styles.Message}>
-            {brandMessages?.length === 0 ? (
+            {brandData?.brandUserId === 0 ? (
+              //이거 바꿔야함
               <Text style={styles.MessageNull}>등록된 메시지가 없습니다.</Text>
             ) : (
               <MessageContainer
@@ -141,7 +162,6 @@ const styles = StyleSheet.create({
     marginLeft: 4,
   },
   IntroContainer: {
-    // alignItems: 'center',
     justifyContent: 'center',
   },
   IntroText: {
