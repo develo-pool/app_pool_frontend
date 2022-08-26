@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {View, StyleSheet, Pressable, SafeAreaView} from 'react-native';
 import theme from '../assets/theme';
 import {InputTitle} from '../components/auth/AuthComponents';
@@ -7,11 +7,11 @@ import {AuthButton} from '../components/auth/AuthComponents';
 import Title from '../components/Title';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useNavigation} from '@react-navigation/native';
-import {SettingStackNavigationProp} from './types';
-import {getUser, nickNameExist} from '../api/auth';
-import {useQuery} from 'react-query';
+import {getUser, nickNameExist, updateNickname} from '../api/auth';
+import {useMutation, useQuery} from 'react-query';
 import {CheckNickName} from '../components/auth/Validation';
 import ScreenBottomButton from './../components/ScreenBottomButton';
+import {MainTabNatigationProp} from './types';
 
 export interface EditUserProps {
   username: string;
@@ -40,18 +40,13 @@ function EditUserScreen() {
       enabled: false,
     },
   );
+  const navigation = useNavigation<MainTabNatigationProp>();
+  const {mutate: updateNickName} = useMutation(updateNickname, {
+    onSuccess: () => {
+      navigation.navigate('SettingStack');
+    },
+  });
 
-  // const {mutate : setNickName} = useMutation(, {
-  //   onSuccess: () => {},
-  // });
-
-  useEffect(() => {
-    {
-      setForm({...form, username: userData?.username as string});
-    }
-  }, [form, userData?.username]);
-
-  const navigation = useNavigation<SettingStackNavigationProp>();
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>
@@ -64,7 +59,10 @@ function EditUserScreen() {
         <View style={styles.inputArea}>
           <InputTitle title="아이디" />
           <View style={styles.row}>
-            <TextInputs type="disable" placeholder={form.username} />
+            <TextInputs
+              type="disable"
+              placeholder={userData?.username as string}
+            />
           </View>
           <InputTitle title="닉네임" />
           <View style={styles.row}>
@@ -75,7 +73,7 @@ function EditUserScreen() {
                   ? 'default'
                   : 'error'
               }
-              placeholder="한글 및 영문으로 입력"
+              placeholder={userData?.nickName as string}
               value={form.nickName}
               onChangeText={(value: string) => {
                 setForm({...form, nickName: value, nickNameChecked: undefined});
@@ -102,7 +100,10 @@ function EditUserScreen() {
           </View>
         </View>
       </View>
-      <ScreenBottomButton name="저장" onPress={() => navigation.goBack()} />
+      <ScreenBottomButton
+        name="저장"
+        onPress={() => updateNickName({nickName: form.nickName})}
+      />
     </SafeAreaView>
   );
 }
