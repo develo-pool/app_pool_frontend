@@ -7,6 +7,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import React, {
+  useEffect,
   // useCallback,
   useState,
 } from 'react';
@@ -107,6 +108,7 @@ function FeedScreen() {
     // await getAllMessage(0);
     await refetch();
     setRefreshing(false);
+    setCursor(0);
   };
 
   // 새로고침 실행
@@ -115,6 +117,10 @@ function FeedScreen() {
       getRefreshData();
     }
   };
+
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
