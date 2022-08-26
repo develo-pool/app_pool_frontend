@@ -7,11 +7,11 @@ import {AuthButton} from '../components/auth/AuthComponents';
 import Title from '../components/Title';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useNavigation} from '@react-navigation/native';
+import {SettingStackNavigationProp} from './types';
 import {getUser, nickNameExist, updateNickname} from '../api/auth';
 import {useMutation, useQuery} from 'react-query';
 import {CheckNickName} from '../components/auth/Validation';
 import ScreenBottomButton from './../components/ScreenBottomButton';
-import {MainTabNatigationProp} from './types';
 
 export interface EditUserProps {
   username: string;
@@ -40,13 +40,16 @@ function EditUserScreen() {
       enabled: false,
     },
   );
-  const navigation = useNavigation<MainTabNatigationProp>();
+
   const {mutate: updateNickName} = useMutation(updateNickname, {
     onSuccess: () => {
-      navigation.navigate('SettingStack');
+      console.log('Success!!');
+      console.log(form.nickName);
+      navigation.goBack();
     },
   });
 
+  const navigation = useNavigation<SettingStackNavigationProp>();
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>
