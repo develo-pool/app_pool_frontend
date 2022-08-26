@@ -95,7 +95,7 @@ function MessageScreen() {
   );
   const {mutate: writeComment} = useMutation(createComment, {
     onSuccess: () => {
-      // commentRefetch();
+      commentRefetch();
       messageRefetch();
     },
   });
