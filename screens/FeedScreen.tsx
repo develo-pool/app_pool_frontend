@@ -33,10 +33,11 @@ function FeedScreen() {
   const [cursor, setCursor] = useState<number>(0);
   const [Messages, setMessages] = useState<Message[]>([]);
   const [noMorePost, setNoMorePost] = useState<boolean>(false);
-  const {isLoading: isMessageLoading, refetch} = useQuery(
+  const {isLoading: isMessageLoading, refetch:feedRefetch} = useQuery(
     'getAllMessage',
     () => getAllMessage(cursor),
     {
+      refetchOnMount : 'always',
       onSuccess: data => {
         if (data.length < LENGTH) {
           setNoMorePost(true);
@@ -45,6 +46,7 @@ function FeedScreen() {
           setMessages(Messages.concat(data));
           setCursor(data[data.length - 1].postId);
         }
+        
       },
     },
   );
@@ -65,6 +67,9 @@ function FeedScreen() {
   };
   const {data: userData} = useQuery('getUserResult', () => getUser(), {
     refetchOnMount: 'always',
+    onSuccess: ()=>{
+      feedRefetch();
+    }
   });
   // const {mutate: sendToken} = useMutation(sendFCMToken, {
   //   onSuccess: () => {
@@ -99,16 +104,15 @@ function FeedScreen() {
   // 스크롤이 끝에 인접하면 실행
   const onEndReached = () => {
     if (!noMorePost) {
-      refetch();
+      feedRefetch();
     }
   };
   // 테이터 새로고침
   const getRefreshData = async () => {
     setRefreshing(true);
     // await getAllMessage(0);
-    await refetch();
+    await feedRefetch();
     setRefreshing(false);
-    setCursor(0);
   };
 
   // 새로고침 실행
@@ -119,8 +123,8 @@ function FeedScreen() {
   };
 
   useEffect(() => {
-    refetch();
-  }, [refetch]);
+    feedRefetch();
+  }, [feedRefetch]);
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>

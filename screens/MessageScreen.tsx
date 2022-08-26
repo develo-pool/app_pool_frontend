@@ -55,6 +55,11 @@ function MessageScreen() {
   const {data: messageData, refetch: messageRefetch} = useQuery(
     'getMessage',
     () => getMessage(detail),
+    {
+      onSuccess: () => {
+        messageRefetch;
+      },
+    },
   );
   // const {data: allCommentData, refetch: allCommentRefetch} = useQuery(
   //   'getAllComment',
@@ -175,6 +180,7 @@ function MessageScreen() {
                     commentListrefetch();
                   }
                 }}
+                // showsVerticalScrollIndicator={false}
                 // ListHeaderComponent={<Profile id={id} />}
                 // ListFooterComponent={
                 //   <View style={styles.margin}>
