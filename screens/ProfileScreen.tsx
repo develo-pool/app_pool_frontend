@@ -5,6 +5,7 @@ import {
   View,
   TouchableOpacity,
   ScrollView,
+  ActivityIndicator,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -18,10 +19,10 @@ import {getBrand} from '../api/brand';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import MessageContainer from '../components/profile/MessageContainer';
 import {getAllMessage} from '../api/message';
+import ShareButton from '../components/profile/ShareButton';
 
 function ProfileScreen() {
   const navigation = useNavigation<RootStackNavigationProp>();
-
   const {data: userData} = useQuery('getUserResult', () => getUser(), {
     refetchOnMount: 'always',
   });
@@ -33,40 +34,40 @@ function ProfileScreen() {
     () => getAllMessage(),
     {enabled: false},
   );
-
   return (
     <>
       <SafeAreaView>
         <ScrollView>
           <View style={styles.ProfileSection}>
-            <View style={styles.ProfileLayout}>
-              <View style={styles.ProfileContainer}>
-                <ProfileImageContainer isEditable={true} />
-                <View style={styles.BrandInfo}>
-                  <Text style={styles.BrandName}>
-                    {brandData?.brandUsername}
-                  </Text>
-                  <View style={styles.FollowerContainer}>
-                    <Text style={styles.Follower}>팔로워</Text>
-                    <Text style={styles.FollowerCount}>
-                      {userData?.userFollowerCount}
-                    </Text>
+            {brandData && userData ? (
+              <>
+                <View style={styles.ProfileLayout}>
+                  <View style={styles.ProfileContainer}>
+                    <ProfileImageContainer isEditable={true} />
+                    <View style={styles.BrandInfo}>
+                      <Text style={styles.BrandName}>
+                        {brandData.brandUsername}
+                      </Text>
+                      <View style={styles.FollowerContainer}>
+                        <Text style={styles.Follower}>팔로워</Text>
+                        <Text style={styles.FollowerCount}>
+                          {userData.userFollowerCount}
+                        </Text>
+                      </View>
+                    </View>
                   </View>
+                  <ShareButton
+                    brandUserName={brandData.brandUsername}
+                    brandId={brandData.brandUserId}
+                  />
                 </View>
-              </View>
-              <TouchableOpacity style={styles.exportLink}>
-                {/* 외부 연결되는 링크 복사해주는 모달띄우기 */}
-                <Icon
-                  name="logout"
-                  size={24}
-                  color="black"
-                  style={styles.rotate}
-                />
-              </TouchableOpacity>
-            </View>
-            <View style={styles.IntroContainer}>
-              <Text style={styles.IntroText}>{brandData?.brandInfo}</Text>
-            </View>
+                <View style={styles.IntroContainer}>
+                  <Text style={styles.IntroText}>{brandData.brandInfo}</Text>
+                </View>
+              </>
+            ) : (
+              <ActivityIndicator />
+            )}
           </View>
           <SetWelcomeMsg />
           <View style={styles.Message}>
@@ -138,12 +139,6 @@ const styles = StyleSheet.create({
     fontWeight: theme.fontWeight.Bold,
     color: theme.colors.Grey80,
     marginLeft: 4,
-  },
-  exportLink: {
-    paddingTop: 16,
-  },
-  rotate: {
-    transform: [{rotate: '270deg'}],
   },
   IntroContainer: {
     // alignItems: 'center',

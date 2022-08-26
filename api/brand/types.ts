@@ -1,5 +1,6 @@
 export interface BrandResult {
   brandUsername: string;
+  brandUserId: number;
   brandInfo: string;
   brandProfileImage: any;
 }
