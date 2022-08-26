@@ -107,11 +107,14 @@ function CreateMessageScreen() {
             />
             <Text style={styles.BrandName}>{brandData?.brandUsername}</Text>
           </View>
-          <PreviewButton
-            text="미리보기"
-            isDisabled={form.messageBody.length < 20}
-            formBody={form.messageBody}
-          />
+          <View style={styles.previewContainer}>
+            <Text style={styles.CounterText}>{form.messageBody.length}/20</Text>
+            <PreviewButton
+              text="미리보기"
+              isDisabled={form.messageBody.length < 20}
+              formBody={form.messageBody}
+            />
+          </View>
         </View>
         <TextInput
           style={styles.InputMessage}
@@ -198,6 +201,16 @@ const styles = StyleSheet.create({
     color: theme.colors.Grey80,
     fontWeight: theme.fontWeight.Bold,
     marginLeft: 8,
+  },
+  previewContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  CounterText: {
+    fontFamily: theme.fontFamily.Pretendard,
+    color: theme.colors.Grey30,
+    fontSize: theme.fontSize.P2,
+    marginRight: 8,
   },
   InputMessage: {
     paddingHorizontal: 4,
