@@ -30,8 +30,8 @@ export async function getBrandProfile(params: number) {
   return response.data;
 }
 
-export async function getAllBrand() {
-  const response = await client.get<AllBrandResult[]>('/brands?cursor=0');
+export async function getAllBrand(params: number) {
+  const response = await client.get<AllBrandResult[]>(`/brands?cursor=${params}`);
   return response.data;
 }
 

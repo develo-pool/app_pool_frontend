@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, ScrollView, StyleSheet, SafeAreaView, Text} from 'react-native';
+import {View, ScrollView, StyleSheet, SafeAreaView, Text, FlatList} from 'react-native';
 import SearchBar from '../components/search/SearchBar';
 import RecommandBrandUserContainer from '../components/search/RecommandBrandUserContainer';
 import RecommandSubTitle from '../components/search/RecommandSubTitle';
@@ -9,25 +9,69 @@ import theme from '../assets/theme';
 import {useQuery} from 'react-query';
 import {getAllBrand} from '../api/brand/index';
 import {useEffect} from 'react';
+import {AllBrandResult} from '../api/brand/types';
+
+const LENGTH = 10;
 
 function SearchScreen() {
+  const [cursor, setCursor] = useState<number>(0);
+  const [Messages, setMessages] = useState<AllBrandResult[]>([]);
+  const [noMoreBrand, setNoMoreBrand] = useState<boolean>(false);
   const [following, setFollowing] = useState(false);
   const changeFollowing = () => setFollowing(!following);
   const [searchText, setSearchText] = useState('');
   const onChangeText = (payload: string) => setSearchText(payload);
-  const {data: allBrandData, refetch} = useQuery(
-    'getAllBrand',
-    () => getAllBrand(),
-    {
-      enabled: false,
+  const {
+    data: allBrandData,
+    isLoading: isBrandLoading,
+    refetch: brandRefetch,
+  } = useQuery('getAllBrand', () => getAllBrand(cursor), {
+    refetchOnMount: 'always',
+    onSuccess: data => {
+      if (data.length < LENGTH) {
+        setNoMoreBrand(true);
+      }
+      if (data.length !== 0) {
+        setMessages(Messages.concat(data));
+        setCursor(data[data.length - 1].brandUserId);
+      }
     },
-  );
+  });
+  const RenderItem = ({item}) => {
+    return (
+      <RecommandBrandUserContainer
+        key={item.poolUserId}
+        changeFollowing={changeFollowing}
+        brandUsername={item.brandUsername}
+        brandInfo={item.brandInfo}
+        brandProfileImage={item.brandProfileImage}
+        follow={item.userInfoDto?.follow}
+        userFollowerCount={item.userInfoDto?.userFollowerCount}
+        brandUserId={item.brandUserId}
+        poolUserId={item.poolUserId}
+        isLoginUser={item.isLoginUser}
+        refetch={brandRefetch}
+      />
+    );
+  };
+  const onEndReached = () => {
+    if (!noMoreBrand) {
+      brandRefetch();
+    }
+  };
+  // const {data: allBrandData, refetch} = useQuery(
+  //   'getAllBrand',
+  //   () => getAllBrand(),
+  //   {
+  //     enabled: false,
+  //   },
+  // );
   const searchFilter = allBrandData?.filter(brand =>
     brand.brandUsername.includes(`${searchText}`),
   );
   useEffect(() => {
-    refetch();
-  }, [refetch]);
+    brandRefetch();
+  }, [brandRefetch]);
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -52,7 +96,7 @@ function SearchScreen() {
                 brandUserId={brandUser.brandUserId}
                 poolUserId={brandUser.poolUserId}
                 isLoginUser={brandUser.isLoginUser}
-                refetch={refetch}
+                refetch={brandRefetch}
               />
             ))
           )}
@@ -60,7 +104,16 @@ function SearchScreen() {
       ) : (
         <ScrollView style={styles.scroll}>
           <RecommandSubTitle />
-          {allBrandData?.map((brandUser: any) => (
+          <FlatList
+          data={Messages}
+          renderItem={RenderItem}
+          showsVerticalScrollIndicator={false}
+          onEndReached={() => {
+            onEndReached();
+          }}
+          onEndReachedThreshold={0.6}
+        />
+          {/* {allBrandData?.map((brandUser: any) => (
             <RecommandBrandUserContainer
               key={brandUser.poolUserId}
               changeFollowing={changeFollowing}
@@ -72,9 +125,9 @@ function SearchScreen() {
               brandUserId={brandUser.brandUserId}
               poolUserId={brandUser.poolUserId}
               isLoginUser={brandUser.isLoginUser}
-              refetch={refetch}
+              refetch={brandRefetch}
             />
-          ))}
+          ))} */}
         </ScrollView>
       )}
     </SafeAreaView>
