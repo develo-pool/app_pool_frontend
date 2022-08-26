@@ -12,7 +12,6 @@ import {Message} from '../../api/message/types';
 
 // 사용 시에는 user 프롭스를 아래에 넣어주세용
 function Feed(message: Message) {
-  // function Feed({}: Props) {
   const navigation = useNavigation<RootStackNavigationProp>();
   const create_date = message.create_date.toString();
   const Month = parseInt(create_date.substring(5, 7), 10);
@@ -49,7 +48,7 @@ function Feed(message: Message) {
       return <Text style={styles.msgDate}>방금 전</Text>;
     }
   };
-  Ago();
+
   return (
     <View style={styles.feedContainer}>
       {/* 메시지헤더는 메시지 MessageScreen에 한해 다른 UI를 출력합니다 */}
@@ -57,6 +56,7 @@ function Feed(message: Message) {
         onPress={() => {
           navigation.navigate('BrandProfile', {
             poolUserId: message.writerDto.poolUserId,
+            brandUserId: message.writerDto.brandUserInfoDto.brandUserId,
           });
         }}>
         <MessageHeader
@@ -75,12 +75,12 @@ function Feed(message: Message) {
           ) : (
             <MessageText messageText={`${message.body}`} />
           )}
-          {message.filePath === null ? (
+          {message.filePath === '' ? (
             ''
           ) : (
             <MessageImg messageImg={`${message.filePath}`} />
           )}
-          {message.messageLink === null ? (
+          {message.messageLink === '' ? (
             ''
           ) : (
             <MessageLink messageLink={`${message.messageLink}`} />
