@@ -6,8 +6,8 @@ export async function getMessage(params: number) {
   return response.data;
 }
 
-export async function getAllMessage() {
-  const response = await client.get<Message[]>('/messages?cursor=0');
+export async function getAllMessage(params: number) {
+  const response = await client.get<Message[]>(`/messages?cursor=${params}`);
   return response.data;
 }
 
