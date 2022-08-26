@@ -21,6 +21,8 @@ function SearchBar({searchText, onChangeText}: Props) {
             placeholder={'브랜드명을 검색해주세요.'}
             placeholderTextColor={'rgba(0, 0, 0, 0.2)'}
             style={styles.input}
+            autoCapitalize={'none'}
+            autoComplete={'off'}
           />
         </View>
         {searchText !== '' ? (

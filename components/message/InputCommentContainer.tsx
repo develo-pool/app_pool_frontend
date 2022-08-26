@@ -1,5 +1,6 @@
 import React from 'react';
-import {StyleSheet, TextInput, View} from 'react-native';
+import {StyleSheet, TextInput, TouchableOpacity, View} from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import theme from '../../assets/theme';
 
 interface Props {
@@ -27,9 +28,17 @@ function InputCommentContainer({
             ? '채팅은 1회만 발송할 수 있습니다.'
             : '이미 작성한 메시지입니다.'
         }
+        placeholderTextColor={'rgba(0, 0, 0, 0.2)'}
         style={commentAble ? styles.input : styles.inputX}
         editable={commentAble}
+        autoCapitalize={'none'}
+        autoComplete={'off'}
       />
+      <TouchableOpacity onPress={() => onChangeText('')}>
+        {commentText !== 'disable' && (
+          <Icon name="cancel" size={16} color={theme.colors.Grey30} />
+        )}
+      </TouchableOpacity>
     </View>
   );
 }
