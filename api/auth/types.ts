@@ -73,3 +73,7 @@ export interface ChekMemberParams {
   username: string;
   phoneNumber: string;
 }
+
+export interface UpdateNickNameParams {
+  nickName: string;
+}
