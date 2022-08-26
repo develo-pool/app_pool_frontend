@@ -1,5 +1,12 @@
 import React, {useState} from 'react';
-import {View, ScrollView, StyleSheet, SafeAreaView, Text, FlatList} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  SafeAreaView,
+  Text,
+  FlatList,
+  ActivityIndicator,
+} from 'react-native';
 import SearchBar from '../components/search/SearchBar';
 import RecommandBrandUserContainer from '../components/search/RecommandBrandUserContainer';
 import RecommandSubTitle from '../components/search/RecommandSubTitle';
@@ -37,13 +44,32 @@ function SearchScreen() {
       }
     },
   });
-  const RenderItem = ({item}) => {
+  const RenderRecommandItem = ({item}) => {
     return (
       <RecommandBrandUserContainer
         key={item.poolUserId}
         changeFollowing={changeFollowing}
         brandUsername={item.brandUsername}
         brandInfo={item.brandInfo}
+        brandProfileImage={item.brandProfileImage}
+        follow={item.userInfoDto?.follow}
+        userFollowerCount={item.userInfoDto?.userFollowerCount}
+        brandUserId={item.brandUserId}
+        poolUserId={item.poolUserId}
+        isLoginUser={item.isLoginUser}
+        refetch={brandRefetch}
+      />
+    );
+  };
+  const searchFilter = allBrandData?.filter(brand =>
+    brand.brandUsername.includes(`${searchText}`),
+  );
+  const RenderSearchItem = ({item}) => {
+    return (
+      <SearchResultBrandUserContainer
+        key={item.poolUserId}
+        changeFollowing={changeFollowing}
+        brandUsername={item.brandUsername}
         brandProfileImage={item.brandProfileImage}
         follow={item.userInfoDto?.follow}
         userFollowerCount={item.userInfoDto?.userFollowerCount}
@@ -66,70 +92,63 @@ function SearchScreen() {
   //     enabled: false,
   //   },
   // );
-  const searchFilter = allBrandData?.filter(brand =>
-    brand.brandUsername.includes(`${searchText}`),
-  );
+
   useEffect(() => {
     brandRefetch();
   }, [brandRefetch]);
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <SearchBar searchText={searchText} onChangeText={onChangeText} />
-      <View style={styles.line} />
-      {searchText !== '' ? (
-        <ScrollView>
-          <SearchResultSubTitle searchCount={searchFilter?.length} />
-          {searchFilter?.length === 0 ? (
-            <View style={styles.noSearchTextContainer}>
-              <Text style={styles.noSearchText}>검색 결과가 없습니다</Text>
-            </View>
-          ) : (
-            searchFilter?.map((brandUser: any) => (
-              <SearchResultBrandUserContainer
-                key={brandUser.poolUserId}
-                changeFollowing={changeFollowing}
-                brandUsername={brandUser.brandUsername}
-                brandProfileImage={brandUser.brandProfileImage}
-                follow={brandUser.userInfoDto?.follow}
-                userFollowerCount={brandUser.userInfoDto?.userFollowerCount}
-                brandUserId={brandUser.brandUserId}
-                poolUserId={brandUser.poolUserId}
-                isLoginUser={brandUser.isLoginUser}
-                refetch={brandRefetch}
+      <View style={styles.SearchScreenContainer}>
+        <View>
+          <SearchBar searchText={searchText} onChangeText={onChangeText} />
+          <View style={styles.line} />
+        </View>
+        <View style={styles.container}>
+          {searchText !== '' ? (
+            searchFilter?.length !== 0 ? (
+              <FlatList
+                data={searchFilter}
+                style={styles.flatList}
+                renderItem={RenderSearchItem}
+                showsVerticalScrollIndicator={false}
+                onEndReached={() => {
+                  onEndReached();
+                }}
+                onEndReachedThreshold={0.6}
+                ListHeaderComponent={
+                  <SearchResultSubTitle searchCount={searchFilter?.length} />
+                }
+                ListFooterComponent={
+                  <>{isBrandLoading && <ActivityIndicator />}</>
+                }
               />
-            ))
-          )}
-        </ScrollView>
-      ) : (
-        <ScrollView style={styles.scroll}>
-          <RecommandSubTitle />
-          <FlatList
-          data={Messages}
-          renderItem={RenderItem}
-          showsVerticalScrollIndicator={false}
-          onEndReached={() => {
-            onEndReached();
-          }}
-          onEndReachedThreshold={0.6}
-        />
-          {/* {allBrandData?.map((brandUser: any) => (
-            <RecommandBrandUserContainer
-              key={brandUser.poolUserId}
-              changeFollowing={changeFollowing}
-              brandUsername={brandUser.brandUsername}
-              brandInfo={brandUser.brandInfo}
-              brandProfileImage={brandUser.brandProfileImage}
-              follow={brandUser.userInfoDto?.follow}
-              userFollowerCount={brandUser.userInfoDto?.userFollowerCount}
-              brandUserId={brandUser.brandUserId}
-              poolUserId={brandUser.poolUserId}
-              isLoginUser={brandUser.isLoginUser}
-              refetch={brandRefetch}
+            ) : (
+              <>
+                <SearchResultSubTitle searchCount={searchFilter?.length} />
+                <View style={styles.noSearchTextContainer}>
+                  <Text style={styles.noSearchText}>검색 결과가 없습니다</Text>
+                </View>
+              </>
+            )
+          ) : (
+            <FlatList
+              data={Messages}
+              style={styles.flatList}
+              renderItem={RenderRecommandItem}
+              showsVerticalScrollIndicator={false}
+              onEndReached={() => {
+                onEndReached();
+              }}
+              onEndReachedThreshold={0.6}
+              ListHeaderComponent={<RecommandSubTitle />}
+              ListFooterComponent={
+                <>{isBrandLoading && <ActivityIndicator />}</>
+              }
             />
-          ))} */}
-        </ScrollView>
-      )}
+          )}
+        </View>
+      </View>
     </SafeAreaView>
   );
 }
@@ -143,7 +162,7 @@ const styles = StyleSheet.create({
   safeArea: {
     backgroundColor: theme.colors.White,
   },
-  scroll: {
+  flatList: {
     backgroundColor: theme.colors.Grey10,
   },
   noSearchTextContainer: {
@@ -156,6 +175,15 @@ const styles = StyleSheet.create({
     color: theme.colors.Grey40,
     fontSize: theme.fontSize.P1,
     fontFamily: theme.fontFamily.Pretendard,
+  },
+  container: {
+    height: '89%',
+  },
+  SearchScreenContainer: {
+    backgroundColor: theme.colors.Grey10,
+  },
+  bottomSafeArea: {
+    height: 300,
   },
 });
 

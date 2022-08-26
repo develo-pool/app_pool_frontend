@@ -44,11 +44,12 @@ const styles = StyleSheet.create({
   input: {
     fontSize: theme.fontSize.P1,
     marginHorizontal: 16,
+    fontFamily: theme.fontFamily.Pretendard,
   },
   searchBar: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 12,
+    paddingVertical: 2,
     paddingHorizontal: 16,
     borderRadius: 6,
     marginVertical: 16,

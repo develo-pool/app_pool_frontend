@@ -31,7 +31,9 @@ export async function getBrandProfile(params: number) {
 }
 
 export async function getAllBrand(params: number) {
-  const response = await client.get<AllBrandResult[]>(`/brands?cursor=${params}`);
+  const response = await client.get<AllBrandResult[]>(
+    `/brands?cursor=${params}`,
+  );
   return response.data;
 }
 
