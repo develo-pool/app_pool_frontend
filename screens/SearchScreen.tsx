@@ -85,14 +85,6 @@ function SearchScreen() {
       brandRefetch();
     }
   };
-  // const {data: allBrandData, refetch} = useQuery(
-  //   'getAllBrand',
-  //   () => getAllBrand(),
-  //   {
-  //     enabled: false,
-  //   },
-  // );
-
   useEffect(() => {
     brandRefetch();
   }, [brandRefetch]);
