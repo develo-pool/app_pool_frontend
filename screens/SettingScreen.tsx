@@ -72,11 +72,13 @@ function SettingScreen() {
                 />
               )}
               {user?.role === 'BRAND_USER' ? (
-                <Icon
-                  name="check-circle"
-                  size={18}
-                  style={styles.BrandChecked}
-                />
+                <View style={styles.iconContainer}>
+                  <Icon
+                    name="check-circle"
+                    size={18}
+                    style={styles.BrandChecked}
+                  />
+                </View>
               ) : null}
             </View>
             <View style={styles.ProfileInfo}>
@@ -140,7 +142,10 @@ function SettingScreen() {
                 )
               }
             />
-            <SetArticle title="문의하기" />
+            <SetArticle
+              title="문의하기"
+              onPress={() => Linking.openURL('http://pf.kakao.com/_ebksb')}
+            />
             <Pressable style={styles.SeperatedSets} onPress={onLogout}>
               <Text style={styles.Logout}>로그아웃</Text>
             </Pressable>
@@ -169,12 +174,14 @@ const styles = StyleSheet.create({
     borderRadius: 32,
     resizeMode: 'contain',
   },
-  BrandChecked: {
+  iconContainer: {
+    backgroundColor: theme.colors.White,
+    borderRadius: 20,
     marginLeft: -18,
     marginTop: 44,
+  },
+  BrandChecked: {
     color: theme.colors.Poolblue,
-    backgroundColor: theme.colors.White,
-    borderRadius: 10,
   },
   ProfileInfo: {
     marginLeft: 16,

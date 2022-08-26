@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, StyleSheet, Pressable, SafeAreaView} from 'react-native';
 import theme from '../assets/theme';
 import {InputTitle} from '../components/auth/AuthComponents';
@@ -8,9 +8,9 @@ import Title from '../components/Title';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useNavigation} from '@react-navigation/native';
 import {SettingStackNavigationProp} from './types';
-// import {nickNameExist} from '../api/auth';
-// import {useQuery} from 'react-query';
-// import {CheckNickName} from '../components/auth/Validation';
+import {getUser, nickNameExist} from '../api/auth';
+import {useQuery} from 'react-query';
+import {CheckNickName} from '../components/auth/Validation';
 import ScreenBottomButton from './../components/ScreenBottomButton';
 
 export interface EditUserProps {
@@ -20,26 +20,36 @@ export interface EditUserProps {
 }
 
 function EditUserScreen() {
-  //     {
-  //   onChangeText,
-  //   form,
-  //   setForm,
-  // }: {
-  //   onChangeText: any;
-  //   form: EditUserProps;
-  //   setForm: any;
-  // }
-  //   const {refetch: refetchNickname, isLoading: nickNameLoading} = useQuery(
-  //     ['nickNameExist', form.nickName],
-  //     () => {
-  //       nickNameExist(form.nickName).then((value: boolean) => {
-  //         onChangeText('nickNameChecked')(!value);
-  //       });
-  //     },
-  //     {
-  //       enabled: false,
-  //     },
-  //   );
+  const [form, setForm] = useState<EditUserProps>({
+    username: '',
+    nickName: '',
+    nickNameChecked: undefined,
+  });
+
+  const {data: userData} = useQuery('getUserResult', () => getUser(), {
+    refetchOnMount: 'always',
+  });
+  const {refetch: refetchNickname, isLoading: nickNameLoading} = useQuery(
+    ['nickNameExist', form.nickName],
+    () => {
+      nickNameExist(form.nickName).then((value: boolean) => {
+        setForm({...form, nickNameChecked: !value});
+      });
+    },
+    {
+      enabled: false,
+    },
+  );
+
+  // const {mutate : setNickName} = useMutation(, {
+  //   onSuccess: () => {},
+  // });
+
+  useEffect(() => {
+    {
+      setForm({...form, username: userData?.username as string});
+    }
+  }, [form, userData?.username]);
 
   const navigation = useNavigation<SettingStackNavigationProp>();
   return (
@@ -54,43 +64,40 @@ function EditUserScreen() {
         <View style={styles.inputArea}>
           <InputTitle title="아이디" />
           <View style={styles.row}>
-            <TextInputs
-              type="disable"
-              placeholder="pool123"
-              //   value={form.username}
-            />
+            <TextInputs type="disable" placeholder={form.username} />
           </View>
           <InputTitle title="닉네임" />
           <View style={styles.row}>
             <TextInputs
-              //   type={
-              //     (CheckNickName(form.nickName) || !form.nickName) &&
-              //     form.nickNameChecked !== false
-              //       ? 'default'
-              //       : 'error'
-              //   }
+              type={
+                (CheckNickName(form.nickName) || !form.nickName) &&
+                form.nickNameChecked !== false
+                  ? 'default'
+                  : 'error'
+              }
               placeholder="한글 및 영문으로 입력"
-              //   value={form.nickName}
-              //   onChangeText={(value: string) => {
-              //     setForm({...form, nickName: value, nickNameChecked: undefined});
-              //   }}
-              //   alert={
-              //     CheckNickName(form.nickName) || !form.nickName
-              //       ? form.nickNameChecked === true
-              //         ? {type: 'Correct', text: '사용 가능한 닉네임입니다.'}
-              //         : form.nickNameChecked === undefined
-              //         ? undefined
-              //         : {type: 'Error', text: '중복된 닉네임입니다.'}
-              //       : {type: 'Error', text: "특수문자는 '_'만 가능합니다."}
-              //   }
+              value={form.nickName}
+              onChangeText={(value: string) => {
+                setForm({...form, nickName: value, nickNameChecked: undefined});
+              }}
+              alert={
+                CheckNickName(form.nickName) || !form.nickName
+                  ? form.nickNameChecked === true
+                    ? {type: 'Correct', text: '사용 가능한 닉네임입니다.'}
+                    : form.nickNameChecked === undefined
+                    ? undefined
+                    : {type: 'Error', text: '중복된 닉네임입니다.'}
+                  : {type: 'Error', text: "특수문자는 '_'만 가능합니다."}
+              }
             />
             <AuthButton
               text="중복확인"
-              //   disabled={
-              //     !CheckNickName(form.nickName) || form.nickNameChecked !== undefined
-              //   }
-              //   onPress={() => refetchNickname()}
-              //   isLoading={nickNameLoading}
+              disabled={
+                !CheckNickName(form.nickName) ||
+                form.nickNameChecked !== undefined
+              }
+              onPress={() => refetchNickname()}
+              isLoading={nickNameLoading}
             />
           </View>
         </View>

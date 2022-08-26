@@ -26,17 +26,17 @@ export function SendButton({
 export function PreviewButton({
   text,
   isDisabled,
-}: // form,
-{
+  formBody,
+}: {
   text: string;
   isDisabled: boolean;
-  // form:string;
+  formBody: string;
 }) {
   const navigation = useNavigation<RootStackNavigationProp>();
   return (
     <Pressable
       disabled={isDisabled}
-      onPress={() => navigation.navigate('Preview')}>
+      onPress={() => navigation.navigate('Preview', {messageBody: formBody})}>
       <Text style={[styles.Preview, isDisabled && styles.previewDisabled]}>
         {text}
       </Text>
