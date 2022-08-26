@@ -9,7 +9,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useNavigation} from '@react-navigation/native';
 import {SettingStackNavigationProp} from './types';
 import {getUser, nickNameExist} from '../api/auth';
-import {useMutation, useQuery} from 'react-query';
+import {useQuery} from 'react-query';
 import {CheckNickName} from '../components/auth/Validation';
 import ScreenBottomButton from './../components/ScreenBottomButton';
 
@@ -49,7 +49,7 @@ function EditUserScreen() {
     {
       setForm({...form, username: userData?.username as string});
     }
-  }, []);
+  }, [setForm, userData?.username]);
 
   const navigation = useNavigation<SettingStackNavigationProp>();
   return (
