@@ -1,4 +1,4 @@
-import {View, Image, StyleSheet, Text} from 'react-native';
+import {View, Image, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import React from 'react';
 import theme from '../../assets/theme';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -10,7 +10,7 @@ interface Props {
 
 function MessageContainer({brandUserName, brandProfileImage}: Props) {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container}>
       <View style={styles.Info}>
         <View style={styles.BrandInfo}>
           <Image style={styles.ImgSource} source={{uri: brandProfileImage}} />
@@ -35,13 +35,12 @@ function MessageContainer({brandUserName, brandProfileImage}: Props) {
         />
         <Text style={styles.commentsCount}>16</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    marginHorizontal: 16,
     maxHeight: 400,
     paddingHorizontal: 12,
     paddingVertical: 12,
@@ -80,7 +79,7 @@ const styles = StyleSheet.create({
   messageImage: {
     height: 230,
     maxWidth: 320,
-    resizeMode: 'cover',
+    resizeMode: 'contain',
   },
   bottomArea: {
     flexDirection: 'row',
