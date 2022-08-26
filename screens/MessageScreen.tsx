@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {
   ActivityIndicator,
   FlatList,
+  KeyboardAvoidingView,
   SafeAreaView,
   StyleSheet,
   Text,
@@ -55,12 +56,12 @@ function MessageScreen() {
     'getMessage',
     () => getMessage(detail),
   );
-  const {data: allCommentData, refetch: allCommentRefetch} = useQuery(
-    'getAllComment',
-    () => getAllComment(detail, cursor),
-    {enabled: false},
-  );
-  const {isLoading: isMessageLoading, refetch} = useQuery(
+  // const {data: allCommentData, refetch: allCommentRefetch} = useQuery(
+  //   'getAllComment',
+  //   () => getAllComment(detail, cursor),
+  //   {enabled: false},
+  // );
+  const {isLoading: isMessageLoading, refetch: commentListrefetch} = useQuery(
     'getAllComment',
     () => getAllComment({detail: detail, cursor: cursor}),
     {
@@ -94,7 +95,8 @@ function MessageScreen() {
   );
   const {mutate: writeComment} = useMutation(createComment, {
     onSuccess: () => {
-      commentRefetch();
+      // commentRefetch();
+      messageRefetch();
     },
   });
   useEffect(() => {
@@ -102,13 +104,13 @@ function MessageScreen() {
       userData?.role === 'BRAND_USER' &&
       userData.username === messageData?.writerDto?.username
     ) {
-      allCommentRefetch();
+      commentListrefetch();
     } else if (messageData?.commentAble === false) {
       commentRefetch();
     }
   }, [
     messageData,
-    allCommentRefetch,
+    commentListrefetch,
     commentRefetch,
     userData?.role,
     userData?.username,
@@ -120,7 +122,7 @@ function MessageScreen() {
     }
     writeComment({messageId: detail, body: commentText});
     setCommentText('');
-    messageRefetch();
+    // await messageRefetch();
   };
 
   return (
@@ -170,7 +172,7 @@ function MessageScreen() {
                 renderItem={RenderItem}
                 onEndReached={() => {
                   if (!noMoreComment) {
-                    refetch();
+                    commentListrefetch();
                   }
                 }}
                 // ListHeaderComponent={<Profile id={id} />}
@@ -198,14 +200,16 @@ function MessageScreen() {
                 writenCommentTime={commentData.create_date}
               />
             ) : (
-              <View/>
+              <View />
             )}
-            <InputCommentContainer
-              commentText={commentText}
-              onChangeText={onChangeText}
-              commentAble={messageData?.commentAble}
-              addComments={onPress}
-            />
+            <KeyboardAvoidingView>
+              <InputCommentContainer
+                commentText={commentText}
+                onChangeText={onChangeText}
+                commentAble={messageData?.commentAble}
+                addComments={onPress}
+              />
+            </KeyboardAvoidingView>
           </View>
         )}
       </View>

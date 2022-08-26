@@ -34,11 +34,6 @@ function InputCommentContainer({
         autoCapitalize={'none'}
         autoComplete={'off'}
       />
-      <TouchableOpacity onPress={() => onChangeText('')}>
-        {commentText !== 'disable' && (
-          <Icon name="cancel" size={16} color={theme.colors.Grey30} />
-        )}
-      </TouchableOpacity>
     </View>
   );
 }
