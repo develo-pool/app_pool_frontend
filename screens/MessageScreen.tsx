@@ -17,6 +17,7 @@ import {
   RouteProp,
   useNavigation,
   useRoute,
+  useIsFocused,
   CommonActions,
 } from '@react-navigation/native';
 import {RootStackNavigationProp, RootStackParamList} from './types';
@@ -32,6 +33,7 @@ type MessageScreenRouteProp = RouteProp<RootStackParamList, 'Message'>;
 const LENGTH = 10;
 
 function MessageScreen() {
+  const isFocused = useIsFocused();
   const [commentText, setCommentText] = useState('');
   const onChangeText = (payload: string) => setCommentText(payload);
   const route = useRoute<MessageScreenRouteProp>();
@@ -56,7 +58,7 @@ function MessageScreen() {
         </TouchableOpacity>
       ),
     });
-  }, [navigation]);
+  }, [navigation, isFocused]);
 
   const {data: messageData, refetch: messageRefetch} = useQuery(
     'getMessage',

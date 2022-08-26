@@ -11,7 +11,7 @@ import React, {
   // useCallback,
   useState,
 } from 'react';
-
+// import {useIsFocused} from '@react-navigation/native';
 import Feed from '../components/feed/Feed';
 import theme from '../assets/theme';
 import NowDate from '../components/feed/NowDate';
@@ -33,11 +33,11 @@ function FeedScreen() {
   const [cursor, setCursor] = useState<number>(0);
   const [Messages, setMessages] = useState<Message[]>([]);
   const [noMorePost, setNoMorePost] = useState<boolean>(false);
-  const {isLoading: isMessageLoading, refetch:feedRefetch} = useQuery(
+  const {isLoading: isMessageLoading, refetch: feedRefetch} = useQuery(
     'getAllMessage',
     () => getAllMessage(cursor),
     {
-      refetchOnMount : 'always',
+      refetchOnMount: 'always',
       onSuccess: data => {
         if (data.length < LENGTH) {
           setNoMorePost(true);
@@ -46,7 +46,6 @@ function FeedScreen() {
           setMessages(Messages.concat(data));
           setCursor(data[data.length - 1].postId);
         }
-        
       },
     },
   );
@@ -67,9 +66,9 @@ function FeedScreen() {
   };
   const {data: userData} = useQuery('getUserResult', () => getUser(), {
     refetchOnMount: 'always',
-    onSuccess: ()=>{
+    onSuccess: () => {
       feedRefetch();
-    }
+    },
   });
   // const {mutate: sendToken} = useMutation(sendFCMToken, {
   //   onSuccess: () => {
@@ -124,7 +123,7 @@ function FeedScreen() {
 
   useEffect(() => {
     feedRefetch();
-  }, [feedRefetch]);
+  });
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
