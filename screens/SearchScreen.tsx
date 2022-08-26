@@ -102,6 +102,7 @@ const styles = StyleSheet.create({
   noSearchText:{
     color: theme.colors.Grey40,
     fontSize: theme.fontSize.P1,
+    fontFamily: theme.fontFamily.Pretendard,
   },
 });
 
