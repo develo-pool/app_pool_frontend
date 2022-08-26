@@ -58,7 +58,7 @@ function SearchScreen() {
           )}
         </ScrollView>
       ) : (
-        <ScrollView>
+        <ScrollView style={styles.scroll}>
           <RecommandSubTitle />
           {allBrandData?.map((brandUser: any) => (
             <RecommandBrandUserContainer

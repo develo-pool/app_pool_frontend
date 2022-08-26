@@ -9,6 +9,7 @@ interface Props {
   brandProfileImage: string;
   create_date: string;
   poolUserId: number;
+  brandUserId: number;
 }
 
 function MessageHeader({
@@ -16,6 +17,7 @@ function MessageHeader({
   brandProfileImage,
   create_date,
   poolUserId,
+  brandUserId,
 }: Props) {
   const navigation = useNavigation<RootStackNavigationProp>();
   const Month = parseInt(create_date.substring(5, 7), 10);
@@ -34,7 +36,7 @@ function MessageHeader({
     <TouchableOpacity
       style={styles.messageHeader}
       onPress={() =>
-        navigation.navigate('BrandProfile', {poolUserId: poolUserId})
+        navigation.navigate('BrandProfile', {poolUserId: poolUserId, brandUserId : brandUserId})
       }>
       <View style={styles.detailHeader}>
         <Image
