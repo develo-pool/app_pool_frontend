@@ -31,6 +31,10 @@ export interface CreateMessageProps {
   messageImage?: Asset | undefined;
 }
 
+// const linkProps{
+//   state: 'default' | 'isPressed' | 'cancel';
+// }
+
 function CreateMessageScreen() {
   const navigation = useNavigation<MainTabNatigationProp>();
   const [form, setForm] = useState<CreateMessageProps>({
@@ -38,6 +42,7 @@ function CreateMessageScreen() {
     messageLink: '',
     messageImage: undefined,
   });
+  const [linkState, setLinkState] = useState(false);
 
   const onSelectImage = () => {
     launchImageLibrary(
@@ -72,6 +77,7 @@ function CreateMessageScreen() {
   const {mutate: create} = useMutation(createMessage, {
     onSuccess: () => {
       navigation.goBack();
+      alert('메시지를 전송하였습니다!');
     },
   });
 
@@ -116,6 +122,7 @@ function CreateMessageScreen() {
             />
           </View>
         </View>
+
         <TextInput
           style={styles.InputMessage}
           value={form.messageBody}
@@ -125,14 +132,25 @@ function CreateMessageScreen() {
           multiline={true}
           placeholderTextColor={'rgba(0, 0, 0, 0.2)'}
         />
+
         {form.messageImage && (
           <Image
             style={styles.UploadImage}
             source={{uri: form.messageImage?.uri}}
           />
         )}
-        {form.messageLink && (
-          <Icon name="insert-link" size={26} style={styles.Link} />
+
+        {linkState && (
+          <View style={styles.linkContainer}>
+            <Icon name="insert-link" size={24} style={styles.linkIcon} />
+            <TextInput
+              style={styles.linkInput}
+              placeholder="https://www.link.com"
+              onChangeText={onChangeText('messageLink')}
+              value={form.messageLink}
+              placeholderTextColor={'rgba(0, 0, 0, 0.2)'}
+            />
+          </View>
         )}
       </View>
       <KeyboardAvoidingView
@@ -144,7 +162,7 @@ function CreateMessageScreen() {
               <Pressable onPress={onSelectImage}>
                 <Icon name="photo-camera" size={24} style={styles.Camera} />
               </Pressable>
-              <Pressable>
+              <Pressable onPress={() => setLinkState(!linkState)}>
                 <Icon name="insert-link" size={26} style={styles.Link} />
               </Pressable>
             </View>
@@ -223,6 +241,22 @@ const styles = StyleSheet.create({
     width: 340,
     height: 252,
     borderRadius: 5,
+  },
+  linkContainer: {
+    flexDirection: 'row',
+    height: 40,
+    borderWidth: 1,
+    borderRadius: 6,
+    borderColor: theme.colors.Grey60,
+    alignItems: 'center',
+  },
+  linkIcon: {
+    marginHorizontal: 8,
+    width: 24,
+  },
+  linkInput: {
+    height: 40,
+    width: 300,
   },
   Line: {
     height: 1,
