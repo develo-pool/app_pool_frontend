@@ -1,8 +1,6 @@
 import React from 'react';
-import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
+import {StyleSheet, Text, View, Image} from 'react-native';
 import theme from '../../assets/theme';
-import {useNavigation} from '@react-navigation/native';
-import {RootStackNavigationProp} from '../../screens/types';
 
 interface Props {
   username?: string;
@@ -10,27 +8,21 @@ interface Props {
 }
 
 function MessageHeader({username, profileImg}: Props) {
-  const navigation = useNavigation<RootStackNavigationProp>();
-
   return (
     // 댓글 작성 여부에 따라 메시지스크린 -> 입력창 포커스를 잡아주는 컴포넌트
-    <TouchableOpacity
-      style={styles.messageHeader}
-      onPress={() => navigation.navigate('BrandProfile', {poolUserId: 1})}>
-      {/* 여기 나중에 꼭 바꿔줘야함!!!! */}
-      <View style={styles.feedHeader}>
-        <View style={styles.feedOwner}>
-          <Image
-            style={styles.feedOwnerProfileImg}
-            source={{uri: `${profileImg}`}}
-            resizeMode="cover"
-          />
-          <View style={styles.usernameContainer}>
-            <Text style={styles.feedOwnerUsername}>{username}</Text>
-          </View>
+
+    <View style={styles.feedHeader}>
+      <View style={styles.feedOwner}>
+        <Image
+          style={styles.feedOwnerProfileImg}
+          source={{uri: `${profileImg}`}}
+          resizeMode="cover"
+        />
+        <View style={styles.usernameContainer}>
+          <Text style={styles.feedOwnerUsername}>{username}</Text>
         </View>
       </View>
-    </TouchableOpacity>
+    </View>
   );
 }
 
