@@ -34,9 +34,7 @@ function FollowingList({
         }>
         <Image
           style={styles.BrandProfileImage}
-          source={
-            source ? {uri: source} : require('../../assets/ProfileImage.png')
-          }
+          source={source ? {uri: source} : require('../../assets/PoolLogo.png')}
           resizeMode="cover"
         />
         <View style={styles.NameandFollowers}>

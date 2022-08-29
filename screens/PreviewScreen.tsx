@@ -57,7 +57,7 @@ function PreviewScreen() {
             {isImageExist ? (
               <Image
                 style={styles.uploadedImg}
-                source={require('../assets/Salad.png')}
+                source={require('../assets/PoolLogo.png')}
                 // 이미지 첨부 링크 넣어야함
               />
             ) : (

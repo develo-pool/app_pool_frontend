@@ -1,184 +1,111 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   Text,
   StyleSheet,
   View,
   TouchableOpacity,
-  ScrollView,
   ActivityIndicator,
+  FlatList,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import ProfileHeader from '../components/profile/ProfileHeader';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import theme from '../assets/theme';
+import {useNavigation} from '@react-navigation/native';
 import {useQuery} from 'react-query';
 import {RootStackNavigationProp} from './types';
-import theme from '../assets/theme';
-import SetWelcomeMsg from '../components/profile/SetWelcomeMessage';
-import ProfileImageContainer from '../components/profile/ProfileImageContainer';
-import {getUser} from '../api/auth';
-import {getBrand} from '../api/brand';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import MessageContainer from '../components/profile/MessageContainer';
-// import {getMyProfile} from '../api/profile';
-import ShareButton from '../components/profile/ShareButton';
+import ProfileMessageContainer from '../components/profile/ProfileMessageContainer';
+import {Message} from '../api/message/types';
+import {getMyProfile} from '../api/profile';
+// import {useParams} from 'react-router-dom';
 
+const LENGTH = 10;
 function ProfileScreen() {
+  // const {brandId = '0'} = useParams();
+  // const id = parseInt(brandId, 10);
   const navigation = useNavigation<RootStackNavigationProp>();
-  // const [cursor, setCursor] = useState<number>(0);
-  const {data: userData} = useQuery('getUserResult', () => getUser(), {
-    refetchOnMount: 'always',
-  });
-  const {data: brandData} = useQuery('getBrand', () => getBrand(''), {
-    refetchOnMount: 'always',
-  });
-  // const {data: brandMessages} = useQuery(
-  //   'getMyProfile',
-  //   () => getMyProfile(cursor),
-  //   {
-  //     refetchOnMount: 'always',
-  //   },
-  // );
+  const [loadMessageList, setLoadMessageList] = useState<Message[]>([]);
+  const [cursor, setCursor] = useState<number>(0);
+  const [noMorePost, setNoMorePost] = useState<boolean>(false);
+  const {isLoading: isMessageLoading, refetch} = useQuery(
+    'getMyProfile',
+    () => getMyProfile(cursor),
+    {
+      onSuccess: data => {
+        if (data.length < LENGTH) {
+          setNoMorePost(true);
+        }
+        if (data.length !== 0) {
+          setLoadMessageList(loadMessageList.concat(data));
+          setCursor(data[data.length - 1].postId);
+        }
+      },
+      refetchOnMount: true,
+    },
+  );
 
-  // const RenderItem = ({item}) => {
-  //   return (
-  //     <ProfileFeed
-  //       key={item.postId}
-  //       postId={item.postId}
-  //       body={item.body}
-  //       messageLink={item.messageLink}
-  //       filePath={item.filePath}
-  //       writerDto={item.writerDto}
-  //       commentAble={item.commentAble}
-  //       isWriter={item.isWriter}
-  //       create_date={item.create_date}
-  //     />
-  //   );
-  // };
+  const RenderItem = ({item}) => {
+    return (
+      <ProfileMessageContainer
+        key={item.postId}
+        postId={item.postId}
+        body={item.body}
+        messageLink={item.messageLink}
+        filePath={item.filePath}
+        writerDto={item.writerDto}
+        commentAble={item.commentAble}
+        isWriter={item.isWriter}
+        create_date={item.create_date}
+      />
+    );
+  };
 
   return (
     <>
       <SafeAreaView>
-        <ScrollView>
-          <View style={styles.ProfileSection}>
-            {brandData && userData ? (
-              <>
-                <View style={styles.ProfileLayout}>
-                  <View style={styles.ProfileContainer}>
-                    <ProfileImageContainer isEditable={true} />
-                    <View style={styles.BrandInfo}>
-                      <Text style={styles.BrandName}>
-                        {brandData.brandUsername}
-                      </Text>
-                      <View style={styles.FollowerContainer}>
-                        <Text style={styles.Follower}>팔로워</Text>
-                        <Text style={styles.FollowerCount}>
-                          {userData.userFollowerCount}
-                        </Text>
-                      </View>
-                    </View>
-                  </View>
-                  <ShareButton
-                    brandUserName={brandData.brandUsername}
-                    brandId={brandData.brandUserId}
-                  />
-                </View>
-                <View style={styles.IntroContainer}>
-                  <Text style={styles.IntroText}>{brandData.brandInfo}</Text>
-                </View>
-              </>
-            ) : (
-              <ActivityIndicator />
-            )}
-          </View>
-          <SetWelcomeMsg />
+        {isMessageLoading ? (
           <View style={styles.Message}>
-            {brandData?.brandUserId === 0 ? (
-              //이거 바꿔야함
-              <Text style={styles.MessageNull}>등록된 메시지가 없습니다.</Text>
-            ) : (
-              <MessageContainer
-                brandProfileImage={brandData?.brandProfileImage}
-                brandUserName={brandData?.brandUsername as string}
-              />
-            )}
-            <MessageContainer
-              brandProfileImage={brandData?.brandProfileImage}
-              brandUserName={brandData?.brandUsername as string}
-            />
+            <ActivityIndicator />
           </View>
-        </ScrollView>
+        ) : loadMessageList ? (
+          <FlatList
+            data={loadMessageList}
+            renderItem={RenderItem}
+            ListHeaderComponent={<ProfileHeader />}
+            onEndReached={() => {
+              if (!noMorePost) {
+                refetch();
+              }
+            }}
+          />
+        ) : (
+          <View style={styles.Message}>
+            <Text style={styles.MessageNull}>등록된 메시지가 없습니다.</Text>
+          </View>
+        )}
+
+        <View style={styles.createButtonLayout}>
+          <TouchableOpacity
+            style={styles.CreateMessageButton}
+            onPress={() => navigation.navigate('CreateMessage')}>
+            <Icon name="border-color" size={24} style={styles.CreateMessage} />
+          </TouchableOpacity>
+        </View>
       </SafeAreaView>
-      <View style={styles.createButtonLayout}>
-        <TouchableOpacity
-          style={styles.CreateMessageButton}
-          onPress={() => navigation.navigate('CreateMessage')}>
-          <Icon name="border-color" size={24} style={styles.CreateMessage} />
-        </TouchableOpacity>
-      </View>
     </>
   );
 }
 
 const styles = StyleSheet.create({
-  ProfileSection: {
-    paddingTop: 24,
-    height: 180,
-    backgroundColor: theme.colors.White,
-    paddingHorizontal: 16,
-  }, //프로필 영역
-  ProfileLayout: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  ProfileContainer: {
-    height: 120,
-    flexDirection: 'row',
-  }, // 프로필 내 브랜드 정보가 담긴 영역
-  BrandInfo: {
-    justifyContent: 'center',
-    marginLeft: 16,
-  },
-  BrandName: {
-    fontFamily: theme.fontFamily.Pretendard,
-    fontSize: theme.fontSize.P1,
-    fontWeight: theme.fontWeight.Bold,
-    color: theme.colors.Grey80,
-    marginBottom: 2,
-  },
-  FollowerContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  Follower: {
-    fontFamily: theme.fontFamily.Pretendard,
-    fontSize: theme.fontSize.P3,
-    fontWeight: theme.fontWeight.Light,
-    color: theme.colors.Grey40,
-  },
-  FollowerCount: {
-    fontFamily: theme.fontFamily.Pretendard,
-    fontSize: theme.fontSize.P3,
-    fontWeight: theme.fontWeight.Bold,
-    color: theme.colors.Grey80,
-    marginLeft: 4,
-  },
-  IntroContainer: {
-    justifyContent: 'center',
-  },
-  IntroText: {
-    fontSize: theme.fontSize.P2,
-    color: theme.colors.Grey50,
-    fontWeight: theme.fontWeight.Light,
-    paddingTop: 4,
-  },
   Message: {
     alignItems: 'center',
     paddingHorizontal: 16,
+    marginTop: 32,
   },
   MessageNull: {
-    marginTop: 32,
     fontSize: theme.fontSize.P1,
     fontWeight: theme.fontWeight.Light,
-  }, //동록한 메시지가 없습니다.
+  },
   createButtonLayout: {
     position: 'absolute',
     right: 16,
@@ -191,7 +118,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.Black,
     justifyContent: 'center',
     alignItems: 'center',
-  }, //새 메시지 작성 버튼
+  },
   CreateMessage: {
     color: theme.colors.White,
   },

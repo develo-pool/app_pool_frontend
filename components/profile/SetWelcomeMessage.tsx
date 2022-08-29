@@ -24,7 +24,6 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.White,
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 16,
   },
   SetWelcomeText: {
     color: theme.colors.Poolblue,
