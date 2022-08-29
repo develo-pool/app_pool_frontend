@@ -4,6 +4,7 @@ import {Image, Text, Pressable, View, StyleSheet} from 'react-native';
 // import FollowButton from '../profile/FollowButton';
 import theme from '../../assets/theme';
 import {RootStackNavigationProp} from '../../screens/types';
+import FollowingButton from './FollowingButton';
 
 interface Props {
   followers: number;
@@ -11,7 +12,6 @@ interface Props {
   source: string;
   brandUserId: number;
   poolUserId: number;
-  onPress?: any;
 }
 
 function FollowingList({
@@ -21,8 +21,6 @@ function FollowingList({
   brandUserId,
   poolUserId,
 }: Props) {
-  // const route = useRoute<SignUpScreenRouteProp>();
-  // const current = route.params.current;
   const navigation = useNavigation<RootStackNavigationProp>();
   return (
     <>
@@ -48,7 +46,9 @@ function FollowingList({
             <Text style={styles.Followers}>{followers}</Text>
           </View>
         </View>
-        {/* <FollowButton isFollowed={true} /> */}
+        <View style={styles.ButtonContainer}>
+          <FollowingButton poolUserId={poolUserId} />
+        </View>
       </Pressable>
     </>
   );
@@ -97,6 +97,11 @@ const styles = StyleSheet.create({
     fontWeight: theme.fontWeight.Bold,
     color: theme.colors.Grey80,
     marginLeft: 4,
+  },
+  ButtonContainer: {
+    width: 83,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
   },
 });
 

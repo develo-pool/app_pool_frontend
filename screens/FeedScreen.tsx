@@ -47,6 +47,7 @@ function FeedScreen() {
         }
         if (cursor === 0) {
           setMessages(data);
+          setCursor(data[data.length - 1].postId);
         } else if (data.length !== 0) {
           setMessages(Messages.concat(data));
           setCursor(data[data.length - 1].postId);
