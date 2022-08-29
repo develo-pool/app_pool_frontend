@@ -15,7 +15,7 @@ import {useNavigation} from '@react-navigation/native';
 import {useQuery} from 'react-query';
 import {RootStackNavigationProp} from './types';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import MessageContainer from '../components/profile/MessageContainer';
+import ProfileMessageContainer from '../components/profile/ProfileMessageContainer';
 // import {useParams} from 'react-router-dom';
 // import {Message} from '../api/message/types';
 import {getBrand} from '../api/brand';
@@ -39,21 +39,21 @@ function ProfileScreen() {
   //   },
   // );
 
-  // const RenderItem = ({item}) => {
-  //   return (
-  //     <ProfileFeed
-  //       key={item.postId}
-  //       postId={item.postId}
-  //       body={item.body}
-  //       messageLink={item.messageLink}
-  //       filePath={item.filePath}
-  //       writerDto={item.writerDto}
-  //       commentAble={item.commentAble}
-  //       isWriter={item.isWriter}
-  //       create_date={item.create_date}
-  //     />
-  //   );
-  // };
+  const RenderItem = ({item}) => {
+    return (
+      <ProfileMessageContainer
+        key={item.postId}
+        postId={item.postId}
+        body={item.body}
+        messageLink={item.messageLink}
+        filePath={item.filePath}
+        writerDto={item.writerDto}
+        commentAble={item.commentAble}
+        isWriter={item.isWriter}
+        create_date={item.create_date}
+      />
+    );
+  };
 
   return (
     <>
@@ -62,19 +62,11 @@ function ProfileScreen() {
           <ProfileHeader />
           <SetWelcomeMsg />
           <View style={styles.Message}>
-            {brandData?.brandUserId === 0 ? (
-              //이거 바꿔야함
+            {brandData ? null : (
+              // <View style={styles.Message}>
               <Text style={styles.MessageNull}>등록된 메시지가 없습니다.</Text>
-            ) : (
-              <MessageContainer
-                brandProfileImage={brandData?.brandProfileImage}
-                brandUserName={brandData?.brandUsername as string}
-              />
+              // </View>
             )}
-            <MessageContainer
-              brandProfileImage={brandData?.brandProfileImage}
-              brandUserName={brandData?.brandUsername as string}
-            />
           </View>
         </ScrollView>
       </SafeAreaView>
