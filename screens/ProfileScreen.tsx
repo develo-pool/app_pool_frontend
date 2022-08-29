@@ -15,7 +15,7 @@ import {useNavigation} from '@react-navigation/native';
 import {useQuery} from 'react-query';
 import {RootStackNavigationProp} from './types';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import ProfileMessageContainer from '../components/profile/ProfileMessageContainer';
+// import ProfileMessageContainer from '../components/profile/ProfileMessageContainer';
 // import {useParams} from 'react-router-dom';
 // import {Message} from '../api/message/types';
 import {getBrand} from '../api/brand';
