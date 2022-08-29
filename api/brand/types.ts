@@ -33,7 +33,3 @@ export interface AllBrandResult extends BrandResult {
   brandUserId: number;
   isLoginUser: boolean;
 }
-
-export interface UpdateInfoParams {
-  brandInfo: string;
-}

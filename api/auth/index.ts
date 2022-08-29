@@ -5,7 +5,6 @@ import {
   GetUserResult,
   LoginParams,
   SignUpParams,
-  UpdateNickNameParams,
   UpdatePasswordParams,
 } from './types';
 
@@ -60,7 +59,7 @@ export async function checkMember(params: ChekMemberParams) {
   return response;
 }
 
-export async function updateNickname(params: UpdateNickNameParams) {
+export async function updateNickname(params: string) {
   const response = await client.put('/user/update', params);
   return response;
 }
