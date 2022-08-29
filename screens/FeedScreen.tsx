@@ -105,7 +105,6 @@ function FeedScreen() {
 
   useEffect(() => {
     if (isFocused) {
-      setRefreshing(true);
       feedRefetch();
     }
   }, [isFocused, feedRefetch]);
