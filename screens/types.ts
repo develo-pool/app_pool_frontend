@@ -35,7 +35,7 @@ export type RootStackParamList = {
   EditProfile: undefined;
   FirebasePhoneAuth: undefined;
   FirebaseAuth: undefined;
-  FollowingList: undefined;
+  FollowingList: {followingCount: number};
   EditUser: undefined;
 };
 
