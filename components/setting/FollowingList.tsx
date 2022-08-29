@@ -1,21 +1,43 @@
+import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {Image, Text, Pressable, View, StyleSheet} from 'react-native';
 // import FollowButton from '../profile/FollowButton';
 import theme from '../../assets/theme';
+import {RootStackNavigationProp} from '../../screens/types';
+import FollowingButton from './FollowingButton';
 
 interface Props {
   followers: number;
   brandName: string;
-  onPress?: any;
+  source: string;
+  brandUserId: number;
+  poolUserId: number;
 }
 
-function FollowingList({brandName, followers}: Props) {
+function FollowingList({
+  brandName,
+  followers,
+  source,
+  brandUserId,
+  poolUserId,
+}: Props) {
+  const navigation = useNavigation<RootStackNavigationProp>();
   return (
     <>
-      <Pressable style={styles.FollowingsContainer}>
+      <Pressable
+        style={styles.FollowingsContainer}
+        onPress={() =>
+          navigation.navigate('BrandProfile', {
+            brandUserId: brandUserId,
+            poolUserId: poolUserId,
+          })
+        }>
         <Image
           style={styles.BrandProfileImage}
-          source={require('../../assets/ProfileImage.png')}
+          source={
+            source ? {uri: source} : require('../../assets/ProfileImage.png')
+          }
+          resizeMode="cover"
         />
         <View style={styles.NameandFollowers}>
           <Text style={styles.BrandName}>{brandName}</Text>
@@ -24,7 +46,9 @@ function FollowingList({brandName, followers}: Props) {
             <Text style={styles.Followers}>{followers}</Text>
           </View>
         </View>
-        {/* <FollowButton isFollowed={true} /> */}
+        <View style={styles.ButtonContainer}>
+          <FollowingButton poolUserId={poolUserId} />
+        </View>
       </Pressable>
     </>
   );
@@ -73,6 +97,11 @@ const styles = StyleSheet.create({
     fontWeight: theme.fontWeight.Bold,
     color: theme.colors.Grey80,
     marginLeft: 4,
+  },
+  ButtonContainer: {
+    width: 83,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
   },
 });
 

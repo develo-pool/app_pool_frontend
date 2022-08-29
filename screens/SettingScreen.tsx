@@ -9,6 +9,7 @@ import {
   ScrollView,
   SafeAreaView,
   Linking,
+  ActivityIndicator,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
@@ -46,9 +47,7 @@ function SettingScreen() {
     navigation.reset({routes: [{name: 'Welcome'}]});
   };
   useEffect(() => {
-    {
-      user?.role === 'BRAND_USER' && refetch();
-    }
+    user?.role === 'BRAND_USER' && refetch();
   }, []); //eslint-disable-line react-hooks/exhaustive-deps
 
   return (
@@ -82,18 +81,30 @@ function SettingScreen() {
               ) : null}
             </View>
             <View style={styles.ProfileInfo}>
-              {user?.role === 'BRAND_USER' ? (
-                <Text style={styles.BrandName}>{brandData?.brandUsername}</Text>
-              ) : null}
-              <Text style={styles.UserName}>{user?.nickName}</Text>
-              <Pressable
-                style={styles.FollowingContainer}
-                onPress={() => navigation.navigate('FollowingList')}>
-                <Text style={styles.Following}>팔로잉</Text>
-                <Text style={styles.FollowingCount}>
-                  {userData?.userFollowingCount}
-                </Text>
-              </Pressable>
+              {userData ? (
+                <>
+                  {user?.role === 'BRAND_USER' ? (
+                    <Text style={styles.BrandName}>
+                      {brandData?.brandUsername}
+                    </Text>
+                  ) : null}
+                  <Text style={styles.UserName}>{user?.nickName}</Text>
+                  <Pressable
+                    style={styles.FollowingContainer}
+                    onPress={() =>
+                      navigation.navigate('FollowingList', {
+                        followingCount: userData.userFollowingCount,
+                      })
+                    }>
+                    <Text style={styles.Following}>팔로잉</Text>
+                    <Text style={styles.FollowingCount}>
+                      {userData?.userFollowingCount}
+                    </Text>
+                  </Pressable>
+                </>
+              ) : (
+                <ActivityIndicator />
+              )}
             </View>
           </View>
           {user?.role === 'BRAND_USER' ? null : (
