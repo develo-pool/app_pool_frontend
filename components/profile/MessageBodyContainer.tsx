@@ -20,7 +20,8 @@ const styles = StyleSheet.create({
     fontWeight: theme.fontWeight.Light,
     color: theme.colors.Grey60,
     fontFamily: theme.fontFamily.Pretendard,
-    marginVertical: 12,
+    marginTop: 12,
+    marginBottom: 8,
   },
 });
 

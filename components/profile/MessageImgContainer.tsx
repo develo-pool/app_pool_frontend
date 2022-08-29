@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Dimensions, Image, StyleSheet} from 'react-native';
+import {Dimensions, Image, StyleSheet, View} from 'react-native';
 
 interface Props {
   messageImg: string;
@@ -17,20 +17,25 @@ function MessageImgContainer({messageImg}: Props) {
   }
 
   return (
-    <Image
-      style={styles.messageImg}
-      source={{uri: messageImg !== '' ? messageImg : undefined, height}}
-      resizeMode="contain"
-    />
+    <View style={styles.imageContainer}>
+      <Image
+        style={styles.messageImg}
+        source={{uri: messageImg !== '' ? messageImg : undefined, height}}
+        resizeMode="contain"
+      />
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  imageContainer: {
+    maxHeight: 220,
+    marginBottom: 8,
+  },
   messageImg: {
     borderRadius: 6,
     maxHeight: 220,
     maxWidth: 400,
-    marginBottom: 8,
   },
 });
 

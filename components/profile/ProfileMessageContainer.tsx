@@ -13,13 +13,20 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import {Message} from '../../api/message/types';
 import MessageBodyContainer from './MessageBodyContainer';
 import MessageImgContainer from './MessageImgContainer';
+import {useNavigation} from '@react-navigation/native';
+import {RootStackNavigationProp} from '../../screens/types';
 
 function ProfileMessageContainer(detailmessage: Message) {
   const Month = detailmessage.create_date.substring(5, 7);
   const Day = detailmessage.create_date.substring(8, 10);
+  const navigation = useNavigation<RootStackNavigationProp>();
 
   return (
-    <Pressable style={styles.container}>
+    <Pressable
+      style={styles.container}
+      onPress={() =>
+        navigation.navigate('Message', {detail: detailmessage.postId})
+      }>
       <View style={styles.Info}>
         <View style={styles.BrandInfo}>
           <Image
@@ -60,18 +67,18 @@ function ProfileMessageContainer(detailmessage: Message) {
         ) : (
           <></>
         )}
-      </View>
-      <View style={styles.bottomArea}>
-        <Text style={styles.messageDate}>
-          {Month}월 {Day}일
-        </Text>
-        <Icon
-          name="messenger-outline"
-          size={14}
-          color={theme.colors.Grey40}
-          style={styles.commentIcon}
-        />
-        <Text style={styles.commentsCount}>16</Text>
+        <View style={styles.bottomArea}>
+          <Text style={styles.messageDate}>
+            {Month}월 {Day}일
+          </Text>
+          <Icon
+            name="messenger-outline"
+            size={14}
+            color={theme.colors.Grey40}
+            style={styles.commentIcon}
+          />
+          <Text style={styles.commentsCount}>16</Text>
+        </View>
       </View>
     </Pressable>
   );
@@ -130,7 +137,6 @@ const styles = StyleSheet.create({
   bottomArea: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 4,
   },
   messageDate: {
     fontFamily: theme.fontFamily.Pretendard,
