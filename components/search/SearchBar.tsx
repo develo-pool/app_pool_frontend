@@ -10,7 +10,6 @@ interface Props {
 
 function SearchBar({searchText, onChangeText}: Props) {
   const [focused, setFocused] = useState<boolean>(false);
-  console.log(focused);
   return (
     <View style={styles.container}>
       <View style={[styles.searchBar, focused && styles.focus]}>
