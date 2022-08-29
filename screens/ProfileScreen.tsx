@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {
   Text,
   StyleSheet,
@@ -18,7 +18,7 @@ import {getUser} from '../api/auth';
 import {getBrand} from '../api/brand';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import MessageContainer from '../components/profile/MessageContainer';
-import {getMyProfile} from '../api/profile';
+// import {getMyProfile} from '../api/profile';
 import ShareButton from '../components/profile/ShareButton';
 
 function ProfileScreen() {
