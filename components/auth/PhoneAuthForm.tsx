@@ -51,11 +51,11 @@ function PhoneAuthForm({
   };
   const verifyAuthNumber = async () => {
     try {
-    setIsLoading(true);
+      setIsLoading(true);
       const data = await confirmation?.confirm(form.authNumber);
-    setIsLoading(false);
+      setIsLoading(false);
       if (data !== undefined) {
-    onChangeForm('state')('confirm');
+        onChangeForm('state')('confirm');
       }
     } catch (error) {
       onChangeForm('authNumberError')(true);

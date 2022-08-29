@@ -67,7 +67,7 @@ function App() {
     });
     return unsubscribe;
   }, []);
-  
+
   useEffect(() => {
     const listener = AppState.addEventListener('change', status => {
       if (Platform.OS === 'ios' && status === 'active') {
