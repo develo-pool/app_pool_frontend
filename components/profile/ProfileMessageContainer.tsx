@@ -41,17 +41,13 @@ function ProfileMessageContainer(detailmessage: Message) {
         </View>
       </View>
       <View>
-        {detailmessage.body ? (
+        {detailmessage.body && (
           <MessageBodyContainer messageText={`${detailmessage.body}`} />
-        ) : (
-          <></>
         )}
-        {detailmessage.filePath ? (
+        {detailmessage.filePath && (
           <MessageImgContainer messageImg={`${detailmessage.filePath}`} />
-        ) : (
-          <></>
         )}
-        {detailmessage.messageLink ? (
+        {detailmessage.messageLink && (
           <TouchableOpacity
             style={styles.linkContainer}
             onPress={() =>
@@ -64,8 +60,6 @@ function ProfileMessageContainer(detailmessage: Message) {
               </Text>
             </View>
           </TouchableOpacity>
-        ) : (
-          <></>
         )}
         <View style={styles.bottomArea}>
           <Text style={styles.messageDate}>
