@@ -58,8 +58,3 @@ export async function checkMember(params: ChekMemberParams) {
   const response = await client.post<boolean>('/checkMember', params);
   return response;
 }
-
-export async function updateNickname(params: string) {
-  const response = await client.put('/user/update', params);
-  return response;
-}

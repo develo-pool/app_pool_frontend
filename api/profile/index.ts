@@ -7,3 +7,8 @@ export async function getMyProfile(params: number) {
   );
   return response.data;
 }
+
+export async function updateNickname(params: string) {
+  const response = await client.put('/user/update', params);
+  return response;
+}
