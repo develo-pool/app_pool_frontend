@@ -25,7 +25,7 @@ export async function getBrand(params: string) {
   return response.data;
 }
 
-export async function getBrandProfile(params: number) {
+export async function getBrandProfile(params: string) {
   const response = await client.get<BrandProfileResult>(`/brand/${params}`);
   return response.data;
 }

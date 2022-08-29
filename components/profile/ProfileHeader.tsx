@@ -4,20 +4,16 @@ import ProfileImageContainer from './ProfileImageContainer';
 import ShareButton from './ShareButton';
 import theme from '../../assets/theme';
 import {useQuery} from 'react-query';
-import {getUser} from '../../api/auth';
-import {getBrand} from '../../api/brand';
+import {getBrandProfile} from '../../api/brand';
 
 function ProfileHeader() {
-  const {data: userData} = useQuery('getUserResult', () => getUser(), {
-    refetchOnMount: 'always',
-  });
-  const {data: brandData} = useQuery('getBrand', () => getBrand(''), {
+  const {data: brandData} = useQuery('getBrand', () => getBrandProfile(''), {
     refetchOnMount: 'always',
   });
 
   return (
     <View style={styles.ProfileSection}>
-      {brandData && userData ? (
+      {brandData ? (
         <>
           <View style={styles.ProfileLayout}>
             <View style={styles.ProfileContainer}>
@@ -27,7 +23,7 @@ function ProfileHeader() {
                 <View style={styles.FollowerContainer}>
                   <Text style={styles.Follower}>팔로워</Text>
                   <Text style={styles.FollowerCount}>
-                    {userData.userFollowerCount}
+                    {brandData.userInfoDto.userFollowerCount}
                   </Text>
                 </View>
               </View>
@@ -54,7 +50,7 @@ const styles = StyleSheet.create({
     height: 180,
     backgroundColor: theme.colors.White,
     paddingHorizontal: 16,
-  }, //프로필 영역
+  },
   ProfileLayout: {
     flexDirection: 'row',
     justifyContent: 'space-between',
