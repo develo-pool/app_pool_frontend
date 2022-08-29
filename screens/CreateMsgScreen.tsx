@@ -17,12 +17,11 @@ import {
   PreviewButton,
   SendButton,
 } from '../components/create/CreateMessageComponents';
-import {launchImageLibrary} from 'react-native-image-picker';
 import {useNavigation} from '@react-navigation/native';
 import {MainTabNatigationProp} from './types';
 import {useQuery, useMutation} from 'react-query';
 import {getBrand} from '../api/brand';
-import {Asset} from 'react-native-image-picker';
+import {Asset, launchImageLibrary} from 'react-native-image-picker';
 import {createMessage} from '../api/message';
 
 export interface CreateMessageProps {
@@ -30,10 +29,6 @@ export interface CreateMessageProps {
   messageLink?: string;
   messageImage?: Asset | undefined;
 }
-
-// const linkProps{
-//   state: 'default' | 'isPressed' | 'cancel';
-// }
 
 function CreateMessageScreen() {
   const navigation = useNavigation<MainTabNatigationProp>();
@@ -77,7 +72,6 @@ function CreateMessageScreen() {
   const {mutate: create} = useMutation(createMessage, {
     onSuccess: () => {
       navigation.goBack();
-      alert('메시지를 전송하였습니다!');
     },
   });
 
