@@ -15,7 +15,7 @@
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		86C681304D84F2D49401EF82 /* libPods-app_pool_frontend.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D7C33B78D35E35A4AA5A58D2 /* libPods-app_pool_frontend.a */; };
 		D582F9B728ACCDCD00B46FCB /* AppIcon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D582F9B628ACCDCD00B46FCB /* AppIcon.xcassets */; };
-		D5C20B3F289AA008001F036B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D5C20B3E289AA008001F036B /* GoogleService-Info.plist */; };
+		D5C44F4E28BC562700A214BB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D5C44F4D28BC562700A214BB /* GoogleService-Info.plist */; };
 		D5D85435289D12AA00E2E7D0 /* NotificationService.m in Sources */ = {isa = PBXBuildFile; fileRef = D5D85434289D12AA00E2E7D0 /* NotificationService.m */; };
 		D5D85439289D12AA00E2E7D0 /* ImageNotification.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D5D85431289D12A900E2E7D0 /* ImageNotification.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		E6A2FD958BAF494EBC225D32 /* PretendardVariable.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 839D60C583A04A7CAAE2B036 /* PretendardVariable.ttf */; };
@@ -73,7 +73,7 @@
 		C63027D1BE61D2C8C4CB7F20 /* Pods-app_pool_frontend.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-app_pool_frontend.debug.xcconfig"; path = "Target Support Files/Pods-app_pool_frontend/Pods-app_pool_frontend.debug.xcconfig"; sourceTree = "<group>"; };
 		C8020D27D93DDE3068B8A335 /* Pods-ImageNotification.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageNotification.debug.xcconfig"; path = "Target Support Files/Pods-ImageNotification/Pods-ImageNotification.debug.xcconfig"; sourceTree = "<group>"; };
 		D582F9B628ACCDCD00B46FCB /* AppIcon.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AppIcon.xcassets; sourceTree = "<group>"; };
-		D5C20B3E289AA008001F036B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D5C44F4D28BC562700A214BB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D5D8542C289CB84900E2E7D0 /* app_pool_frontend.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = app_pool_frontend.entitlements; path = app_pool_frontend/app_pool_frontend.entitlements; sourceTree = "<group>"; };
 		D5D85431289D12A900E2E7D0 /* ImageNotification.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ImageNotification.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5D85433289D12AA00E2E7D0 /* NotificationService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationService.h; sourceTree = "<group>"; };
@@ -132,6 +132,7 @@
 		13B07FAE1A68108700A75B9A /* app_pool_frontend */ = {
 			isa = PBXGroup;
 			children = (
+				D5C44F4D28BC562700A214BB /* GoogleService-Info.plist */,
 				D5D8542C289CB84900E2E7D0 /* app_pool_frontend.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
@@ -173,7 +174,6 @@
 			isa = PBXGroup;
 			children = (
 				D582F9B628ACCDCD00B46FCB /* AppIcon.xcassets */,
-				D5C20B3E289AA008001F036B /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* app_pool_frontend */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* app_pool_frontendTests */,
@@ -342,7 +342,7 @@
 			files = (
 				D582F9B728ACCDCD00B46FCB /* AppIcon.xcassets in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
-				D5C20B3F289AA008001F036B /* GoogleService-Info.plist in Resources */,
+				D5C44F4E28BC562700A214BB /* GoogleService-Info.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				E6A2FD958BAF494EBC225D32 /* PretendardVariable.ttf in Resources */,
 			);
