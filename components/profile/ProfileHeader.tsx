@@ -5,6 +5,7 @@ import ShareButton from './ShareButton';
 import theme from '../../assets/theme';
 import {useQuery} from 'react-query';
 import {getBrandProfile} from '../../api/brand';
+import SetWelcomeMsg from './SetWelcomeMessage';
 
 function ProfileHeader() {
   const {data: brandData} = useQuery('getBrand', () => getBrandProfile(''), {
@@ -36,6 +37,7 @@ function ProfileHeader() {
           <View style={styles.IntroContainer}>
             <Text style={styles.IntroText}>{brandData.brandInfo}</Text>
           </View>
+          <SetWelcomeMsg />
         </>
       ) : (
         <ActivityIndicator />
@@ -47,7 +49,7 @@ function ProfileHeader() {
 const styles = StyleSheet.create({
   ProfileSection: {
     paddingTop: 24,
-    height: 180,
+    height: 220,
     backgroundColor: theme.colors.White,
     paddingHorizontal: 16,
   },

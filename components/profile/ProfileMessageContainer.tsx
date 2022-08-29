@@ -11,8 +11,8 @@ import {
 import theme from '../../assets/theme';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {Message} from '../../api/message/types';
-import MessageImg from '../../components/message/MessageImg';
-import MessageText from '../../components/message/MessageText';
+import MessageBodyContainer from './MessageBodyContainer';
+import MessageImgContainer from './MessageImgContainer';
 
 function ProfileMessageContainer(detailmessage: Message) {
   const Month = detailmessage.create_date.substring(5, 7);
@@ -35,12 +35,12 @@ function ProfileMessageContainer(detailmessage: Message) {
       </View>
       <View>
         {detailmessage.body ? (
-          <MessageText messageText={`${detailmessage.body}`} />
+          <MessageBodyContainer messageText={`${detailmessage.body}`} />
         ) : (
           <></>
         )}
         {detailmessage.filePath ? (
-          <MessageImg messageImg={`${detailmessage.filePath}`} />
+          <MessageImgContainer messageImg={`${detailmessage.filePath}`} />
         ) : (
           <></>
         )}
@@ -82,6 +82,7 @@ const styles = StyleSheet.create({
     maxHeight: 400,
     paddingHorizontal: 12,
     paddingVertical: 12,
+    marginHorizontal: 16,
     marginTop: 16,
     borderRadius: 12,
     backgroundColor: theme.colors.White,
@@ -108,21 +109,27 @@ const styles = StyleSheet.create({
     fontWeight: theme.fontWeight.Bold,
     marginLeft: 8,
   },
-  messageBody: {
-    marginVertical: 12,
-    fontFamily: theme.fontFamily.Pretendard,
-    fontSize: theme.fontSize.P2,
-    color: theme.colors.Grey60,
+  linkContainer: {
+    height: 36,
+    borderRadius: 4,
+    borderWidth: 1,
+    marginBottom: 8,
+    borderColor: theme.colors.Grey40,
+    alignItems: 'center',
+    flexDirection: 'row',
   },
-  messageImage: {
-    height: 230,
-    maxWidth: 320,
-    resizeMode: 'contain',
+  linkIcon: {
+    marginHorizontal: 8,
+  },
+  messageLink: {
+    color: theme.colors.Poolblue,
+    fontSize: theme.fontSize.P3,
+    fontWeight: theme.fontWeight.Light,
+    fontFamily: theme.fontFamily.Pretendard,
   },
   bottomArea: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 12,
     marginBottom: 4,
   },
   messageDate: {
@@ -138,27 +145,6 @@ const styles = StyleSheet.create({
     fontFamily: theme.fontFamily.Pretendard,
     fontSize: theme.fontSize.P3,
     color: theme.colors.Grey40,
-  },
-  linkContainer: {
-    height: 40,
-    borderRadius: 4,
-    borderWidth: 1,
-    padding: 8,
-    borderColor: theme.colors.Grey20,
-    alignItems: 'center',
-    flexDirection: 'row',
-    marginBottom: 18,
-  },
-  linkIcon: {
-    width: 20,
-    height: 20,
-    marginRight: 8,
-  },
-  messageLink: {
-    color: theme.colors.Poolblue,
-    fontSize: theme.fontSize.P3,
-    fontWeight: theme.fontWeight.Light,
-    fontFamily: theme.fontFamily.Pretendard,
   },
 });
 
