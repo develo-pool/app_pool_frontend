@@ -2,12 +2,20 @@ import React from 'react';
 import {Text, View, StyleSheet, ScrollView, SafeAreaView} from 'react-native';
 import theme from '../assets/theme';
 import FollowingList from '../components/setting/FollowingList';
+import {useQuery} from 'react-query';
+import {getUser} from '../api/auth';
 
 function FollowingListScreen() {
+  const {data: userData} = useQuery('getUserResult', () => getUser(), {
+    refetchOnMount: 'always',
+  });
+
   return (
     <SafeAreaView style={styles.Container}>
       <View style={styles.WholeFollowings}>
-        <Text style={styles.WholeFollowingsText}> 총 12명</Text>
+        <Text style={styles.WholeFollowingsText}>
+          총 {userData?.userFollowingCount}명
+        </Text>
       </View>
       <ScrollView>
         <FollowingList brandName="푸르지오" followers={180000} />
