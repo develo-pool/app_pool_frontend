@@ -7,6 +7,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import React, {
+  useCallback,
   useEffect,
   // useCallback,
   useState,
@@ -26,6 +27,7 @@ import {getAllMessage} from '../api/message/index';
 // import {useAsyncStorage} from '@react-native-async-storage/async-storage';
 // import {sendFCMToken} from '../api/fcm';
 import {Message} from '../api/message/types';
+import {useIsFocused} from '@react-navigation/native';
 
 const LENGTH = 10;
 
@@ -33,6 +35,7 @@ function FeedScreen() {
   const [cursor, setCursor] = useState<number>(0);
   const [Messages, setMessages] = useState<Message[]>([]);
   const [noMorePost, setNoMorePost] = useState<boolean>(false);
+  const isFocused = useIsFocused();
   const {isLoading: isMessageLoading, refetch: feedRefetch} = useQuery(
     'getAllMessage',
     () => getAllMessage(cursor),
@@ -42,10 +45,13 @@ function FeedScreen() {
         if (data.length < LENGTH) {
           setNoMorePost(true);
         }
-        if (data.length !== 0) {
+        if (cursor === 0) {
+          setMessages(data);
+        } else if (data.length !== 0) {
           setMessages(Messages.concat(data));
           setCursor(data[data.length - 1].postId);
         }
+        setRefreshing(false);
       },
     },
   );
@@ -66,9 +72,6 @@ function FeedScreen() {
   };
   const {data: userData} = useQuery('getUserResult', () => getUser(), {
     refetchOnMount: 'always',
-    onSuccess: () => {
-      feedRefetch();
-    },
   });
   // const {mutate: sendToken} = useMutation(sendFCMToken, {
   //   onSuccess: () => {
@@ -100,51 +103,33 @@ function FeedScreen() {
   const yymmdd = nowYear + '년 ' + nowMonth + '월 ' + nowDate + '일';
   const [refreshing, setRefreshing] = useState(false);
 
-  // 스크롤이 끝에 인접하면 실행
-  const onEndReached = () => {
-    if (!noMorePost) {
+  useEffect(() => {
+    if (isFocused) {
       feedRefetch();
     }
-  };
-  // 테이터 새로고침
-  const getRefreshData = async () => {
-    setRefreshing(true);
-    // await getAllMessage(0);
-    await feedRefetch();
-    setRefreshing(false);
+  }, [isFocused, feedRefetch]);
+
+  // 스크롤이 끝에 인접하면 실행
+  const onEndReached = () => {
+    feedRefetch();
   };
 
   // 새로고침 실행
-  const onRefresh = () => {
-    if (!refreshing) {
-      getRefreshData();
-    }
-  };
-
-  useEffect(() => {
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    setCursor(0);
     feedRefetch();
-  });
+  }, [feedRefetch]);
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
-        <FlatList
-          data={Messages}
-          style={styles.container}
-          renderItem={RenderItem}
-          showsVerticalScrollIndicator={false}
-          onEndReached={() => {
-            onEndReached();
-          }}
-          onEndReachedThreshold={0.6}
-          onRefresh={onRefresh}
-          refreshing={refreshing}
-          ListHeaderComponent={
+        {Messages.length === 0 ? (
+          <>
             <View>
               <Hello name={userData?.nickName} />
               <NowDate msgDate={yymmdd} />
             </View>
-          }
-          ListFooterComponent={
             <View
               style={
                 Messages?.length === 0
@@ -158,8 +143,29 @@ function FeedScreen() {
               />
               {isMessageLoading && <ActivityIndicator />}
             </View>
-          }
-        />
+          </>
+        ) : (
+          <FlatList
+            data={Messages}
+            style={styles.container}
+            renderItem={RenderItem}
+            showsVerticalScrollIndicator={false}
+            onEndReached={() => {
+              if (!noMorePost) {
+                onEndReached();
+              }
+            }}
+            onEndReachedThreshold={0.6}
+            onRefresh={onRefresh}
+            refreshing={refreshing}
+            ListHeaderComponent={
+              <View>
+                <Hello name={userData?.nickName} />
+                <NowDate msgDate={yymmdd} />
+              </View>
+            }
+          />
+        )}
       </View>
     </SafeAreaView>
   );
