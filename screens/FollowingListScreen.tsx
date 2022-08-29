@@ -41,6 +41,7 @@ function FollowingListScreen() {
       <FollowingList
         brandName={item.brandUsername}
         followers={item.userInfoDto.userFollowerCount}
+        source={item.brandProfileImage}
       />
     );
   };

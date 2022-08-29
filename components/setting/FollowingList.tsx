@@ -6,16 +6,20 @@ import theme from '../../assets/theme';
 interface Props {
   followers: number;
   brandName: string;
+  source: string;
   onPress?: any;
 }
 
-function FollowingList({brandName, followers}: Props) {
+function FollowingList({brandName, followers, source}: Props) {
   return (
     <>
       <Pressable style={styles.FollowingsContainer}>
         <Image
           style={styles.BrandProfileImage}
-          source={require('../../assets/ProfileImage.png')}
+          source={
+            source ? {uri: source} : require('../../assets/ProfileImage.png')
+          }
+          resizeMode="cover"
         />
         <View style={styles.NameandFollowers}>
           <Text style={styles.BrandName}>{brandName}</Text>
