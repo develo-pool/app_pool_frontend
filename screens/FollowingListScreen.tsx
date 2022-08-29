@@ -8,7 +8,7 @@ import theme from '../assets/theme';
 import FollowingList from '../components/setting/FollowingList';
 import {RootStackParamList} from './types';
 
-const LENGTH = 5;
+const LENGTH = 20;
 type FollowingListScreenRouteProp = RouteProp<
   RootStackParamList,
   'FollowingList'
