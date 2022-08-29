@@ -31,6 +31,7 @@ function ProfileScreen() {
   const {data: brandData} = useQuery('getBrand', () => getBrand(''), {
     refetchOnMount: 'always',
   });
+
   // const {data: brandMessages} = useQuery(
   //   'getMyProfile',
   //   () => getMyProfile(cursor),
@@ -39,21 +40,21 @@ function ProfileScreen() {
   //   },
   // );
 
-  const RenderItem = ({item}) => {
-    return (
-      <ProfileMessageContainer
-        key={item.postId}
-        postId={item.postId}
-        body={item.body}
-        messageLink={item.messageLink}
-        filePath={item.filePath}
-        writerDto={item.writerDto}
-        commentAble={item.commentAble}
-        isWriter={item.isWriter}
-        create_date={item.create_date}
-      />
-    );
-  };
+  // const RenderItem = ({item}) => {
+  //   return (
+  //     <ProfileMessageContainer
+  //       key={item.postId}
+  //       postId={item.postId}
+  //       body={item.body}
+  //       messageLink={item.messageLink}
+  //       filePath={item.filePath}
+  //       writerDto={item.writerDto}
+  //       commentAble={item.commentAble}
+  //       isWriter={item.isWriter}
+  //       create_date={item.create_date}
+  //     />
+  //   );
+  // };
 
   return (
     <>
