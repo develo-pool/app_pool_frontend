@@ -1,28 +1,66 @@
-import React from 'react';
-import {Text, View, StyleSheet, ScrollView, SafeAreaView} from 'react-native';
+import {RouteProp, useRoute} from '@react-navigation/native';
+import React, {useState} from 'react';
+import {Text, View, StyleSheet, SafeAreaView, FlatList} from 'react-native';
+import {useQuery} from 'react-query';
+import {getFollowingList} from '../api/follow';
+import {Following} from '../api/follow/types';
 import theme from '../assets/theme';
 import FollowingList from '../components/setting/FollowingList';
+import {RootStackParamList} from './types';
+
+const LENGTH = 5;
+type FollowingListScreenRouteProp = RouteProp<
+  RootStackParamList,
+  'FollowingList'
+>;
 
 function FollowingListScreen() {
+  const route = useRoute<FollowingListScreenRouteProp>();
+  const followingCount = route.params.followingCount;
+  const [cursor, setCursor] = useState<number>(0);
+  const [followingList, setFollowingList] = useState<Following[]>([]);
+  const [noMoreFollowing, setNoMoreFollowing] = useState<boolean>(false);
+  const {refetch} = useQuery(
+    'getFollowingList',
+    () => getFollowingList(cursor),
+    {
+      refetchOnMount: 'always',
+      onSuccess: (data: Following[]) => {
+        if (data.length < LENGTH) {
+          setNoMoreFollowing(true);
+        }
+        if (data.length !== 0) {
+          setFollowingList(followingList.concat(data));
+          setCursor(data[data.length - 1].brandUserId);
+        }
+      },
+    },
+  );
+  const RenderItem = ({item}) => {
+    return (
+      <FollowingList
+        brandName={item.brandUsername}
+        followers={item.userInfoDto.userFollowerCount}
+      />
+    );
+  };
   return (
     <SafeAreaView style={styles.Container}>
       <View style={styles.WholeFollowings}>
-        <Text style={styles.WholeFollowingsText}> 총 12명</Text>
+        <Text
+          style={styles.WholeFollowingsText}>{`총 ${followingCount}명`}</Text>
       </View>
-      <ScrollView>
-        <FollowingList brandName="푸르지오" followers={180000} />
-        <FollowingList brandName="Britney" followers={345} />
-        <FollowingList brandName="김삿갓" followers={410000} />
-        <FollowingList brandName="Blue" followers={870} />
-        <FollowingList brandName="Jack" followers={3210} />
-        <FollowingList brandName="Isaac" followers={22} />
-        <FollowingList brandName="푸르지오" followers={180000} />
-        <FollowingList brandName="Britney" followers={345} />
-        <FollowingList brandName="김삿갓" followers={410000} />
-        <FollowingList brandName="Blue" followers={870} />
-        <FollowingList brandName="Jack" followers={3210} />
-        <FollowingList brandName="Isaac" followers={22} />
-      </ScrollView>
+      <FlatList
+        data={followingList}
+        renderItem={RenderItem}
+        showsVerticalScrollIndicator={false}
+        onEndReached={() => {
+          if (!noMoreFollowing) {
+            refetch();
+          }
+        }}
+        onEndReachedThreshold={0.6}
+      />
     </SafeAreaView>
   );
 }
