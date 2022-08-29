@@ -42,6 +42,8 @@ function FollowingListScreen() {
         brandName={item.brandUsername}
         followers={item.userInfoDto.userFollowerCount}
         source={item.brandProfileImage}
+        brandUserId={item.brandUserId}
+        poolUserId={item.poolUserId}
       />
     );
   };

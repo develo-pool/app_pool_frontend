@@ -1,19 +1,39 @@
+import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {Image, Text, Pressable, View, StyleSheet} from 'react-native';
 // import FollowButton from '../profile/FollowButton';
 import theme from '../../assets/theme';
+import {RootStackNavigationProp} from '../../screens/types';
 
 interface Props {
   followers: number;
   brandName: string;
   source: string;
+  brandUserId: number;
+  poolUserId: number;
   onPress?: any;
 }
 
-function FollowingList({brandName, followers, source}: Props) {
+function FollowingList({
+  brandName,
+  followers,
+  source,
+  brandUserId,
+  poolUserId,
+}: Props) {
+  // const route = useRoute<SignUpScreenRouteProp>();
+  // const current = route.params.current;
+  const navigation = useNavigation<RootStackNavigationProp>();
   return (
     <>
-      <Pressable style={styles.FollowingsContainer}>
+      <Pressable
+        style={styles.FollowingsContainer}
+        onPress={() =>
+          navigation.navigate('BrandProfile', {
+            brandUserId: brandUserId,
+            poolUserId: poolUserId,
+          })
+        }>
         <Image
           style={styles.BrandProfileImage}
           source={
