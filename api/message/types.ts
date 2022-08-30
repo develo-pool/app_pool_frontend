@@ -28,4 +28,5 @@ export interface Message {
   commentAble: boolean;
   isWriter: boolean;
   create_date: string;
+  commentCount: number;
 }

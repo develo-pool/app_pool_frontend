@@ -16,7 +16,7 @@ import MessageImgContainer from './MessageImgContainer';
 import {useNavigation} from '@react-navigation/native';
 import {RootStackNavigationProp} from '../../screens/types';
 
-function ProfileMessageContainer(detailmessage: Message) {
+function BrandProfileMessageContainer(detailmessage: Message) {
   const Month = detailmessage.create_date.substring(5, 7);
   const Day = detailmessage.create_date.substring(8, 10);
   const navigation = useNavigation<RootStackNavigationProp>();
@@ -65,13 +65,6 @@ function ProfileMessageContainer(detailmessage: Message) {
           <Text style={styles.messageDate}>
             {Month}월 {Day}일
           </Text>
-          <Icon
-            name="messenger-outline"
-            size={14}
-            color={theme.colors.Grey40}
-            style={styles.commentIcon}
-          />
-          <Text style={styles.commentsCount}>{detailmessage.commentCount}</Text>
         </View>
       </View>
     </Pressable>
@@ -148,4 +141,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProfileMessageContainer;
+export default BrandProfileMessageContainer;

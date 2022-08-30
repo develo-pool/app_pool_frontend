@@ -8,21 +8,18 @@ import {
   FlatList,
 } from 'react-native';
 import ProfileHeader from '../components/profile/ProfileHeader';
+import ProfileMessageContainer from '../components/profile/ProfileMessageContainer';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import theme from '../assets/theme';
 import {useNavigation} from '@react-navigation/native';
 import {useQuery} from 'react-query';
 import {RootStackNavigationProp} from './types';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import ProfileMessageContainer from '../components/profile/ProfileMessageContainer';
 import {Message} from '../api/message/types';
 import {getMyProfile} from '../api/profile';
-// import {useParams} from 'react-router-dom';
 
 const LENGTH = 10;
 function ProfileScreen() {
-  // const {brandId = '0'} = useParams();
-  // const id = parseInt(brandId, 10);
   const navigation = useNavigation<RootStackNavigationProp>();
   const [loadMessageList, setLoadMessageList] = useState<Message[]>([]);
   const [cursor, setCursor] = useState<number>(0);
@@ -56,6 +53,7 @@ function ProfileScreen() {
         commentAble={item.commentAble}
         isWriter={item.isWriter}
         create_date={item.create_date}
+        commentCount={item.commentCount}
       />
     );
   };
