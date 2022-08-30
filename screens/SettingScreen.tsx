@@ -11,7 +11,7 @@ import {
   Linking,
   ActivityIndicator,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useIsFocused} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 import {useQuery} from 'react-query';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -32,11 +32,16 @@ function SettingScreen() {
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
   const navigation = useNavigation<RootStackNavigationProp>();
+  const isFocused = useIsFocused();
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.auth.user);
-  const {data: userData} = useQuery('getUserResult', () => getUser(), {
-    refetchOnMount: 'always',
-  });
+  const {data: userData, refetch: userRefetch} = useQuery(
+    'getUserResult',
+    () => getUser(),
+    {
+      refetchOnMount: true,
+    },
+  );
   const id = '';
   const {data: brandData, refetch} = useQuery('getBrand', () => getBrand(id), {
     enabled: false,
@@ -48,7 +53,8 @@ function SettingScreen() {
   };
   useEffect(() => {
     user?.role === 'BRAND_USER' && refetch();
-  }, []); //eslint-disable-line react-hooks/exhaustive-deps
+    userRefetch();
+  }, [isFocused]); //eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>
