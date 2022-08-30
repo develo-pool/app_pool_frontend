@@ -63,10 +63,7 @@ function EditProfile() {
           <Text style={styles.CounterText}>{info.length}/200</Text>
         </View>
       </View>
-      <ScreenBottomButton
-        name="저장"
-        onPress={() => update({brandInfo: info})}
-      />
+      <ScreenBottomButton name="저장" onPress={() => update(info)} />
     </SafeAreaView>
   );
 }

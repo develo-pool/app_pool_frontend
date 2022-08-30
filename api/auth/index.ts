@@ -5,7 +5,6 @@ import {
   GetUserResult,
   LoginParams,
   SignUpParams,
-  UpdateNickNameParams,
   UpdatePasswordParams,
 } from './types';
 
@@ -57,10 +56,5 @@ export async function updatePassword(params: UpdatePasswordParams) {
 
 export async function checkMember(params: ChekMemberParams) {
   const response = await client.post<boolean>('/checkMember', params);
-  return response;
-}
-
-export async function updateNickname(params: UpdateNickNameParams) {
-  const response = await client.put('/user/update', params);
   return response;
 }

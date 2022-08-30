@@ -8,10 +8,12 @@ import Title from '../components/Title';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useNavigation} from '@react-navigation/native';
 import {SettingStackNavigationProp} from './types';
-import {getUser, nickNameExist, updateNickname} from '../api/auth';
+import {getUser, nickNameExist} from '../api/auth';
+import {updateNickname} from '../api/profile';
 import {useMutation, useQuery} from 'react-query';
 import {CheckNickName} from '../components/auth/Validation';
 import ScreenBottomButton from './../components/ScreenBottomButton';
+import {AxiosError} from 'axios';
 
 export interface EditUserProps {
   username: string;
@@ -25,7 +27,6 @@ function EditUserScreen() {
     nickName: '',
     nickNameChecked: undefined,
   });
-
   const {data: userData} = useQuery('getUserResult', () => getUser(), {
     refetchOnMount: 'always',
   });
@@ -46,6 +47,9 @@ function EditUserScreen() {
       console.log('Success!!');
       console.log(form.nickName);
       navigation.goBack();
+    },
+    onError: (e: AxiosError) => {
+      console.log(e.config);
     },
   });
 
@@ -105,7 +109,7 @@ function EditUserScreen() {
       </View>
       <ScreenBottomButton
         name="저장"
-        onPress={() => updateNickName({nickName: form.nickName})}
+        onPress={() => updateNickName(form.nickName)}
       />
     </SafeAreaView>
   );
