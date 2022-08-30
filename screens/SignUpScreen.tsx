@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {SafeAreaView, TouchableOpacity} from 'react-native';
+import {TouchableOpacity} from 'react-native';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {RootStackNavigationProp, RootStackParamList} from './types';
 import MainContainer from '../components/MainContainer';
@@ -8,7 +8,6 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import SignUpForm from '../components/auth/SignUpForm';
 import useSignUp from '../hooks/useSignUp';
 import SignUpScreenBottomButton from '../components/auth/SignUpScreenBottomButton';
-import FirstForm from '../components/auth/FirstForm';
 
 const TOTAL = 4;
 
@@ -37,7 +36,6 @@ function SignUpScreen() {
   const route = useRoute<SignUpScreenRouteProp>();
   const current = route.params.current;
   const navigation = useNavigation<RootStackNavigationProp>();
-  const [valid, setValid] = useState(0)
 
   useEffect(() => {
     navigation.setOptions({
@@ -114,22 +112,6 @@ function SignUpScreen() {
     });
   };
 
-  const FormValid = (FirstFormValid, SecondFormValid, ThirdFormValid) => {
-    console.log(FirstFormValid, SecondFormValid, ThirdFormValid);
-    // if (FirstFormValid && SecondFormValid && ThirdFormValid) {
-    //   setValid(3);
-    // } else if (FirstFormValid && SecondFormValid) {
-    //   setValid(2);
-    // } else if (FirstFormValid) {
-    //   setValid(1);
-    // } else {
-    //   return ;
-    // }
-  };
-  // useEffect(()=>{
-
-  // }, [current])
-
   return (
     <>
       <MainContainer type={current < 2 ? 'wide' : undefined}>
@@ -141,15 +123,12 @@ function SignUpScreen() {
           setForm={setForm}
         />
       </MainContainer>
-      <SafeAreaView>
-        <SignUpScreenBottomButton
-          current={current}
-          form={form}
-          onPress={onPress}
-          signUpLoading={signUpLoading}
-          FormValid={FormValid}
-        />
-      </SafeAreaView>
+      <SignUpScreenBottomButton
+        current={current}
+        form={form}
+        onPress={onPress}
+        signUpLoading={signUpLoading}
+      />
     </>
   );
 }
