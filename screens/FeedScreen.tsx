@@ -124,8 +124,6 @@ function FeedScreen() {
     feedRefetch();
   }, [feedRefetch]);
 
-  console.log(cursor)
-
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
