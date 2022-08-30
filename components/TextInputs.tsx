@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     fontFamily: theme.fontFamily.Pretendard,
     fontSize: theme.fontSize.P1,
     minHeight: 46,
-    minWidth: 220,
+    width: '88%',
   },
   default: {
     backgroundColor: theme.colors.White,

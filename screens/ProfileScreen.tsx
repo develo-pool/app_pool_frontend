@@ -81,15 +81,14 @@ function ProfileScreen() {
             <Text style={styles.MessageNull}>등록된 메시지가 없습니다.</Text>
           </View>
         )}
-
-        <View style={styles.createButtonLayout}>
-          <TouchableOpacity
-            style={styles.CreateMessageButton}
-            onPress={() => navigation.navigate('CreateMessage')}>
-            <Icon name="border-color" size={24} style={styles.CreateMessage} />
-          </TouchableOpacity>
-        </View>
       </SafeAreaView>
+      <View style={styles.createButtonLayout}>
+        <TouchableOpacity
+          style={styles.CreateMessageButton}
+          onPress={() => navigation.navigate('CreateMessage')}>
+          <Icon name="border-color" size={24} style={styles.CreateMessage} />
+        </TouchableOpacity>
+      </View>
     </>
   );
 }
