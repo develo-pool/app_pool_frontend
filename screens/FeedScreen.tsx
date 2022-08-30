@@ -127,15 +127,14 @@ function FeedScreen() {
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
-        <View>
-          <Hello name={userData?.nickName} />
-          <NowDate msgDate={yymmdd} />
-        </View>
-
         {isMessageLoading ? (
           <ActivityIndicator />
         ) : Messages.length === 0 ? (
           <>
+            <View>
+              <Hello name={userData?.nickName} />
+              <NowDate msgDate={yymmdd} />
+            </View>
             <View
               style={
                 Messages?.length === 0
@@ -152,7 +151,6 @@ function FeedScreen() {
         ) : (
           <FlatList
             data={Messages}
-            style={styles.container}
             renderItem={RenderItem}
             showsVerticalScrollIndicator={false}
             onEndReached={() => {
@@ -162,6 +160,12 @@ function FeedScreen() {
             }}
             onRefresh={onRefresh}
             refreshing={refreshing}
+            ListHeaderComponent={
+              <View>
+                <Hello name={userData?.nickName} />
+                <NowDate msgDate={yymmdd} />
+              </View>
+            }
           />
         )}
       </View>
