@@ -121,6 +121,7 @@ const styles = StyleSheet.create({
   },
   linkIcon: {
     marginHorizontal: 8,
+    color: theme.colors.Poolblue,
   },
   messageLink: {
     color: theme.colors.Poolblue,

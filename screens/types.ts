@@ -47,12 +47,12 @@ export type SettingStackParamList = {
 export type RootStackNavigationProp =
   NativeStackNavigationProp<RootStackParamList>;
 
-export type MainTabNatigationProp = CompositeNavigationProp<
+export type MainTabNavigationProp = CompositeNavigationProp<
   RootStackNavigationProp,
   BottomTabNavigationProp<MainTabParamList>
 >;
 
 export type SettingStackNavigationProp = CompositeNavigationProp<
-  MainTabNatigationProp,
+  MainTabNavigationProp,
   NativeStackNavigationProp<SettingStackParamList>
 >;

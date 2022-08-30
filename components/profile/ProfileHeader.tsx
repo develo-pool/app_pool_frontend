@@ -18,7 +18,7 @@ function ProfileHeader() {
         <>
           <View style={styles.ProfileLayout}>
             <View style={styles.ProfileContainer}>
-              <ProfileImageContainer />
+              <ProfileImageContainer isEditable={true} />
               <View style={styles.BrandInfo}>
                 <Text style={styles.BrandName}>{brandData.brandUsername}</Text>
                 <View style={styles.FollowerContainer}>

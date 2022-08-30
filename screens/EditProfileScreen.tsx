@@ -29,7 +29,7 @@ function EditProfile() {
     },
     onSuccess: () => {
       console.log('update Success!');
-      navigation.goBack();
+      navigation.navigate('Profile');
     },
   });
 
