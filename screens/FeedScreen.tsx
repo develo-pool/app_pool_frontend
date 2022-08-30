@@ -110,7 +110,7 @@ function FeedScreen() {
     if (isFocused) {
       feedRefetch();
     }
-  }, [isFocused, feedRefetch]);
+  }, [isFocused, feedRefetch, isMessageLoading]);
 
   // 스크롤이 끝에 인접하면 실행
   const onEndReached = () => {
@@ -124,15 +124,20 @@ function FeedScreen() {
     feedRefetch();
   }, [feedRefetch]);
 
+  console.log(cursor)
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
-        {Messages.length === 0 ? (
+        <View>
+          <Hello name={userData?.nickName} />
+          <NowDate msgDate={yymmdd} />
+        </View>
+
+        {isMessageLoading ? (
+          <ActivityIndicator/>
+        ) : Messages.length === 0 ? (
           <>
-            <View>
-              <Hello name={userData?.nickName} />
-              <NowDate msgDate={yymmdd} />
-            </View>
             <View
               style={
                 Messages?.length === 0
@@ -144,7 +149,6 @@ function FeedScreen() {
                 source={require('../assets/NoMessage.png')}
                 resizeMode="contain"
               />
-              {isMessageLoading && <ActivityIndicator />}
             </View>
           </>
         ) : (
@@ -161,12 +165,12 @@ function FeedScreen() {
             onEndReachedThreshold={0.6}
             onRefresh={onRefresh}
             refreshing={refreshing}
-            ListHeaderComponent={
-              <View>
-                <Hello name={userData?.nickName} />
-                <NowDate msgDate={yymmdd} />
-              </View>
-            }
+            // ListHeaderComponent={
+            //   <View>
+            //     <Hello name={userData?.nickName} />
+            //     <NowDate msgDate={yymmdd} />
+            //   </View>
+            // }
           />
         )}
       </View>
