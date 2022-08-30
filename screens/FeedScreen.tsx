@@ -120,7 +120,7 @@ function FeedScreen() {
   // 새로고침 실행
   const onRefresh = useCallback(() => {
     setRefreshing(true);
-    setCursor(0);
+    setCursor(cursor);
     feedRefetch();
   }, [feedRefetch]);
 
