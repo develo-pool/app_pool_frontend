@@ -11,11 +11,13 @@ function SignUpScreenBottomButton({
   form,
   onPress,
   signUpLoading,
+  FormValid,
 }: {
   current: number;
   form: SignUpScreenProps;
   onPress: () => void;
   signUpLoading: boolean;
+  FormValid: any;
 }) {
   const navigation = useNavigation<RootStackNavigationProp>();
 
@@ -31,6 +33,8 @@ function SignUpScreenBottomButton({
     form.privacyAgreement &&
     form.termAgreement
   );
+
+  FormValid(FirstFormValid, SecondFormValid, ThirdFormValid);
 
   switch (current) {
     case 0:
