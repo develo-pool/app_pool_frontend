@@ -33,6 +33,8 @@ export async function getAllBrand(params: number) {
 }
 
 export async function updateBrandInfo(params: string) {
-  const response = await client.put('/brand/update', params);
+  const response = await client.put('/brand/update', params, {
+    headers: {'Content-Type': 'text/plain'},
+  });
   return response.data.brandInfo;
 }

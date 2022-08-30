@@ -9,6 +9,8 @@ export async function getMyProfile(params: number) {
 }
 
 export async function updateNickname(params: string) {
-  const response = await client.put('/user/update', params);
+  const response = await client.put('/user/update', params, {
+    headers: {'Content-Type': 'text/plain'},
+  });
   return response;
 }
