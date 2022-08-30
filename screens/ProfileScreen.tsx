@@ -37,7 +37,7 @@ function ProfileScreen() {
           setCursor(data[data.length - 1].postId);
         }
       },
-      refetchOnMount: true,
+      refetchOnMount: 'always',
     },
   );
 

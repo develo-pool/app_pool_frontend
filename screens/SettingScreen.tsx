@@ -34,9 +34,13 @@ function SettingScreen() {
   const navigation = useNavigation<RootStackNavigationProp>();
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.auth.user);
-  const {data: userData} = useQuery('getUserResult', () => getUser(), {
-    refetchOnMount: 'always',
-  });
+  const {data: userData, refetch: userRefetch} = useQuery(
+    'getUserResult',
+    () => getUser(),
+    {
+      refetchOnMount: 'always',
+    },
+  );
   const id = '';
   const {data: brandData, refetch} = useQuery('getBrand', () => getBrand(id), {
     enabled: false,
@@ -48,7 +52,8 @@ function SettingScreen() {
   };
   useEffect(() => {
     user?.role === 'BRAND_USER' && refetch();
-  }, []); //eslint-disable-line react-hooks/exhaustive-deps
+    userRefetch();
+  }, []);
 
   return (
     <>
