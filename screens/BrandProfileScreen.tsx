@@ -11,15 +11,14 @@ import {
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import theme from '../assets/theme';
 import ShareButton from '../components/profile/ShareButton';
-import ProfileMessageContainer from '../components/profile/ProfileMessageContainer';
+import BrandProfileMessageContainer from '../components/profile/BrandProfileMessageContainer';
+import BrandProfileHeader from './../components/profile/BrandProfileHeader';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {RootStackNavigationProp, RootStackParamList} from './types';
 import {useQuery} from 'react-query';
-import {useParams} from 'react-router-dom';
 import {Message} from '../api/message/types';
 import {getBrandProfile} from '../api/brand';
 import {getProfile} from '../api/profile';
-import BrandProfileHeader from './../components/profile/BrandProfileHeader';
 
 type BrandProfileScreenRouteProp = RouteProp<
   RootStackParamList,
@@ -33,9 +32,6 @@ function BrandProfileScreen() {
   const brandUserId = route.params.brandUserId;
   const poolUserId = route.params.poolUserId;
   const navigation = useNavigation<RootStackNavigationProp>();
-
-  const {brandId = '0'} = useParams();
-  const id = parseInt(brandId, 10);
   const [loadMessageList, setLoadMessageList] = useState<Message[]>([]);
   const [cursor, setCursor] = useState<number>(0);
   const [noMorePost, setNoMorePost] = useState<boolean>(false);
@@ -50,7 +46,7 @@ function BrandProfileScreen() {
 
   const {isLoading: isMessageLoading, refetch} = useQuery(
     'getProfile',
-    () => getProfile({userId: id, cursor: cursor}),
+    () => getProfile({userId: poolUserId, cursor: cursor}),
     {
       onSuccess: data => {
         if (data.length < LENGTH) {
@@ -64,22 +60,6 @@ function BrandProfileScreen() {
       refetchOnMount: true,
     },
   );
-
-  const RenderItem = ({item}) => {
-    return (
-      <ProfileMessageContainer
-        key={item.postId}
-        postId={item.postId}
-        body={item.body}
-        messageLink={item.messageLink}
-        filePath={item.filePath}
-        writerDto={item.writerDto}
-        commentAble={item.commentAble}
-        isWriter={item.isWriter}
-        create_date={item.create_date}
-      />
-    );
-  };
 
   useEffect(() => {
     navigation.setOptions({
@@ -102,6 +82,21 @@ function BrandProfileScreen() {
     });
   }, [navigation, brandUserId, brandData]);
 
+  const RenderItem = ({item}) => {
+    return (
+      <BrandProfileMessageContainer
+        key={item.postId}
+        postId={item.postId}
+        body={item.body}
+        messageLink={item.messageLink}
+        filePath={item.filePath}
+        writerDto={item.writerDto}
+        commentAble={item.commentAble}
+        isWriter={item.isWriter}
+        create_date={item.create_date}
+      />
+    );
+  };
   return (
     <SafeAreaView>
       {isMessageLoading ? (

@@ -20,6 +20,11 @@ export async function getBrand(params: string) {
   return response.data;
 }
 
+export async function getMyBrandProfile(params: string) {
+  const response = await client.get<BrandProfileResult>(`/brand/${params}`);
+  return response.data;
+}
+
 export async function getBrandProfile(params: number) {
   const response = await client.get<BrandProfileResult>(`/brand/${params}`);
   return response.data;

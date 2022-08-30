@@ -4,11 +4,11 @@ import ProfileImageContainer from './ProfileImageContainer';
 import ShareButton from './ShareButton';
 import theme from '../../assets/theme';
 import {useQuery} from 'react-query';
-import {getBrandProfile} from '../../api/brand';
+import {getMyBrandProfile} from '../../api/brand';
 import SetWelcomeMsg from './SetWelcomeMessage';
 
 function ProfileHeader() {
-  const {data: brandData} = useQuery('getBrand', () => getBrandProfile(''), {
+  const {data: brandData} = useQuery('getBrand', () => getMyBrandProfile(''), {
     refetchOnMount: 'always',
   });
 
@@ -91,12 +91,12 @@ const styles = StyleSheet.create({
   },
   IntroContainer: {
     justifyContent: 'center',
+    height: 24,
   },
   IntroText: {
     fontSize: theme.fontSize.P2,
     color: theme.colors.Grey50,
     fontWeight: theme.fontWeight.Light,
-    paddingTop: 4,
   },
 });
 

@@ -117,7 +117,6 @@ const styles = StyleSheet.create({
     fontSize: theme.fontSize.P2,
     color: theme.colors.Grey50,
     fontWeight: theme.fontWeight.Light,
-    paddingTop: 4,
   }, //소개글 텍스트
 });
 
