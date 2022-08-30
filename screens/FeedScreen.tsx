@@ -133,7 +133,7 @@ function FeedScreen() {
         </View>
 
         {isMessageLoading ? (
-          <ActivityIndicator/>
+          <ActivityIndicator />
         ) : Messages.length === 0 ? (
           <>
             <View
@@ -162,12 +162,6 @@ function FeedScreen() {
             }}
             onRefresh={onRefresh}
             refreshing={refreshing}
-            // ListHeaderComponent={
-            //   <View>
-            //     <Hello name={userData?.nickName} />
-            //     <NowDate msgDate={yymmdd} />
-            //   </View>
-            // }
           />
         )}
       </View>
