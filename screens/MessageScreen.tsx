@@ -8,6 +8,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Platform,
 } from 'react-native';
 import theme from '../assets/theme';
 import Commentcomponent from '../components/message/Commentcomponent';
@@ -216,7 +217,7 @@ function MessageScreen() {
             ) : (
               <View />
             )}
-            <KeyboardAvoidingView>
+            <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>
               <InputCommentContainer
                 commentText={commentText}
                 onChangeText={onChangeText}
