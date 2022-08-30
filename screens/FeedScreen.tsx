@@ -40,7 +40,6 @@ function FeedScreen() {
     'getAllMessage',
     () => getAllMessage(cursor),
     {
-      refetchOnMount: 'always',
       onSuccess: data => {
         if (data.length < LENGTH) {
           setNoMorePost(true);
@@ -49,9 +48,11 @@ function FeedScreen() {
           setMessages(data);
         } else if (data.length !== 0) {
           setMessages(Messages.concat(data));
-          setCursor(data[data.length - 1].postId);
         }
+        setCursor(data[data.length - 1].postId);
+        setRefreshing(false);
       },
+      refetchOnMount: true,
     },
   );
   const RenderItem = ({item}) => {
@@ -107,7 +108,7 @@ function FeedScreen() {
     if (isFocused) {
       feedRefetch();
     }
-  }, [isFocused, feedRefetch]);
+  }, [isFocused, feedRefetch, userData]);
 
   // 스크롤이 끝에 인접하면 실행
   const onEndReached = () => {
