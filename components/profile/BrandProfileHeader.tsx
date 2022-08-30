@@ -1,16 +1,24 @@
 import React from 'react';
 import {Text, StyleSheet, View, ActivityIndicator} from 'react-native';
-import ProfileImageContainer from './ProfileImageContainer';
-import ShareButton from './ShareButton';
 import theme from '../../assets/theme';
+import BrandProfileImageContainer from './BrandProfileImageContainer';
+import FollowButton from './FollowButton';
 import {useQuery} from 'react-query';
 import {getBrandProfile} from '../../api/brand';
-import SetWelcomeMsg from './SetWelcomeMessage';
 
-function ProfileHeader() {
-  const {data: brandData} = useQuery('getBrand', () => getBrandProfile(''), {
-    refetchOnMount: 'always',
-  });
+interface Props {
+  brandUserId: number;
+  poolUserId: number;
+}
+
+function BrandProfileHeader({brandUserId, poolUserId}: Props) {
+  const {data: brandData, refetch} = useQuery(
+    'getBrand',
+    () => getBrandProfile(brandUserId),
+    {
+      refetchOnMount: 'always',
+    },
+  );
 
   return (
     <View style={styles.ProfileSection}>
@@ -18,7 +26,9 @@ function ProfileHeader() {
         <>
           <View style={styles.ProfileLayout}>
             <View style={styles.ProfileContainer}>
-              <ProfileImageContainer />
+              <BrandProfileImageContainer
+                imgSource={{uri: brandData.brandProfileImage}}
+              />
               <View style={styles.BrandInfo}>
                 <Text style={styles.BrandName}>{brandData.brandUsername}</Text>
                 <View style={styles.FollowerContainer}>
@@ -29,15 +39,15 @@ function ProfileHeader() {
                 </View>
               </View>
             </View>
-            <ShareButton
-              brandUserName={brandData.brandUsername}
-              brandId={brandData.brandUserId}
+            <FollowButton
+              isFollowed={brandData?.userInfoDto.follow as boolean}
+              poolUserId={poolUserId}
+              refetch={refetch}
             />
           </View>
           <View style={styles.IntroContainer}>
             <Text style={styles.IntroText}>{brandData.brandInfo}</Text>
           </View>
-          <SetWelcomeMsg />
         </>
       ) : (
         <ActivityIndicator />
@@ -48,11 +58,10 @@ function ProfileHeader() {
 
 const styles = StyleSheet.create({
   ProfileSection: {
-    paddingTop: 24,
-    height: 220,
+    height: 164,
     backgroundColor: theme.colors.White,
     paddingHorizontal: 16,
-  },
+  }, //프로필 영역
   ProfileLayout: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -60,7 +69,18 @@ const styles = StyleSheet.create({
   ProfileContainer: {
     height: 120,
     flexDirection: 'row',
-  },
+  }, // 프로필 내 브랜드 정보가 담긴 영역
+  ProfileImgContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  }, //프로필 사진 영역
+  ImgSource: {
+    height: 90,
+    width: 90,
+    borderRadius: 45,
+    resizeMode: 'contain',
+  }, //프로필 사진
   BrandInfo: {
     justifyContent: 'center',
     marginLeft: 16,
@@ -90,14 +110,15 @@ const styles = StyleSheet.create({
     marginLeft: 4,
   },
   IntroContainer: {
+    // alignItems: 'center',
     justifyContent: 'center',
-  },
+  }, //프로필 내 소개글이 담긴 영역
   IntroText: {
     fontSize: theme.fontSize.P2,
     color: theme.colors.Grey50,
     fontWeight: theme.fontWeight.Light,
     paddingTop: 4,
-  },
+  }, //소개글 텍스트
 });
 
-export default ProfileHeader;
+export default BrandProfileHeader;

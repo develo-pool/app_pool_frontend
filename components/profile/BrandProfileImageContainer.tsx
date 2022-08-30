@@ -1,28 +1,15 @@
 import React from 'react';
-import {View, Image, TouchableOpacity, StyleSheet} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-import {RootStackNavigationProp} from '../../screens/types';
+import {View, Image, StyleSheet} from 'react-native';
 import theme from '../../assets/theme';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 
 interface Props {
-  isEditable: boolean;
   imgSource: any;
 }
 
-function BrandProfileImageContainer({isEditable, imgSource}: Props) {
-  const navigation = useNavigation<RootStackNavigationProp>();
-
+function BrandProfileImageContainer({imgSource}: Props) {
   return (
     <View style={styles.ProfileImgContainer}>
       <Image style={styles.ImgSource} source={imgSource} />
-      {isEditable && (
-        <TouchableOpacity
-          style={styles.EditProfile}
-          onPress={() => navigation.navigate('EditProfile')}>
-          <Icon name="edit" size={18} style={styles.EditButton} />
-        </TouchableOpacity>
-      )}
     </View>
   );
 }
