@@ -51,7 +51,6 @@ function FeedScreen() {
           setMessages(Messages.concat(data));
           setCursor(data[data.length - 1].postId);
         }
-        setRefreshing(false);
       },
     },
   );

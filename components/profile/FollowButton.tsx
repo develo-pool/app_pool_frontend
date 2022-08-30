@@ -32,7 +32,6 @@ function FollowButton({isFollowed, poolUserId, refetch}: Props) {
       refetch();
     },
   });
-  console.log(isFollow.current)
 
   return (
     <View style={styles.FollowButton}>
