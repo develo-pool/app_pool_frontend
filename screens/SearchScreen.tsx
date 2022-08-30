@@ -30,9 +30,8 @@ function SearchScreen() {
   const [refreshing, setRefreshing] = useState(false);
   const onChangeText = (payload: string) => setSearchText(payload);
   const {
-    data: allBrandData,
     isLoading: isBrandLoading,
-    refetch,
+    refetch:refetch,
   } = useQuery('getAllBrand', () => getAllBrand(cursor), {
     refetchOnMount: 'always',
     onSuccess: data => {
@@ -99,7 +98,6 @@ function SearchScreen() {
       />
     );
   };
-  console.log(searchFilter)
 
   return (
     <SafeAreaView style={styles.safeArea}>
