@@ -21,7 +21,7 @@ function ScreenBottomButton({
   isLoading?: boolean;
 }) {
   return (
-    <SafeAreaView>
+    <SafeAreaView style={enabled ? styles.enabled : styles.disabled}>
       <Pressable
         onPress={onPress}
         disabled={!enabled}

@@ -31,7 +31,6 @@ function SignUpScreenBottomButton({
     form.privacyAgreement &&
     form.termAgreement
   );
-
   switch (current) {
     case 0:
       return (
