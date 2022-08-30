@@ -43,7 +43,11 @@ function FollowButton({isFollowed, poolUserId, refetch}: Props) {
             : (onPressFollow(poolUserId),
               sendWelcomeMessage({pool_user_id: poolUserId, brand_id: 1}))
         }>
-        <Text style={[styles.FollowText, isFollow.current && styles.UnfollowedText]}>
+        <Text
+          style={[
+            styles.FollowText,
+            isFollow.current && styles.UnfollowedText,
+          ]}>
           {isFollow.current ? '팔로잉' : '팔로우'}
         </Text>
         {isFollow.current && (
