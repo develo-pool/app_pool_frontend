@@ -48,7 +48,7 @@ function SettingScreen() {
   };
   useEffect(() => {
     user?.role === 'BRAND_USER' && refetch();
-  }, []);
+  }, []); //eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>
