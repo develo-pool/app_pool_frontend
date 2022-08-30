@@ -97,7 +97,7 @@ function MessageScreen() {
         key={item.id}
         text={item.body}
         userName={item.writer?.nickName}
-        userProfileImg={item.writer?.username}
+        userProfileImg={item.writer?.brandProfileImage}
         writenCommentTime={item?.create_date}
       />
     );
@@ -217,7 +217,8 @@ function MessageScreen() {
             ) : (
               <View />
             )}
-            <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}>
+            <KeyboardAvoidingView
+              behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
               <InputCommentContainer
                 commentText={commentText}
                 onChangeText={onChangeText}
