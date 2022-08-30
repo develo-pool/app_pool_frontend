@@ -45,12 +45,10 @@ function FeedScreen() {
         if (data.length < LENGTH) {
           setNoMorePost(true);
         }
-        if (data.length !== 0) {
-          if (cursor === 0) {
-            setMessages(data);
-          } else {
-            setMessages(Messages.concat(data));
-          }
+        if (cursor === 0) {
+          setMessages(data);
+        } else if (data.length !== 0) {
+          setMessages(Messages.concat(data));
           setCursor(data[data.length - 1].postId);
         }
         setRefreshing(false);
@@ -110,7 +108,7 @@ function FeedScreen() {
     if (isFocused) {
       feedRefetch();
     }
-  }, [isFocused, feedRefetch, isMessageLoading]);
+  }, [isFocused, feedRefetch]);
 
   // 스크롤이 끝에 인접하면 실행
   const onEndReached = () => {
@@ -158,6 +156,7 @@ function FeedScreen() {
                 onEndReached();
               }
             }}
+            onEndReachedThreshold={0.5}
             onRefresh={onRefresh}
             refreshing={refreshing}
             ListHeaderComponent={

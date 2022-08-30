@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import {View, TouchableOpacity, Text, StyleSheet} from 'react-native';
 import theme from '../../assets/theme';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -7,12 +7,13 @@ import {sendSingleAlarm} from '../../api/fcm';
 import {useMutation} from 'react-query';
 
 interface Props {
-  isFollowed: boolean;
+  isFollowed?: boolean;
   poolUserId: number;
   refetch: any;
 }
 
 function FollowButton({isFollowed, poolUserId, refetch}: Props) {
+  const isFollow = useRef(isFollowed);
   const {mutate: sendWelcomeMessage} = useMutation(sendSingleAlarm, {
     onSuccess: () => {
       console.log('Success Alarm Send!');
@@ -21,29 +22,32 @@ function FollowButton({isFollowed, poolUserId, refetch}: Props) {
 
   const {mutate: onPressFollow} = useMutation(follow, {
     onSuccess: () => {
+      isFollow.current = true;
       refetch();
     },
   });
   const {mutate: onPressUnfollow} = useMutation(unfollow, {
     onSuccess: () => {
+      isFollow.current = false;
       refetch();
     },
   });
+  console.log(isFollow.current)
 
   return (
     <View style={styles.FollowButton}>
       <TouchableOpacity
-        style={[styles.ButtonFrame, isFollowed && styles.Unfollowed]}
+        style={[styles.ButtonFrame, isFollow.current && styles.Unfollowed]}
         onPress={() =>
-          isFollowed
+          isFollow.current
             ? onPressUnfollow(poolUserId)
             : (onPressFollow(poolUserId),
               sendWelcomeMessage({pool_user_id: poolUserId, brand_id: 1}))
         }>
-        <Text style={[styles.FollowText, isFollowed && styles.UnfollowedText]}>
-          {isFollowed ? '팔로잉' : '팔로우'}
+        <Text style={[styles.FollowText, isFollow.current && styles.UnfollowedText]}>
+          {isFollow.current ? '팔로잉' : '팔로우'}
         </Text>
-        {isFollowed && (
+        {isFollow.current && (
           <Icon name="check-circle" size={12} style={styles.Checked} />
         )}
       </TouchableOpacity>

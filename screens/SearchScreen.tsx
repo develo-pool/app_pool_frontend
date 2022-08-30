@@ -29,26 +29,26 @@ function SearchScreen() {
   const [searchText, setSearchText] = useState('');
   const [refreshing, setRefreshing] = useState(false);
   const onChangeText = (payload: string) => setSearchText(payload);
-  const {
-    isLoading: isBrandLoading,
-    refetch:refetch,
-  } = useQuery('getAllBrand', () => getAllBrand(cursor), {
-    refetchOnMount: 'always',
-    onSuccess: data => {
-      if (data.length < LENGTH) {
-        setNoMoreBrand(true);
-      }
-      if (data.length !== 0) {
-        if (cursor === 0) {
-          setBrands(data);
-        } else {
-          setBrands(Brands.concat(data));
+  const {isLoading: isBrandLoading, refetch} = useQuery(
+    'getAllBrand',
+    () => getAllBrand(cursor),
+    {
+      refetchOnMount: 'always',
+      onSuccess: (data: AllBrandResult[]) => {
+        if (data.length < LENGTH) {
+          setNoMoreBrand(true);
         }
-        setCursor(data[data.length - 1].brandUserId);
-      }
-      setRefreshing(false);
+        if (data.length !== 0) {
+          if (cursor === 0) {
+            setBrands(data);
+          } else {
+            setBrands(Brands.concat(data));
+          }
+          setCursor(data[data.length - 1].brandUserId);
+        }
+      },
     },
-  });
+  );
   const onEndReached = () => {
     if (!noMoreBrand) {
       refetch();
@@ -56,7 +56,7 @@ function SearchScreen() {
   };
   const onRefresh = useCallback(() => {
     setRefreshing(true);
-    setCursor(cursor);
+    setCursor(0);
     refetch();
   }, [refetch]);
   useEffect(() => {
