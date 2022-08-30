@@ -162,7 +162,6 @@ function FeedScreen() {
                 onEndReached();
               }
             }}
-            onEndReachedThreshold={0.6}
             onRefresh={onRefresh}
             refreshing={refreshing}
             // ListHeaderComponent={
