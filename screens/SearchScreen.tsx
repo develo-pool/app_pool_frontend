@@ -70,6 +70,7 @@ function SearchScreen() {
     refetch();
     setRefreshing(false);
   }, [refetch]);
+
   useEffect(() => {
     onRefresh();
     // onMount();
@@ -82,6 +83,7 @@ function SearchScreen() {
     );
     // refetch();
   }, [refetch, isFocused, searchText, Brands, onRefresh]);
+
   const RenderRecommandItem = ({item}) => {
     return (
       <RecommandBrandUserContainer
