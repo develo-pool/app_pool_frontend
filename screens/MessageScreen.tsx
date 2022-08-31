@@ -210,7 +210,10 @@ function MessageScreen() {
             )}
           </View>
         ) : (
-          <View style={styles.spacebetween}>
+          <KeyboardAvoidingView
+            style={styles.spacebetween}
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            keyboardVerticalOffset={90}>
             {!messageData?.commentAble ? (
               commentData ? (
                 <Commentcomponent
@@ -227,16 +230,14 @@ function MessageScreen() {
             ) : (
               <View />
             )}
-            <KeyboardAvoidingView
-              behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-              <InputCommentContainer
-                commentText={commentText}
-                onChangeText={onChangeText}
-                commentAble={messageData?.commentAble}
-                addComments={onPress}
-              />
-            </KeyboardAvoidingView>
-          </View>
+
+            <InputCommentContainer
+              commentText={commentText}
+              onChangeText={onChangeText}
+              commentAble={messageData?.commentAble}
+              addComments={onPress}
+            />
+          </KeyboardAvoidingView>
         )}
       </View>
     </SafeAreaView>
