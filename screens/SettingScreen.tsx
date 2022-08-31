@@ -30,7 +30,10 @@ import {getBrand} from '../api/brand';
 
 function SettingScreen() {
   const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+  const toggleSwitch = () => {
+    setIsEnabled(previousState => !previousState);
+    Linking.openSettings();
+  };
   const navigation = useNavigation<RootStackNavigationProp>();
   const isFocused = useIsFocused();
   const dispatch = useDispatch();
