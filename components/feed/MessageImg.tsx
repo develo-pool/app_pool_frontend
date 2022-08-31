@@ -15,11 +15,12 @@ function MessageImg({messageImg}: Props) {
       setHeight(h * ((width - 74) / w));
     });
   }
+  console.log(messageImg)
 
   return (
     <Image
       style={styles.messageImg}
-      source={{uri: messageImg !== '' ? messageImg : undefined, height}}
+      source={{uri: messageImg, height}}
       resizeMode="contain"
     />
   );

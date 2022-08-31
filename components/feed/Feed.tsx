@@ -75,7 +75,7 @@ function Feed(message: Message) {
           ) : (
             <MessageText messageText={`${message.body}`} />
           )}
-          {message.filePath === '' ? (
+          {message.filePath === null ? (
             ''
           ) : (
             <MessageImg messageImg={`${message.filePath}`} />
