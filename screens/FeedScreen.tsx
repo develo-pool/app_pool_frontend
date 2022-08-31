@@ -17,6 +17,8 @@ import {getAllMessage} from '../api/message/index';
 import {Message} from '../api/message/types';
 import {useIsFocused} from '@react-navigation/native';
 
+//What about here?
+
 const LENGTH = 10;
 
 function FeedScreen() {
