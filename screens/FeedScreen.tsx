@@ -1,3 +1,4 @@
+import React, {useCallback, useEffect, useState} from 'react';
 import {
   View,
   StyleSheet,
@@ -6,26 +7,13 @@ import {
   FlatList,
   ActivityIndicator,
 } from 'react-native';
-import React, {
-  useCallback,
-  useEffect,
-  // useCallback,
-  useState,
-} from 'react';
-// import {useIsFocused} from '@react-navigation/native';
 import Feed from '../components/feed/Feed';
 import theme from '../assets/theme';
 import NowDate from '../components/feed/NowDate';
 import Hello from '../components/feed/Hello';
 import {getUser} from '../api/auth';
-import {
-  useQuery,
-  // , useMutation
-} from 'react-query';
+import {useQuery} from 'react-query';
 import {getAllMessage} from '../api/message/index';
-// import messaging from '@react-native-firebase/messaging';
-// import {useAsyncStorage} from '@react-native-async-storage/async-storage';
-// import {sendFCMToken} from '../api/fcm';
 import {Message} from '../api/message/types';
 import {useIsFocused} from '@react-navigation/native';
 
@@ -74,29 +62,6 @@ function FeedScreen() {
   const {data: userData} = useQuery('getUserResult', () => getUser(), {
     refetchOnMount: 'always',
   });
-  // const {mutate: sendToken} = useMutation(sendFCMToken, {
-  //   onSuccess: () => {
-  //     console.log('Success!');
-  //   },
-  // });
-
-  // const {getItem: getFcmItem, setItem: setFcmItem} =
-  //   useAsyncStorage('fcmToken');
-
-  // const getFcmToken = useCallback(async () => {
-  //   const fcmFS = await getFcmItem();
-  //   const fcmToken = await messaging().getToken();
-  //   if (fcmFS !== fcmToken) {
-  //     setFcmItem(fcmToken); // 회원가입, 로그인할 때 활용
-  //   }
-  //   console.log('🚒fcm token', fcmToken);
-  //   sendToken(fcmToken);
-  // }, [getFcmItem, setFcmItem, sendToken]);
-  // useEffect(() => {
-  //   messaging().requestPermission();
-  //   messaging().registerDeviceForRemoteMessages();
-  //   getFcmToken();
-  // }, [getFcmToken]);
 
   const nowYear = new Date().getFullYear();
   const nowMonth = new Date().getMonth() + 1;
