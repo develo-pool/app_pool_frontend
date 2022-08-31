@@ -67,6 +67,16 @@ function Feed(message: Message) {
       <TouchableOpacity
         onPress={() =>
           navigation.navigate('Message', {detail: message.postId})
+          // navigation.reset({
+          //   routes: [
+          //     {
+          //       name: 'Message',
+          //       params: {
+          //         detail: message.postId,
+          //       },
+          //     },
+          //   ],
+          // })
         }>
         <View style={styles.feed}>
           {/* 메시지의 구성에 따라 각각 다른 UI를 출력 */}

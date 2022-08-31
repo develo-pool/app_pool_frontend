@@ -15,7 +15,6 @@ function MessageImg({messageImg}: Props) {
       setHeight(h * ((width - 74) / w));
     });
   }
-  console.log(messageImg)
 
   return (
     <Image

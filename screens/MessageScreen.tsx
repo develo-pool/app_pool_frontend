@@ -54,7 +54,11 @@ function MessageScreen() {
       headerTitle: '',
       headerLeft: () => (
         <TouchableOpacity
-          onPress={() => navigation.dispatch(CommonActions.goBack())}>
+          onPress={
+            () => 
+            navigation.dispatch(CommonActions.goBack())
+            // navigation.reset({routes: [{name: "MainTab"}]})
+          }>
           <Icon name="arrow-back" size={24} color="black" />
         </TouchableOpacity>
       ),
@@ -128,6 +132,7 @@ function MessageScreen() {
     commentRefetch,
     userData?.role,
     userData?.username,
+    useIsFocused,
   ]);
 
   const onPress = async () => {
