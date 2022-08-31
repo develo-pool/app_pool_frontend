@@ -98,7 +98,7 @@ function BrandProfileScreen() {
     );
   };
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <SafeAreaView>
       {isMessageLoading ? (
         <View style={styles.Message}>
           <ActivityIndicator />
@@ -129,9 +129,6 @@ function BrandProfileScreen() {
 }
 
 const styles = StyleSheet.create({
-  safeArea: {
-    backgroundColor: theme.colors.White,
-  },
   rotate: {
     transform: [{rotate: '270deg'}],
   },
