@@ -1,17 +1,17 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {
   Text,
   View,
   StyleSheet,
   Pressable,
   Image,
-  Switch,
+  // Switch,
   ScrollView,
   SafeAreaView,
   Linking,
   ActivityIndicator,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useIsFocused} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 import {useQuery} from 'react-query';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -27,16 +27,33 @@ import {logout} from '../slices/auth';
 import authStorage from '../storages/authStorage';
 import {getUser} from '../api/auth';
 import {getBrand} from '../api/brand';
+// import {
+//   check,
+//   request,
+//   PERMISSIONS,
+//   RESULTS,
+//   checkNotifications,
+// } from 'react-native-permissions';
 
 function SettingScreen() {
-  const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+  // const notificationStatus = checkNotifications();
+
+  // const [isEnabled, setIsEnabled] = useState(false);
+  // const toggleSwitch = () => {
+  //   setIsEnabled(previousState => !previousState);
+  //   Linking.openSettings();
+  // };
   const navigation = useNavigation<RootStackNavigationProp>();
+  const isFocused = useIsFocused();
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.auth.user);
-  const {data: userData} = useQuery('getUserResult', () => getUser(), {
-    refetchOnMount: 'always',
-  });
+  const {data: userData, refetch: userRefetch} = useQuery(
+    'getUserResult',
+    () => getUser(),
+    {
+      refetchOnMount: true,
+    },
+  );
   const id = '';
   const {data: brandData, refetch} = useQuery('getBrand', () => getBrand(id), {
     enabled: false,
@@ -48,7 +65,8 @@ function SettingScreen() {
   };
   useEffect(() => {
     user?.role === 'BRAND_USER' && refetch();
-  }, []); //eslint-disable-line react-hooks/exhaustive-deps
+    userRefetch();
+  }, [isFocused]); //eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>
@@ -117,9 +135,11 @@ function SettingScreen() {
             />
           )}
           <>
-            <View style={styles.SeperatedSets}>
+            <Pressable
+              style={styles.SeperatedSets}
+              onPress={() => Linking.openSettings()}>
               <Text style={styles.NotiText}>알림 수신</Text>
-              <Switch
+              {/* <Switch
                 trackColor={{
                   false: theme.colors.Grey40,
                   true:
@@ -131,8 +151,13 @@ function SettingScreen() {
                 ios_backgroundColor="#3e3e3e"
                 onValueChange={toggleSwitch}
                 value={isEnabled}
+              /> */}
+              <Icon
+                name="arrow-forward-ios"
+                size={14}
+                style={styles.RightArrow}
               />
-            </View>
+            </Pressable>
             <SetArticle
               title="회원정보 수정"
               onPress={() => navigation.navigate('EditUser')}
@@ -235,7 +260,8 @@ const styles = StyleSheet.create({
     marginTop: 8,
     marginBottom: 7,
     paddingLeft: 24,
-    paddingRight: 16,
+    // paddingRight: 16,
+    paddingRight: 20,
     flexDirection: 'row',
     backgroundColor: 'white',
     alignItems: 'center',
@@ -246,6 +272,9 @@ const styles = StyleSheet.create({
     color: theme.colors.Grey60,
     fontSize: 14,
     fontWeight: '700',
+  },
+  RightArrow: {
+    color: theme.colors.Black,
   },
   Logout: {
     fontFamily: theme.fontFamily.Pretendard,

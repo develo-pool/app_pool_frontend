@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
   Text,
   StyleSheet,
@@ -11,7 +11,7 @@ import ProfileHeader from '../components/profile/ProfileHeader';
 import ProfileMessageContainer from '../components/profile/ProfileMessageContainer';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import theme from '../assets/theme';
-import {useNavigation} from '@react-navigation/native';
+import {useIsFocused, useNavigation} from '@react-navigation/native';
 import {useQuery} from 'react-query';
 import {RootStackNavigationProp} from './types';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -22,9 +22,11 @@ const LENGTH = 10;
 function ProfileScreen() {
   const navigation = useNavigation<RootStackNavigationProp>();
   const [loadMessageList, setLoadMessageList] = useState<Message[]>([]);
+  const isFocused = useIsFocused();
   const [cursor, setCursor] = useState<number>(0);
   const [noMorePost, setNoMorePost] = useState<boolean>(false);
-  const {isLoading: isMessageLoading, refetch} = useQuery(
+  const [refreshing, setRefreshing] = useState(false);
+  const {isLoading: isMessageLoading, refetch: profileRefetch} = useQuery(
     'getMyProfile',
     () => getMyProfile(cursor),
     {
@@ -36,10 +38,23 @@ function ProfileScreen() {
           setLoadMessageList(loadMessageList.concat(data));
           setCursor(data[data.length - 1].postId);
         }
+        setRefreshing(false);
       },
       refetchOnMount: 'always',
     },
   );
+
+  useEffect(() => {
+    if (isFocused) {
+      profileRefetch();
+    }
+  }, [isFocused, profileRefetch]);
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    setCursor(0);
+    profileRefetch();
+  }, [profileRefetch]);
 
   const RenderItem = ({item}) => {
     return (
@@ -72,9 +87,11 @@ function ProfileScreen() {
             ListHeaderComponent={<ProfileHeader />}
             onEndReached={() => {
               if (!noMorePost) {
-                refetch();
+                profileRefetch();
               }
             }}
+            onRefresh={onRefresh}
+            refreshing={refreshing}
           />
         ) : (
           <View style={styles.Message}>
