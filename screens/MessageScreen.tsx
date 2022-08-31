@@ -154,6 +154,7 @@ function MessageScreen() {
               commentAble={messageData.commentAble}
               isWriter={messageData.isWriter}
               create_date={messageData.create_date}
+              commentCount={messageData.commentCount}
             />
           ) : (
             ''
