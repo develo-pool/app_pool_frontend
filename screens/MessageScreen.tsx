@@ -126,7 +126,15 @@ function MessageScreen() {
     } else if (messageData?.commentAble === false) {
       commentRefetch();
     }
-  }, [useIsFocused, detail]);
+  }, [
+    commentRefetch,
+    commentListrefetch,
+    messageData?.commentAble,
+    messageData?.writerDto?.username,
+    userData?.role,
+    userData?.username,
+    detail,
+  ]);
 
   const onPress = async () => {
     if (commentText === '') {

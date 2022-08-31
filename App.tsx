@@ -86,7 +86,7 @@ function App() {
   useEffect(() => {
     SplashScreen.hide();
   }, []);
-  
+
   // const {mutate: sendToken} = useMutation(sendFCMToken, {
   //   onSuccess: () => {
   //     console.log('Success!');
