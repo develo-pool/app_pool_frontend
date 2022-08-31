@@ -27,8 +27,18 @@ import {logout} from '../slices/auth';
 import authStorage from '../storages/authStorage';
 import {getUser} from '../api/auth';
 import {getBrand} from '../api/brand';
+import {
+  // check,
+  // request,
+  // PERMISSIONS,
+  // RESULTS,
+  checkNotifications,
+} from 'react-native-permissions';
 
 function SettingScreen() {
+  const notificationStatus = checkNotifications();
+  console.log(notificationStatus);
+
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => {
     setIsEnabled(previousState => !previousState);
