@@ -18,7 +18,7 @@ import {
   SendButton,
 } from '../components/create/CreateMessageComponents';
 import {useNavigation} from '@react-navigation/native';
-import {MainTabNatigationProp} from './types';
+import {MainTabNavigationProp} from './types';
 import {useQuery, useMutation} from 'react-query';
 import {getBrand} from '../api/brand';
 import {Asset, launchImageLibrary} from 'react-native-image-picker';
@@ -31,7 +31,7 @@ export interface CreateMessageProps {
 }
 
 function CreateMessageScreen() {
-  const navigation = useNavigation<MainTabNatigationProp>();
+  const navigation = useNavigation<MainTabNavigationProp>();
   const [form, setForm] = useState<CreateMessageProps>({
     messageBody: '',
     messageLink: '',
@@ -60,6 +60,7 @@ function CreateMessageScreen() {
               fileName: res.assets[0].fileName,
             },
           });
+          console.log(form.messageImage);
         }
       },
     );
@@ -72,6 +73,7 @@ function CreateMessageScreen() {
   const {mutate: create} = useMutation(createMessage, {
     onSuccess: () => {
       navigation.goBack();
+      console.log('Success!');
     },
   });
 
@@ -81,6 +83,7 @@ function CreateMessageScreen() {
     formData.append('messageLink', form.messageLink as string);
     formData.append('multipartFiles', form.messageImage as Blob);
     create(formData);
+    console.log(formData);
   }, [create, form]);
 
   const onChangeText = (prop: string) => (value: string) => {
@@ -232,9 +235,11 @@ const styles = StyleSheet.create({
     fontWeight: theme.fontWeight.Light,
   },
   UploadImage: {
-    width: 340,
+    maxWidth: '100%',
     height: 252,
     borderRadius: 5,
+    resizeMode: 'cover',
+    marginBottom: 8,
   },
   linkContainer: {
     flexDirection: 'row',
