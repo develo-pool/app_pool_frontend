@@ -1,5 +1,5 @@
 import {NavigationContainer} from '@react-navigation/native';
-import React, {useEffect, useCallback} from 'react';
+import React, {useEffect} from 'react';
 import {Alert} from 'react-native';
 import RootStack from './screens/RootStack';
 import {QueryClient, QueryClientProvider} from 'react-query';
