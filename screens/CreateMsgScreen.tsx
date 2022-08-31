@@ -60,7 +60,6 @@ function CreateMessageScreen() {
               fileName: res.assets[0].fileName,
             },
           });
-          console.log(form.messageImage);
         }
       },
     );
@@ -73,7 +72,6 @@ function CreateMessageScreen() {
   const {mutate: create} = useMutation(createMessage, {
     onSuccess: () => {
       navigation.goBack();
-      console.log('Success!');
     },
   });
 
@@ -83,7 +81,6 @@ function CreateMessageScreen() {
     formData.append('messageLink', form.messageLink as string);
     formData.append('multipartFiles', form.messageImage as Blob);
     create(formData);
-    console.log(formData);
   }, [create, form]);
 
   const onChangeText = (prop: string) => (value: string) => {
