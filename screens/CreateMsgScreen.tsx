@@ -73,7 +73,6 @@ function CreateMessageScreen() {
   const {mutate: create} = useMutation(createMessage, {
     onSuccess: () => {
       navigation.goBack();
-      console.log('Success!');
     },
     onError: (e: AxiosError) => {
       console.log(e.toJSON);

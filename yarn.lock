@@ -1364,7 +1364,7 @@
   resolved "https://registry.yarnpkg.com/@react-native-community/eslint-plugin/-/eslint-plugin-1.2.0.tgz#7d6d789ae8edf73dc9bed1246cd48277edea8066"
   integrity sha512-o6aam+0Ug1xGK3ABYmBm0B1YuEKfM/5kaoZO0eHbZwSpw9UzDX4G5y4Nx/K20FHqUmJHkZmLvOUFYwN4N+HqKA==
 
-"@react-native-firebase/app@^15.2.0":
+"@react-native-firebase/app@15.2.0":
   version "15.2.0"
   resolved "https://registry.yarnpkg.com/@react-native-firebase/app/-/app-15.2.0.tgz#b45a5d737be7ad60da26806b7b2f0020b5a97173"
   integrity sha512-vofl5Ixi+EsRbTJ7G9/S3JLeMXnXIvGoYX0I7dfxzDz9/hIonIzDN/rAttOwqgiJsldkWrbDyANJeAfIgF7McA==
@@ -1373,7 +1373,7 @@
     opencollective-postinstall "^2.0.1"
     superstruct "^0.6.2"
 
-"@react-native-firebase/auth@^15.2.0":
+"@react-native-firebase/auth@15.2.0":
   version "15.2.0"
   resolved "https://registry.yarnpkg.com/@react-native-firebase/auth/-/auth-15.2.0.tgz#ab3e1b801bfa259cdeb46a883f0dbc2985c9e2f5"
   integrity sha512-bHjZW3CCj0CNPUm0NaZB1jNRVhUydvBRGej/40mgXf/iiSmooFqgk9DbQq6HZrEJ+eo8NHoQMH38qJ/LIBz2rw==
@@ -7381,6 +7381,11 @@ react-native-image-picker@^4.8.4:
   version "4.8.4"
   resolved "https://registry.yarnpkg.com/react-native-image-picker/-/react-native-image-picker-4.8.4.tgz#ac52f1e265458e944664adf1dcd0a9ee408fe083"
   integrity sha512-Mjh2j/sddyolb16EpmprWzbtyeFvW8Xgzr/8WNi9d6bR2FC/kL78cY/a+7Yzujg5ZDtT1MWys+eWw/qtfwgGiw==
+
+react-native-permissions@^3.6.1:
+  version "3.6.1"
+  resolved "https://registry.yarnpkg.com/react-native-permissions/-/react-native-permissions-3.6.1.tgz#73adcc1cef8cd57a9ef167b4507405f4ff5749c4"
+  integrity sha512-fzPpPQXeD34inUccqtoResSwYubfrwUguP4qrVUUv8+KSMjYSaHGoS5HaIJLZHlN9gO+TvLJZ2L5ZljTsb6qnQ==
 
 react-native-push-notification@^8.1.1:
   version "8.1.1"

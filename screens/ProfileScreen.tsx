@@ -75,7 +75,7 @@ function ProfileScreen() {
 
   return (
     <>
-      <SafeAreaView>
+      <SafeAreaView style={styles.safeArea}>
         {isMessageLoading ? (
           <View style={styles.Message}>
             <ActivityIndicator />
@@ -111,6 +111,9 @@ function ProfileScreen() {
 }
 
 const styles = StyleSheet.create({
+  safeArea: {
+    backgroundColor: theme.colors.White,
+  },
   Message: {
     alignItems: 'center',
     paddingHorizontal: 16,

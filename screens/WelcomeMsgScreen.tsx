@@ -226,9 +226,11 @@ const styles = StyleSheet.create({
     fontWeight: theme.fontWeight.Light,
   },
   UploadImage: {
-    width: 340,
+    maxWidth: '100%',
     height: 252,
     borderRadius: 5,
+    resizeMode: 'cover',
+    marginBottom: 8,
   },
   linkContainer: {
     flexDirection: 'row',

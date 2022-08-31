@@ -1,11 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {
   Text,
   View,
   StyleSheet,
   Pressable,
   Image,
-  Switch,
+  // Switch,
   ScrollView,
   SafeAreaView,
   Linking,
@@ -27,10 +27,22 @@ import {logout} from '../slices/auth';
 import authStorage from '../storages/authStorage';
 import {getUser} from '../api/auth';
 import {getBrand} from '../api/brand';
+// import {
+//   check,
+//   request,
+//   PERMISSIONS,
+//   RESULTS,
+//   checkNotifications,
+// } from 'react-native-permissions';
 
 function SettingScreen() {
-  const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+  // const notificationStatus = checkNotifications();
+
+  // const [isEnabled, setIsEnabled] = useState(false);
+  // const toggleSwitch = () => {
+  //   setIsEnabled(previousState => !previousState);
+  //   Linking.openSettings();
+  // };
   const navigation = useNavigation<RootStackNavigationProp>();
   const isFocused = useIsFocused();
   const dispatch = useDispatch();
@@ -58,7 +70,7 @@ function SettingScreen() {
 
   return (
     <>
-      <SafeAreaView>
+      <SafeAreaView style={styles.safeArea}>
         <View style={styles.padding}>
           <AlertBox />
         </View>
@@ -123,9 +135,11 @@ function SettingScreen() {
             />
           )}
           <>
-            <View style={styles.SeperatedSets}>
+            <Pressable
+              style={styles.SeperatedSets}
+              onPress={() => Linking.openSettings()}>
               <Text style={styles.NotiText}>알림 수신</Text>
-              <Switch
+              {/* <Switch
                 trackColor={{
                   false: theme.colors.Grey40,
                   true:
@@ -137,8 +151,13 @@ function SettingScreen() {
                 ios_backgroundColor="#3e3e3e"
                 onValueChange={toggleSwitch}
                 value={isEnabled}
+              /> */}
+              <Icon
+                name="arrow-forward-ios"
+                size={14}
+                style={styles.RightArrow}
               />
-            </View>
+            </Pressable>
             <SetArticle
               title="회원정보 수정"
               onPress={() => navigation.navigate('EditUser')}
@@ -175,6 +194,9 @@ function SettingScreen() {
 }
 
 const styles = StyleSheet.create({
+  safeArea: {
+    backgroundColor: theme.colors.White,
+  },
   UserInfoContainer: {
     backgroundColor: theme.colors.White,
     height: 120,
@@ -238,7 +260,8 @@ const styles = StyleSheet.create({
     marginTop: 8,
     marginBottom: 7,
     paddingLeft: 24,
-    paddingRight: 16,
+    // paddingRight: 16,
+    paddingRight: 20,
     flexDirection: 'row',
     backgroundColor: 'white',
     alignItems: 'center',
@@ -249,6 +272,9 @@ const styles = StyleSheet.create({
     color: theme.colors.Grey60,
     fontSize: 14,
     fontWeight: '700',
+  },
+  RightArrow: {
+    color: theme.colors.Black,
   },
   Logout: {
     fontFamily: theme.fontFamily.Pretendard,
