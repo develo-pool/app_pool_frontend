@@ -44,7 +44,7 @@ function MessageScreen() {
   const [noMoreComment, setNoMoreComment] = useState<boolean>(false);
   const navigation = useNavigation<RootStackNavigationProp>();
   const {data: userData} = useQuery('getUserResult', () => getUser(), {
-    refetchOnMount: 'always',
+    refetchOnMount: true,
   });
   useEffect(() => {
     navigation.setOptions({
@@ -55,8 +55,7 @@ function MessageScreen() {
       headerLeft: () => (
         <TouchableOpacity
           onPress={
-            () => 
-            navigation.dispatch(CommonActions.goBack())
+            () => navigation.dispatch(CommonActions.goBack())
             // navigation.reset({routes: [{name: "MainTab"}]})
           }>
           <Icon name="arrow-back" size={24} color="black" />
@@ -70,8 +69,9 @@ function MessageScreen() {
     () => getMessage(detail),
     {
       onSuccess: () => {
-        messageRefetch;
+        messageRefetch();
       },
+      refetchOnMount: true,
     },
   );
   // const {data: allCommentData, refetch: allCommentRefetch} = useQuery(
@@ -126,14 +126,7 @@ function MessageScreen() {
     } else if (messageData?.commentAble === false) {
       commentRefetch();
     }
-  }, [
-    messageData,
-    commentListrefetch,
-    commentRefetch,
-    userData?.role,
-    userData?.username,
-    useIsFocused,
-  ]);
+  }, [useIsFocused, detail]);
 
   const onPress = async () => {
     if (commentText === '') {
@@ -141,7 +134,6 @@ function MessageScreen() {
     }
     writeComment({messageId: detail, body: commentText});
     setCommentText('');
-    // await messageRefetch();
   };
 
   return (
@@ -211,15 +203,19 @@ function MessageScreen() {
           </View>
         ) : (
           <View style={styles.spacebetween}>
-            {commentData ? (
-              <Commentcomponent
-                text={commentData.body}
-                userName={commentData.writer.nickName}
-                userProfileImg={
-                  commentData.writer.brandUserInfoDto.brandProfileImage
-                }
-                writenCommentTime={commentData.create_date}
-              />
+            {!messageData?.commentAble ? (
+              commentData ? (
+                <Commentcomponent
+                  text={commentData.body}
+                  userName={commentData.writer.nickName}
+                  userProfileImg={
+                    commentData.writer.brandUserInfoDto.brandProfileImage
+                  }
+                  writenCommentTime={commentData.create_date}
+                />
+              ) : (
+                <View />
+              )
             ) : (
               <View />
             )}
