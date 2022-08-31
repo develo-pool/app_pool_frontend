@@ -52,6 +52,7 @@ const styles = StyleSheet.create({
   feedOwnerUsername: {
     fontSize: theme.fontSize.P2,
     fontWeight: theme.fontWeight.Bold,
+    color: theme.colors.Black,
   },
   usernameContainer: {
     height: 21,

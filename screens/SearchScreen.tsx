@@ -1,9 +1,8 @@
-import React, {useState} from 'react';
+import React, {useState, useCallback, useEffect} from 'react';
 import {
   View,
   StyleSheet,
   SafeAreaView,
-  Text,
   FlatList,
   ActivityIndicator,
 } from 'react-native';
@@ -15,35 +14,54 @@ import SearchResultSubTitle from '../components/search/SearchResultSubTitle';
 import theme from '../assets/theme';
 import {useQuery} from 'react-query';
 import {getAllBrand} from '../api/brand/index';
-import {useEffect} from 'react';
 import {AllBrandResult} from '../api/brand/types';
+import {useIsFocused} from '@react-navigation/native';
 
 const LENGTH = 10;
 
 function SearchScreen() {
   const [cursor, setCursor] = useState<number>(0);
-  const [Messages, setMessages] = useState<AllBrandResult[]>([]);
+  const [Brands, setBrands] = useState<AllBrandResult[]>([]);
   const [noMoreBrand, setNoMoreBrand] = useState<boolean>(false);
   const [following, setFollowing] = useState(false);
+  const isFocused = useIsFocused();
   const changeFollowing = () => setFollowing(!following);
   const [searchText, setSearchText] = useState('');
+  const [refreshing, setRefreshing] = useState(false);
   const onChangeText = (payload: string) => setSearchText(payload);
-  const {
-    data: allBrandData,
-    isLoading: isBrandLoading,
-    refetch: brandRefetch,
-  } = useQuery('getAllBrand', () => getAllBrand(cursor), {
-    refetchOnMount: 'always',
-    onSuccess: data => {
-      if (data.length < LENGTH) {
-        setNoMoreBrand(true);
-      }
-      if (data.length !== 0) {
-        setMessages(Messages.concat(data));
-        setCursor(data[data.length - 1].brandUserId);
-      }
+  const {isLoading: isBrandLoading, refetch} = useQuery(
+    'getAllBrand',
+    () => getAllBrand(cursor),
+    {
+      refetchOnMount: 'always',
+      onSuccess: (data: AllBrandResult[]) => {
+        if (data.length < LENGTH) {
+          setNoMoreBrand(true);
+        }
+        if (data.length !== 0) {
+          if (cursor === 0) {
+            setBrands(data);
+          } else {
+            setBrands(Brands.concat(data));
+          }
+          setCursor(data[data.length - 1].brandUserId);
+        }
+      },
     },
-  });
+  );
+  const onEndReached = () => {
+    if (!noMoreBrand) {
+      refetch();
+    }
+  };
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    setCursor(0);
+    refetch();
+  }, [refetch]);
+  useEffect(() => {
+    refetch();
+  }, [refetch, isFocused]);
   const RenderRecommandItem = ({item}) => {
     return (
       <RecommandBrandUserContainer
@@ -57,11 +75,11 @@ function SearchScreen() {
         brandUserId={item.brandUserId}
         poolUserId={item.poolUserId}
         isLoginUser={item.isLoginUser}
-        refetch={brandRefetch}
+        refetch={refetch}
       />
     );
   };
-  const searchFilter = allBrandData?.filter(brand =>
+  const searchFilter = Brands?.filter(brand =>
     brand.brandUsername.includes(`${searchText}`),
   );
   const RenderSearchItem = ({item}) => {
@@ -76,18 +94,10 @@ function SearchScreen() {
         brandUserId={item.brandUserId}
         poolUserId={item.poolUserId}
         isLoginUser={item.isLoginUser}
-        refetch={brandRefetch}
+        refetch={refetch}
       />
     );
   };
-  const onEndReached = () => {
-    if (!noMoreBrand) {
-      brandRefetch();
-    }
-  };
-  useEffect(() => {
-    brandRefetch();
-  }, [brandRefetch]);
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -108,6 +118,8 @@ function SearchScreen() {
                   onEndReached();
                 }}
                 onEndReachedThreshold={0.6}
+                onRefresh={onRefresh}
+                refreshing={refreshing}
                 ListHeaderComponent={
                   <SearchResultSubTitle searchCount={searchFilter?.length} />
                 }
@@ -117,15 +129,15 @@ function SearchScreen() {
               />
             ) : (
               <>
-                <SearchResultSubTitle searchCount={searchFilter?.length} />
+                {/* <SearchResultSubTitle searchCount={searchFilter?.length} />
                 <View style={styles.noSearchTextContainer}>
                   <Text style={styles.noSearchText}>검색 결과가 없습니다</Text>
-                </View>
+                </View> */}
               </>
             )
           ) : (
             <FlatList
-              data={Messages}
+              data={Brands}
               style={styles.flatList}
               renderItem={RenderRecommandItem}
               showsVerticalScrollIndicator={false}
@@ -133,6 +145,8 @@ function SearchScreen() {
                 onEndReached();
               }}
               onEndReachedThreshold={0.6}
+              onRefresh={onRefresh}
+              refreshing={refreshing}
               ListHeaderComponent={<RecommandSubTitle />}
               ListFooterComponent={
                 <>{isBrandLoading && <ActivityIndicator />}</>
