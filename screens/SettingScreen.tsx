@@ -70,7 +70,7 @@ function SettingScreen() {
 
   return (
     <>
-      <SafeAreaView>
+      <SafeAreaView style={styles.safeArea}>
         <View style={styles.padding}>
           <AlertBox />
         </View>
@@ -194,6 +194,9 @@ function SettingScreen() {
 }
 
 const styles = StyleSheet.create({
+  safeArea: {
+    backgroundColor: theme.colors.White,
+  },
   UserInfoContainer: {
     backgroundColor: theme.colors.White,
     height: 120,
