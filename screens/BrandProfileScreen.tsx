@@ -94,7 +94,6 @@ function BrandProfileScreen() {
         commentAble={item.commentAble}
         isWriter={item.isWriter}
         create_date={item.create_date}
-        commentCount={item.commentCount}
       />
     );
   };

@@ -18,7 +18,7 @@ import {
   SendButton,
 } from '../components/create/CreateMessageComponents';
 import {useNavigation} from '@react-navigation/native';
-import {MainTabNavigationProp} from './types';
+import {MainTabNatigationProp} from './types';
 import {useQuery, useMutation} from 'react-query';
 import {getBrand} from '../api/brand';
 import {Asset, launchImageLibrary} from 'react-native-image-picker';
@@ -31,7 +31,7 @@ export interface WelcomeMessageProps {
 }
 
 function WelcomeMessageScreen() {
-  const navigation = useNavigation<MainTabNavigationProp>();
+  const navigation = useNavigation<MainTabNatigationProp>();
   const [form, setForm] = useState<WelcomeMessageProps>({
     messageBody: '',
     messageLink: '',
@@ -226,11 +226,9 @@ const styles = StyleSheet.create({
     fontWeight: theme.fontWeight.Light,
   },
   UploadImage: {
-    maxWidth: '100%',
+    width: 340,
     height: 252,
     borderRadius: 5,
-    resizeMode: 'cover',
-    marginBottom: 8,
   },
   linkContainer: {
     flexDirection: 'row',

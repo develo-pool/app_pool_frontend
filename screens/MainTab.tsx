@@ -59,7 +59,6 @@ function MainTab() {
             tabBarIcon: ({color}) => (
               <Icon name="person" size={24} color={color} />
             ),
-            unmountOnBlur: true,
           }}
         />
       ) : null}
@@ -72,7 +71,6 @@ function MainTab() {
           tabBarIcon: ({color}) => (
             <Icon name="settings" size={24} color={color} />
           ),
-          unmountOnBlur: true,
         }}
       />
     </Tab.Navigator>

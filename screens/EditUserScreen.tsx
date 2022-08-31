@@ -59,7 +59,7 @@ function EditUserScreen() {
       <View style={styles.container}>
         <View style={styles.titleArea}>
           <Title title="회원정보 수정" isSmall={true} />
-          <Pressable onPress={() => navigation.pop()}>
+          <Pressable onPress={() => navigation.goBack()}>
             <Icon name="clear" size={24} color={theme.colors.Black} />
           </Pressable>
         </View>
