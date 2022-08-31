@@ -21,13 +21,15 @@ import {useNavigation} from '@react-navigation/native';
 import {MainTabNavigationProp} from './types';
 import {useQuery, useMutation} from 'react-query';
 import {getBrand} from '../api/brand';
-import {Asset, launchImageLibrary} from 'react-native-image-picker';
+import {launchImageLibrary} from 'react-native-image-picker';
 import {createMessage} from '../api/message';
+import {AxiosError} from 'axios';
+import {ImgAsset} from '../api/message/types';
 
 export interface CreateMessageProps {
   messageBody: string;
   messageLink?: string;
-  messageImage?: Asset | undefined;
+  messageImage?: ImgAsset | undefined;
 }
 
 function CreateMessageScreen() {
@@ -38,7 +40,6 @@ function CreateMessageScreen() {
     messageImage: undefined,
   });
   const [linkState, setLinkState] = useState(false);
-
   const onSelectImage = () => {
     launchImageLibrary(
       {
@@ -57,10 +58,9 @@ function CreateMessageScreen() {
             messageImage: {
               uri: res.assets[0].uri,
               type: res.assets[0].type,
-              fileName: res.assets[0].fileName,
+              name: res.assets[0].fileName,
             },
           });
-          console.log(form.messageImage);
         }
       },
     );
@@ -75,15 +75,16 @@ function CreateMessageScreen() {
       navigation.goBack();
       console.log('Success!');
     },
+    onError: (e: AxiosError) => {
+      console.log(e.toJSON);
+    },
   });
-
   const onSubmit = useCallback(() => {
     const formData = new FormData();
     formData.append('body', form.messageBody);
     formData.append('messageLink', form.messageLink as string);
     formData.append('multipartFiles', form.messageImage as Blob);
     create(formData);
-    console.log(formData);
   }, [create, form]);
 
   const onChangeText = (prop: string) => (value: string) => {
@@ -92,7 +93,6 @@ function CreateMessageScreen() {
       [prop]: value,
     });
   };
-
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.UpperArea}>
@@ -119,7 +119,6 @@ function CreateMessageScreen() {
             />
           </View>
         </View>
-
         <TextInput
           style={styles.InputMessage}
           value={form.messageBody}
@@ -129,14 +128,12 @@ function CreateMessageScreen() {
           multiline={true}
           placeholderTextColor={'rgba(0, 0, 0, 0.2)'}
         />
-
         {form.messageImage && (
           <Image
             style={styles.UploadImage}
             source={{uri: form.messageImage?.uri}}
           />
         )}
-
         {linkState && (
           <View style={styles.linkContainer}>
             <Icon name="insert-link" size={24} style={styles.linkIcon} />

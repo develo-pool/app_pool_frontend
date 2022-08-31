@@ -1,3 +1,5 @@
+import {Asset} from 'react-native-image-picker';
+
 export interface User {
   username: string;
   nickName: string;
@@ -29,4 +31,8 @@ export interface Message {
   isWriter: boolean;
   create_date: string;
   commentCount: number;
+}
+
+export interface ImgAsset extends Asset {
+  name?: string;
 }
