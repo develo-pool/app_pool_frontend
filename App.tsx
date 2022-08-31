@@ -6,9 +6,9 @@ import {QueryClient, QueryClientProvider} from 'react-query';
 import {Provider} from 'react-redux';
 import store from './slices';
 import messaging from '@react-native-firebase/messaging';
-import {useAsyncStorage} from '@react-native-async-storage/async-storage';
-import {sendFCMToken} from './api/fcm';
-import {useMutation} from 'react-query';
+// import {useAsyncStorage} from '@react-native-async-storage/async-storage';
+// import {sendFCMToken} from './api/fcm';
+// import {useMutation} from 'react-query';
 
 const queryClient = new QueryClient();
 
@@ -43,29 +43,29 @@ function App() {
     return unsubscribe;
   }, []);
 
-  const {mutate: sendToken} = useMutation(sendFCMToken, {
-    onSuccess: () => {
-      console.log('Success!');
-    },
-  });
+  // const {mutate: sendToken} = useMutation(sendFCMToken, {
+  //   onSuccess: () => {
+  //     console.log('Success!');
+  //   },
+  // });
 
-  const {getItem: getFcmItem, setItem: setFcmItem} =
-    useAsyncStorage('fcmToken');
+  // const {getItem: getFcmItem, setItem: setFcmItem} =
+  //   useAsyncStorage('fcmToken');
 
-  const getFcmToken = useCallback(async () => {
-    const fcmFS = await getFcmItem();
-    const fcmToken = await messaging().getToken();
-    if (fcmFS !== fcmToken) {
-      setFcmItem(fcmToken); // 회원가입, 로그인할 때 활용
-    }
-    console.log('🚒fcm token', fcmToken);
-    sendToken(fcmToken);
-  }, [getFcmItem, setFcmItem, sendToken]);
-  useEffect(() => {
-    messaging().requestPermission();
-    messaging().registerDeviceForRemoteMessages();
-    getFcmToken();
-  }, [getFcmToken]);
+  // const getFcmToken = useCallback(async () => {
+  //   const fcmFS = await getFcmItem();
+  //   const fcmToken = await messaging().getToken();
+  //   if (fcmFS !== fcmToken) {
+  //     setFcmItem(fcmToken); // 회원가입, 로그인할 때 활용
+  //   }
+  //   console.log('🚒fcm token', fcmToken);
+  //   sendToken(fcmToken);
+  // }, [getFcmItem, setFcmItem, sendToken]);
+  // useEffect(() => {
+  //   messaging().requestPermission();
+  //   messaging().registerDeviceForRemoteMessages();
+  //   getFcmToken();
+  // }, [getFcmToken]);
 
   return (
     <QueryClientProvider client={queryClient}>
