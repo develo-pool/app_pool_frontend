@@ -170,6 +170,7 @@ function CreateMessageScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: theme.colors.White,
   },
   UpperArea: {
     flex: 1,

@@ -65,8 +65,18 @@ function Feed(message: Message) {
         />
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={() =>
-          navigation.navigate('Message', {detail: message.postId})
+        onPress={
+          () => navigation.navigate('Message', {detail: message.postId})
+          // navigation.reset({
+          //   routes: [
+          //     {
+          //       name: 'Message',
+          //       params: {
+          //         detail: message.postId,
+          //       },
+          //     },
+          //   ],
+          // })
         }>
         <View style={styles.feed}>
           {/* 메시지의 구성에 따라 각각 다른 UI를 출력 */}
@@ -75,7 +85,7 @@ function Feed(message: Message) {
           ) : (
             <MessageText messageText={`${message.body}`} />
           )}
-          {message.filePath === '' ? (
+          {message.filePath === null ? (
             ''
           ) : (
             <MessageImg messageImg={`${message.filePath}`} />

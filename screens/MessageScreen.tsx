@@ -44,7 +44,7 @@ function MessageScreen() {
   const [noMoreComment, setNoMoreComment] = useState<boolean>(false);
   const navigation = useNavigation<RootStackNavigationProp>();
   const {data: userData} = useQuery('getUserResult', () => getUser(), {
-    refetchOnMount: 'always',
+    refetchOnMount: true,
   });
   useEffect(() => {
     navigation.setOptions({
@@ -54,7 +54,10 @@ function MessageScreen() {
       headerTitle: '',
       headerLeft: () => (
         <TouchableOpacity
-          onPress={() => navigation.dispatch(CommonActions.goBack())}>
+          onPress={
+            () => navigation.dispatch(CommonActions.goBack())
+            // navigation.reset({routes: [{name: "MainTab"}]})
+          }>
           <Icon name="arrow-back" size={24} color="black" />
         </TouchableOpacity>
       ),
@@ -66,8 +69,9 @@ function MessageScreen() {
     () => getMessage(detail),
     {
       onSuccess: () => {
-        messageRefetch;
+        messageRefetch();
       },
+      refetchOnMount: true,
     },
   );
   // const {data: allCommentData, refetch: allCommentRefetch} = useQuery(
@@ -123,11 +127,13 @@ function MessageScreen() {
       commentRefetch();
     }
   }, [
-    messageData,
-    commentListrefetch,
     commentRefetch,
+    commentListrefetch,
+    messageData?.commentAble,
+    messageData?.writerDto?.username,
     userData?.role,
     userData?.username,
+    detail,
   ]);
 
   const onPress = async () => {
@@ -136,7 +142,6 @@ function MessageScreen() {
     }
     writeComment({messageId: detail, body: commentText});
     setCommentText('');
-    // await messageRefetch();
   };
 
   return (
@@ -205,29 +210,34 @@ function MessageScreen() {
             )}
           </View>
         ) : (
-          <View style={styles.spacebetween}>
-            {commentData ? (
-              <Commentcomponent
-                text={commentData.body}
-                userName={commentData.writer.nickName}
-                userProfileImg={
-                  commentData.writer.brandUserInfoDto.brandProfileImage
-                }
-                writenCommentTime={commentData.create_date}
-              />
+          <KeyboardAvoidingView
+            style={styles.spacebetween}
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            keyboardVerticalOffset={90}>
+            {!messageData?.commentAble ? (
+              commentData ? (
+                <Commentcomponent
+                  text={commentData.body}
+                  userName={commentData.writer.nickName}
+                  userProfileImg={
+                    commentData.writer.brandUserInfoDto.brandProfileImage
+                  }
+                  writenCommentTime={commentData.create_date}
+                />
+              ) : (
+                <View />
+              )
             ) : (
               <View />
             )}
-            <KeyboardAvoidingView
-              behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-              <InputCommentContainer
-                commentText={commentText}
-                onChangeText={onChangeText}
-                commentAble={messageData?.commentAble}
-                addComments={onPress}
-              />
-            </KeyboardAvoidingView>
-          </View>
+
+            <InputCommentContainer
+              commentText={commentText}
+              onChangeText={onChangeText}
+              commentAble={messageData?.commentAble}
+              addComments={onPress}
+            />
+          </KeyboardAvoidingView>
         )}
       </View>
     </SafeAreaView>

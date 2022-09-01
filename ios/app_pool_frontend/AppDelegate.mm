@@ -60,7 +60,9 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
-  [FIRApp configure];
+  if ([FIRApp defaultApp] == nil){
+    [FIRApp configure];
+  }
   [RNSplashScreen show];
   return YES;
 }

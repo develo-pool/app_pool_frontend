@@ -19,7 +19,7 @@ function MessageImg({messageImg}: Props) {
   return (
     <Image
       style={styles.messageImg}
-      source={{uri: messageImg !== '' ? messageImg : undefined, height}}
+      source={{uri: messageImg, height}}
       resizeMode="contain"
     />
   );

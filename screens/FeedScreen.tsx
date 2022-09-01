@@ -37,7 +37,7 @@ function FeedScreen() {
         } else if (data.length !== 0) {
           setMessages(Messages.concat(data));
         }
-        setCursor(data[data.length - 1].postId);
+        setCursor(data[data.length - 1]?.postId);
         setRefreshing(false);
       },
       refetchOnMount: true,
@@ -72,9 +72,10 @@ function FeedScreen() {
 
   useEffect(() => {
     if (isFocused) {
+      setRefreshing(true);
       feedRefetch();
     }
-  }, [isFocused, feedRefetch, userData]);
+  }, [isFocused, feedRefetch]);
 
   // 스크롤이 끝에 인접하면 실행
   const onEndReached = () => {
@@ -122,7 +123,7 @@ function FeedScreen() {
                 onEndReached();
               }
             }}
-            onEndReachedThreshold={0.5}
+            onEndReachedThreshold={0.6}
             onRefresh={onRefresh}
             refreshing={refreshing}
             ListHeaderComponent={
