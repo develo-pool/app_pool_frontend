@@ -1,5 +1,5 @@
 import React from 'react';
-import {Share, StyleSheet, TouchableOpacity} from 'react-native';
+import {Platform, Share, StyleSheet, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 function ShareButton({
@@ -13,7 +13,10 @@ function ShareButton({
     try {
       const result = await Share.share({
         title: 'Pool',
-        message: `${brandUserName}님의 POOL에 참여해보세요!${'\n'}https://app-pool-firebase.web.app/${brandId}`,
+        message:
+          Platform.OS === 'ios'
+            ? `${brandUserName}님의 POOL에 참여해보세요!`
+            : `${brandUserName}님의 POOL에 참여해보세요!${'\n'}https://app-pool-firebase.web.app/${brandId}`,
         url: `https://app-pool-firebase.web.app/${brandId}`,
       });
       if (result.action === Share.sharedAction) {

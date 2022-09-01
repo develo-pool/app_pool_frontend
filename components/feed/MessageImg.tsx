@@ -5,14 +5,15 @@ interface Props {
   messageImg: string;
 }
 
+const {width} = Dimensions.get('window');
+
 function MessageImg({messageImg}: Props) {
   // 높이를 정해주기 위한 height useState와 Dimensions 사용
   const [height, setHeight] = useState(0);
   if (messageImg !== '') {
-    const {width} = Dimensions.get('window');
     // 아래는 이미지의 가로 세로를 가져와 setHeight로 높이 설정해주는..!
     Image.getSize(messageImg, (w, h) => {
-      setHeight(h * ((width - 74) / w));
+      h >= w ? setHeight(width - 74) : setHeight(h * ((width - 74) / w));
     });
   }
 
@@ -20,7 +21,7 @@ function MessageImg({messageImg}: Props) {
     <Image
       style={styles.messageImg}
       source={{uri: messageImg, height}}
-      resizeMode="contain"
+      resizeMode="cover"
     />
   );
 }

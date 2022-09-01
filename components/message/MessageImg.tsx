@@ -12,7 +12,7 @@ function MessageImg({messageImg}: Props) {
     const {width} = Dimensions.get('window');
     // 아래는 이미지의 가로 세로를 가져와 setHeight로 높이 설정해주는..!
     Image.getSize(messageImg, (w, h) => {
-      setHeight(h * ((width - 32) / w));
+      h >= w ? setHeight(width - 32) : setHeight(h * ((width - 32) / w));
     });
   }
 
@@ -20,7 +20,7 @@ function MessageImg({messageImg}: Props) {
     <Image
       style={styles.messageImg}
       source={{uri: messageImg !== '' ? messageImg : undefined, height}}
-      resizeMode="contain"
+      resizeMode="cover"
     />
   );
 }
