@@ -31,13 +31,20 @@ function ProfileScreen() {
     () => getMyProfile(cursor),
     {
       onSuccess: data => {
+        if (noMorePost) {
+          setRefreshing(false);
+          return '';
+        }
+        if (cursor === 0) {
+          setLoadMessageList(loadMessageList.concat(data));
+        }
         if (data.length < LENGTH) {
           setNoMorePost(true);
         }
         if (data.length !== 0) {
           setLoadMessageList(loadMessageList.concat(data));
-          setCursor(data[data.length - 1].postId);
         }
+        setCursor(data[data.length - 1]?.postId);
         setRefreshing(false);
       },
       refetchOnMount: 'always',
