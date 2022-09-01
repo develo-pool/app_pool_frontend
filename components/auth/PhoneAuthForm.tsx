@@ -3,7 +3,8 @@ import {StyleSheet, View} from 'react-native';
 import TextInputs from '../TextInputs';
 import {AuthButton, InputTitle} from './AuthComponents';
 import {CheckPhoneNumber} from './Validation';
-import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
+import auth from '@react-native-firebase/auth';
+// import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 import {phoneNumberExist} from '../../api/auth';
 import {useQuery} from 'react-query';
 
@@ -30,8 +31,8 @@ function PhoneAuthForm({
     CHANGE_PASSWORD: true,
   };
   const [phoneNumberValid, setPhoneNumberValid] = useState<boolean>(true);
-  const [confirmation, setConfirmation] =
-    useState<FirebaseAuthTypes.ConfirmationResult>();
+  // const [confirmation, setConfirmation] =
+  //   useState<FirebaseAuthTypes.ConfirmationResult>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isExist, setIsExist] = useState<boolean>(false);
   const changePhoneNumberHandler = (value: string) => {
@@ -42,21 +43,21 @@ function PhoneAuthForm({
   const authLen = form.authNumber.length;
   const requestAuthNumber = async () => {
     setIsLoading(true);
-    const response = await auth().signInWithPhoneNumber(
-      `+82${form.phoneNumber.substring(1)}`,
-    );
+    // const response = await auth().signInWithPhoneNumber(
+    //   `+82${form.phoneNumber.substring(1)}`,
+    // );
     setIsLoading(false);
-    setConfirmation(response);
+    // setConfirmation(response);
     onChangeForm('state')('request');
   };
   const verifyAuthNumber = async () => {
     try {
       setIsLoading(true);
-      const data = await confirmation?.confirm(form.authNumber);
+      // const data = await confirmation?.confirm(form.authNumber);
       setIsLoading(false);
-      if (data !== undefined) {
-        onChangeForm('state')('confirm');
-      }
+      // if (data !== undefined) {
+      onChangeForm('state')('confirm');
+      // }
     } catch (error) {
       onChangeForm('authNumberError')(true);
     } finally {
