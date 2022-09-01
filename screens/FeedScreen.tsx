@@ -29,9 +29,9 @@ function FeedScreen() {
     () => getAllMessage(cursor),
     {
       onSuccess: data => {
-        if (noMorePost){
+        if (noMorePost) {
           setRefreshing(false);
-          return ;
+          return '';
         }
         if (cursor === 0) {
           setMessages(Messages.concat(data));
