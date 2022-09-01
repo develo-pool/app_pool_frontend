@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {
   Text,
   View,
@@ -27,10 +27,10 @@ import {logout} from '../slices/auth';
 import authStorage from '../storages/authStorage';
 import {getUser} from '../api/auth';
 import {getBrand} from '../api/brand';
-import {useAsyncStorage} from '@react-native-async-storage/async-storage';
-import {sendFCMToken} from '../api/fcm';
-import {useMutation} from 'react-query';
-import messaging from '@react-native-firebase/messaging';
+// import {useAsyncStorage} from '@react-native-async-storage/async-storage';
+// import {sendFCMToken} from '../api/fcm';
+// import {useMutation} from 'react-query';
+// import messaging from '@react-native-firebase/messaging';
 // import {
 // check,
 //   request,
@@ -72,29 +72,29 @@ function SettingScreen() {
     userRefetch();
   }, [isFocused]); //eslint-disable-line react-hooks/exhaustive-deps
 
-  const {mutate: sendToken} = useMutation(sendFCMToken, {
-    onSuccess: () => {
-      console.log('Success!');
-    },
-  });
+  // const {mutate: sendToken} = useMutation(sendFCMToken, {
+  //   onSuccess: () => {
+  //     console.log('Success!');
+  //   },
+  // });
 
-  const {getItem: getFcmItem, setItem: setFcmItem} =
-    useAsyncStorage('fcmToken');
+  // const {getItem: getFcmItem, setItem: setFcmItem} =
+  //   useAsyncStorage('fcmToken');
 
-  const getFcmToken = useCallback(async () => {
-    const fcmFS = await getFcmItem();
-    const fcmToken = await messaging().getToken();
-    if (fcmFS !== fcmToken) {
-      setFcmItem(fcmToken); // 회원가입, 로그인할 때 활용
-    }
-    console.log('🚒fcm token', fcmToken);
-    sendToken(fcmToken);
-  }, [getFcmItem, setFcmItem, sendToken]);
-  useEffect(() => {
-    messaging().requestPermission();
-    messaging().registerDeviceForRemoteMessages();
-    getFcmToken();
-  }, [getFcmToken]);
+  // const getFcmToken = useCallback(async () => {
+  //   const fcmFS = await getFcmItem();
+  //   const fcmToken = await messaging().getToken();
+  //   if (fcmFS !== fcmToken) {
+  //     setFcmItem(fcmToken); // 회원가입, 로그인할 때 활용
+  //   }
+  //   console.log('🚒fcm token', fcmToken);
+  //   sendToken(fcmToken);
+  // }, [getFcmItem, setFcmItem, sendToken]);
+  // useEffect(() => {
+  //   messaging().requestPermission();
+  //   messaging().registerDeviceForRemoteMessages();
+  //   getFcmToken();
+  // }, [getFcmToken]);
 
   return (
     <>
@@ -239,7 +239,7 @@ const styles = StyleSheet.create({
     height: 64,
     width: 64,
     borderRadius: 32,
-    resizeMode: 'contain',
+    resizeMode: 'cover',
   },
   iconContainer: {
     backgroundColor: theme.colors.White,
