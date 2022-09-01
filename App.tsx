@@ -1,16 +1,45 @@
 import {NavigationContainer} from '@react-navigation/native';
+import SplashScreen from 'react-native-splash-screen';
 import React, {useEffect} from 'react';
+
 import {Alert} from 'react-native';
+
 import RootStack from './screens/RootStack';
 import {QueryClient, QueryClientProvider} from 'react-query';
 import {Provider} from 'react-redux';
 import store from './slices';
+
+import {
+  request,
+  PERMISSIONS,
+  // requestMultiple,
+  // requestNotifications,
+} from 'react-native-permissions';
+
+import {AppState, Platform} from 'react-native';
+
 import messaging from '@react-native-firebase/messaging';
 // import {useAsyncStorage} from '@react-native-async-storage/async-storage';
 // import {sendFCMToken} from './api/fcm';
 // import {useMutation} from 'react-query';
 
 const queryClient = new QueryClient();
+
+async function requestUserPermission() {
+  const authorizationStatus = await messaging().requestPermission();
+
+  if (authorizationStatus) {
+    console.log('Permission status:', authorizationStatus);
+  }
+}
+requestUserPermission();
+
+// requestMultiple([PERMISSIONS.IOS.CAMERA, PERMISSIONS.IOS.FACE_ID]).then(
+//   statuses => {
+//     console.log('Camera', statuses[PERMISSIONS.IOS.CAMERA]);
+//     console.log('FaceID', statuses[PERMISSIONS.IOS.FACE_ID]);
+//   },
+// );
 
 function App() {
   useEffect(() => {
@@ -41,6 +70,21 @@ function App() {
       console.log(remoteMessage);
     });
     return unsubscribe;
+  }, []);
+
+  useEffect(() => {
+    const listener = AppState.addEventListener('change', status => {
+      if (Platform.OS === 'ios' && status === 'active') {
+        request(PERMISSIONS.IOS.APP_TRACKING_TRANSPARENCY)
+          .then(result => console.log(result))
+          .catch(error => console.log(error));
+      }
+    });
+    return listener.remove;
+  }, []);
+
+  useEffect(() => {
+    SplashScreen.hide();
   }, []);
 
   // const {mutate: sendToken} = useMutation(sendFCMToken, {

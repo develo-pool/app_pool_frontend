@@ -29,7 +29,7 @@ function DetailMessageContainer(detailmessage: Message) {
         ) : (
           ''
         )}
-        {detailmessage.filePath ? (
+        {detailmessage.filePath !== null ? (
           <MessageImg messageImg={`${detailmessage.filePath}`} />
         ) : (
           ''
