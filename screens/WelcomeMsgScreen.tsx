@@ -21,13 +21,14 @@ import {useNavigation} from '@react-navigation/native';
 import {MainTabNavigationProp} from './types';
 import {useQuery, useMutation} from 'react-query';
 import {getBrand} from '../api/brand';
-import {Asset, launchImageLibrary} from 'react-native-image-picker';
+import {launchImageLibrary} from 'react-native-image-picker';
 import {createWelcomeMessage} from '../api/message';
+import {ImgAsset} from '../api/message/types';
 
 export interface WelcomeMessageProps {
   messageBody: string;
   messageLink?: string;
-  messageImage?: Asset | undefined;
+  messageImage?: ImgAsset | undefined;
 }
 
 function WelcomeMessageScreen() {
@@ -38,7 +39,6 @@ function WelcomeMessageScreen() {
     messageImage: undefined,
   });
   const [linkState, setLinkState] = useState(false);
-
   const onSelectImage = () => {
     launchImageLibrary(
       {
@@ -57,7 +57,7 @@ function WelcomeMessageScreen() {
             messageImage: {
               uri: res.assets[0].uri,
               type: res.assets[0].type,
-              fileName: res.assets[0].fileName,
+              name: res.assets[0].fileName,
             },
           });
         }

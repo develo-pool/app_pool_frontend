@@ -23,7 +23,6 @@ import {useQuery, useMutation} from 'react-query';
 import {getBrand} from '../api/brand';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {createMessage} from '../api/message';
-import {AxiosError} from 'axios';
 import {ImgAsset} from '../api/message/types';
 
 export interface CreateMessageProps {
@@ -73,9 +72,6 @@ function CreateMessageScreen() {
   const {mutate: create} = useMutation(createMessage, {
     onSuccess: () => {
       navigation.goBack();
-    },
-    onError: (e: AxiosError) => {
-      console.log(e.toJSON);
     },
   });
   const onSubmit = useCallback(() => {

@@ -59,6 +59,7 @@ function FeedScreen() {
       />
     );
   };
+
   const {data: userData} = useQuery('getUserResult', () => getUser(), {
     refetchOnMount: 'always',
   });
