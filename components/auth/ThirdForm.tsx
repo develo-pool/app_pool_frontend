@@ -67,7 +67,7 @@ function ThirdForm({
           alert={
             CheckUserName(form.username) || !form.username
               ? form.usernameChecked === true
-                ? {type: 'Correct', text: '사용 가능한 닉네임입니다.'}
+                ? {type: 'Correct', text: '사용 가능한 아이디입니다.'}
                 : form.usernameChecked === undefined
                 ? undefined
                 : {type: 'Error', text: '중복된 아이디입니다.'}
