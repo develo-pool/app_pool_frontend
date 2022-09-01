@@ -45,6 +45,7 @@ function SearchScreen() {
             setBrands(Brands.concat(data));
           }
           setCursor(data[data.length - 1].brandUserId);
+          setRefreshing(false);
         }
       },
     },
@@ -58,6 +59,7 @@ function SearchScreen() {
     setRefreshing(true);
     setCursor(0);
     refetch();
+    setRefreshing(false);
   }, [refetch]);
   useEffect(() => {
     refetch();

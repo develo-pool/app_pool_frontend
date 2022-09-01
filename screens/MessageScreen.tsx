@@ -168,7 +168,7 @@ function MessageScreen() {
 
         {userData?.userStatus === 'BRAND_USER' &&
         userData.username === messageData?.writerDto?.username ? (
-          <View>
+          <View style={styles.spacebetween}>
             {/* <ScrollView>
               {allCommentData?.map(comments => {
                 return (
@@ -187,22 +187,24 @@ function MessageScreen() {
                 <ActivityIndicator />
               </View>
             ) : loadCommentList ? (
-              <FlatList
-                data={loadCommentList}
-                renderItem={RenderItem}
-                onEndReached={() => {
-                  if (!noMoreComment) {
-                    commentListrefetch();
-                  }
-                }}
-                // showsVerticalScrollIndicator={false}
-                // ListHeaderComponent={<Profile id={id} />}
-                // ListFooterComponent={
-                //   <View style={styles.margin}>
-                //     <Footer />
-                //   </View>
-                // }
-              />
+              <View>
+                <FlatList
+                  data={loadCommentList}
+                  renderItem={RenderItem}
+                  onEndReached={() => {
+                    if (!noMoreComment) {
+                      commentListrefetch();
+                    }
+                  }}
+                  // showsVerticalScrollIndicator={false}
+                  // ListHeaderComponent={<Profile id={id} />}
+                  // ListFooterComponent={
+                  //   <View style={styles.margin}>
+                  //     <Footer />
+                  //   </View>
+                  // }
+                />
+              </View>
             ) : (
               <View>
                 <Text>등록된 댓글이 없습니다.</Text>
