@@ -80,7 +80,6 @@ function ProfileMessageContainer(detailmessage: Message) {
 
 const styles = StyleSheet.create({
   container: {
-    maxHeight: 400,
     paddingHorizontal: 12,
     paddingVertical: 12,
     marginHorizontal: 16,

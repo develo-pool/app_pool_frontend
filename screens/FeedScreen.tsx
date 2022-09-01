@@ -98,7 +98,7 @@ function FeedScreen() {
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
         {isMessageLoading ? (
-          <ActivityIndicator />
+          <ActivityIndicator style={styles.indicator} />
         ) : Messages.length === 0 ? (
           <>
             <View>
@@ -146,6 +146,9 @@ function FeedScreen() {
 const styles = StyleSheet.create({
   safeArea: {
     backgroundColor: theme.colors.White,
+  },
+  indicator: {
+    marginTop: 32,
   },
   container: {
     paddingHorizontal: 16,

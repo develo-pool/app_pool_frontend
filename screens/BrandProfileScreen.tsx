@@ -103,9 +103,23 @@ function BrandProfileScreen() {
       <View style={styles.backGroundGray}>
         {isMessageLoading ? (
           <View style={styles.Message}>
+            <BrandProfileHeader
+              brandUserId={brandUserId}
+              poolUserId={poolUserId}
+            />
             <ActivityIndicator />
           </View>
-        ) : loadMessageList ? (
+        ) : loadMessageList.length === 0 ? (
+          <>
+            <BrandProfileHeader
+              brandUserId={brandUserId}
+              poolUserId={poolUserId}
+            />
+            <View style={styles.Message}>
+              <Text style={styles.MessageNull}>등록된 메시지가 없습니다.</Text>
+            </View>
+          </>
+        ) : (
           <FlatList
             data={loadMessageList}
             renderItem={RenderItem}
@@ -121,10 +135,6 @@ function BrandProfileScreen() {
               }
             }}
           />
-        ) : (
-          <View style={styles.Message}>
-            <Text style={styles.MessageNull}>등록된 메시지가 없습니다.</Text>
-          </View>
         )}
       </View>
     </SafeAreaView>
