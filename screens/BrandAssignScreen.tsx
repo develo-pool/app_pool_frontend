@@ -17,7 +17,7 @@ import {authorize} from '../slices/auth';
 import authStorage from '../storages/authStorage';
 import {RootStackNavigationProp, RootStackParamList} from './types';
 import {createAlert, deleteAlert} from '../slices/alert';
-import {Asset} from 'react-native-image-picker';
+import {ImgAsset} from '../api/message/types';
 
 const TOTAL = 3;
 type BrandAssignScreenRouteProp = RouteProp<RootStackParamList, 'BrandAssign'>;
@@ -58,7 +58,7 @@ export interface BrandAssignProps {
   brandInfo: string;
   brandAgreement: boolean;
   brandCategory: string[];
-  brandProfileImage: Asset | undefined;
+  brandProfileImage: ImgAsset | undefined;
   isExist: boolean | undefined;
 }
 
