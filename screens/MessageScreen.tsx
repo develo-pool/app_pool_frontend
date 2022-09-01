@@ -68,9 +68,9 @@ function MessageScreen() {
     'getMessage',
     () => getMessage(detail),
     {
-      onSuccess: () => {
-        messageRefetch();
-      },
+      // onSuccess: () => {
+      //   messageRefetch();
+      // },
       refetchOnMount: true,
     },
   );

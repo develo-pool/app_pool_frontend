@@ -40,7 +40,7 @@ function FeedScreen() {
         setCursor(data[data.length - 1]?.postId);
         setRefreshing(false);
       },
-      refetchOnMount: true,
+      refetchOnMount: 'always',
     },
   );
   const RenderItem = ({item}) => {
