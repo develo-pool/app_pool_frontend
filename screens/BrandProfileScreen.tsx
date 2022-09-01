@@ -100,31 +100,33 @@ function BrandProfileScreen() {
   };
   return (
     <SafeAreaView>
-      {isMessageLoading ? (
-        <View style={styles.Message}>
-          <ActivityIndicator />
-        </View>
-      ) : loadMessageList ? (
-        <FlatList
-          data={loadMessageList}
-          renderItem={RenderItem}
-          ListHeaderComponent={
-            <BrandProfileHeader
-              brandUserId={brandUserId}
-              poolUserId={poolUserId}
-            />
-          }
-          onEndReached={() => {
-            if (!noMorePost) {
-              refetch();
+      <View style={styles.backGroundGray}>
+        {isMessageLoading ? (
+          <View style={styles.Message}>
+            <ActivityIndicator />
+          </View>
+        ) : loadMessageList ? (
+          <FlatList
+            data={loadMessageList}
+            renderItem={RenderItem}
+            ListHeaderComponent={
+              <BrandProfileHeader
+                brandUserId={brandUserId}
+                poolUserId={poolUserId}
+              />
             }
-          }}
-        />
-      ) : (
-        <View style={styles.Message}>
-          <Text style={styles.MessageNull}>등록된 메시지가 없습니다.</Text>
-        </View>
-      )}
+            onEndReached={() => {
+              if (!noMorePost) {
+                refetch();
+              }
+            }}
+          />
+        ) : (
+          <View style={styles.Message}>
+            <Text style={styles.MessageNull}>등록된 메시지가 없습니다.</Text>
+          </View>
+        )}
+      </View>
     </SafeAreaView>
   );
 }
@@ -132,6 +134,12 @@ function BrandProfileScreen() {
 const styles = StyleSheet.create({
   rotate: {
     transform: [{rotate: '270deg'}],
+  },
+  safeArea: {
+    backgroundColor: theme.colors.White,
+  },
+  backGroundGray: {
+    backgroundColor: theme.colors.Grey10,
   },
   Message: {
     alignItems: 'center',
