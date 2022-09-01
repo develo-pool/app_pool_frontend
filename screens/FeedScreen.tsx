@@ -29,12 +29,17 @@ function FeedScreen() {
     () => getAllMessage(cursor),
     {
       onSuccess: data => {
+        if (noMorePost){
+          setRefreshing(false);
+          return ;
+        }
+        if (cursor === 0) {
+          setMessages(Messages.concat(data));
+        }
         if (data.length < LENGTH) {
           setNoMorePost(true);
         }
-        if (cursor === 0) {
-          setMessages(data);
-        } else if (data.length !== 0) {
+        if (data.length !== 0) {
           setMessages(Messages.concat(data));
         }
         setCursor(data[data.length - 1]?.postId);

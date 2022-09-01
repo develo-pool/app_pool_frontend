@@ -14,9 +14,6 @@ function MessageImg({messageImg}: Props) {
     // 아래는 이미지의 가로 세로를 가져와 setHeight로 높이 설정해주는..!
     Image.getSize(messageImg, (w, h) => {
       h >= w ? setHeight(width - 74) : setHeight(h * ((width - 74) / w));
-      // console.log(h)
-      console.log(width);
-      console.log(height);
     });
   }
 
@@ -33,8 +30,6 @@ const styles = StyleSheet.create({
   messageImg: {
     borderRadius: 8,
     marginBottom: 12,
-    maxHeight: width - 74,
-    // resizeMode: "cover",
   },
 });
 
