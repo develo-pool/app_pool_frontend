@@ -99,75 +99,76 @@ function SettingScreen() {
   return (
     <>
       <SafeAreaView style={styles.safeArea}>
-        <View style={styles.padding}>
-          <AlertBox />
-        </View>
-        <ScrollView>
-          <View style={styles.UserInfoContainer}>
-            <View style={styles.ProfileImgContainer}>
-              {user?.role === 'BRAND_USER' ? (
-                <Image
-                  style={styles.ImgSource}
-                  source={{uri: brandData?.brandProfileImage}}
-                />
-              ) : (
-                <Image
-                  style={styles.ImgSource}
-                  source={require('../assets/PoolLogo.png')}
-                />
-              )}
-              {user?.role === 'BRAND_USER' ? (
-                <View style={styles.iconContainer}>
-                  <Icon
-                    name="check-circle"
-                    size={18}
-                    style={styles.BrandChecked}
-                  />
-                </View>
-              ) : null}
-            </View>
-            <View style={styles.ProfileInfo}>
-              {userData ? (
-                <>
-                  {user?.role === 'BRAND_USER' ? (
-                    <Text style={styles.BrandName}>
-                      {brandData?.brandUsername}
-                    </Text>
-                  ) : null}
-                  <Text style={styles.UserName}>{user?.nickName}</Text>
-                  <Pressable
-                    style={styles.FollowingContainer}
-                    onPress={() =>
-                      navigation.navigate('FollowingList', {
-                        followingCount: userData.userFollowingCount,
-                      })
-                    }>
-                    <Text style={styles.Following}>팔로잉</Text>
-                    <Text style={styles.FollowingCount}>
-                      {userData?.userFollowingCount}
-                    </Text>
-                  </Pressable>
-                </>
-              ) : (
-                <ActivityIndicator />
-              )}
-            </View>
+        <View style={styles.backGroundGray}>
+          <View style={styles.padding}>
+            <AlertBox />
           </View>
-          {user?.role === 'BRAND_USER' ? null : (
-            <JoinBrandContainer
-              onPress={
-                user?.role === 'WAITING'
-                  ? () => navigation.push('BrandAssignComplete')
-                  : () => navigation.push('BrandAssignGuide')
-              }
-            />
-          )}
-          <>
-            <Pressable
-              style={styles.SeperatedSets}
-              onPress={() => Linking.openSettings()}>
-              <Text style={styles.NotiText}>알림 수신</Text>
-              {/* <Switch
+          <ScrollView>
+            <View style={styles.UserInfoContainer}>
+              <View style={styles.ProfileImgContainer}>
+                {user?.role === 'BRAND_USER' ? (
+                  <Image
+                    style={styles.ImgSource}
+                    source={{uri: brandData?.brandProfileImage}}
+                  />
+                ) : (
+                  <Image
+                    style={styles.ImgSource}
+                    source={require('../assets/PoolLogo.png')}
+                  />
+                )}
+                {user?.role === 'BRAND_USER' ? (
+                  <View style={styles.iconContainer}>
+                    <Icon
+                      name="check-circle"
+                      size={18}
+                      style={styles.BrandChecked}
+                    />
+                  </View>
+                ) : null}
+              </View>
+              <View style={styles.ProfileInfo}>
+                {userData ? (
+                  <>
+                    {user?.role === 'BRAND_USER' ? (
+                      <Text style={styles.BrandName}>
+                        {brandData?.brandUsername}
+                      </Text>
+                    ) : null}
+                    <Text style={styles.UserName}>{user?.nickName}</Text>
+                    <Pressable
+                      style={styles.FollowingContainer}
+                      onPress={() =>
+                        navigation.navigate('FollowingList', {
+                          followingCount: userData.userFollowingCount,
+                        })
+                      }>
+                      <Text style={styles.Following}>팔로잉</Text>
+                      <Text style={styles.FollowingCount}>
+                        {userData?.userFollowingCount}
+                      </Text>
+                    </Pressable>
+                  </>
+                ) : (
+                  <ActivityIndicator />
+                )}
+              </View>
+            </View>
+            {user?.role === 'BRAND_USER' ? null : (
+              <JoinBrandContainer
+                onPress={
+                  user?.role === 'WAITING'
+                    ? () => navigation.push('BrandAssignComplete')
+                    : () => navigation.push('BrandAssignGuide')
+                }
+              />
+            )}
+            <>
+              <Pressable
+                style={styles.SeperatedSets}
+                onPress={() => Linking.openSettings()}>
+                <Text style={styles.NotiText}>알림 수신</Text>
+                {/* <Switch
                 trackColor={{
                   false: theme.colors.Grey40,
                   true:
@@ -180,42 +181,43 @@ function SettingScreen() {
                 onValueChange={toggleSwitch}
                 value={isEnabled}
               /> */}
-              <Icon
-                name="arrow-forward-ios"
-                size={14}
-                style={styles.RightArrow}
+                <Icon
+                  name="arrow-forward-ios"
+                  size={14}
+                  style={styles.RightArrow}
+                />
+              </Pressable>
+              <SetArticle
+                title="회원정보 수정"
+                onPress={() => navigation.navigate('EditUser')}
               />
-            </Pressable>
-            <SetArticle
-              title="회원정보 수정"
-              onPress={() => navigation.navigate('EditUser')}
-            />
-            <SetArticle
-              title="이용약관"
-              onPress={() =>
-                Linking.openURL(
-                  'https://bypool.notion.site/46307ef08b8a471a8b5f4f38a6add44b',
-                )
-              }
-            />
-            <SetArticle
-              title="개인정보처리방침"
-              onPress={() =>
-                Linking.openURL(
-                  'https://bypool.notion.site/50c7bb1b42fe491cbaa8bc694f7c5ca1',
-                )
-              }
-            />
-            <SetArticle
-              title="문의하기"
-              onPress={() => Linking.openURL('http://pf.kakao.com/_ebksb')}
-            />
-            <Pressable style={styles.SeperatedSets} onPress={onLogout}>
-              <Text style={styles.Logout}>로그아웃</Text>
-            </Pressable>
-          </>
-          <Footer />
-        </ScrollView>
+              <SetArticle
+                title="이용약관"
+                onPress={() =>
+                  Linking.openURL(
+                    'https://bypool.notion.site/46307ef08b8a471a8b5f4f38a6add44b',
+                  )
+                }
+              />
+              <SetArticle
+                title="개인정보처리방침"
+                onPress={() =>
+                  Linking.openURL(
+                    'https://bypool.notion.site/50c7bb1b42fe491cbaa8bc694f7c5ca1',
+                  )
+                }
+              />
+              <SetArticle
+                title="문의하기"
+                onPress={() => Linking.openURL('http://pf.kakao.com/_ebksb')}
+              />
+              <Pressable style={styles.SeperatedSets} onPress={onLogout}>
+                <Text style={styles.Logout}>로그아웃</Text>
+              </Pressable>
+            </>
+            <Footer />
+          </ScrollView>
+        </View>
       </SafeAreaView>
     </>
   );
@@ -224,6 +226,9 @@ function SettingScreen() {
 const styles = StyleSheet.create({
   safeArea: {
     backgroundColor: theme.colors.White,
+  },
+  backGroundGray: {
+    backgroundColor: theme.colors.Grey10,
   },
   UserInfoContainer: {
     backgroundColor: theme.colors.White,

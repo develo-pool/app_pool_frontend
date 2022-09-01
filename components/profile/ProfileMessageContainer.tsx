@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     height: 24,
     width: 24,
     borderRadius: 12,
-    resizeMode: 'contain',
+    resizeMode: 'cover',
   },
   BrandName: {
     fontFamily: theme.fontFamily.Pretendard,

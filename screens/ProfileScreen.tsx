@@ -76,28 +76,30 @@ function ProfileScreen() {
   return (
     <>
       <SafeAreaView style={styles.safeArea}>
-        {isMessageLoading ? (
-          <View style={styles.Message}>
-            <ActivityIndicator />
-          </View>
-        ) : loadMessageList ? (
-          <FlatList
-            data={loadMessageList}
-            renderItem={RenderItem}
-            ListHeaderComponent={<ProfileHeader />}
-            onEndReached={() => {
-              if (!noMorePost) {
-                profileRefetch();
-              }
-            }}
-            onRefresh={onRefresh}
-            refreshing={refreshing}
-          />
-        ) : (
-          <View style={styles.Message}>
-            <Text style={styles.MessageNull}>등록된 메시지가 없습니다.</Text>
-          </View>
-        )}
+        <View style={styles.backGroundGray}>
+          {isMessageLoading ? (
+            <View style={styles.Message}>
+              <ActivityIndicator />
+            </View>
+          ) : loadMessageList ? (
+            <FlatList
+              data={loadMessageList}
+              renderItem={RenderItem}
+              ListHeaderComponent={<ProfileHeader />}
+              onEndReached={() => {
+                if (!noMorePost) {
+                  profileRefetch();
+                }
+              }}
+              onRefresh={onRefresh}
+              refreshing={refreshing}
+            />
+          ) : (
+            <View style={styles.Message}>
+              <Text style={styles.MessageNull}>등록된 메시지가 없습니다.</Text>
+            </View>
+          )}
+        </View>
       </SafeAreaView>
       <View style={styles.createButtonLayout}>
         <TouchableOpacity
@@ -113,6 +115,9 @@ function ProfileScreen() {
 const styles = StyleSheet.create({
   safeArea: {
     backgroundColor: theme.colors.White,
+  },
+  backGroundGray: {
+    backgroundColor: theme.colors.Grey10,
   },
   Message: {
     alignItems: 'center',
