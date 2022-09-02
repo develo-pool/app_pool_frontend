@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {
   View,
   StyleSheet,
@@ -6,9 +6,11 @@ import {
   Text,
   SafeAreaView,
   TouchableOpacity,
+  Platform,
+  Pressable,
+  Image,
 } from 'react-native';
 import theme from '../assets/theme';
-import ProfileImageContainer from '../components/profile/ProfileImageContainer';
 import ScreenBottomButton from './../components/ScreenBottomButton';
 import {useNavigation} from '@react-navigation/native';
 import {RootStackNavigationProp} from './types';
@@ -16,22 +18,72 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useQuery, useMutation} from 'react-query';
 import {getBrand} from '../api/brand';
 import {updateBrandInfo} from '../api/brand';
+import {launchImageLibrary} from 'react-native-image-picker';
+import {ImgAsset} from '../api/message/types';
+
+export interface BrandUpdateProps {
+  brandUserUpdate: string;
+  multipartFile: ImgAsset | undefined;
+}
 
 function EditProfile() {
-  const [info, setInfo] = useState<string>('');
   const navigation = useNavigation<RootStackNavigationProp>();
+  const [form, setForm] = useState<BrandUpdateProps>({
+    brandUserUpdate: '',
+    multipartFile: undefined,
+  });
+
+  const onSelectImage = () => {
+    launchImageLibrary(
+      {
+        mediaType: 'photo',
+        maxWidth: 512,
+        maxHeight: 512,
+        includeBase64: Platform.OS === 'android',
+      },
+      res => {
+        if (res.didCancel) {
+          return;
+        }
+        if (res.assets) {
+          setForm({
+            ...form,
+            multipartFile: {
+              uri: res.assets[0].uri,
+              type: res.assets[0].type,
+              name: res.assets[0].fileName,
+            },
+          });
+        }
+      },
+    );
+  };
+
   const {data: brandData} = useQuery('getBrand', () => getBrand(''), {
     refetchOnMount: 'always',
   });
   const {mutate: update} = useMutation(updateBrandInfo, {
     onSettled: () => {
-      console.log(info);
+      console.log(form);
     },
     onSuccess: () => {
-      console.log('update Success!');
       navigation.navigate('Profile');
     },
   });
+
+  const onSubmit = useCallback(() => {
+    const formData = new FormData();
+    formData.append('brandUserUpdate', form.brandUserUpdate as string);
+    formData.append('multipartFile', form.multipartFile as Blob);
+    update(formData);
+  }, [update, form]);
+
+  const onChangeText = (prop: string) => (value: string) => {
+    setForm({
+      ...form,
+      [prop]: value,
+    });
+  };
 
   useEffect(() => {
     navigation.setOptions({
@@ -45,11 +97,24 @@ function EditProfile() {
       ),
     });
   }, [navigation]);
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>
         <View style={styles.UpperContainer}>
-          <ProfileImageContainer isEditable={false} />
+          <Pressable onPress={onSelectImage} style={styles.ProfileImgContainer}>
+            <Image
+              style={styles.ImgSource}
+              source={
+                form.multipartFile
+                  ? {uri: form.multipartFile.uri}
+                  : {uri: brandData?.brandProfileImage}
+              }
+            />
+            <TouchableOpacity style={styles.EditProfile}>
+              <Icon name="edit" size={18} style={styles.EditButton} />
+            </TouchableOpacity>
+          </Pressable>
         </View>
         <TextInput
           style={styles.InputContainer}
@@ -57,13 +122,15 @@ function EditProfile() {
           autoFocus={true}
           maxLength={200}
           defaultValue={brandData?.brandInfo}
-          onChangeText={setInfo}
+          onChangeText={onChangeText('brandUserUpdate')}
         />
         <View style={styles.InputTextCounter}>
-          <Text style={styles.CounterText}>{info.length}/200</Text>
+          <Text style={styles.CounterText}>
+            {form.brandUserUpdate.length}/200
+          </Text>
         </View>
       </View>
-      <ScreenBottomButton name="저장" onPress={() => update(info)} />
+      <ScreenBottomButton name="저장" onPress={() => onSubmit()} />
     </SafeAreaView>
   );
 }
@@ -75,6 +142,30 @@ const styles = StyleSheet.create({
   },
   UpperContainer: {
     marginTop: 44,
+  },
+  ProfileImgContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  }, //프로필 사진 영역
+  ImgSource: {
+    height: 90,
+    width: 90,
+    borderRadius: 45,
+    resizeMode: 'cover',
+  }, //프로필 사진
+  EditProfile: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: theme.colors.Grey50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: -32,
+    marginTop: 58,
+  }, //수정 버튼
+  EditButton: {
+    color: theme.colors.White,
   },
   InputContainer: {
     marginTop: 52,
