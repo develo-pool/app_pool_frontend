@@ -43,3 +43,12 @@ export async function updateBrandInfo(params: string) {
   });
   return response.data.brandInfo;
 }
+
+export async function updateBrandInfo2(formData: FormData) {
+  const response = await client.put('/brand/update', formData, {
+    // headers: {'Content-Type': 'text/plain'},
+    headers: {'content-type': 'multipart/form-data'},
+  });
+  // return response.data.brandInfo;
+  return response;
+}

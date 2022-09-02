@@ -16,7 +16,7 @@ function FollowButton({isFollowed, poolUserId, refetch}: Props) {
   const isFollow = useRef(isFollowed);
   const {mutate: sendWelcomeMessage} = useMutation(sendSingleAlarm, {
     onSuccess: () => {
-      console.log('Success Alarm Send!');
+      console.log('Pressed!');
     },
   });
 

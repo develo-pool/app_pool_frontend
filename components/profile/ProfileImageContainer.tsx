@@ -7,11 +7,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import {getBrand} from '../../api/brand';
 import {useQuery} from 'react-query';
 
-interface Props {
-  isEditable: boolean;
-}
-
-function ProfileImageContainer({isEditable}: Props) {
+function ProfileImageContainer() {
   const navigation = useNavigation<RootStackNavigationProp>();
   const id = '';
   const {data: brandData} = useQuery('getBrand', () => getBrand(id), {
@@ -24,13 +20,11 @@ function ProfileImageContainer({isEditable}: Props) {
         style={styles.ImgSource}
         source={{uri: brandData?.brandProfileImage}}
       />
-      {isEditable && (
-        <TouchableOpacity
-          style={styles.EditProfile}
-          onPress={() => navigation.navigate('EditProfile')}>
-          <Icon name="edit" size={18} style={styles.EditButton} />
-        </TouchableOpacity>
-      )}
+      <TouchableOpacity
+        style={styles.EditProfile}
+        onPress={() => navigation.navigate('EditProfile')}>
+        <Icon name="edit" size={18} style={styles.EditButton} />
+      </TouchableOpacity>
     </View>
   );
 }
