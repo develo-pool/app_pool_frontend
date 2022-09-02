@@ -17,7 +17,7 @@ import {RootStackNavigationProp} from './types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useQuery, useMutation} from 'react-query';
 import {getBrand} from '../api/brand';
-import {updateBrandInfo2} from '../api/brand';
+import {updateBrandInfo} from '../api/brand';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {ImgAsset} from '../api/message/types';
 
@@ -62,12 +62,11 @@ function EditProfile() {
   const {data: brandData} = useQuery('getBrand', () => getBrand(''), {
     refetchOnMount: 'always',
   });
-  const {mutate: update} = useMutation(updateBrandInfo2, {
+  const {mutate: update} = useMutation(updateBrandInfo, {
     onSettled: () => {
       console.log(form);
     },
     onSuccess: () => {
-      console.log('Update Success!');
       navigation.navigate('Profile');
     },
   });
