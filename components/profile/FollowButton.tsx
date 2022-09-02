@@ -14,11 +14,7 @@ interface Props {
 
 function FollowButton({isFollowed, poolUserId, refetch}: Props) {
   const isFollow = useRef(isFollowed);
-  const {mutate: sendWelcomeMessage} = useMutation(sendSingleAlarm, {
-    onSuccess: () => {
-      console.log('Pressed!');
-    },
-  });
+  const {mutate: sendWelcomeMessage} = useMutation(sendSingleAlarm);
 
   const {mutate: onPressFollow} = useMutation(follow, {
     onSuccess: () => {
