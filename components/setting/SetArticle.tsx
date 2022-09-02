@@ -10,31 +10,30 @@ interface Props {
 
 function SetArticle({title, onPress}: Props) {
   return (
-    <Pressable style={styles.Article} onPress={onPress}>
-      <Text style={styles.SetText}>{title}</Text>
-      <Icon name="arrow-forward-ios" size={14} style={styles.RightArrow} />
+    <Pressable style={styles.article} onPress={onPress}>
+      <Text style={styles.setText}>{title}</Text>
+      <Icon name="arrow-forward-ios" size={14} style={styles.rightArrow} />
     </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
-  Article: {
+  article: {
     backgroundColor: theme.colors.White,
-    height: 60,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginTop: 1,
-    paddingLeft: 24,
-    paddingRight: 20,
+    height: 60,
+    marginTop: 2,
+    paddingHorizontal: 24,
   },
-  SetText: {
+  setText: {
     fontFamily: theme.fontFamily.Pretendard,
-    color: theme.colors.Grey60,
     fontSize: theme.fontSize.P2,
-    fontWeight: '700',
+    fontWeight: theme.fontWeight.Bold,
+    color: theme.colors.Grey60,
   },
-  RightArrow: {
+  rightArrow: {
     color: theme.colors.Black,
   },
 });

@@ -58,7 +58,6 @@ function BrandProfileHeader({brandUserId, poolUserId}: Props) {
 
 const styles = StyleSheet.create({
   ProfileSection: {
-    height: 164,
     backgroundColor: theme.colors.White,
     paddingHorizontal: 16,
   }, //프로필 영역
@@ -67,7 +66,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   ProfileContainer: {
-    height: 120,
+    marginVertical: 16,
     flexDirection: 'row',
   }, // 프로필 내 브랜드 정보가 담긴 영역
   ProfileImgContainer: {
@@ -110,8 +109,8 @@ const styles = StyleSheet.create({
     marginLeft: 4,
   },
   IntroContainer: {
-    // alignItems: 'center',
     justifyContent: 'center',
+    marginBottom: 14,
   }, //프로필 내 소개글이 담긴 영역
   IntroText: {
     fontSize: theme.fontSize.P2,

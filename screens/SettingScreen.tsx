@@ -104,16 +104,16 @@ function SettingScreen() {
             <AlertBox />
           </View>
           <ScrollView>
-            <View style={styles.UserInfoContainer}>
-              <View style={styles.ProfileImgContainer}>
+            <View style={styles.userInfoContainer}>
+              <View style={styles.profileImgContainer}>
                 {user?.role === 'BRAND_USER' ? (
                   <Image
-                    style={styles.ImgSource}
+                    style={styles.imgSource}
                     source={{uri: brandData?.brandProfileImage}}
                   />
                 ) : (
                   <Image
-                    style={styles.ImgSource}
+                    style={styles.imgSource}
                     source={require('../assets/PoolLogo.png')}
                   />
                 )}
@@ -122,29 +122,29 @@ function SettingScreen() {
                     <Icon
                       name="check-circle"
                       size={18}
-                      style={styles.BrandChecked}
+                      style={styles.brandChecked}
                     />
                   </View>
                 ) : null}
               </View>
-              <View style={styles.ProfileInfo}>
+              <View style={styles.profileInfo}>
                 {userData ? (
                   <>
                     {user?.role === 'BRAND_USER' ? (
-                      <Text style={styles.BrandName}>
+                      <Text style={styles.brandName}>
                         {brandData?.brandUsername}
                       </Text>
                     ) : null}
-                    <Text style={styles.UserName}>{user?.nickName}</Text>
+                    <Text style={styles.userName}>{user?.nickName}</Text>
                     <Pressable
-                      style={styles.FollowingContainer}
+                      style={styles.followingContainer}
                       onPress={() =>
                         navigation.navigate('FollowingList', {
                           followingCount: userData.userFollowingCount,
                         })
                       }>
-                      <Text style={styles.Following}>팔로잉</Text>
-                      <Text style={styles.FollowingCount}>
+                      <Text style={styles.following}>팔로잉</Text>
+                      <Text style={styles.followingCount}>
                         {userData?.userFollowingCount}
                       </Text>
                     </Pressable>
@@ -165,9 +165,9 @@ function SettingScreen() {
             )}
             <>
               <Pressable
-                style={styles.SeperatedSets}
+                style={styles.seperatedSets}
                 onPress={() => Linking.openSettings()}>
-                <Text style={styles.NotiText}>알림 수신</Text>
+                <Text style={styles.notiText}>알림 설정</Text>
                 {/* <Switch
                 trackColor={{
                   false: theme.colors.Grey40,
@@ -184,7 +184,7 @@ function SettingScreen() {
                 <Icon
                   name="arrow-forward-ios"
                   size={14}
-                  style={styles.RightArrow}
+                  style={styles.rightArrow}
                 />
               </Pressable>
               <SetArticle
@@ -211,8 +211,8 @@ function SettingScreen() {
                 title="문의하기"
                 onPress={() => Linking.openURL('http://pf.kakao.com/_ebksb')}
               />
-              <Pressable style={styles.SeperatedSets} onPress={onLogout}>
-                <Text style={styles.Logout}>로그아웃</Text>
+              <Pressable style={styles.seperatedSets} onPress={onLogout}>
+                <Text style={styles.logout}>로그아웃</Text>
               </Pressable>
             </>
             <Footer />
@@ -230,17 +230,17 @@ const styles = StyleSheet.create({
   backGroundGray: {
     backgroundColor: theme.colors.Grey10,
   },
-  UserInfoContainer: {
+  userInfoContainer: {
     backgroundColor: theme.colors.White,
-    height: 120,
-    paddingHorizontal: 24,
     flexDirection: 'row',
     alignItems: 'center',
+    paddingVertical: 24,
+    paddingHorizontal: 24,
   },
-  ProfileImgContainer: {
+  profileImgContainer: {
     flexDirection: 'row',
   },
-  ImgSource: {
+  imgSource: {
     height: 64,
     width: 64,
     borderRadius: 32,
@@ -252,68 +252,68 @@ const styles = StyleSheet.create({
     marginLeft: -18,
     marginTop: 44,
   },
-  BrandChecked: {
+  brandChecked: {
     color: theme.colors.Poolblue,
   },
-  ProfileInfo: {
+  profileInfo: {
     marginLeft: 16,
   },
-  FollowingContainer: {
+  followingContainer: {
     flexDirection: 'row',
     alignItems: 'center',
   },
-  BrandName: {
+  brandName: {
     fontFamily: theme.fontFamily.Pretendard,
-    fontSize: 12,
-    fontWeight: '700',
+    fontSize: theme.fontSize.P3,
+    fontWeight: theme.fontWeight.Bold,
     color: theme.colors.Poolblue,
   },
-  UserName: {
+  userName: {
     fontFamily: theme.fontFamily.Pretendard,
-    fontSize: 18,
-    fontWeight: '700',
+    fontSize: theme.fontSize.H5,
+    fontWeight: theme.fontWeight.Bold,
     color: theme.colors.Grey80,
     marginBottom: 2,
   },
-  Following: {
+  following: {
     fontFamily: theme.fontFamily.Pretendard,
-    fontSize: 12,
-    fontWeight: '400',
+    fontSize: theme.fontSize.P3,
+    fontWeight: theme.fontWeight.Light,
     color: theme.colors.Grey40,
   },
-  FollowingCount: {
+  followingCount: {
     fontFamily: theme.fontFamily.Pretendard,
-    fontSize: 12,
-    fontWeight: '700',
+    fontSize: theme.fontSize.P3,
+    fontWeight: theme.fontWeight.Bold,
     color: theme.colors.Grey80,
     marginLeft: 4,
   },
-  SeperatedSets: {
-    height: 60,
-    marginTop: 8,
-    marginBottom: 7,
-    paddingLeft: 24,
-    // paddingRight: 16,
-    paddingRight: 20,
+  seperatedSets: {
+    backgroundColor: theme.colors.White,
     flexDirection: 'row',
-    backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'space-between',
+    height: 60,
+    marginTop: 8,
+    marginBottom: 6,
+    paddingLeft: 24,
+    paddingRight: 24,
+    // paddingRight: 16,
   },
-  NotiText: {
+  notiText: {
     fontFamily: theme.fontFamily.Pretendard,
+    fontSize: theme.fontSize.P2,
+    fontWeight: theme.fontWeight.Bold,
     color: theme.colors.Grey60,
-    fontSize: 14,
-    fontWeight: '700',
   },
-  RightArrow: {
+  rightArrow: {
     color: theme.colors.Black,
   },
-  Logout: {
+  logout: {
     fontFamily: theme.fontFamily.Pretendard,
+    fontSize: theme.fontSize.P2,
+    fontWeight: theme.fontWeight.Light,
     color: theme.colors.Grey60,
-    fontSize: 14,
-    fontWeight: '400',
   },
   padding: {
     paddingHorizontal: PADDING,
