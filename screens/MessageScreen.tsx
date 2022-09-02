@@ -146,30 +146,32 @@ function MessageScreen() {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <View style={styles.container}>
-        <View>
-          {messageData ? (
-            <DetailMessageContainer
-              key={messageData.postId}
-              postId={messageData.postId}
-              body={messageData.body}
-              messageLink={messageData.messageLink}
-              filePath={messageData.filePath}
-              writerDto={messageData.writerDto}
-              commentAble={messageData.commentAble}
-              isWriter={messageData.isWriter}
-              create_date={messageData.create_date}
-              commentCount={messageData.commentCount}
-            />
-          ) : (
-            ''
-          )}
-        </View>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+        <View style={styles.container}>
+          <View>
+            {messageData ? (
+              <DetailMessageContainer
+                key={messageData.postId}
+                postId={messageData.postId}
+                body={messageData.body}
+                messageLink={messageData.messageLink}
+                filePath={messageData.filePath}
+                writerDto={messageData.writerDto}
+                commentAble={messageData.commentAble}
+                isWriter={messageData.isWriter}
+                create_date={messageData.create_date}
+                commentCount={messageData.commentCount}
+              />
+            ) : (
+              ''
+            )}
+          </View>
 
-        {userData?.userStatus === 'BRAND_USER' &&
-        userData.username === messageData?.writerDto?.username ? (
-          <View style={styles.spacebetween}>
-            {/* <ScrollView>
+          {userData?.userStatus === 'BRAND_USER' &&
+          userData.username === messageData?.writerDto?.username ? (
+            <View style={styles.spacebetween}>
+              {/* <ScrollView>
               {allCommentData?.map(comments => {
                 return (
                   <Commentcomponent
@@ -182,66 +184,63 @@ function MessageScreen() {
                 );
               })}
             </ScrollView> */}
-            {isMessageLoading ? (
-              <View>
-                <ActivityIndicator />
-              </View>
-            ) : loadCommentList ? (
-              <View>
-                <FlatList
-                  data={loadCommentList}
-                  renderItem={RenderItem}
-                  onEndReached={() => {
-                    if (!noMoreComment) {
-                      commentListrefetch();
+              {isMessageLoading ? (
+                <View>
+                  <ActivityIndicator />
+                </View>
+              ) : loadCommentList ? (
+                <View>
+                  <FlatList
+                    data={loadCommentList}
+                    renderItem={RenderItem}
+                    onEndReached={() => {
+                      if (!noMoreComment) {
+                        commentListrefetch();
+                      }
+                    }}
+                    // showsVerticalScrollIndicator={false}
+                    // ListHeaderComponent={<Profile id={id} />}
+                    // ListFooterComponent={
+                    //   <View style={styles.margin}>
+                    //     <Footer />
+                    //   </View>
+                    // }
+                  />
+                </View>
+              ) : (
+                <View>
+                  <Text>등록된 댓글이 없습니다.</Text>
+                </View>
+              )}
+            </View>
+          ) : (
+            <View style={styles.spacebetween}>
+              {!messageData?.commentAble ? (
+                commentData ? (
+                  <Commentcomponent
+                    text={commentData.body}
+                    userName={commentData.writer.nickName}
+                    userProfileImg={
+                      commentData.writer.brandUserInfoDto.brandProfileImage
                     }
-                  }}
-                  // showsVerticalScrollIndicator={false}
-                  // ListHeaderComponent={<Profile id={id} />}
-                  // ListFooterComponent={
-                  //   <View style={styles.margin}>
-                  //     <Footer />
-                  //   </View>
-                  // }
-                />
-              </View>
-            ) : (
-              <View>
-                <Text>등록된 댓글이 없습니다.</Text>
-              </View>
-            )}
-          </View>
-        ) : (
-          <KeyboardAvoidingView
-            style={styles.spacebetween}
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            keyboardVerticalOffset={90}>
-            {!messageData?.commentAble ? (
-              commentData ? (
-                <Commentcomponent
-                  text={commentData.body}
-                  userName={commentData.writer.nickName}
-                  userProfileImg={
-                    commentData.writer.brandUserInfoDto.brandProfileImage
-                  }
-                  writenCommentTime={commentData.create_date}
-                />
+                    writenCommentTime={commentData.create_date}
+                  />
+                ) : (
+                  <View />
+                )
               ) : (
                 <View />
-              )
-            ) : (
-              <View />
-            )}
-
-            <InputCommentContainer
-              commentText={commentText}
-              onChangeText={onChangeText}
-              commentAble={messageData?.commentAble}
-              addComments={onPress}
-            />
-          </KeyboardAvoidingView>
-        )}
-      </View>
+              )}
+              <InputCommentContainer
+                commentText={commentText}
+                onChangeText={onChangeText}
+                commentAble={messageData?.commentAble}
+                addComments={onPress}
+              />
+            </View>
+          )}
+        </View>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }
