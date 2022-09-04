@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   View,
   Platform,
+  ScrollView,
 } from 'react-native';
 import theme from '../assets/theme';
 import Commentcomponent from '../components/message/Commentcomponent';
@@ -147,7 +148,11 @@ function MessageScreen() {
   return (
     <SafeAreaView style={styles.safeArea}>
       <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+        // behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        behavior={Platform.select({ios:'padding'})}
+        style={styles.avoiding}
+        keyboardVerticalOffset={64}
+        enabled>
         <View style={styles.container}>
           <View>
             {messageData ? (
@@ -231,15 +236,25 @@ function MessageScreen() {
               ) : (
                 <View />
               )}
-              <InputCommentContainer
-                commentText={commentText}
-                onChangeText={onChangeText}
-                commentAble={messageData?.commentAble}
-                addComments={onPress}
-              />
             </View>
           )}
+
+          <InputCommentContainer
+            commentText={commentText}
+            onChangeText={onChangeText}
+            commentAble={messageData?.commentAble}
+            addComments={onPress}
+          />
         </View>
+        {/* <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+        <InputCommentContainer
+          commentText={commentText}
+          onChangeText={onChangeText}
+          commentAble={messageData?.commentAble}
+          addComments={onPress}
+        />
+      </KeyboardAvoidingView> */}
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
@@ -248,6 +263,7 @@ function MessageScreen() {
 const styles = StyleSheet.create({
   safeArea: {
     backgroundColor: theme.colors.White,
+    flex: 1,
   },
   container: {
     height: '100%',
@@ -256,8 +272,11 @@ const styles = StyleSheet.create({
   },
   spacebetween: {
     justifyContent: 'space-between',
-    flex: 1,
+    // flex: 1,
   },
+  avoiding: {
+    flex: 1,
+  }
 });
 
 export default MessageScreen;

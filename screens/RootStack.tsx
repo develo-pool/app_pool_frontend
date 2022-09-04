@@ -19,6 +19,7 @@ import FollowingListScreen from './FollowingListScreen';
 import EditUserScreen from './EditUserScreen';
 import EditProfile from './EditProfileScreen';
 import PreviewScreen from './PreviewScreen';
+import {KeyboardAvoidingView, Platform} from 'react-native';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
