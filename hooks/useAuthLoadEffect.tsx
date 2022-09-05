@@ -16,7 +16,9 @@ export default function useAuthLoadEffect() {
     const fn = async () => {
       const auth = await authStorage.get();
       if (!auth) {
-        SplashScreen.hide();
+        setTimeout(() => {
+          SplashScreen.hide();
+        }, 2000);
         return;
       }
       const decodedRefreshToken: RefreshToken = jwtDecode(auth.refreshToken);
@@ -31,11 +33,15 @@ export default function useAuthLoadEffect() {
           }),
         );
         setTimeout(() => dispatch(deleteAlert()), 3500);
-        SplashScreen.hide();
+        setTimeout(() => {
+          SplashScreen.hide();
+        }, 2000);
         return;
       }
       navigation.reset({routes: [{name: 'MainTab'}]});
-      SplashScreen.hide();
+      setTimeout(() => {
+        SplashScreen.hide();
+      }, 2000);
       dispatch(authorize(auth.accessToken));
     };
     fn();

@@ -1,5 +1,4 @@
 import {NavigationContainer} from '@react-navigation/native';
-import SplashScreen from 'react-native-splash-screen';
 import React, {useEffect} from 'react';
 import {Alert} from 'react-native';
 import RootStack from './screens/RootStack';
@@ -73,10 +72,6 @@ function App() {
       }
     });
     return listener.remove;
-  }, []);
-
-  useEffect(() => {
-    SplashScreen.hide();
   }, []);
 
   return (
