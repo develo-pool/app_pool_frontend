@@ -65,7 +65,7 @@ function SearchScreen() {
   }, [refetch]);
   useEffect(() => {
     refetch();
-  }, [refetch, isFocused, searchText]);
+  }, [refetch, isFocused]);
   const RenderRecommandItem = ({item}) => {
     return (
       <RecommandBrandUserContainer
@@ -80,28 +80,29 @@ function SearchScreen() {
         poolUserId={item.poolUserId}
         isLoginUser={item.isLoginUser}
         refetch={refetch}
+        searchText={searchText}
       />
     );
   };
   const searchFilter = Brands?.filter(brand =>
     brand.brandUsername.toUpperCase().includes(`${searchText.toUpperCase()}`),
   );
-  const RenderSearchItem = ({item}) => {
-    return (
-      <SearchResultBrandUserContainer
-        key={item.poolUserId}
-        changeFollowing={changeFollowing}
-        brandUsername={item.brandUsername}
-        brandProfileImage={item.brandProfileImage}
-        follow={item.userInfoDto?.follow}
-        userFollowerCount={item.userInfoDto?.userFollowerCount}
-        brandUserId={item.brandUserId}
-        poolUserId={item.poolUserId}
-        isLoginUser={item.isLoginUser}
-        refetch={refetch}
-      />
-    );
-  };
+  // const RenderSearchItem = ({item}) => {
+  //   return (
+  //     <SearchResultBrandUserContainer
+  //       key={item.poolUserId}
+  //       changeFollowing={changeFollowing}
+  //       brandUsername={item.brandUsername}
+  //       brandProfileImage={item.brandProfileImage}
+  //       follow={item.userInfoDto?.follow}
+  //       userFollowerCount={item.userInfoDto?.userFollowerCount}
+  //       brandUserId={item.brandUserId}
+  //       poolUserId={item.poolUserId}
+  //       isLoginUser={item.isLoginUser}
+  //       refetch={refetch}
+  //     />
+  //   );
+  // };
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -111,60 +112,40 @@ function SearchScreen() {
           <View style={styles.line} />
         </View>
         <View style={styles.container}>
-          {
-            // searchText !== '' ? (
-            searchFilter?.length !== 0 ? (
-              <FlatList
-                data={searchText !== '' ? searchFilter : Brands}
-                style={styles.flatList}
-                renderItem={
-                  searchText !== '' ? RenderSearchItem : RenderRecommandItem
-                }
-                showsVerticalScrollIndicator={false}
-                onEndReached={() => {
-                  onEndReached();
-                }}
-                onEndReachedThreshold={0.6}
-                onRefresh={onRefresh}
-                refreshing={refreshing}
-                ListHeaderComponent={
-                  searchText !== '' ? (
-                    <SearchResultSubTitle searchCount={searchFilter?.length} />
-                  ) : (
-                    <RecommandSubTitle />
-                  )
-                }
-                ListFooterComponent={
-                  <>{isBrandLoading && <ActivityIndicator />}</>
-                }
-              />
-            ) : (
-              <>
-                <SearchResultSubTitle searchCount={searchFilter?.length} />
-                <View style={styles.noSearchTextContainer}>
-                  <Text style={styles.noSearchText}>검색 결과가 없습니다</Text>
-                </View>
-              </>
-            )
-            // ) : (
-            //   <FlatList
-            //     data={Brands}
-            //     style={styles.flatList}
-            //     renderItem={RenderRecommandItem}
-            //     showsVerticalScrollIndicator={false}
-            //     onEndReached={() => {
-            //       onEndReached();
-            //     }}
-            //     onEndReachedThreshold={0.6}
-            //     onRefresh={onRefresh}
-            //     refreshing={refreshing}
-            //     ListHeaderComponent={<RecommandSubTitle />}
-            //     ListFooterComponent={
-            //       <>{isBrandLoading && <ActivityIndicator />}</>
-            //     }
-            //   />
-            // )
-          }
+          {searchFilter?.length !== 0 ? (
+            <FlatList
+              data={searchText !== '' ? searchFilter : Brands}
+              style={styles.flatList}
+              renderItem={
+                // searchText !== '' ? RenderSearchItem : RenderRecommandItem
+                RenderRecommandItem
+              }
+              showsVerticalScrollIndicator={false}
+              onEndReached={() => {
+                onEndReached();
+              }}
+              onEndReachedThreshold={0.6}
+              onRefresh={onRefresh}
+              refreshing={refreshing}
+              ListHeaderComponent={
+                searchText !== '' ? (
+                  <SearchResultSubTitle searchCount={searchFilter?.length} />
+                ) : (
+                  <RecommandSubTitle />
+                )
+              }
+              ListFooterComponent={
+                <>{isBrandLoading && <ActivityIndicator />}</>
+              }
+            />
+          ) : (
+            <>
+              <SearchResultSubTitle searchCount={searchFilter?.length} />
+              <View style={styles.noSearchTextContainer}>
+                <Text style={styles.noSearchText}>검색 결과가 없습니다</Text>
+              </View>
+            </>
+          )}
         </View>
       </View>
     </SafeAreaView>
