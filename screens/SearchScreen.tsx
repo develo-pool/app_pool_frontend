@@ -5,7 +5,6 @@ import {
   SafeAreaView,
   FlatList,
   ActivityIndicator,
-  Keyboard,
 } from 'react-native';
 import SearchBar from '../components/search/SearchBar';
 import RecommandBrandUserContainer from '../components/search/RecommandBrandUserContainer';
@@ -21,8 +20,6 @@ import {useIsFocused} from '@react-navigation/native';
 const LENGTH = 10;
 
 function SearchScreen() {
-  const [keyboardHeight, setKeyboardHeight] = useState<number>(0);
-
   const [cursor, setCursor] = useState<number>(0);
   const [Brands, setBrands] = useState<AllBrandResult[]>([]);
   const [noMoreBrand, setNoMoreBrand] = useState<boolean>(false);
