@@ -82,7 +82,7 @@ function SearchScreen() {
     );
   };
   const searchFilter = Brands?.filter(brand =>
-    brand.brandUsername.includes(`${searchText}`),
+    brand.brandUsername.toUpperCase().includes(`${searchText.toUpperCase()}`),
   );
   const RenderSearchItem = ({item}) => {
     return (
