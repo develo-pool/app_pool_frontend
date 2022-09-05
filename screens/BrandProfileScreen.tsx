@@ -13,7 +13,12 @@ import theme from '../assets/theme';
 import ShareButton from '../components/profile/ShareButton';
 import BrandProfileMessageContainer from '../components/profile/BrandProfileMessageContainer';
 import BrandProfileHeader from './../components/profile/BrandProfileHeader';
-import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
+import {
+  CommonActions,
+  RouteProp,
+  useNavigation,
+  useRoute,
+} from '@react-navigation/native';
 import {RootStackNavigationProp, RootStackParamList} from './types';
 import {useQuery} from 'react-query';
 import {Message} from '../api/message/types';
@@ -67,7 +72,8 @@ function BrandProfileScreen() {
       headerShadowVisible: false,
       headerTitle: '',
       headerLeft: () => (
-        <TouchableOpacity onPress={() => navigation.goBack()}>
+        <TouchableOpacity
+          onPress={() => navigation.dispatch(CommonActions.goBack())}>
           <Icon name="arrow-back" size={24} color="black" />
         </TouchableOpacity>
       ),

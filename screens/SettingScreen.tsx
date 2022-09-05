@@ -97,78 +97,77 @@ function SettingScreen() {
   // }, [getFcmToken]);
 
   return (
-    <>
-      <SafeAreaView style={styles.safeArea}>
-        <View style={styles.backGroundGray}>
-          <View style={styles.padding}>
-            <AlertBox />
-          </View>
-          <ScrollView>
-            <View style={styles.userInfoContainer}>
-              <View style={styles.profileImgContainer}>
-                {user?.role === 'BRAND_USER' ? (
-                  <Image
-                    style={styles.imgSource}
-                    source={{uri: brandData?.brandProfileImage}}
+    <SafeAreaView style={styles.safeArea}>
+      <ScrollView style={styles.backGroundGray}>
+        <View style={styles.padding}>
+          <AlertBox />
+        </View>
+        <View>
+          <View style={styles.userInfoContainer}>
+            <View style={styles.profileImgContainer}>
+              {user?.role === 'BRAND_USER' ? (
+                <Image
+                  style={styles.imgSource}
+                  source={{uri: brandData?.brandProfileImage}}
+                />
+              ) : (
+                <Image
+                  style={styles.imgSource}
+                  source={require('../assets/PoolLogo.png')}
+                />
+              )}
+              {user?.role === 'BRAND_USER' ? (
+                <View style={styles.iconContainer}>
+                  <Icon
+                    name="check-circle"
+                    size={18}
+                    style={styles.brandChecked}
                   />
-                ) : (
-                  <Image
-                    style={styles.imgSource}
-                    source={require('../assets/PoolLogo.png')}
-                  />
-                )}
-                {user?.role === 'BRAND_USER' ? (
-                  <View style={styles.iconContainer}>
-                    <Icon
-                      name="check-circle"
-                      size={18}
-                      style={styles.brandChecked}
-                    />
-                  </View>
-                ) : null}
-              </View>
-              <View style={styles.profileInfo}>
-                {userData ? (
-                  <>
-                    {user?.role === 'BRAND_USER' ? (
-                      <Text style={styles.brandName}>
-                        {brandData?.brandUsername}
-                      </Text>
-                    ) : null}
-                    <Text style={styles.userName}>{user?.nickName}</Text>
-                    <Pressable
-                      style={styles.followingContainer}
-                      onPress={() =>
-                        navigation.navigate('FollowingList', {
-                          followingCount: userData.userFollowingCount,
-                        })
-                      }>
-                      <Text style={styles.following}>팔로잉</Text>
-                      <Text style={styles.followingCount}>
-                        {userData?.userFollowingCount}
-                      </Text>
-                    </Pressable>
-                  </>
-                ) : (
-                  <ActivityIndicator />
-                )}
-              </View>
+                </View>
+              ) : null}
             </View>
-            {user?.role === 'BRAND_USER' ? null : (
-              <JoinBrandContainer
-                onPress={
-                  user?.role === 'WAITING'
-                    ? () => navigation.push('BrandAssignComplete')
-                    : () => navigation.push('BrandAssignGuide')
-                }
-              />
-            )}
-            <>
-              <Pressable
-                style={styles.seperatedSets}
-                onPress={() => Linking.openSettings()}>
-                <Text style={styles.notiText}>알림 설정</Text>
-                {/* <Switch
+            <View style={styles.profileInfo}>
+              {userData ? (
+                <>
+                  {user?.role === 'BRAND_USER' ? (
+                    <Text style={styles.brandName}>
+                      {brandData?.brandUsername}
+                    </Text>
+                  ) : null}
+                  <Text style={styles.userName}>{user?.nickName}</Text>
+                  <Pressable
+                    style={styles.followingContainer}
+                    onPress={() =>
+                      navigation.navigate('FollowingList', {
+                        followingCount: userData.userFollowingCount,
+                      })
+                    }>
+                    <Text style={styles.following}>팔로잉</Text>
+                    <Text style={styles.followingCount}>
+                      {userData?.userFollowingCount}
+                    </Text>
+                  </Pressable>
+                </>
+              ) : (
+                <ActivityIndicator />
+              )}
+            </View>
+          </View>
+          {user?.role === 'BRAND_USER' ? null : (
+            <JoinBrandContainer
+              onPress={
+                user?.role === 'WAITING'
+                  ? () => navigation.push('BrandAssignComplete')
+                  : () => navigation.push('BrandAssignGuide')
+              }
+            />
+          )}
+          <>
+            <Pressable
+              style={styles.seperatedSets}
+              onPress={() => Linking.openSettings()}>
+              <Text style={styles.notiText}>알림 설정</Text>
+              {/* <Switch
                 trackColor={{
                   false: theme.colors.Grey40,
                   true:
@@ -181,45 +180,44 @@ function SettingScreen() {
                 onValueChange={toggleSwitch}
                 value={isEnabled}
               /> */}
-                <Icon
-                  name="arrow-forward-ios"
-                  size={14}
-                  style={styles.rightArrow}
-                />
-              </Pressable>
-              <SetArticle
-                title="회원정보 수정"
-                onPress={() => navigation.navigate('EditUser')}
+              <Icon
+                name="arrow-forward-ios"
+                size={14}
+                style={styles.rightArrow}
               />
-              <SetArticle
-                title="이용약관"
-                onPress={() =>
-                  Linking.openURL(
-                    'https://bypool.notion.site/46307ef08b8a471a8b5f4f38a6add44b',
-                  )
-                }
-              />
-              <SetArticle
-                title="개인정보처리방침"
-                onPress={() =>
-                  Linking.openURL(
-                    'https://bypool.notion.site/50c7bb1b42fe491cbaa8bc694f7c5ca1',
-                  )
-                }
-              />
-              <SetArticle
-                title="문의하기"
-                onPress={() => Linking.openURL('http://pf.kakao.com/_ebksb')}
-              />
-              <Pressable style={styles.seperatedSets} onPress={onLogout}>
-                <Text style={styles.logout}>로그아웃</Text>
-              </Pressable>
-            </>
-            <Footer />
-          </ScrollView>
+            </Pressable>
+            <SetArticle
+              title="회원정보 수정"
+              onPress={() => navigation.navigate('EditUser')}
+            />
+            <SetArticle
+              title="이용약관"
+              onPress={() =>
+                Linking.openURL(
+                  'https://bypool.notion.site/46307ef08b8a471a8b5f4f38a6add44b',
+                )
+              }
+            />
+            <SetArticle
+              title="개인정보처리방침"
+              onPress={() =>
+                Linking.openURL(
+                  'https://bypool.notion.site/50c7bb1b42fe491cbaa8bc694f7c5ca1',
+                )
+              }
+            />
+            <SetArticle
+              title="문의하기"
+              onPress={() => Linking.openURL('http://pf.kakao.com/_ebksb')}
+            />
+            <Pressable style={styles.seperatedSets} onPress={onLogout}>
+              <Text style={styles.logout}>로그아웃</Text>
+            </Pressable>
+          </>
+          <Footer />
         </View>
-      </SafeAreaView>
-    </>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
