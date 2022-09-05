@@ -21,7 +21,8 @@ function ProfileHeader() {
 
   useEffect(() => {
     refetch();
-  }, [isFocused]);
+    console.log('refetched!');
+  }, [refetch, isFocused]);
 
   return (
     <View style={styles.ProfileSection}>
