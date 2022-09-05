@@ -17,7 +17,7 @@ import {
   PreviewButton,
   SendButton,
 } from '../components/create/CreateMessageComponents';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, CommonActions} from '@react-navigation/native';
 import {MainTabNavigationProp} from './types';
 import {useQuery, useMutation} from 'react-query';
 import {getBrand} from '../api/brand';
@@ -71,7 +71,7 @@ function CreateMessageScreen() {
 
   const {mutate: create} = useMutation(createMessage, {
     onSuccess: () => {
-      navigation.goBack();
+      navigation.dispatch(CommonActions.goBack());
     },
   });
   const onSubmit = useCallback(() => {

@@ -6,7 +6,7 @@ import TextInputs from '../components/TextInputs';
 import {AuthButton} from '../components/auth/AuthComponents';
 import Title from '../components/Title';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, CommonActions} from '@react-navigation/native';
 import {SettingStackNavigationProp} from './types';
 import {getUser, nickNameExist} from '../api/auth';
 import {updateNickname} from '../api/profile';
@@ -46,7 +46,7 @@ function EditUserScreen() {
     onSuccess: () => {
       console.log('Success!!');
       console.log(form.nickName);
-      navigation.goBack();
+      navigation.dispatch(CommonActions.goBack());
     },
     onError: (e: AxiosError) => {
       console.log(e.config);
