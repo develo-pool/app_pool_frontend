@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Text, StyleSheet, View, ActivityIndicator} from 'react-native';
 import ProfileImageContainer from './ProfileImageContainer';
 import ShareButton from './ShareButton';
@@ -6,11 +6,23 @@ import theme from '../../assets/theme';
 import {useQuery} from 'react-query';
 import {getMyBrandProfile} from '../../api/brand';
 import SetWelcomeMsg from './SetWelcomeMessage';
+import {useIsFocused} from '@react-navigation/native';
 
 function ProfileHeader() {
-  const {data: brandData} = useQuery('getBrand', () => getMyBrandProfile(''), {
-    refetchOnMount: 'always',
-  });
+  const {data: brandData, refetch} = useQuery(
+    'getBrand',
+    () => getMyBrandProfile(''),
+    {
+      refetchOnMount: 'always',
+    },
+  );
+
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    refetch();
+    console.log('refetched!');
+  }, [refetch, isFocused]);
 
   return (
     <View style={styles.ProfileSection}>
