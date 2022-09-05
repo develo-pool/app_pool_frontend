@@ -50,6 +50,7 @@ function SearchScreen() {
       },
     },
   );
+
   const onEndReached = () => {
     if (!noMoreBrand) {
       refetch();
@@ -63,7 +64,7 @@ function SearchScreen() {
   }, [refetch]);
   useEffect(() => {
     refetch();
-  }, [refetch, isFocused]);
+  }, [refetch, isFocused, searchText]);
   const RenderRecommandItem = ({item}) => {
     return (
       <RecommandBrandUserContainer

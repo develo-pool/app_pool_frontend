@@ -19,7 +19,7 @@ function DetailMessageContainer(detailmessage: Message) {
           detailmessage?.writerDto?.brandUserInfoDto?.brandProfileImage
         }
         create_date={detailmessage.create_date}
-        poolUserId={detailmessage.writerDto?.poolUserId}
+        poolUserId={detailmessage.writerDto.poolUserId}
         brandUserId={detailmessage.writerDto.brandUserInfoDto.brandUserId}
       />
       <View>

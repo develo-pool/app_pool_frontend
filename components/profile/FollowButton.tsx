@@ -3,7 +3,7 @@ import {View, TouchableOpacity, Text, StyleSheet} from 'react-native';
 import theme from '../../assets/theme';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {follow, unfollow} from '../../api/follow';
-import {sendSingleAlarm} from '../../api/fcm';
+// import {sendSingleAlarm} from '../../api/fcm';
 import {useMutation} from 'react-query';
 
 interface Props {
@@ -14,7 +14,7 @@ interface Props {
 
 function FollowButton({isFollowed, poolUserId, refetch}: Props) {
   const isFollow = useRef(isFollowed);
-  const {mutate: sendWelcomeMessage} = useMutation(sendSingleAlarm);
+  // const {mutate: sendWelcomeMessage} = useMutation(sendSingleAlarm);
 
   const {mutate: onPressFollow} = useMutation(follow, {
     onSuccess: () => {
@@ -33,11 +33,12 @@ function FollowButton({isFollowed, poolUserId, refetch}: Props) {
     <View style={styles.FollowButton}>
       <TouchableOpacity
         style={[styles.ButtonFrame, isFollow.current && styles.Unfollowed]}
-        onPress={() =>
-          isFollow.current
-            ? onPressUnfollow(poolUserId)
-            : (onPressFollow(poolUserId),
-              sendWelcomeMessage({pool_user_id: poolUserId, brand_id: 1}))
+        onPress={
+          () =>
+            isFollow.current
+              ? onPressUnfollow(poolUserId)
+              : onPressFollow(poolUserId)
+          // sendWelcomeMessage({pool_user_id: poolUserId, brand_id: 1}))
         }>
         <Text
           style={[
