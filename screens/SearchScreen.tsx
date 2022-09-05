@@ -5,6 +5,7 @@ import {
   SafeAreaView,
   FlatList,
   ActivityIndicator,
+  Text,
 } from 'react-native';
 import SearchBar from '../components/search/SearchBar';
 import RecommandBrandUserContainer from '../components/search/RecommandBrandUserContainer';
@@ -110,12 +111,15 @@ function SearchScreen() {
           <View style={styles.line} />
         </View>
         <View style={styles.container}>
-          {searchText !== '' ? (
+          {
+            // searchText !== '' ? (
             searchFilter?.length !== 0 ? (
               <FlatList
-                data={searchFilter}
+                data={searchText !== '' ? searchFilter : Brands}
                 style={styles.flatList}
-                renderItem={RenderSearchItem}
+                renderItem={
+                  searchText !== '' ? RenderSearchItem : RenderRecommandItem
+                }
                 showsVerticalScrollIndicator={false}
                 onEndReached={() => {
                   onEndReached();
@@ -124,7 +128,11 @@ function SearchScreen() {
                 onRefresh={onRefresh}
                 refreshing={refreshing}
                 ListHeaderComponent={
-                  <SearchResultSubTitle searchCount={searchFilter?.length} />
+                  searchText !== '' ? (
+                    <SearchResultSubTitle searchCount={searchFilter?.length} />
+                  ) : (
+                    <RecommandSubTitle />
+                  )
                 }
                 ListFooterComponent={
                   <>{isBrandLoading && <ActivityIndicator />}</>
@@ -132,30 +140,31 @@ function SearchScreen() {
               />
             ) : (
               <>
-                {/* <SearchResultSubTitle searchCount={searchFilter?.length} />
+                <SearchResultSubTitle searchCount={searchFilter?.length} />
                 <View style={styles.noSearchTextContainer}>
                   <Text style={styles.noSearchText}>검색 결과가 없습니다</Text>
-                </View> */}
+                </View>
               </>
             )
-          ) : (
-            <FlatList
-              data={Brands}
-              style={styles.flatList}
-              renderItem={RenderRecommandItem}
-              showsVerticalScrollIndicator={false}
-              onEndReached={() => {
-                onEndReached();
-              }}
-              onEndReachedThreshold={0.6}
-              onRefresh={onRefresh}
-              refreshing={refreshing}
-              ListHeaderComponent={<RecommandSubTitle />}
-              ListFooterComponent={
-                <>{isBrandLoading && <ActivityIndicator />}</>
-              }
-            />
-          )}
+            // ) : (
+            //   <FlatList
+            //     data={Brands}
+            //     style={styles.flatList}
+            //     renderItem={RenderRecommandItem}
+            //     showsVerticalScrollIndicator={false}
+            //     onEndReached={() => {
+            //       onEndReached();
+            //     }}
+            //     onEndReachedThreshold={0.6}
+            //     onRefresh={onRefresh}
+            //     refreshing={refreshing}
+            //     ListHeaderComponent={<RecommandSubTitle />}
+            //     ListFooterComponent={
+            //       <>{isBrandLoading && <ActivityIndicator />}</>
+            //     }
+            //   />
+            // )
+          }
         </View>
       </View>
     </SafeAreaView>
