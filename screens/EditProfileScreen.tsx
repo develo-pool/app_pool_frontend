@@ -12,8 +12,7 @@ import {
 } from 'react-native';
 import theme from '../assets/theme';
 import ScreenBottomButton from './../components/ScreenBottomButton';
-import {useNavigation} from '@react-navigation/native';
-import {RootStackNavigationProp} from './types';
+import {CommonActions, useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useQuery, useMutation} from 'react-query';
 import {getBrand} from '../api/brand';
@@ -27,7 +26,7 @@ export interface BrandUpdateProps {
 }
 
 function EditProfile() {
-  const navigation = useNavigation<RootStackNavigationProp>();
+  const navigation = useNavigation();
   const [form, setForm] = useState<BrandUpdateProps>({
     brandUserUpdate: '',
     multipartFile: undefined,
@@ -67,7 +66,7 @@ function EditProfile() {
       console.log(form);
     },
     onSuccess: () => {
-      navigation.navigate('Profile');
+      navigation.dispatch(CommonActions.goBack());
     },
   });
 
@@ -91,7 +90,8 @@ function EditProfile() {
       headerShadowVisible: false,
       headerTitle: '',
       headerLeft: () => (
-        <TouchableOpacity onPress={() => navigation.goBack()}>
+        <TouchableOpacity
+          onPress={() => navigation.dispatch(CommonActions.goBack())}>
           <Icon name="arrow-back" size={24} color="black" />
         </TouchableOpacity>
       ),

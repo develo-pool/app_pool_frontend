@@ -134,7 +134,7 @@ function SettingScreen() {
                       {brandData?.brandUsername}
                     </Text>
                   ) : null}
-                  <Text style={styles.userName}>{user?.nickName}</Text>
+                  <Text style={styles.userName}>{userData.nickName}</Text>
                   <Pressable
                     style={styles.followingContainer}
                     onPress={() =>
