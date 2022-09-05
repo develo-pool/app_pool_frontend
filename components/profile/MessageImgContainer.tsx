@@ -4,15 +4,17 @@ import {Dimensions, Image, StyleSheet, View} from 'react-native';
 interface Props {
   messageImg: string;
 }
+const windowWidth = Dimensions.get('window').width;
 
 function MessageImgContainer({messageImg}: Props) {
   // 높이를 정해주기 위한 height useState와 Dimensions 사용
   const [height, setHeight] = useState(0);
+
   if (messageImg !== '') {
-    const {width} = Dimensions.get('window');
-    // 아래는 이미지의 가로 세로를 가져와 setHeight로 높이 설정해주는..!
     Image.getSize(messageImg, (w, h) => {
-      setHeight(h * ((width - 32) / w));
+      h >= w
+        ? setHeight(windowWidth - 56)
+        : setHeight(h * ((windowWidth - 56) / w));
     });
   }
 
@@ -21,7 +23,7 @@ function MessageImgContainer({messageImg}: Props) {
       <Image
         style={styles.messageImg}
         source={{uri: messageImg !== '' ? messageImg : undefined, height}}
-        resizeMode="contain"
+        resizeMode="cover"
       />
     </View>
   );
@@ -29,13 +31,14 @@ function MessageImgContainer({messageImg}: Props) {
 
 const styles = StyleSheet.create({
   imageContainer: {
-    maxHeight: 220,
+    maxHeight: windowWidth,
     marginBottom: 8,
+    overflow: 'hidden',
+    justifyContent: 'center',
   },
   messageImg: {
     borderRadius: 6,
-    maxHeight: 220,
-    maxWidth: 400,
+    maxWidth: windowWidth,
   },
 });
 

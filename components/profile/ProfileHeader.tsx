@@ -18,7 +18,7 @@ function ProfileHeader() {
         <>
           <View style={styles.ProfileLayout}>
             <View style={styles.ProfileContainer}>
-              <ProfileImageContainer isEditable={true} />
+              <ProfileImageContainer />
               <View style={styles.BrandInfo}>
                 <Text style={styles.BrandName}>{brandData.brandUsername}</Text>
                 <View style={styles.FollowerContainer}>
@@ -49,7 +49,6 @@ function ProfileHeader() {
 const styles = StyleSheet.create({
   ProfileSection: {
     paddingTop: 24,
-    height: 220,
     backgroundColor: theme.colors.White,
     paddingHorizontal: 16,
   },
@@ -58,7 +57,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   ProfileContainer: {
-    height: 120,
+    marginVertical: 12,
     flexDirection: 'row',
   },
   BrandInfo: {
@@ -91,7 +90,7 @@ const styles = StyleSheet.create({
   },
   IntroContainer: {
     justifyContent: 'center',
-    height: 24,
+    marginVertical: 6,
   },
   IntroText: {
     fontSize: theme.fontSize.P2,

@@ -20,7 +20,7 @@ function SetWelcomeMsg() {
 
 const styles = StyleSheet.create({
   SetWelcomeMessage: {
-    height: 50,
+    paddingVertical: 14,
     backgroundColor: theme.colors.White,
     flexDirection: 'row',
     alignItems: 'center',
@@ -29,12 +29,10 @@ const styles = StyleSheet.create({
     color: theme.colors.Poolblue,
     fontSize: theme.fontSize.P3,
     fontWeight: theme.fontWeight.Bold,
-    // color:theme.colors.Poolblue,
   },
   RightArrow: {
     marginLeft: 6,
     color: theme.colors.Poolblue,
-    // color:theme.colors.Poolblue,
   },
 });
 
