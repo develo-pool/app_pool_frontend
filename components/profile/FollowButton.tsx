@@ -36,8 +36,8 @@ function FollowButton({isFollowed, poolUserId, refetch}: Props) {
         onPress={() =>
           isFollow.current
             ? onPressUnfollow(poolUserId)
-            : (onPressFollow(poolUserId),
-              sendWelcomeMessage({pool_user_id: poolUserId, brand_id: 1}))
+            : (onPressFollow(poolUserId))
+              // sendWelcomeMessage({pool_user_id: poolUserId, brand_id: 1}))
         }>
         <Text
           style={[
