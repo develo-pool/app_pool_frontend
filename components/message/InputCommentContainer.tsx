@@ -50,6 +50,7 @@ const styles = StyleSheet.create({
     maxHeight: 44,
     borderWidth: 1,
     borderColor: theme.colors.Grey30,
+    zIndex: 1,
   },
   inputX: {
     paddingVertical: 10,
