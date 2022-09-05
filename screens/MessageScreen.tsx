@@ -10,6 +10,8 @@ import {
   View,
   Platform,
   ScrollView,
+  Keyboard,
+  NativeModules,
 } from 'react-native';
 import theme from '../assets/theme';
 import Commentcomponent from '../components/message/Commentcomponent';
@@ -33,6 +35,8 @@ import {Comment} from '../api/comment/types';
 type MessageScreenRouteProp = RouteProp<RootStackParamList, 'Message'>;
 
 const LENGTH = 10;
+
+const {any: StatusBarManager} = NativeModules;
 
 function MessageScreen() {
   const isFocused = useIsFocused();
@@ -145,14 +149,26 @@ function MessageScreen() {
     setCommentText('');
   };
 
+  useEffect(() => {
+    Platform.OS == 'ios'
+      ? StatusBarManager?.getHeight(statusBarFrameData => {
+          setStatusBarHeight(statusBarFrameData.height);
+          console.log(statusBarFrameData.height);
+        })
+      : null;
+  }, []);
+  // console.log(StatusBarManager?.getHeight())
+
+  const [statusBarHeight, setStatusBarHeight] = useState(0);
+
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <KeyboardAvoidingView
-        // behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        behavior={Platform.select({ios:'padding'})}
-        style={styles.avoiding}
-        keyboardVerticalOffset={64}
-        enabled>
+    <KeyboardAvoidingView
+      // behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      behavior={Platform.select({ios: 'padding'})}
+      style={styles.avoiding}
+      keyboardVerticalOffset={statusBarHeight + 90}
+      enabled>
+      <SafeAreaView style={styles.safeArea}>
         <View style={styles.container}>
           <View>
             {messageData ? (
@@ -255,8 +271,8 @@ function MessageScreen() {
           addComments={onPress}
         />
       </KeyboardAvoidingView> */}
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+      </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -276,7 +292,7 @@ const styles = StyleSheet.create({
   },
   avoiding: {
     flex: 1,
-  }
+  },
 });
 
 export default MessageScreen;
