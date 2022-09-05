@@ -12,7 +12,10 @@ import theme from '../assets/theme';
 import NowDate from '../components/feed/NowDate';
 import Hello from '../components/feed/Hello';
 import {getUser} from '../api/auth';
-import {useQuery} from 'react-query';
+import {
+  useQuery,
+  // useQueryClient,
+} from 'react-query';
 import {getAllMessage} from '../api/message/index';
 import {Message} from '../api/message/types';
 import {useIsFocused} from '@react-navigation/native';
@@ -24,16 +27,19 @@ function FeedScreen() {
   const [Messages, setMessages] = useState<Message[]>([]);
   const [noMorePost, setNoMorePost] = useState<boolean>(false);
   const isFocused = useIsFocused();
+  // const queryClient = useQueryClient();
   const {isLoading: isMessageLoading, refetch: feedRefetch} = useQuery(
     'getAllMessage',
     () => getAllMessage(cursor),
     {
       onSuccess: data => {
+        // console.log(Messages);
         if (noMorePost) {
           setRefreshing(false);
           return '';
         }
         if (cursor === 0) {
+          console.log('법규');
           setMessages(Messages.concat(data));
         }
         if (data.length < LENGTH) {
@@ -41,9 +47,10 @@ function FeedScreen() {
         }
         if (data.length !== 0) {
           setMessages(Messages.concat(data));
+          setCursor(data[data.length - 1]?.postId);
         }
-        setCursor(data[data.length - 1]?.postId);
         setRefreshing(false);
+        console.log(Messages);
       },
       refetchOnMount: 'always',
     },
@@ -88,8 +95,9 @@ function FeedScreen() {
   };
 
   // 새로고침 실행
-  const onRefresh = useCallback(() => {
+  const onRefresh = useCallback(async () => {
     setRefreshing(true);
+    // queryClient.invalidateQueries('getAllMessage')
     setCursor(0);
     feedRefetch();
   }, [feedRefetch]);

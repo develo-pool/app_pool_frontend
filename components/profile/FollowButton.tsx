@@ -4,7 +4,7 @@ import theme from '../../assets/theme';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {follow, unfollow} from '../../api/follow';
 // import {sendSingleAlarm} from '../../api/fcm';
-import {useMutation} from 'react-query';
+import {useMutation, useQueryClient} from 'react-query';
 
 interface Props {
   isFollowed?: boolean;
@@ -14,16 +14,19 @@ interface Props {
 
 function FollowButton({isFollowed, poolUserId, refetch}: Props) {
   const isFollow = useRef(isFollowed);
+  const queryClient = useQueryClient();
   // const {mutate: sendWelcomeMessage} = useMutation(sendSingleAlarm);
 
   const {mutate: onPressFollow} = useMutation(follow, {
     onSuccess: () => {
+      queryClient.invalidateQueries('follow')
       isFollow.current = true;
       refetch();
     },
   });
   const {mutate: onPressUnfollow} = useMutation(unfollow, {
     onSuccess: () => {
+      queryClient.invalidateQueries('follow')
       isFollow.current = false;
       refetch();
     },
