@@ -9,8 +9,6 @@ import {
   TouchableOpacity,
   View,
   Platform,
-  ScrollView,
-  Keyboard,
   NativeModules,
 } from 'react-native';
 import theme from '../assets/theme';
@@ -150,7 +148,7 @@ function MessageScreen() {
   };
 
   useEffect(() => {
-    Platform.OS == 'ios'
+    Platform.OS === 'ios'
       ? StatusBarManager?.getHeight(statusBarFrameData => {
           setStatusBarHeight(statusBarFrameData.height);
           console.log(statusBarFrameData.height);
