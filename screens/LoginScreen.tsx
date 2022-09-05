@@ -1,8 +1,6 @@
 import React, {useState} from 'react';
 import {
   Keyboard,
-  KeyboardAvoidingView,
-  Platform,
   Pressable,
   SafeAreaView,
   StyleSheet,
@@ -19,6 +17,7 @@ import TextInputs from '../components/TextInputs';
 import theme from '../assets/theme';
 import useLogin from '../hooks/useLogin';
 import AlertBox from '../components/AlertBox';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 function LoginScreen() {
   const navigation = useNavigation<RootStackNavigationProp>();
@@ -40,14 +39,16 @@ function LoginScreen() {
   };
 
   return (
-    <MainContainer>
-      <SafeAreaView style={styles.alert}>
-        <View>
-          <AlertBox />
-        </View>
-      </SafeAreaView>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+    <KeyboardAwareScrollView
+      style={styles.keyboardView}
+      showsVerticalScrollIndicator={false}
+      keyboardShouldPersistTaps="handled">
+      <MainContainer>
+        <SafeAreaView style={styles.alert}>
+          <View>
+            <AlertBox />
+          </View>
+        </SafeAreaView>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View>
             <View style={styles.title}>
@@ -101,8 +102,8 @@ function LoginScreen() {
             </View>
           </View>
         </TouchableWithoutFeedback>
-      </KeyboardAvoidingView>
-    </MainContainer>
+      </MainContainer>
+    </KeyboardAwareScrollView>
   );
 }
 
@@ -139,6 +140,10 @@ const styles = StyleSheet.create({
   },
   margin: {
     marginBottom: 32,
+  },
+  keyboardView: {
+    flex: 1,
+    backgroundColor: theme.colors.White,
   },
 });
 

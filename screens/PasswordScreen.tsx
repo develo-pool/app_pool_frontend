@@ -28,6 +28,7 @@ import Title from '../components/Title';
 import {RootState} from '../slices';
 import {createAlert, deleteAlert} from '../slices/alert';
 import {RootStackNavigationProp, RootStackParamList} from './types';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 const TOTAL = 2;
 
@@ -144,60 +145,64 @@ function PasswordScreen() {
   return (
     <>
       <MainContainer>
-        <SafeAreaView style={styles.front}>
-          <View>
-            <AlertBox />
-          </View>
-        </SafeAreaView>
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          {current ? (
-            <View style={styles.block}>
-              <Title title="비밀번호를" />
-              <Title title="재설정해 주세요." hasMargin={true} />
-              <PasswordForm
-                form={form}
-                onChangeForm={createChangeFormHandler}
-                setForm={setForm}
-              />
+        <KeyboardAwareScrollView
+          showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled">
+          <SafeAreaView style={styles.front}>
+            <View>
+              <AlertBox />
             </View>
-          ) : (
-            <View style={[styles.block, isVisible && styles.alert]}>
-              <Title title="본인인증을" />
-              <Title title="진행해주세요." hasMargin={true} />
-              <InputTitle title="아이디" />
-              <View style={styles.row}>
-                <TextInputs
-                  type={
-                    form.username.length > 2 || !form.username
-                      ? 'default'
-                      : 'error'
-                  }
-                  placeholder="아이디를 입력해 주세요"
-                  value={form.username}
-                  onChangeText={(value: string) =>
-                    setForm({
-                      ...form,
-                      username: ReplaceKorean(value),
-                      usernameChecked: undefined,
-                    })
-                  }
-                  maxLength={20}
-                  alert={
-                    form.username.length > 2 || !form.username
-                      ? undefined
-                      : {type: 'Error', text: '3자 이상 입력해주세요.'}
-                  }
+          </SafeAreaView>
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            {current ? (
+              <View style={styles.block}>
+                <Title title="비밀번호를" />
+                <Title title="재설정해 주세요." hasMargin={true} />
+                <PasswordForm
+                  form={form}
+                  onChangeForm={createChangeFormHandler}
+                  setForm={setForm}
                 />
               </View>
-              <PhoneAuthForm
-                form={form}
-                onChangeForm={createChangeFormHandler}
-                setForm={setForm}
-                mode="CHANGE_PASSWORD"
-              />
-            </View>
-          )}
-        </TouchableWithoutFeedback>
+            ) : (
+              <View style={[styles.block, isVisible && styles.alert]}>
+                <Title title="본인인증을" />
+                <Title title="진행해주세요." hasMargin={true} />
+                <InputTitle title="아이디" />
+                <View style={styles.row}>
+                  <TextInputs
+                    type={
+                      form.username.length > 2 || !form.username
+                        ? 'default'
+                        : 'error'
+                    }
+                    placeholder="아이디를 입력해 주세요"
+                    value={form.username}
+                    onChangeText={(value: string) =>
+                      setForm({
+                        ...form,
+                        username: ReplaceKorean(value),
+                        usernameChecked: undefined,
+                      })
+                    }
+                    maxLength={20}
+                    alert={
+                      form.username.length > 2 || !form.username
+                        ? undefined
+                        : {type: 'Error', text: '3자 이상 입력해주세요.'}
+                    }
+                  />
+                </View>
+                <PhoneAuthForm
+                  form={form}
+                  onChangeForm={createChangeFormHandler}
+                  setForm={setForm}
+                  mode="CHANGE_PASSWORD"
+                />
+              </View>
+            )}
+          </TouchableWithoutFeedback>
+        </KeyboardAwareScrollView>
       </MainContainer>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}>

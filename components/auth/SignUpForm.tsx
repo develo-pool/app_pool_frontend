@@ -5,6 +5,7 @@ import Category from '../category/Category';
 import FirstForm from './FirstForm';
 import SecondForm from './SecondForm';
 import ThirdForm from './ThirdForm';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 const SignUpForm = ({
   current,
@@ -42,7 +43,7 @@ const SignUpForm = ({
       );
     case 2:
       return (
-        <ScrollView
+        <KeyboardAwareScrollView
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled">
           <ThirdForm
@@ -50,7 +51,7 @@ const SignUpForm = ({
             form={form}
             setForm={setForm}
           />
-        </ScrollView>
+        </KeyboardAwareScrollView>
       );
     default:
       return (
