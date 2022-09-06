@@ -27,17 +27,11 @@ import {logout} from '../slices/auth';
 import authStorage from '../storages/authStorage';
 import {getUser} from '../api/auth';
 import {getBrand} from '../api/brand';
-import {useAsyncStorage} from '@react-native-async-storage/async-storage';
+// import {useAsyncStorage} from '@react-native-async-storage/async-storage';
 import {sendFCMToken} from '../api/fcm';
 import {useMutation} from 'react-query';
 import messaging from '@react-native-firebase/messaging';
-// import {
-//   check,
-//   request,
-//   PERMISSIONS,
-//   RESULTS,
-//   checkNotifications,
-// } from 'react-native-permissions';
+// import {checkNotifications} from 'react-native-permissions';
 
 function SettingScreen() {
   // const notificationStatus = checkNotifications();
@@ -59,9 +53,13 @@ function SettingScreen() {
     },
   );
   const id = '';
-  const {data: brandData, refetch} = useQuery('getBrand', () => getBrand(id), {
-    enabled: false,
-  });
+  const {data: brandData, refetch: brandRefetch} = useQuery(
+    'getBrand',
+    () => getBrand(id),
+    {
+      enabled: false,
+    },
+  );
   const onLogout = () => {
     authStorage.clear();
     dispatch(logout());
@@ -74,21 +72,21 @@ function SettingScreen() {
     },
   });
 
-  const {getItem: getFcmItem, setItem: setFcmItem} =
-    useAsyncStorage('fcmToken');
-
+  // const {getItem: getFcmItem, setItem: setFcmItem} = useAsyncStorage('fcmToken');
   const getFcmToken = useCallback(async () => {
-    const fcmFS = await getFcmItem();
     const fcmToken = await messaging().getToken();
-    if (fcmFS !== fcmToken) {
-      setFcmItem(fcmToken); // 회원가입, 로그인할 때 활용
-    }
+    // const fcmFS = await getFcmItem();
+    // if (fcmFS !== fcmToken) {
+    //   setFcmItem(fcmToken); // 회원가입, 로그인할 때 활용
+    // }
     console.log('Fcm Token :', fcmToken);
-    sendToken(fcmToken);
-  }, [getFcmItem, setFcmItem, sendToken]);
+    const sendFcmToken = encodeURIComponent(fcmToken);
+    sendToken(sendFcmToken);
+  }, [sendToken]);
+  //getFcmItem, setFcmItem
 
   useEffect(() => {
-    user?.role === 'BRAND_USER' && refetch();
+    user?.role === 'BRAND_USER' && brandRefetch();
     userRefetch();
 
     messaging().requestPermission();
