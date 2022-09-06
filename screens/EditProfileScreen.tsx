@@ -123,6 +123,7 @@ function EditProfile() {
           maxLength={200}
           defaultValue={brandData?.brandInfo}
           onChangeText={onChangeText('brandUserUpdate')}
+          multiline={true}
         />
         <View style={styles.InputTextCounter}>
           <Text style={styles.CounterText}>
