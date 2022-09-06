@@ -40,12 +40,12 @@ function Comment({text, userName, userProfileImg, writenCommentTime}: Props) {
               <Text style={styles.username}>{userName}</Text>
             </View>
             <View style={styles.commentContainer}>
-              {/* <Text style={styles.commentText}></Text> */}
-              <WrappedText>{text}</WrappedText>
+              <Text style={styles.commentText}>{text}</Text>
             </View>
           </View>
         </View>
         {/* <Text style={styles.align}>{comments[0]}</Text> */}
+
       </View>
 
       <View style={styles.commentTimeContainer}>
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     fontSize: theme.fontSize.P2,
     fontWeight: theme.fontWeight.Light,
     color: theme.colors.Grey60,
-    // maxWidth: 200,
+    maxWidth: 200,
   },
   commentTime: {
     fontSize: theme.fontSize.P3,
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
     marginBottom: 2,
   },
   commentContainer: {
-    height: 21,
+    // height: 21,
     justifyContent: 'center',
   },
 });
