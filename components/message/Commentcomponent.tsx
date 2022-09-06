@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
-import WrappedText from 'react-native-wrapped-text';
+// import WrappedText from 'react-native-wrapped-text';
 import theme from '../../assets/theme';
 
 interface Props {
@@ -10,7 +10,12 @@ interface Props {
   writenCommentTime: string;
 }
 // 사용 시에는 user 프롭스를 아래에 넣어주세용
-function Comment({text, userName, userProfileImg, writenCommentTime}: Props) {
+function Comment({
+  text,
+  userName,
+  // userProfileImg,
+  writenCommentTime,
+}: Props) {
   const Month = parseInt(writenCommentTime.substring(5, 7), 10);
   const Day = parseInt(writenCommentTime.substring(8, 10), 10);
   const Hour = parseInt(writenCommentTime.substring(11, 13), 10);
@@ -33,7 +38,7 @@ function Comment({text, userName, userProfileImg, writenCommentTime}: Props) {
               // userProfileImg !== null
               //   ? {uri: userProfileImg}
               //   : require('../../assets/Pool.png')
-                require('../../assets/Pool.png')
+              require('../../assets/Pool.png')
             }
           />
           <View>
@@ -46,7 +51,6 @@ function Comment({text, userName, userProfileImg, writenCommentTime}: Props) {
           </View>
         </View>
         {/* <Text style={styles.align}>{comments[0]}</Text> */}
-
       </View>
 
       <View style={styles.commentTimeContainer}>

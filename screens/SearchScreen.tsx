@@ -17,7 +17,7 @@ import {useQuery} from 'react-query';
 import {getAllBrand} from '../api/brand/index';
 import {AllBrandResult} from '../api/brand/types';
 import {useIsFocused} from '@react-navigation/native';
-import { follow, unfollow } from '../api/follow';
+// import {follow, unfollow} from '../api/follow';
 
 const LENGTH = 10;
 

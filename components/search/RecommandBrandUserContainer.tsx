@@ -44,7 +44,7 @@ function RecommandBrandUserContainer({
     <View>
       <Pressable
         style={
-          searchText == ''
+          searchText === ''
             ? styles.RecommandbrandUserContainer
             : styles.SearchbrandUserContainer
         }
@@ -82,7 +82,7 @@ function RecommandBrandUserContainer({
             )}
           </View>
         </View>
-        {searchText == '' ? (
+        {searchText === '' ? (
           <View style={styles.brandUserIntroContainer}>
             <Text style={styles.brandUserIntro}>{brandInfo}</Text>
           </View>
