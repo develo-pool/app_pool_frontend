@@ -21,6 +21,7 @@ interface Props {
   changeFollowing?: any;
   isLoginUser?: boolean;
   poolUserId: number;
+  searchText: string;
   refetch: <TPageData>(
     options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined,
   ) => Promise<QueryObserverResult<AllBrandResult[], unknown>>;
@@ -36,60 +37,76 @@ function RecommandBrandUserContainer({
   isLoginUser,
   poolUserId,
   refetch,
+  searchText,
 }: Props) {
   const navigation = useNavigation<RootStackNavigationProp>();
   return (
-    <Pressable
-      style={styles.brandUserContainer}
-      onPress={() =>
-        navigation.navigate('BrandProfile', {
-          brandUserId: brandUserId,
-          poolUserId: poolUserId,
-        })
-      }>
-      <View style={styles.brandUserHorizontal}>
-        <Image
-          style={styles.searchBrandUserProfileImg}
-          source={{
-            uri: brandProfileImage,
-          }}
-        />
-        <View style={styles.spacebetween}>
-          <View style={styles.brandUserTextContainer}>
-            <Text style={styles.brandUsername}>{brandUsername}</Text>
-            <View style={styles.brandUserFollowerContainer}>
-              <Text style={styles.followerText}>팔로워</Text>
-              <Text style={styles.followerCount}>{userFollowerCount}</Text>
+    <View>
+      <Pressable
+        style={
+          searchText === ''
+            ? styles.RecommandbrandUserContainer
+            : styles.SearchbrandUserContainer
+        }
+        onPress={() =>
+          navigation.navigate('BrandProfile', {
+            brandUserId: brandUserId,
+            poolUserId: poolUserId,
+          })
+        }>
+        <View style={styles.brandUserHorizontal}>
+          <Image
+            style={styles.searchBrandUserProfileImg}
+            source={{
+              uri: brandProfileImage,
+            }}
+          />
+          <View style={styles.spacebetween}>
+            <View style={styles.brandUserTextContainer}>
+              <Text style={styles.brandUsername}>{brandUsername}</Text>
+              <View style={styles.brandUserFollowerContainer}>
+                <Text style={styles.followerText}>팔로워</Text>
+                <Text style={styles.followerCount}>{userFollowerCount}</Text>
+              </View>
             </View>
+            {isLoginUser === true ? (
+              ''
+            ) : (
+              <View>
+                <FollowButton
+                  isFollowed={follow}
+                  poolUserId={poolUserId}
+                  refetch={refetch}
+                />
+              </View>
+            )}
           </View>
-          {isLoginUser === true ? (
-            ''
-          ) : (
-            <View>
-              <FollowButton
-                isFollowed={follow}
-                poolUserId={poolUserId}
-                refetch={refetch}
-              />
-            </View>
-          )}
         </View>
-      </View>
-      <View style={styles.brandUserIntroContainer}>
-        <Text style={styles.brandUserIntro}>{brandInfo}</Text>
-      </View>
-    </Pressable>
+        {searchText === '' ? (
+          <View style={styles.brandUserIntroContainer}>
+            <Text style={styles.brandUserIntro}>{brandInfo}</Text>
+          </View>
+        ) : (
+          <></>
+        )}
+      </Pressable>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  brandUserContainer: {
+  RecommandbrandUserContainer: {
     backgroundColor: theme.colors.White,
     borderRadius: 4,
     marginHorizontal: 16,
     marginBottom: 12,
     flex: 1,
     padding: 12,
+  },
+  SearchbrandUserContainer: {
+    backgroundColor: theme.colors.White,
+    flex: 1,
+    padding: 10,
   },
   brandUserHorizontal: {
     flexDirection: 'row',
@@ -148,6 +165,14 @@ const styles = StyleSheet.create({
   },
   brandUserIntroContainer: {
     marginTop: 12,
+  },
+  align: {
+    flexDirection: 'row',
+  },
+  bottomBorderLine: {
+    width: '100%',
+    height: 1,
+    backgroundColor: theme.colors.Grey20,
   },
 });
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
+// import WrappedText from 'react-native-wrapped-text';
 import theme from '../../assets/theme';
 
 interface Props {
@@ -9,7 +10,12 @@ interface Props {
   writenCommentTime: string;
 }
 // 사용 시에는 user 프롭스를 아래에 넣어주세용
-function Comment({text, userName, userProfileImg, writenCommentTime}: Props) {
+function Comment({
+  text,
+  userName,
+  // userProfileImg,
+  writenCommentTime,
+}: Props) {
   const Month = parseInt(writenCommentTime.substring(5, 7), 10);
   const Day = parseInt(writenCommentTime.substring(8, 10), 10);
   const Hour = parseInt(writenCommentTime.substring(11, 13), 10);
@@ -29,9 +35,10 @@ function Comment({text, userName, userProfileImg, writenCommentTime}: Props) {
           <Image
             style={styles.commentProfileImg}
             source={
-              userProfileImg !== null
-                ? {uri: userProfileImg}
-                : require('../../assets/Pool.png')
+              // userProfileImg !== null
+              //   ? {uri: userProfileImg}
+              //   : require('../../assets/Pool.png')
+              require('../../assets/Pool.png')
             }
           />
           <View>
@@ -97,6 +104,7 @@ const styles = StyleSheet.create({
     fontSize: theme.fontSize.P2,
     fontWeight: theme.fontWeight.Light,
     color: theme.colors.Grey60,
+    maxWidth: 200,
   },
   commentTime: {
     fontSize: theme.fontSize.P3,
@@ -114,7 +122,7 @@ const styles = StyleSheet.create({
     marginBottom: 2,
   },
   commentContainer: {
-    height: 21,
+    // height: 21,
     justifyContent: 'center',
   },
 });

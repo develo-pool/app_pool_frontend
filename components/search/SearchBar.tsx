@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 6,
     fontFamily: theme.fontFamily.Pretendard,
     paddingVertical: 12,
-    width: 280,
+    width: '82%',
   },
   searchBar: {
     flexDirection: 'row',

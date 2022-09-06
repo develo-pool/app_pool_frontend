@@ -5,17 +5,19 @@ import {
   SafeAreaView,
   FlatList,
   ActivityIndicator,
+  Text,
 } from 'react-native';
 import SearchBar from '../components/search/SearchBar';
 import RecommandBrandUserContainer from '../components/search/RecommandBrandUserContainer';
 import RecommandSubTitle from '../components/search/RecommandSubTitle';
-import SearchResultBrandUserContainer from '../components/search/SearchResultBrandUserContainer';
+// import SearchResultBrandUserContainer from '../components/search/SearchResultBrandUserContainer';
 import SearchResultSubTitle from '../components/search/SearchResultSubTitle';
 import theme from '../assets/theme';
 import {useQuery} from 'react-query';
 import {getAllBrand} from '../api/brand/index';
 import {AllBrandResult} from '../api/brand/types';
 import {useIsFocused} from '@react-navigation/native';
+// import {follow, unfollow} from '../api/follow';
 
 const LENGTH = 10;
 
@@ -64,7 +66,7 @@ function SearchScreen() {
   }, [refetch]);
   useEffect(() => {
     refetch();
-  }, [refetch, isFocused, searchText]);
+  }, [refetch, isFocused]);
   const RenderRecommandItem = ({item}) => {
     return (
       <RecommandBrandUserContainer
@@ -79,28 +81,29 @@ function SearchScreen() {
         poolUserId={item.poolUserId}
         isLoginUser={item.isLoginUser}
         refetch={refetch}
+        searchText={searchText}
       />
     );
   };
   const searchFilter = Brands?.filter(brand =>
     brand.brandUsername.toUpperCase().includes(`${searchText.toUpperCase()}`),
   );
-  const RenderSearchItem = ({item}) => {
-    return (
-      <SearchResultBrandUserContainer
-        key={item.poolUserId}
-        changeFollowing={changeFollowing}
-        brandUsername={item.brandUsername}
-        brandProfileImage={item.brandProfileImage}
-        follow={item.userInfoDto?.follow}
-        userFollowerCount={item.userInfoDto?.userFollowerCount}
-        brandUserId={item.brandUserId}
-        poolUserId={item.poolUserId}
-        isLoginUser={item.isLoginUser}
-        refetch={refetch}
-      />
-    );
-  };
+  // const RenderSearchItem = ({item}) => {
+  //   return (
+  //     <SearchResultBrandUserContainer
+  //       key={item.poolUserId}
+  //       changeFollowing={changeFollowing}
+  //       brandUsername={item.brandUsername}
+  //       brandProfileImage={item.brandProfileImage}
+  //       follow={item.userInfoDto?.follow}
+  //       userFollowerCount={item.userInfoDto?.userFollowerCount}
+  //       brandUserId={item.brandUserId}
+  //       poolUserId={item.poolUserId}
+  //       isLoginUser={item.isLoginUser}
+  //       refetch={refetch}
+  //     />
+  //   );
+  // };
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -110,39 +113,14 @@ function SearchScreen() {
           <View style={styles.line} />
         </View>
         <View style={styles.container}>
-          {searchText !== '' ? (
-            searchFilter?.length !== 0 ? (
-              <FlatList
-                data={searchFilter}
-                style={styles.flatList}
-                renderItem={RenderSearchItem}
-                showsVerticalScrollIndicator={false}
-                onEndReached={() => {
-                  onEndReached();
-                }}
-                onEndReachedThreshold={0.6}
-                onRefresh={onRefresh}
-                refreshing={refreshing}
-                ListHeaderComponent={
-                  <SearchResultSubTitle searchCount={searchFilter?.length} />
-                }
-                ListFooterComponent={
-                  <>{isBrandLoading && <ActivityIndicator />}</>
-                }
-              />
-            ) : (
-              <>
-                {/* <SearchResultSubTitle searchCount={searchFilter?.length} />
-                <View style={styles.noSearchTextContainer}>
-                  <Text style={styles.noSearchText}>검색 결과가 없습니다</Text>
-                </View> */}
-              </>
-            )
-          ) : (
+          {searchFilter?.length !== 0 ? (
             <FlatList
-              data={Brands}
+              data={searchText !== '' ? searchFilter : Brands}
               style={styles.flatList}
-              renderItem={RenderRecommandItem}
+              renderItem={
+                // searchText !== '' ? RenderSearchItem : RenderRecommandItem
+                RenderRecommandItem
+              }
               showsVerticalScrollIndicator={false}
               onEndReached={() => {
                 onEndReached();
@@ -150,11 +128,24 @@ function SearchScreen() {
               onEndReachedThreshold={0.6}
               onRefresh={onRefresh}
               refreshing={refreshing}
-              ListHeaderComponent={<RecommandSubTitle />}
+              ListHeaderComponent={
+                searchText !== '' ? (
+                  <SearchResultSubTitle searchCount={searchFilter?.length} />
+                ) : (
+                  <RecommandSubTitle />
+                )
+              }
               ListFooterComponent={
                 <>{isBrandLoading && <ActivityIndicator />}</>
               }
             />
+          ) : (
+            <>
+              <SearchResultSubTitle searchCount={searchFilter?.length} />
+              <View style={styles.noSearchTextContainer}>
+                <Text style={styles.noSearchText}>검색 결과가 없습니다</Text>
+              </View>
+            </>
           )}
         </View>
       </View>
