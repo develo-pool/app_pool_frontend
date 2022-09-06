@@ -40,7 +40,7 @@ function FollowButton({isFollowed, poolUserId, refetch}: Props) {
       // queryClient.invalidateQueries('unfollow')
       // isFollow.current = false;
       setIsFollow(false);
-      refetch();
+      // refetch();
     },
     // onSettled: () => {
     //   setIsFollow(isFollowed)
