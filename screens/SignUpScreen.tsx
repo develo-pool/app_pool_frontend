@@ -19,7 +19,7 @@ export interface SignUpScreenProps {
   nickName: string;
   phoneNumber: string;
   gender: 'male' | 'female' | '';
-  birthDay: string;
+  birthday: string;
   termAgreement: boolean;
   privacyAgreement: boolean;
   category: string[];
@@ -69,7 +69,7 @@ function SignUpScreen() {
     nickName: '',
     phoneNumber: '',
     gender: '',
-    birthDay: '',
+    birthday: '',
     termAgreement: false,
     privacyAgreement: false,
     category: [],
@@ -105,7 +105,7 @@ function SignUpScreen() {
       nickName: form.nickName,
       phoneNumber: form.phoneNumber,
       gender: form.gender,
-      birthDay: form.birthDay,
+      birthday: form.birthday,
       termAgreement: form.termAgreement,
       privacyAgreement: form.privacyAgreement,
       category: form.category,

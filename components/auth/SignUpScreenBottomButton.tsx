@@ -20,7 +20,7 @@ function SignUpScreenBottomButton({
   const navigation = useNavigation<RootStackNavigationProp>();
 
   const FirstFormValid = !!form.phoneNumber && form.state === 'confirm';
-  const SecondFormValid = CheckBirthday(form.birthDay) && !!form.gender;
+  const SecondFormValid = CheckBirthday(form.birthday) && !!form.gender;
   const ThirdFormValid = !!(
     form.usernameChecked &&
     form.nickNameChecked &&
