@@ -12,6 +12,8 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import SignUpForm from '../components/auth/SignUpForm';
 import useSignUp from '../hooks/useSignUp';
 import SignUpScreenBottomButton from '../components/auth/SignUpScreenBottomButton';
+import {useHeaderHeight} from '@react-navigation/elements';
+import {BottomButtonHeight} from '../components/ScreenBottomButton';
 
 const TOTAL = 4;
 
@@ -115,11 +117,13 @@ function SignUpScreen() {
       category: form.category,
     });
   };
-
+  const header = useHeaderHeight();
+  console.log(header + BottomButtonHeight);
   return (
     <>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        keyboardVerticalOffset={-(header + BottomButtonHeight)}
         style={styles.container}>
         <SignUpForm
           current={current}

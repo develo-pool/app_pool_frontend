@@ -9,6 +9,8 @@ import {
 } from 'react-native';
 import theme from '../assets/theme';
 
+export const BottomButtonHeight = 70;
+
 function ScreenBottomButton({
   name,
   onPress,
@@ -40,7 +42,7 @@ function ScreenBottomButton({
 
 const styles = StyleSheet.create({
   button: {
-    height: 70,
+    height: BottomButtonHeight,
     alignItems: 'center',
     justifyContent: 'center',
   },
