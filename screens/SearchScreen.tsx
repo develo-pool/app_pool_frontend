@@ -10,13 +10,14 @@ import {
 import SearchBar from '../components/search/SearchBar';
 import RecommandBrandUserContainer from '../components/search/RecommandBrandUserContainer';
 import RecommandSubTitle from '../components/search/RecommandSubTitle';
-import SearchResultBrandUserContainer from '../components/search/SearchResultBrandUserContainer';
+// import SearchResultBrandUserContainer from '../components/search/SearchResultBrandUserContainer';
 import SearchResultSubTitle from '../components/search/SearchResultSubTitle';
 import theme from '../assets/theme';
 import {useQuery} from 'react-query';
 import {getAllBrand} from '../api/brand/index';
 import {AllBrandResult} from '../api/brand/types';
 import {useIsFocused} from '@react-navigation/native';
+import { follow, unfollow } from '../api/follow';
 
 const LENGTH = 10;
 
@@ -65,7 +66,7 @@ function SearchScreen() {
   }, [refetch]);
   useEffect(() => {
     refetch();
-  }, [refetch, isFocused]);
+  }, [refetch, isFocused, unfollow, follow]);
   const RenderRecommandItem = ({item}) => {
     return (
       <RecommandBrandUserContainer

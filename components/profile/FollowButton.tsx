@@ -19,16 +19,25 @@ function FollowButton({isFollowed, poolUserId, refetch}: Props) {
 
   const {mutate: onPressFollow} = useMutation(follow, {
     onSuccess: () => {
-      queryClient.invalidateQueries('follow')
+      // queryClient.invalidateQueries('follow')
       isFollow.current = true;
-      refetch();
+      // refetch();
+    },
+    onError: () => {
+
+    },
+    onMutate: () => {
+
+    },
+    onSettled: () => {
+
     },
   });
   const {mutate: onPressUnfollow} = useMutation(unfollow, {
     onSuccess: () => {
-      queryClient.invalidateQueries('unfollow')
+      // queryClient.invalidateQueries('unfollow')
       isFollow.current = false;
-      refetch();
+      // refetch();
     },
   });
 
