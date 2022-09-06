@@ -25,15 +25,9 @@ function FollowButton({isFollowed, poolUserId, refetch}: Props) {
       setIsFollow(true);
       // refetch();
     },
-    onError: () => {
-
-    },
-    onMutate: () => {
-      // refetch();
-    },
-    onSettled: () => {
-
-    },
+    onError: () => {},
+    onMutate: () => {},
+    onSettled: () => {},
   });
   const {mutate: onPressUnfollow} = useMutation(unfollow, {
     onSuccess: () => {
@@ -42,43 +36,42 @@ function FollowButton({isFollowed, poolUserId, refetch}: Props) {
       setIsFollow(false);
       refetch();
     },
+    // onSettled: () => {
+    //   setIsFollow(isFollowed)
+    // },
   });
 
   return (
     <View style={styles.FollowButton}>
       <TouchableOpacity
-        style={[styles.ButtonFrame, 
-          // isFollow.current 
-          isFollow
-          && 
-          styles.Unfollowed]}
+        style={[
+          styles.ButtonFrame,
+          // isFollow.current
+          isFollow && styles.Unfollowed,
+        ]}
         onPress={
           () =>
             // isFollow.current
-            isFollow
-              ? onPressUnfollow(poolUserId)
-              : onPressFollow(poolUserId)
+            isFollow ? onPressUnfollow(poolUserId) : onPressFollow(poolUserId)
           // sendWelcomeMessage({pool_user_id: poolUserId, brand_id: 1}))
         }>
         <Text
           style={[
             styles.FollowText,
             // isFollow.current
-            isFollow
-             && 
-             styles.UnfollowedText,
+            isFollow && styles.UnfollowedText,
           ]}>
           {
-          // isFollow.current 
-          isFollow
-          ? '팔로잉' : '팔로우'}
+            // isFollow.current
+            isFollow ? '팔로잉' : '팔로우'
+          }
         </Text>
         {
-        // isFollow.current 
-        isFollow
-        && (
-          <Icon name="check-circle" size={12} style={styles.Checked} />
-        )}
+          // isFollow.current
+          isFollow && (
+            <Icon name="check-circle" size={12} style={styles.Checked} />
+          )
+        }
       </TouchableOpacity>
     </View>
   );

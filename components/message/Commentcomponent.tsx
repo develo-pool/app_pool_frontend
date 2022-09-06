@@ -30,9 +30,10 @@ function Comment({text, userName, userProfileImg, writenCommentTime}: Props) {
           <Image
             style={styles.commentProfileImg}
             source={
-              userProfileImg !== null
-                ? {uri: userProfileImg}
-                : require('../../assets/Pool.png')
+              // userProfileImg !== null
+              //   ? {uri: userProfileImg}
+              //   : require('../../assets/Pool.png')
+                require('../../assets/Pool.png')
             }
           />
           <View>

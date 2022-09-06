@@ -10,6 +10,7 @@ import {
   View,
   Platform,
   NativeModules,
+  ScrollView,
 } from 'react-native';
 import theme from '../assets/theme';
 import Commentcomponent from '../components/message/Commentcomponent';
@@ -167,114 +168,117 @@ function MessageScreen() {
       keyboardVerticalOffset={statusBarHeight + 90}
       enabled>
       <SafeAreaView style={styles.safeArea}>
-        <View style={styles.container}>
-          <View>
-            {messageData ? (
-              <DetailMessageContainer
-                key={messageData.postId}
-                postId={messageData.postId}
-                body={messageData.body}
-                messageLink={messageData.messageLink}
-                filePath={messageData.filePath}
-                writerDto={messageData.writerDto}
-                commentAble={messageData.commentAble}
-                isWriter={messageData.isWriter}
-                create_date={messageData.create_date}
-                commentCount={messageData.commentCount}
-              />
-            ) : (
-              ''
-            )}
-          </View>
-
-          {userData?.userStatus === 'BRAND_USER' &&
-          userData.username === messageData?.writerDto?.username ? (
+        {userData?.userStatus === 'BRAND_USER' &&
+        userData.username === messageData?.writerDto?.username ? (
+          <View style={styles.container}>
+            <View>
+              {messageData ? (
+                <DetailMessageContainer
+                  key={messageData.postId}
+                  postId={messageData.postId}
+                  body={messageData.body}
+                  messageLink={messageData.messageLink}
+                  filePath={messageData.filePath}
+                  writerDto={messageData.writerDto}
+                  commentAble={messageData.commentAble}
+                  isWriter={messageData.isWriter}
+                  create_date={messageData.create_date}
+                  commentCount={messageData.commentCount}
+                />
+              ) : (
+                ''
+              )}
+            </View>
             <View style={styles.spacebetween}>
-              {/* <ScrollView>
-              {allCommentData?.map(comments => {
-                return (
-                  <Commentcomponent
-                    key={comments.id}
-                    text={comments.body}
-                    userName={comments.writer?.nickName}
-                    userProfileImg={comments.writer?.username}
-                    writenCommentTime={comments?.create_date}
-                  />
-                );
-              })}
-            </ScrollView> */}
               {isMessageLoading ? (
                 <View>
                   <ActivityIndicator />
                 </View>
               ) : loadCommentList ? (
-                <View>
-                  <FlatList
-                    data={loadCommentList}
-                    renderItem={RenderItem}
-                    onEndReached={() => {
-                      if (!noMoreComment) {
-                        commentListrefetch();
-                      }
-                    }}
-                    // showsVerticalScrollIndicator={false}
-                    // ListHeaderComponent={<Profile id={id} />}
-                    // ListFooterComponent={
-                    //   <View style={styles.margin}>
-                    //     <Footer />
-                    //   </View>
-                    // }
-                  />
-                </View>
+                <FlatList
+                  data={loadCommentList}
+                  renderItem={RenderItem}
+                  onEndReached={() => {
+                    if (!noMoreComment) {
+                      commentListrefetch();
+                    }
+                  }}
+                  // showsVerticalScrollIndicator={false}
+                  // ListHeaderComponent={<Profile id={id} />}
+                  // ListFooterComponent={
+                  //   <View style={styles.margin}>
+                  //     <Footer />
+                  //   </View>
+                  // }
+                />
               ) : (
                 <View>
                   <Text>등록된 댓글이 없습니다.</Text>
                 </View>
               )}
             </View>
-          ) : (
-            <View style={styles.spacebetween}>
-              {!messageData?.commentAble ? (
-                commentData ? (
-                  <Commentcomponent
-                    text={commentData.body}
-                    userName={commentData.writer.nickName}
-                    userProfileImg={
-                      commentData.writer.brandUserInfoDto.brandProfileImage
-                    }
-                    writenCommentTime={commentData.create_date}
+          </View>
+        ) : (
+          <View style={styles.container}>
+            <ScrollView style={styles.scrollview}>
+              <View>
+                {messageData ? (
+                  <DetailMessageContainer
+                    key={messageData.postId}
+                    postId={messageData.postId}
+                    body={messageData.body}
+                    messageLink={messageData.messageLink}
+                    filePath={messageData.filePath}
+                    writerDto={messageData.writerDto}
+                    commentAble={messageData.commentAble}
+                    isWriter={messageData.isWriter}
+                    create_date={messageData.create_date}
+                    commentCount={messageData.commentCount}
                   />
                 ) : (
-                  <View />
-                )
-              ) : (
-                <View />
-              )}
-            </View>
-          )}
+                  ''
+                )}
+              </View>
 
-          <InputCommentContainer
-            commentText={commentText}
-            onChangeText={onChangeText}
-            commentAble={messageData?.commentAble}
-            addComments={onPress}
-          />
-        </View>
-        {/* <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-        <InputCommentContainer
-          commentText={commentText}
-          onChangeText={onChangeText}
-          commentAble={messageData?.commentAble}
-          addComments={onPress}
-        />
-      </KeyboardAvoidingView> */}
+              <View style={styles.spacebetween}>
+                {!messageData?.commentAble ? (
+                  commentData ? (
+                    <Commentcomponent
+                      text={commentData.body}
+                      userName={commentData.writer.nickName}
+                      userProfileImg={
+                        commentData.writer.brandUserInfoDto.brandProfileImage
+                      }
+                      writenCommentTime={commentData.create_date}
+                    />
+                  ) : (
+                    <View />
+                  )
+                ) : (
+                  <View />
+                )}
+              </View>
+            </ScrollView>
+
+            <InputCommentContainer
+              commentText={commentText}
+              onChangeText={onChangeText}
+              commentAble={messageData?.commentAble}
+              addComments={onPress}
+            />
+          </View>
+        )}
       </SafeAreaView>
     </KeyboardAvoidingView>
   );
 }
 
 const styles = StyleSheet.create({
+  scrollview: {
+    height: '100%',
+    // justifyContent: 'space-between',
+    backgroundColor: theme.colors.Grey10,
+  },
   safeArea: {
     backgroundColor: theme.colors.White,
     flex: 1,
