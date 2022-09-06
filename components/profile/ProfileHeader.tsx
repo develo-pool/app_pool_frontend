@@ -21,7 +21,6 @@ function ProfileHeader() {
 
   useEffect(() => {
     refetch();
-    console.log('refetched!');
   }, [refetch, isFocused]);
 
   return (

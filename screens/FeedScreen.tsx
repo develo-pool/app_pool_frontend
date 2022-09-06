@@ -39,7 +39,6 @@ function FeedScreen() {
           return '';
         }
         if (cursor === 0) {
-          console.log('법규');
           setMessages(Messages.concat(data));
         }
         if (data.length < LENGTH) {
@@ -50,7 +49,6 @@ function FeedScreen() {
           setCursor(data[data.length - 1]?.postId);
         }
         setRefreshing(false);
-        console.log(Messages);
       },
       refetchOnMount: 'always',
     },

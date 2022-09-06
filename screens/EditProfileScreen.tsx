@@ -62,9 +62,6 @@ function EditProfile() {
     refetchOnMount: 'always',
   });
   const {mutate: update} = useMutation(updateBrandInfo, {
-    onSettled: () => {
-      console.log(form);
-    },
     onSuccess: () => {
       navigation.dispatch(CommonActions.goBack());
     },
