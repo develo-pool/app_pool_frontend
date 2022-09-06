@@ -6,6 +6,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   SafeAreaView,
+  ScrollView,
   StyleSheet,
   TouchableOpacity,
   TouchableWithoutFeedback,
@@ -28,7 +29,6 @@ import Title from '../components/Title';
 import {RootState} from '../slices';
 import {createAlert, deleteAlert} from '../slices/alert';
 import {RootStackNavigationProp, RootStackParamList} from './types';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 const TOTAL = 2;
 
@@ -144,11 +144,12 @@ function PasswordScreen() {
 
   return (
     <>
-      <MainContainer>
-        <KeyboardAwareScrollView
-          showsVerticalScrollIndicator={false}
-          keyboardShouldPersistTaps="handled"
-          style={styles.container}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="handled"
+        style={styles.container}
+        contentContainerStyle={styles.contentContainer}>
+        <MainContainer>
           <SafeAreaView style={styles.front}>
             <View>
               <AlertBox />
@@ -205,8 +206,8 @@ function PasswordScreen() {
               )}
             </View>
           </TouchableWithoutFeedback>
-        </KeyboardAwareScrollView>
-      </MainContainer>
+        </MainContainer>
+      </ScrollView>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
         {current ? (
@@ -236,12 +237,15 @@ function PasswordScreen() {
   );
 }
 const styles = StyleSheet.create({
+  contentContainer: {
+    flexGrow: 1,
+  },
   container: {
     flex: 1,
   },
   inner: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
   },
   front: {
     zIndex: 10,
