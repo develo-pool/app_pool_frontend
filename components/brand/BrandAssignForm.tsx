@@ -19,7 +19,6 @@ import {useQuery} from 'react-query';
 import {brandNameExist} from '../../api/brand';
 import {BrandAssignProps} from '../../screens/BrandAssignScreen';
 import {CheckNickName} from '../auth/Validation';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 function BrandAssignForm({
   form,
@@ -62,9 +61,7 @@ function BrandAssignForm({
     },
   );
   return (
-    <KeyboardAwareScrollView
-      showsVerticalScrollIndicator={false}
-      keyboardShouldPersistTaps="handled">
+    <>
       <ScrollView
         style={styles.block}
         showsVerticalScrollIndicator={false}
@@ -131,7 +128,7 @@ function BrandAssignForm({
         />
         <Text style={styles.counter}>{form.brandInfo.length}/200</Text>
       </ScrollView>
-    </KeyboardAwareScrollView>
+    </>
   );
 }
 
