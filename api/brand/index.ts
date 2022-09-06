@@ -8,6 +8,14 @@ export async function createBrand(formData: FormData) {
   return response;
 }
 
+// Slack Alert API
+export async function alertBrandAssign(formData: FormData) {
+  const response = await client.post('/brand/create/request', formData, {
+    headers: {'content-type': 'multipart/form-data'},
+  });
+  return response;
+}
+
 export async function brandNameExist(params: string) {
   const response = await client.get<boolean>(
     `/brand-brandUsernames/${params}/exists`,

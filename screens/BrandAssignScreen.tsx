@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useMutation} from 'react-query';
 import {useDispatch} from 'react-redux';
 import {refresh} from '../api/auth';
-import {createBrand} from '../api/brand';
+import {alertBrandAssign, createBrand} from '../api/brand';
 import {AuthResult} from '../api/auth/types';
 import BrandAssignForm from '../components/brand/BrandAssignForm';
 import BrandAssignTerm from '../components/brand/BrandAssignTerm';
@@ -18,6 +18,8 @@ import authStorage from '../storages/authStorage';
 import {RootStackNavigationProp, RootStackParamList} from './types';
 import {createAlert, deleteAlert} from '../slices/alert';
 import {ImgAsset} from '../api/message/types';
+import {useSelector} from 'react-redux';
+import {RootState} from '../slices';
 
 const TOTAL = 3;
 type BrandAssignScreenRouteProp = RouteProp<RootStackParamList, 'BrandAssign'>;
@@ -75,13 +77,22 @@ function BrandAssignScreen() {
     isExist: undefined,
   });
   const dispatch = useDispatch();
+  const user = useSelector((state: RootState) => state.auth.user);
+  const {mutate: alert} = useMutation(alertBrandAssign);
   const {mutate: assign} = useMutation(createBrand, {
     onSuccess: async () => {
+      const alertFormData = new FormData();
+      if (user) {
+        alertFormData.append('username', user.username);
+        alert(alertFormData);
+      }
       const auth = await authStorage.get();
       if (auth) {
+        console.log('refresh');
         await refresh(auth).then((value: AuthResult) => {
           dispatch(authorize(value.accessToken));
           authStorage.set(value);
+          console.log('refresh done');
         });
       }
       navigation.reset({routes: [{name: 'BrandAssignComplete'}]});
