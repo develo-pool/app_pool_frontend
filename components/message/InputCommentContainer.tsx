@@ -32,7 +32,7 @@ function InputCommentContainer({
         editable={commentAble}
         autoCapitalize={'none'}
         autoComplete={'off'}
-        multiline={true}
+        // multiline={true}
       />
     </View>
   );
@@ -42,7 +42,9 @@ const styles = StyleSheet.create({
   commentInputContainer: {
     backgroundColor: theme.colors.White,
     paddingHorizontal: 16,
-    paddingVertical: 6,
+    // paddingVertical: 6,
+    paddingTop: 6,
+    paddingBottom: 20,
   },
   input: {
     paddingVertical: 10,
