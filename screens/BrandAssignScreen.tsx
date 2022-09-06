@@ -1,6 +1,16 @@
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import React, {useCallback, useEffect, useState} from 'react';
-import {Text, TouchableOpacity} from 'react-native';
+import {
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useMutation} from 'react-query';
 import {useDispatch} from 'react-redux';
@@ -36,18 +46,38 @@ const CurrentPage = ({
   switch (current) {
     case 0:
       return (
-        <BrandAssignForm form={form} onChangeText={createChangeTextHandler} />
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled"
+          contentContainerStyle={styles.contentContainer}>
+          <MainContainer>
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+              <View style={styles.inner}>
+                <BrandAssignForm
+                  form={form}
+                  onChangeText={createChangeTextHandler}
+                />
+              </View>
+            </TouchableWithoutFeedback>
+          </MainContainer>
+        </ScrollView>
       );
     case 1:
       return (
-        <Category
-          checkedItems={form.brandCategory}
-          checkedItemHandler={checkedItemHandler}
-          isBrandAssign={true}
-        />
+        <MainContainer>
+          <Category
+            checkedItems={form.brandCategory}
+            checkedItemHandler={checkedItemHandler}
+            isBrandAssign={true}
+          />
+        </MainContainer>
       );
     case 2:
-      return <BrandAssignTerm form={form} onPress={createChangeTextHandler} />;
+      return (
+        <MainContainer>
+          <BrandAssignTerm form={form} onPress={createChangeTextHandler} />
+        </MainContainer>
+      );
     default:
       return <Text>Out of Index</Text>;
   }
@@ -166,25 +196,40 @@ function BrandAssignScreen() {
 
   return (
     <>
-      <MainContainer>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        style={styles.container}>
         {CurrentPage({
           current,
           form,
           createChangeTextHandler,
           checkedItemHandler,
         })}
-      </MainContainer>
-      <ScreenBottomButton
-        name={current === 2 ? '등록 요청하기' : '다음'}
-        onPress={() => {
-          current === 2
-            ? onSubmit()
-            : navigation.navigate('BrandAssign', {current: current + 1});
-        }}
-        enabled={enabled(current)}
-      />
+        <ScreenBottomButton
+          name={current === 2 ? '등록 요청하기' : '다음'}
+          onPress={() => {
+            current === 2
+              ? onSubmit()
+              : navigation.navigate('BrandAssign', {current: current + 1});
+          }}
+          enabled={enabled(current)}
+        />
+      </KeyboardAvoidingView>
     </>
   );
 }
+
+const styles = StyleSheet.create({
+  contentContainer: {
+    flexGrow: 1,
+  },
+  container: {
+    flex: 1,
+  },
+  inner: {
+    flex: 1,
+    justifyContent: 'flex-start',
+  },
+});
 
 export default BrandAssignScreen;

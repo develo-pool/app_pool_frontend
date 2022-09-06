@@ -3,7 +3,6 @@ import {
   Image,
   Platform,
   Pressable,
-  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -62,72 +61,67 @@ function BrandAssignForm({
   );
   return (
     <>
-      <ScrollView
-        style={styles.block}
-        showsVerticalScrollIndicator={false}
-        keyboardShouldPersistTaps="handled">
-        <Title title="브랜드에 대해" alignCenter={true} />
-        <Title title="알려주세요." alignCenter={true} hasMargin={true} />
-        <Pressable
-          style={[styles.container, styles.circle]}
-          onPress={onSelectImage}>
-          <Image
-            style={styles.circle}
-            source={
-              form.brandProfileImage
-                ? {uri: form.brandProfileImage.uri}
-                : require('../../assets/empty/EmptyProfile.png')
-            }
-            resizeMode="cover"
-          />
-          <View style={styles.edit}>
-            <Icon name="edit" size={18} color="white" />
-          </View>
-        </Pressable>
-        <Text style={styles.subtitle}>프로필 이미지</Text>
-        <InputTitle title="브랜드명" />
-        <View style={styles.row}>
-          <TextInputs
-            type={
-              (CheckNickName(form.brandUsername) || !form.brandUsername) &&
-              form.isExist !== true
-                ? 'default'
-                : 'error'
-            }
-            value={form.brandUsername}
-            onChangeText={onChangeText('brandUsername')}
-            placeholder="브랜드명 입력"
-            alert={
-              CheckNickName(form.brandUsername) || !form.brandUsername
-                ? form.isExist === false
-                  ? {type: 'Correct', text: '사용 가능한 브랜드명입니다.'}
-                  : form.isExist === undefined
-                  ? undefined
-                  : {type: 'Error', text: '중복된 아이디입니다.'}
-                : form.brandUsername.length < 3
-                ? {type: 'Error', text: '3자 이상 입력해주세요.'}
-                : {type: 'Error', text: "특수문자는 '_'만 가능합니다."}
-            }
-          />
-          <AuthButton
-            text="중복확인"
-            onPress={() => refetchBrandname()}
-            disabled={!form.brandUsername}
-            isLoading={brandnameLoading}
-          />
-        </View>
-        <InputTitle title="소개문구" />
-        <TextInput
-          style={styles.info}
-          value={form.brandInfo}
-          onChangeText={onChangeText('brandInfo')}
-          placeholder="브랜드를 소개해주세요."
-          maxLength={200}
-          multiline={true}
-          placeholderTextColor={'rgba(0, 0, 0, 0.2)'}
+      <Title title="브랜드에 대해" alignCenter={true} />
+      <Title title="알려주세요." alignCenter={true} hasMargin={true} />
+      <Pressable
+        style={[styles.container, styles.circle]}
+        onPress={onSelectImage}>
+        <Image
+          style={styles.circle}
+          source={
+            form.brandProfileImage
+              ? {uri: form.brandProfileImage.uri}
+              : require('../../assets/empty/EmptyProfile.png')
+          }
+          resizeMode="cover"
         />
-        <Text style={styles.counter}>{form.brandInfo.length}/200</Text>
-      </ScrollView>
+        <View style={styles.edit}>
+          <Icon name="edit" size={18} color="white" />
+        </View>
+      </Pressable>
+      <Text style={styles.subtitle}>프로필 이미지</Text>
+      <InputTitle title="브랜드명" />
+      <View style={styles.row}>
+        <TextInputs
+          type={
+            (CheckNickName(form.brandUsername) || !form.brandUsername) &&
+            form.isExist !== true
+              ? 'default'
+              : 'error'
+          }
+          value={form.brandUsername}
+          onChangeText={onChangeText('brandUsername')}
+          placeholder="브랜드명 입력"
+          alert={
+            CheckNickName(form.brandUsername) || !form.brandUsername
+              ? form.isExist === false
+                ? {type: 'Correct', text: '사용 가능한 브랜드명입니다.'}
+                : form.isExist === undefined
+                ? undefined
+                : {type: 'Error', text: '중복된 아이디입니다.'}
+              : form.brandUsername.length < 3
+              ? {type: 'Error', text: '3자 이상 입력해주세요.'}
+              : {type: 'Error', text: "특수문자는 '_'만 가능합니다."}
+          }
+        />
+        <AuthButton
+          text="중복확인"
+          onPress={() => refetchBrandname()}
+          disabled={!form.brandUsername}
+          isLoading={brandnameLoading}
+        />
+      </View>
+      <InputTitle title="소개문구" />
+      <TextInput
+        style={styles.info}
+        value={form.brandInfo}
+        onChangeText={onChangeText('brandInfo')}
+        placeholder="브랜드를 소개해주세요."
+        maxLength={200}
+        multiline={true}
+        placeholderTextColor={'rgba(0, 0, 0, 0.2)'}
+      />
+      <Text style={styles.counter}>{form.brandInfo.length}/200</Text>
     </>
   );
 }
