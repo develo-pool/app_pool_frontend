@@ -32,6 +32,7 @@ function InputCommentContainer({
         editable={commentAble}
         autoCapitalize={'none'}
         autoComplete={'off'}
+        multiline={true}
       />
     </View>
   );

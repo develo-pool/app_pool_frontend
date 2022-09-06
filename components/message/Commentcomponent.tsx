@@ -1,5 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
+import WrappedText from 'react-native-wrapped-text';
 import theme from '../../assets/theme';
 
 interface Props {
@@ -39,7 +40,8 @@ function Comment({text, userName, userProfileImg, writenCommentTime}: Props) {
               <Text style={styles.username}>{userName}</Text>
             </View>
             <View style={styles.commentContainer}>
-              <Text style={styles.commentText}>{text}</Text>
+              {/* <Text style={styles.commentText}></Text> */}
+              <WrappedText>{text}</WrappedText>
             </View>
           </View>
         </View>
@@ -97,6 +99,7 @@ const styles = StyleSheet.create({
     fontSize: theme.fontSize.P2,
     fontWeight: theme.fontWeight.Light,
     color: theme.colors.Grey60,
+    // maxWidth: 200,
   },
   commentTime: {
     fontSize: theme.fontSize.P3,

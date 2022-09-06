@@ -66,7 +66,7 @@ function SearchScreen() {
   }, [refetch]);
   useEffect(() => {
     refetch();
-  }, [refetch, isFocused, unfollow, follow]);
+  }, [refetch, isFocused]);
   const RenderRecommandItem = ({item}) => {
     return (
       <RecommandBrandUserContainer

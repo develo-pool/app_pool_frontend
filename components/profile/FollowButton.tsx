@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import {View, TouchableOpacity, Text, StyleSheet} from 'react-native';
 import theme from '../../assets/theme';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -13,21 +13,23 @@ interface Props {
 }
 
 function FollowButton({isFollowed, poolUserId, refetch}: Props) {
-  const isFollow = useRef(isFollowed);
+  // const isFollow = useRef(isFollowed);
+  const [isFollow, setIsFollow] = useState(isFollowed);
   const queryClient = useQueryClient();
   // const {mutate: sendWelcomeMessage} = useMutation(sendSingleAlarm);
 
   const {mutate: onPressFollow} = useMutation(follow, {
     onSuccess: () => {
       // queryClient.invalidateQueries('follow')
-      isFollow.current = true;
+      // isFollow.current = true;
+      setIsFollow(true);
       // refetch();
     },
     onError: () => {
 
     },
     onMutate: () => {
-
+      // refetch();
     },
     onSettled: () => {
 
@@ -36,18 +38,24 @@ function FollowButton({isFollowed, poolUserId, refetch}: Props) {
   const {mutate: onPressUnfollow} = useMutation(unfollow, {
     onSuccess: () => {
       // queryClient.invalidateQueries('unfollow')
-      isFollow.current = false;
-      // refetch();
+      // isFollow.current = false;
+      setIsFollow(false);
+      refetch();
     },
   });
 
   return (
     <View style={styles.FollowButton}>
       <TouchableOpacity
-        style={[styles.ButtonFrame, isFollow.current && styles.Unfollowed]}
+        style={[styles.ButtonFrame, 
+          // isFollow.current 
+          isFollow
+          && 
+          styles.Unfollowed]}
         onPress={
           () =>
-            isFollow.current
+            // isFollow.current
+            isFollow
               ? onPressUnfollow(poolUserId)
               : onPressFollow(poolUserId)
           // sendWelcomeMessage({pool_user_id: poolUserId, brand_id: 1}))
@@ -55,11 +63,20 @@ function FollowButton({isFollowed, poolUserId, refetch}: Props) {
         <Text
           style={[
             styles.FollowText,
-            isFollow.current && styles.UnfollowedText,
+            // isFollow.current
+            isFollow
+             && 
+             styles.UnfollowedText,
           ]}>
-          {isFollow.current ? '팔로잉' : '팔로우'}
+          {
+          // isFollow.current 
+          isFollow
+          ? '팔로잉' : '팔로우'}
         </Text>
-        {isFollow.current && (
+        {
+        // isFollow.current 
+        isFollow
+        && (
           <Icon name="check-circle" size={12} style={styles.Checked} />
         )}
       </TouchableOpacity>
