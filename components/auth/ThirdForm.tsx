@@ -114,6 +114,8 @@ function ThirdForm({
                 : form.nickNameChecked === undefined
                 ? undefined
                 : {type: 'Error', text: '중복된 닉네임입니다.'}
+              : form.nickName.length < 3
+              ? {type: 'Error', text: '3자 이상 입력해주세요.'}
               : {type: 'Error', text: "특수문자는 '_'만 가능합니다."}
           }
         />

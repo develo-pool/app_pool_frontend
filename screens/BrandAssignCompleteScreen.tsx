@@ -7,10 +7,10 @@ import theme from '../assets/theme';
 import MainContainer from '../components/MainContainer';
 import ScreenBottomButton from '../components/ScreenBottomButton';
 import Title from '../components/Title';
-import {MainTabNatigationProp} from './types';
+import {MainTabNavigationProp} from './types';
 
 function BrandAssignCompleteScreen() {
-  const navigation = useNavigation<MainTabNatigationProp>();
+  const navigation = useNavigation<MainTabNavigationProp>();
   const id = '';
   const {data, isLoading} = useQuery('getBrand', () => getBrand(id), {
     refetchOnMount: 'always',

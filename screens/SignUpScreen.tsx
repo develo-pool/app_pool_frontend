@@ -1,8 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {TouchableOpacity} from 'react-native';
+import {
+  KeyboardAvoidingView,
+  Platform,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import {RootStackNavigationProp, RootStackParamList} from './types';
-import MainContainer from '../components/MainContainer';
 import ProcessBar from '../components/ProcessBar';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import SignUpForm from '../components/auth/SignUpForm';
@@ -19,7 +23,7 @@ export interface SignUpScreenProps {
   nickName: string;
   phoneNumber: string;
   gender: 'male' | 'female' | '';
-  birthDay: string;
+  birthday: string;
   termAgreement: boolean;
   privacyAgreement: boolean;
   category: string[];
@@ -69,7 +73,7 @@ function SignUpScreen() {
     nickName: '',
     phoneNumber: '',
     gender: '',
-    birthDay: '',
+    birthday: '',
     termAgreement: false,
     privacyAgreement: false,
     category: [],
@@ -105,7 +109,7 @@ function SignUpScreen() {
       nickName: form.nickName,
       phoneNumber: form.phoneNumber,
       gender: form.gender,
-      birthDay: form.birthDay,
+      birthday: form.birthday,
       termAgreement: form.termAgreement,
       privacyAgreement: form.privacyAgreement,
       category: form.category,
@@ -114,7 +118,9 @@ function SignUpScreen() {
 
   return (
     <>
-      <MainContainer type={current < 2 ? 'wide' : undefined}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        style={styles.container}>
         <SignUpForm
           current={current}
           createChangeTextHandler={createChangeTextHandler}
@@ -122,15 +128,21 @@ function SignUpScreen() {
           form={form}
           setForm={setForm}
         />
-      </MainContainer>
-      <SignUpScreenBottomButton
-        current={current}
-        form={form}
-        onPress={onPress}
-        signUpLoading={signUpLoading}
-      />
+        <SignUpScreenBottomButton
+          current={current}
+          form={form}
+          onPress={onPress}
+          signUpLoading={signUpLoading}
+        />
+      </KeyboardAvoidingView>
     </>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
 
 export default SignUpScreen;

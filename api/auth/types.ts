@@ -53,7 +53,7 @@ export interface SignUpParams {
   nickName: string;
   phoneNumber: string;
   gender: 'male' | 'female' | '';
-  birthDay: string;
+  birthday: string;
   termAgreement: boolean;
   privacyAgreement: boolean;
   category: string[];

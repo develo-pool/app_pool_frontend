@@ -23,11 +23,11 @@ function SecondForm({
           type="default"
           placeholder="예. 990101"
           keyboardType="numeric"
-          value={form.birthDay}
-          onChangeText={onChangeText('birthDay')}
+          value={form.birthday}
+          onChangeText={onChangeText('birthday')}
           maxLength={6}
           alert={
-            CheckBirthday(form.birthDay) || !form.birthDay
+            CheckBirthday(form.birthday) || !form.birthday
               ? undefined
               : {type: 'Error', text: '생년월일 6자리로 입력해 주세요.'}
           }
