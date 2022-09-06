@@ -141,7 +141,6 @@ function PasswordScreen() {
       ),
     });
   }, [current, navigation]);
-
   return (
     <>
       <KeyboardAvoidingView
