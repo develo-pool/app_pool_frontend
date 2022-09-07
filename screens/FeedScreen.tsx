@@ -88,13 +88,14 @@ function FeedScreen() {
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
     // queryClient.invalidateQueries('getAllMessage')
-    // setCursor(0);
+    setCursor(0);
     feedRefetch();
   }, [feedRefetch]);
 
   useEffect(() => {
     if (isFocused) {
-      onRefresh();
+      // onRefresh();
+      feedRefetch();
     }
     setRefreshing(true);
     feedRefetch();
