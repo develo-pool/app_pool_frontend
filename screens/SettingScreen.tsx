@@ -60,18 +60,14 @@ function SettingScreen() {
       enabled: false,
     },
   );
+
+  const {mutate: sendToken} = useMutation(sendFCMToken);
+  // const logoutToken = '';
   const onLogout = () => {
     authStorage.clear();
     dispatch(logout());
     navigation.reset({routes: [{name: 'Welcome'}]});
   };
-
-  const {mutate: sendToken} = useMutation(sendFCMToken, {
-    onSuccess: () => {
-      console.log('Success!');
-    },
-  });
-
   // const {getItem: getFcmItem, setItem: setFcmItem} = useAsyncStorage('fcmToken');
   const getFcmToken = useCallback(async () => {
     const fcmToken = await messaging().getToken();
@@ -80,8 +76,7 @@ function SettingScreen() {
     //   setFcmItem(fcmToken); // 회원가입, 로그인할 때 활용
     // }
     console.log('Fcm Token :', fcmToken);
-    const sendFcmToken = encodeURIComponent(fcmToken);
-    sendToken(sendFcmToken);
+    sendToken({fcmToken});
   }, [sendToken]);
   //getFcmItem, setFcmItem
 
