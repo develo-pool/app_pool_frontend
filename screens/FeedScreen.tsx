@@ -32,25 +32,27 @@ function FeedScreen() {
     'getAllMessage',
     () => getAllMessage(cursor),
     {
-      refetchOnMount: 'always',
+      refetchOnMount: true,
       onSuccess: data => {
+        // console.log(Messages);
+        if (noMorePost) {
+          setRefreshing(false);
+        }
+        console.log(data.length);
         if (data.length < LENGTH) {
-          // console.log('씨ㅣㅣㅣㅣㅅ');
           setNoMorePost(true);
         }
-        // if (noMorePost) {
-        //   setRefreshing(false);
-        //   return '';
-        // }
+        if (cursor === 0) {
+          setMessages(Messages.concat(data));
+          setCursor(data[data.length - 1]?.postId);
+        }
         if (data.length !== 0) {
           setMessages(Messages.concat(data));
-          setCursor(data[data.length - 1].postId);
+          setCursor(data[data.length - 1]?.postId);
         }
-        // if (cursor === 0) {
-        //   setMessages(Messages.concat(data));
-        // }
-        // setRefreshing(false);
+        setRefreshing(false);
       },
+
     },
   );
   const RenderItem = ({item}) => {
@@ -80,28 +82,21 @@ function FeedScreen() {
   const yymmdd = nowYear + '년 ' + nowMonth + '월 ' + nowDate + '일';
   const [refreshing, setRefreshing] = useState(false);
 
-  const onEndReached = () => {
-    feedRefetch();
-  };
-
-  // 새로고침 실행
-  const onRefresh = useCallback(async () => {
-    setRefreshing(true);
-    // queryClient.invalidateQueries('getAllMessage')
-    setCursor(0);
-    feedRefetch();
-  }, [feedRefetch]);
-
   useEffect(() => {
     if (isFocused) {
-      // onRefresh();
+      setRefreshing(true);
       feedRefetch();
     }
-    setRefreshing(true);
-    feedRefetch();
-  }, [isFocused, feedRefetch, onRefresh]);
+  }, [isFocused, feedRefetch]);
 
-  // 스크롤이 끝에 인접하면 실행
+  // 새로고침 실행
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    // queryClient.invalidateQueries('getAllMessage')
+    // setCursor(0);
+    feedRefetch();
+    setRefreshing(false);
+  }, [feedRefetch]);
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -134,10 +129,10 @@ function FeedScreen() {
             showsVerticalScrollIndicator={false}
             onEndReached={() => {
               if (!noMorePost) {
-                onEndReached();
+                feedRefetch();
               }
             }}
-            onEndReachedThreshold={0.6}
+            // onEndReachedThreshold={0.6}
             onRefresh={onRefresh}
             refreshing={refreshing}
             ListHeaderComponent={

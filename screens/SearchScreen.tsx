@@ -123,7 +123,15 @@ function SearchScreen() {
           <View style={styles.line} />
         </View>
         <View style={styles.container}>
-          {searchFilter ? (
+          {/* {searchFilter ? (
+                      ) : (
+                        <>
+                          <SearchResultSubTitle searchCount={0} />
+                          <View style={styles.noSearchTextContainer}>
+                            <Text style={styles.noSearchText}>검색 결과가 없습니다</Text>
+                          </View>
+                        </>
+                      )} */}
             <FlatList
               data={searchText !== '' ? searchFilter : Brands}
               style={styles.flatList}
@@ -140,7 +148,20 @@ function SearchScreen() {
               refreshing={refreshing}
               ListHeaderComponent={
                 searchText !== '' ? (
-                  <SearchResultSubTitle searchCount={searchFilter?.length} />
+                  searchFilter.length !== 0 ? (
+                    <SearchResultSubTitle searchCount={searchFilter?.length} />
+                  ) : (
+                    <>
+                      <SearchResultSubTitle
+                        searchCount={searchFilter?.length}
+                      />
+                      <View style={styles.noSearchTextContainer}>
+                        <Text style={styles.noSearchText}>
+                          검색 결과가 없습니다
+                        </Text>
+                      </View>
+                    </>
+                  )
                 ) : (
                   <RecommandSubTitle />
                 )
@@ -149,14 +170,7 @@ function SearchScreen() {
                 <>{isBrandLoading && <ActivityIndicator />}</>
               }
             />
-          ) : (
-            <>
-              <SearchResultSubTitle searchCount={searchFilter?.length} />
-              <View style={styles.noSearchTextContainer}>
-                <Text style={styles.noSearchText}>검색 결과가 없습니다</Text>
-              </View>
-            </>
-          )}
+
         </View>
       </View>
     </SafeAreaView>
