@@ -38,16 +38,16 @@ function FeedScreen() {
           setRefreshing(false);
           return '';
         }
-        if (cursor === 0) {
-          setMessages(Messages.concat(data));
-        }
         if (data.length < LENGTH) {
           setNoMorePost(true);
         }
         if (data.length !== 0) {
           setMessages(Messages.concat(data));
-          setCursor(data[data.length - 1]?.postId);
         }
+        if (cursor === 0) {
+          setMessages(Messages.concat(data));
+        }
+        setCursor(data[data.length - 1]?.postId);
         setRefreshing(false);
       },
       refetchOnMount: 'always',
@@ -88,15 +88,16 @@ function FeedScreen() {
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
     // queryClient.invalidateQueries('getAllMessage')
-    setCursor(0);
+    // setCursor(0);
     feedRefetch();
-    setRefreshing(false);
   }, [feedRefetch]);
 
   useEffect(() => {
     if (isFocused) {
       onRefresh();
     }
+    setRefreshing(true);
+    feedRefetch();
   }, [isFocused, feedRefetch, onRefresh]);
 
   // 스크롤이 끝에 인접하면 실행
