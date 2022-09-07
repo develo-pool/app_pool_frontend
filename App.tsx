@@ -1,6 +1,6 @@
 import {NavigationContainer} from '@react-navigation/native';
 import React, {useEffect} from 'react';
-import {Alert} from 'react-native';
+// import {Alert} from 'react-native';
 import RootStack from './screens/RootStack';
 import {QueryClient, QueryClientProvider} from 'react-query';
 import {Provider} from 'react-redux';
@@ -53,7 +53,12 @@ function App() {
       });
 
     const unsubscribe = messaging().onMessage(async remoteMessage => {
-      Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
+      // Alert.alert(
+      //   'A new FCM message arrived!',
+      //   JSON.stringify(remoteMessage.notification),
+      // );
+      //이 부분이 어플 실행중 알림을 받는 부분 -> 스타일 수정 필요
+      console.log(JSON.stringify(remoteMessage));
       console.log(remoteMessage);
     });
     return unsubscribe;
