@@ -209,6 +209,7 @@ function BrandAssignScreen() {
     <>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        keyboardVerticalOffset={90}
         style={styles.container}>
         {CurrentPage({
           current,
