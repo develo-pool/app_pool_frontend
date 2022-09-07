@@ -1,5 +1,4 @@
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
-import {useHeaderHeight} from '@react-navigation/elements';
 import React, {useEffect, useState} from 'react';
 import {
   Dimensions,
@@ -142,7 +141,6 @@ function PasswordScreen() {
       ),
     });
   }, [current, navigation]);
-  const header = useHeaderHeight();
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}

@@ -13,7 +13,6 @@ import SignUpForm from '../components/auth/SignUpForm';
 import useSignUp from '../hooks/useSignUp';
 import SignUpScreenBottomButton from '../components/auth/SignUpScreenBottomButton';
 import {useHeaderHeight} from '@react-navigation/elements';
-import {BottomButtonHeight} from '../components/ScreenBottomButton';
 
 const TOTAL = 4;
 
@@ -118,15 +117,11 @@ function SignUpScreen() {
     });
   };
   const header = useHeaderHeight();
-  // console.log(header + BottomButtonHeight);
-  console.log(header);
   return (
     <>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-        // keyboardVerticalOffset={-(header + BottomButtonHeight)}
         keyboardVerticalOffset={current < 2 ? -(header + 18) : -300}
-        // keyboardVerticalOffset={-(BottomButtonHeight)}
         style={styles.container}>
         <SignUpForm
           current={current}
