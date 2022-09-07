@@ -81,10 +81,10 @@ function FeedScreen() {
   const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
-    if (isFocused) {
+    // if (isFocused) {
       setRefreshing(true);
       feedRefetch();
-    }
+    // }
   }, [isFocused, feedRefetch]);
 
   // 스크롤이 끝에 인접하면 실행
