@@ -144,7 +144,6 @@ function PasswordScreen() {
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-      keyboardVerticalOffset={90}
       style={styles.container}>
       <ScrollView
         showsVerticalScrollIndicator={false}
