@@ -80,14 +80,6 @@ function FeedScreen() {
   const yymmdd = nowYear + '년 ' + nowMonth + '월 ' + nowDate + '일';
   const [refreshing, setRefreshing] = useState(false);
 
-  useEffect(() => {
-    // if (isFocused) {
-      setRefreshing(true);
-      feedRefetch();
-    // }
-  }, [isFocused, feedRefetch]);
-
-  // 스크롤이 끝에 인접하면 실행
   const onEndReached = () => {
     feedRefetch();
   };
@@ -98,7 +90,16 @@ function FeedScreen() {
     // queryClient.invalidateQueries('getAllMessage')
     setCursor(0);
     feedRefetch();
+    setRefreshing(false);
   }, [feedRefetch]);
+
+  useEffect(() => {
+    // if (isFocused) {
+      onRefresh();
+    // }
+  }, [isFocused, feedRefetch, onRefresh]);
+
+  // 스크롤이 끝에 인접하면 실행
 
   return (
     <SafeAreaView style={styles.safeArea}>
