@@ -1,4 +1,5 @@
 import React, {
+  // useEffect,
   // useRef,
   useState,
 } from 'react';
@@ -29,7 +30,7 @@ function FollowButton({isFollowed, poolUserId, refetch}: Props) {
       // queryClient.invalidateQueries('follow')
       // isFollow.current = true;
       setIsFollow(true);
-      // refetch();
+      refetch();
     },
     onError: () => {},
     onMutate: () => {},

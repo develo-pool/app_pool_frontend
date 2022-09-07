@@ -30,6 +30,7 @@ function SearchScreen() {
   const changeFollowing = () => setFollowing(!following);
   const [searchText, setSearchText] = useState('');
   const [refreshing, setRefreshing] = useState(false);
+  const [searchFilter, setSearchFilter] = useState<AllBrandResult[]>([]);
   const onChangeText = (payload: string) => setSearchText(payload);
   const {isLoading: isBrandLoading, refetch} = useQuery(
     'getAllBrand',
@@ -65,8 +66,16 @@ function SearchScreen() {
     setRefreshing(false);
   }, [refetch]);
   useEffect(() => {
-    refetch();
-  }, [refetch, isFocused]);
+    onRefresh();
+    setSearchFilter(
+      Brands?.filter(brand =>
+        brand.brandUsername
+          .toUpperCase()
+          .includes(`${searchText.toUpperCase()}`),
+      ),
+    );
+    // refetch();
+  }, [refetch, isFocused, searchText, Brands, onRefresh]);
   const RenderRecommandItem = ({item}) => {
     return (
       <RecommandBrandUserContainer
@@ -85,9 +94,10 @@ function SearchScreen() {
       />
     );
   };
-  const searchFilter = Brands?.filter(brand =>
-    brand.brandUsername.toUpperCase().includes(`${searchText.toUpperCase()}`),
-  );
+  // const searchFilter = Brands?.filter(brand =>
+  //   brand.brandUsername.toUpperCase().includes(`${searchText.toUpperCase()}`),
+  // );
+
   // const RenderSearchItem = ({item}) => {
   //   return (
   //     <SearchResultBrandUserContainer
@@ -113,7 +123,7 @@ function SearchScreen() {
           <View style={styles.line} />
         </View>
         <View style={styles.container}>
-          {searchFilter?.length !== 0 ? (
+          {searchFilter ? (
             <FlatList
               data={searchText !== '' ? searchFilter : Brands}
               style={styles.flatList}
