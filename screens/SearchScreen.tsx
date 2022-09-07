@@ -85,9 +85,12 @@ function SearchScreen() {
       />
     );
   };
-  const searchFilter = Brands?.filter(brand =>
-    brand.brandUsername.toUpperCase().includes(`${searchText.toUpperCase()}`),
-  );
+  const searchFilter = Brands?.filter(brand =>{
+    brand.brandUsername.toUpperCase().includes(`${searchText.toUpperCase()}`)
+    // console.log(brand.brandUsername)
+  }
+    );
+
   // const RenderSearchItem = ({item}) => {
   //   return (
   //     <SearchResultBrandUserContainer
