@@ -64,7 +64,7 @@ function SearchScreen() {
     setCursor(0);
     refetch();
     setRefreshing(false);
-  }, [refetch, searchText]);
+  }, [refetch]);
   useEffect(() => {
     onRefresh();
     setSearchFilter(
@@ -74,9 +74,8 @@ function SearchScreen() {
           .includes(`${searchText.toUpperCase()}`),
       ),
     );
-    onRefresh();
     // refetch();
-  }, [refetch, isFocused, searchText]);
+  }, [refetch, isFocused, searchText, Brands, onRefresh]);
   const RenderRecommandItem = ({item}) => {
     return (
       <RecommandBrandUserContainer
