@@ -1,8 +1,9 @@
 import client from '../client';
-import {SingleAlert, MultiAlert} from './types';
+import {SingleAlert, MultiAlert, FCMParams} from './types';
 
-export async function sendFCMToken(params: string) {
+export async function sendFCMToken(params: FCMParams) {
   const response = await client.post('/fcmToken', params);
+  console.log(params);
   return response;
 }
 
