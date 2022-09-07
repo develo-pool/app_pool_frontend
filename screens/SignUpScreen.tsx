@@ -118,12 +118,15 @@ function SignUpScreen() {
     });
   };
   const header = useHeaderHeight();
-  console.log(header + BottomButtonHeight);
+  // console.log(header + BottomButtonHeight);
+  console.log(header);
   return (
     <>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-        keyboardVerticalOffset={-(header + BottomButtonHeight)}
+        // keyboardVerticalOffset={-(header + BottomButtonHeight)}
+        keyboardVerticalOffset={current < 2 ? -(header + 18) : -300}
+        // keyboardVerticalOffset={-(BottomButtonHeight)}
         style={styles.container}>
         <SignUpForm
           current={current}
