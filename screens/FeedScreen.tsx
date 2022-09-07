@@ -52,7 +52,6 @@ function FeedScreen() {
         }
         setRefreshing(false);
       },
-
     },
   );
   const RenderItem = ({item}) => {

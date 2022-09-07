@@ -132,45 +132,40 @@ function SearchScreen() {
                           </View>
                         </>
                       )} */}
-            <FlatList
-              data={searchText !== '' ? searchFilter : Brands}
-              style={styles.flatList}
-              renderItem={
-                // searchText !== '' ? RenderSearchItem : RenderRecommandItem
-                RenderRecommandItem
-              }
-              showsVerticalScrollIndicator={false}
-              onEndReached={() => {
-                onEndReached();
-              }}
-              onEndReachedThreshold={0.6}
-              onRefresh={onRefresh}
-              refreshing={refreshing}
-              ListHeaderComponent={
-                searchText !== '' ? (
-                  searchFilter.length !== 0 ? (
-                    <SearchResultSubTitle searchCount={searchFilter?.length} />
-                  ) : (
-                    <>
-                      <SearchResultSubTitle
-                        searchCount={searchFilter?.length}
-                      />
-                      <View style={styles.noSearchTextContainer}>
-                        <Text style={styles.noSearchText}>
-                          검색 결과가 없습니다
-                        </Text>
-                      </View>
-                    </>
-                  )
+          <FlatList
+            data={searchText !== '' ? searchFilter : Brands}
+            style={styles.flatList}
+            renderItem={
+              // searchText !== '' ? RenderSearchItem : RenderRecommandItem
+              RenderRecommandItem
+            }
+            showsVerticalScrollIndicator={false}
+            onEndReached={() => {
+              onEndReached();
+            }}
+            onEndReachedThreshold={0.6}
+            onRefresh={onRefresh}
+            refreshing={refreshing}
+            ListHeaderComponent={
+              searchText !== '' ? (
+                searchFilter.length !== 0 ? (
+                  <SearchResultSubTitle searchCount={searchFilter?.length} />
                 ) : (
-                  <RecommandSubTitle />
+                  <>
+                    <SearchResultSubTitle searchCount={searchFilter?.length} />
+                    <View style={styles.noSearchTextContainer}>
+                      <Text style={styles.noSearchText}>
+                        검색 결과가 없습니다
+                      </Text>
+                    </View>
+                  </>
                 )
-              }
-              ListFooterComponent={
-                <>{isBrandLoading && <ActivityIndicator />}</>
-              }
-            />
-
+              ) : (
+                <RecommandSubTitle />
+              )
+            }
+            ListFooterComponent={<>{isBrandLoading && <ActivityIndicator />}</>}
+          />
         </View>
       </View>
     </SafeAreaView>

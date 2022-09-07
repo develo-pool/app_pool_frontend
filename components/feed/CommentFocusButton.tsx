@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import theme from '../../assets/theme';
@@ -11,10 +11,10 @@ interface Props {
 
 function CommentFocusButton({isComment, postId}: Props) {
   const navigation = useNavigation<RootStackNavigationProp>();
-  const [isCommented, setIsCommented] = useState(false)
-  useEffect(()=>{
-    setIsCommented(isComment)
-  }, [isComment])
+  const [isCommented, setIsCommented] = useState(false);
+  useEffect(() => {
+    setIsCommented(isComment);
+  }, [isComment]);
   return (
     // 댓글 작성 여부에 따라 메시지스크린 -> 입력창 포커스를 잡아주는 컴포넌트
     <View style={styles.isComment}>
