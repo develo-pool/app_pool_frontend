@@ -32,25 +32,25 @@ function FeedScreen() {
     'getAllMessage',
     () => getAllMessage(cursor),
     {
+      refetchOnMount: 'always',
       onSuccess: data => {
-        // console.log(Messages);
-        if (noMorePost) {
-          setRefreshing(false);
-          return '';
-        }
         if (data.length < LENGTH) {
+          // console.log('씨ㅣㅣㅣㅣㅅ');
           setNoMorePost(true);
         }
+        // if (noMorePost) {
+        //   setRefreshing(false);
+        //   return '';
+        // }
         if (data.length !== 0) {
           setMessages(Messages.concat(data));
+          setCursor(data[data.length - 1].postId);
         }
-        if (cursor === 0) {
-          setMessages(Messages.concat(data));
-        }
-        setCursor(data[data.length - 1]?.postId);
-        setRefreshing(false);
+        // if (cursor === 0) {
+        //   setMessages(Messages.concat(data));
+        // }
+        // setRefreshing(false);
       },
-      refetchOnMount: 'always',
     },
   );
   const RenderItem = ({item}) => {
