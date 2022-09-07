@@ -94,9 +94,9 @@ function FeedScreen() {
   }, [feedRefetch]);
 
   useEffect(() => {
-    // if (isFocused) {
+    if (isFocused) {
       onRefresh();
-    // }
+    }
   }, [isFocused, feedRefetch, onRefresh]);
 
   // 스크롤이 끝에 인접하면 실행
