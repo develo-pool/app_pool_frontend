@@ -66,7 +66,7 @@ function Feed(message: Message) {
       </TouchableOpacity>
       <TouchableOpacity
         onPress={
-          () => navigation.navigate('Message', {detail: message.postId})
+          () => navigation.navigate('FeedMessage', {detail: message.postId})
           // navigation.reset({
           //   routes: [
           //     {

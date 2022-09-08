@@ -5,6 +5,7 @@ import {RootStackParamList} from './types';
 import LoginScreen from './LoginScreen';
 import SignUpScreen from './SignUpScreen';
 import MessageScreen from './MessageScreen';
+import FeedMessageScreen from './FeedMessageScreen';
 import CreateMessageScreen from './CreateMsgScreen';
 import WelcomeMessageScreen from './WelcomeMsgScreen';
 import GuideScreen from './GuideScreen';
@@ -58,6 +59,7 @@ function RootStack() {
         component={BrandAssignCompleteScreen}
         options={{headerShown: false}}
       />
+      <Stack.Screen name="FeedMessage" component={FeedMessageScreen} />
       <Stack.Screen name="Message" component={MessageScreen} />
       <Stack.Screen
         name="CreateMessage"

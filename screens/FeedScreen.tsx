@@ -6,6 +6,7 @@ import {
   Image,
   FlatList,
   ActivityIndicator,
+  RefreshControl,
 } from 'react-native';
 import Feed from '../components/feed/Feed';
 import theme from '../assets/theme';
@@ -137,6 +138,9 @@ function FeedScreen() {
             onEndReachedThreshold={0.6}
             onRefresh={onRefresh}
             refreshing={refreshing}
+            refreshControl={
+              <RefreshControl onRefresh={feedRefetch} refreshing={refreshing} />
+            }
             ListHeaderComponent={
               <View>
                 <Hello name={userData?.nickName} />
