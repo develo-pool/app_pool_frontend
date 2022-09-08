@@ -138,7 +138,9 @@ function FeedScreen() {
             onEndReachedThreshold={0.6}
             onRefresh={onRefresh}
             refreshing={refreshing}
-            refreshControl={<RefreshControl onRefresh={feedRefetch} refreshing={refreshing} />}
+            refreshControl={
+              <RefreshControl onRefresh={feedRefetch} refreshing={refreshing} />
+            }
             ListHeaderComponent={
               <View>
                 <Hello name={userData?.nickName} />

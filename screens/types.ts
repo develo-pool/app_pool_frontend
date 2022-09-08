@@ -37,6 +37,7 @@ export type RootStackParamList = {
   FirebaseAuth: undefined;
   FollowingList: {followingCount: number};
   EditUser: undefined;
+  FeedMessage: {detail: number};
 };
 
 /* SettingStack */

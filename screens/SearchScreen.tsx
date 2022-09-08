@@ -54,7 +54,6 @@ function SearchScreen() {
     },
   );
 
-
   const onEndReached = () => {
     if (!noMoreBrand) {
       refetch();
