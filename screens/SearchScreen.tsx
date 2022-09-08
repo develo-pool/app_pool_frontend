@@ -54,11 +54,17 @@ function SearchScreen() {
     },
   );
 
+
   const onEndReached = () => {
     if (!noMoreBrand) {
       refetch();
     }
   };
+  // const onMount = useCallback(()=>{
+  //   setRefreshing(true);
+  //   refetch();
+  //   setRefreshing(false);
+  // }, [refetch])
   const onRefresh = useCallback(() => {
     setRefreshing(true);
     setCursor(0);
@@ -67,6 +73,7 @@ function SearchScreen() {
   }, [refetch]);
   useEffect(() => {
     onRefresh();
+    // onMount();
     setSearchFilter(
       Brands?.filter(brand =>
         brand.brandUsername

@@ -13,12 +13,11 @@ interface Props {
 }
 
 function FollowButton({isFollowed, poolUserId, refetch}: Props) {
-  const [isFollow, setIsFollow] = useState(isFollowed);
+  // const [isFollow, setIsFollow] = useState(isFollowed);
   // const {mutate: sendWelcomeMessage} = useMutation(sendSingleAlarm);
-
   const {mutate: onPressFollow} = useMutation(follow, {
     onSuccess: () => {
-      setIsFollow(true);
+      // setIsFollow(true);
       refetch();
     },
     onError: () => {},
@@ -27,7 +26,7 @@ function FollowButton({isFollowed, poolUserId, refetch}: Props) {
   });
   const {mutate: onPressUnfollow} = useMutation(unfollow, {
     onSuccess: () => {
-      setIsFollow(false);
+      // setIsFollow(false);
       refetch();
     },
   });
@@ -35,16 +34,16 @@ function FollowButton({isFollowed, poolUserId, refetch}: Props) {
   return (
     <View style={styles.FollowButton}>
       <TouchableOpacity
-        style={[styles.ButtonFrame, isFollow && styles.Unfollowed]}
+        style={[styles.ButtonFrame, isFollowed && styles.Unfollowed]}
         onPress={
           () =>
-            isFollow ? onPressUnfollow(poolUserId) : onPressFollow(poolUserId)
+            isFollowed ? onPressUnfollow(poolUserId) : onPressFollow(poolUserId)
           // sendWelcomeMessage({pool_user_id: poolUserId, brand_id: 1})
         }>
-        <Text style={[styles.FollowText, isFollow && styles.UnfollowedText]}>
-          {isFollow ? '팔로잉' : '팔로우'}
+        <Text style={[styles.FollowText, isFollowed && styles.UnfollowedText]}>
+          {isFollowed ? '팔로잉' : '팔로우'}
         </Text>
-        {isFollow && (
+        {isFollowed && (
           <Icon name="check-circle" size={12} style={styles.Checked} />
         )}
       </TouchableOpacity>
