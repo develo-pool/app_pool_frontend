@@ -3,7 +3,6 @@ import {StyleSheet, View} from 'react-native';
 import TextInputs from '../TextInputs';
 import {AuthButton, InputTitle} from './AuthComponents';
 import {CheckPhoneNumber} from './Validation';
-// import auth from '@react-native-firebase/auth';
 import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 import {phoneNumberExist} from '../../api/auth';
 import {useQuery} from 'react-query';
