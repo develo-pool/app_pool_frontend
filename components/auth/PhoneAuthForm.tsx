@@ -55,7 +55,7 @@ function PhoneAuthForm({
       const data = await confirmation?.confirm(form.authNumber);
       setIsLoading(false);
       if (data !== undefined) {
-      onChangeForm('state')('confirm');
+        onChangeForm('state')('confirm');
       }
     } catch (error) {
       onChangeForm('authNumberError')(true);

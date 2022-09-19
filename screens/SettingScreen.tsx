@@ -10,6 +10,7 @@ import {
   SafeAreaView,
   Linking,
   ActivityIndicator,
+  Alert,
 } from 'react-native';
 import {useNavigation, useIsFocused} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
@@ -25,7 +26,7 @@ import Footer from '../components/setting/footer';
 import {RootState} from '../slices';
 import {logout} from '../slices/auth';
 import authStorage from '../storages/authStorage';
-import {getUser} from '../api/auth';
+import {deleteAccount, getUser} from '../api/auth';
 import {getBrand} from '../api/brand';
 // import {useAsyncStorage} from '@react-native-async-storage/async-storage';
 import {sendFCMToken} from '../api/fcm';
@@ -68,6 +69,30 @@ function SettingScreen() {
     dispatch(logout());
     navigation.reset({routes: [{name: 'Welcome'}]});
   };
+
+  const alertAccountDeletion = () => {
+    Alert.alert(
+      '회원 탈퇴',
+      '회원 탈퇴 후 로그인은 불가하며, 새롭게 회원가입이 필요합니다. 탈퇴 하시겠습니까?',
+      [
+        {
+          text: '취소',
+          style: 'cancel',
+        },
+        {text: '확인', onPress: () => AccountDeletion()},
+      ],
+      {cancelable: true},
+    );
+  };
+  const {mutate: AccountDeletion} = useMutation(deleteAccount, {
+    onSuccess: async () => {
+      onLogout();
+    },
+    onError: e => {
+      console.log(e);
+    },
+  });
+
   // const {getItem: getFcmItem, setItem: setFcmItem} = useAsyncStorage('fcmToken');
   const getFcmToken = useCallback(async () => {
     const fcmToken = await messaging().getToken();
@@ -203,9 +228,16 @@ function SettingScreen() {
               title="문의하기"
               onPress={() => Linking.openURL('http://pf.kakao.com/_ebksb')}
             />
-            <Pressable style={styles.seperatedSets} onPress={onLogout}>
-              <Text style={styles.logout}>로그아웃</Text>
-            </Pressable>
+            <View style={styles.seperatedContainer}>
+              <Pressable style={styles.seperatedSets} onPress={onLogout}>
+                <Text style={styles.logout}>로그아웃</Text>
+              </Pressable>
+              <Pressable
+                style={styles.seperatedSets}
+                onPress={alertAccountDeletion}>
+                <Text style={styles.logout}>회원탈퇴</Text>
+              </Pressable>
+            </View>
           </>
           <Footer />
         </View>
@@ -279,14 +311,17 @@ const styles = StyleSheet.create({
     color: theme.colors.Grey80,
     marginLeft: 4,
   },
+  seperatedContainer: {
+    marginTop: 6,
+    marginBottom: 6,
+  },
   seperatedSets: {
     backgroundColor: theme.colors.White,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     height: 60,
-    marginTop: 8,
-    marginBottom: 6,
+    marginTop: 2,
     paddingLeft: 24,
     paddingRight: 24,
     // paddingRight: 16,
