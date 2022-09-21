@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
   },
   logo: {
     alignSelf: 'center',
-    marginBottom: 25,
+    marginBottom: 30,
   },
   block: {
     flex: 1,
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     color: theme.colors.Grey50,
     textAlign: 'center',
     lineHeight: 24,
-    marginTop: 16,
+    marginTop: 25,
     marginBottom: 60,
   },
   subText: {
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     fontWeight: theme.fontWeight.Bold,
   },
   container: {
-    marginTop: 13,
+    marginTop: 35,
     flexDirection: 'row',
     justifyContent: 'center',
   },
