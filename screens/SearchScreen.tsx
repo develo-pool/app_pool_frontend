@@ -197,6 +197,7 @@ const styles = StyleSheet.create({
   },
   SearchScreenContainer: {
     backgroundColor: theme.colors.Grey10,
+    paddingBottom: 35,
   },
   bottomSafeArea: {
     height: 300,
