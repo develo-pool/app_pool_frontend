@@ -12,12 +12,21 @@
 - [Branch](#branch)
 - [Refactoring](#refactoring)
 
+<br/>
+
 ## Latest Release
-Google Playstore https://play.google.com/store/apps/details?id=com.app_pool_frontend  
-AppStore - 심사중  
-Web - https://app-pool-firebase.web.app/1
+**Google Playstore**  
+🔗 https://play.google.com/store/apps/details?id=com.app_pool_frontend  
+**AppStore**  
+🔗 Comming Soon  
+**Web**  
+🔗 https://app-pool-firebase.web.app/1
+
+<br/>
 
 ## Demo
+
+<br/>
 
 ## Start
 ```
@@ -25,7 +34,11 @@ yarn android
 yarn ios
 ```
 
+<br/>
+
 ## Stack
+
+<br/>
 
 ## Folder Tree
 ```
@@ -43,6 +56,8 @@ yarn ios
 │   └── assets # Web favicon, manifest 등의 파일 폴더
 ```
 
+<br/>
+
 ## Commit Rule
 | 타입     | 내용                  |
 |----------|-----------------------|
@@ -55,11 +70,15 @@ yarn ios
 | docs     | 문서 수정             |
 | chore    | 빌드 관련 수정        |
 
+<br/>
+
 ## Branch
 | 브랜치명                        | 설명                  |
 |--------------------------------|-----------------------|
 | main                           | 메인 브랜치            |
 | {type}/#{issueNumber}-{title}  | 각 이슈별 브랜치       |
+
+<br/>
 
 ## Refactoring
 v1.0 이후 백로그 (update 2022.09.20)
