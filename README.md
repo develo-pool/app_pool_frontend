@@ -1,5 +1,7 @@
 # Pool (v1.0)
 
+<image src="https://user-images.githubusercontent.com/66757141/191906174-e5a5d5d4-6762-41ea-9447-11490985ff4f.png" width="100px"/>
+
 ## Contents
 - [Latest Release](#latest-release)
 - [Demo](#demo)
@@ -27,22 +29,18 @@ yarn ios
 
 ## Folder Tree
 ```
-수정필요
-├── src
-│   ├── api # api 요청 관련 폴더
-│   ├── assets # svg, font, image 등 정적 파일 관련 폴더
-│   ├── components # 여러 page에서 사용하는 공통 컴포넌트들
-│   ├── constant # 프로젝트에서 사용하는 상수
-│   ├── context # context API의 Provider
-│   ├── hoc # 고차컴포넌트
-│   ├── hooks # react hooks
-│   ├── layouts # 프로젝트 전체적인 구조 스타일 담당
-│   ├── mocks # msw를 활용한 api mocking
-│   ├── pages # 라우터에서 사용하는 Page들
-│   ├── service # 회원가입, 로그인 조건 등 비즈니스 로직
-│   ├── styles # 다지안 관련 폴더
-│   ├── types # 데이터 타입
-│   └── utils #
+├── android
+├── ios
+├── dist # 빌드된 web 폴더
+├── api # api 요청 관련 폴더
+├── assets # svg, image, font, theme 등 정적 파일 폴더
+├── components # 여러 page에서 사용하는 컴포넌트들
+├── screens # React Navigation에서 사용하는 Screen들
+├── hooks # react hooks
+├── slices # redux slices 폴더
+├── storages # Asyncstorage 관련 폴더
+├── web # Web 관련 폴더
+│   └── assets # Web favicon, manifest 등의 파일 폴더
 ```
 
 ## Commit Rule
@@ -64,6 +62,6 @@ yarn ios
 | {type}/#{issueNumber}-{title}  | 각 이슈별 브랜치       |
 
 ## Refactoring
-v1.0 이후의 백로그 (update 2022.09.20)
+v1.0 이후 백로그 (update 2022.09.20)
 
 - [ ] 타 기기에서 유저 로그인시 기존 기기 토큰 만료 핸들링
