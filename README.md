@@ -30,8 +30,19 @@
 
 ## Start
 ```
-yarn android
-yarn ios
+[bundler]
+$ yarn start #run bundler
+
+[mobile]
+$ yarn android #run android emulator & bundler 
+$ yarn ios #run ios emulator & bundler
+
+[web]
+$ yarn web #start web
+$ yarn build #build web to dist folder
+
+[lint]
+$ yarn lint #run eslint
 ```
 
 <br/>
