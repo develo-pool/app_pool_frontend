@@ -26,6 +26,8 @@
 
 ## Demo
 
+
+
 <br/>
 
 ## Start
@@ -48,6 +50,13 @@ $ yarn lint #run eslint
 <br/>
 
 ## Stack
+| -        | -                      |
+|-------------|-------------------------|
+| **코어**      | ReactNative, TypeScript |
+| **상태관리**    | Redux, React-Query     |
+| **패키지 매니저** | Yarn                 |
+| **빌드**      | Babel, Webpack          |
+
 
 <br/>
 
