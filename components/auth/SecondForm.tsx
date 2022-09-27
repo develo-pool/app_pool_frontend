@@ -17,7 +17,7 @@ function SecondForm({
     <View>
       <Title title="생년월일 및 성별을" />
       <Title title="입력해 주세요." hasMargin={true} />
-      <InputTitle title="생년월일" />
+      <InputTitle title="생년월일 (선택)" />
       <View style={styles.row}>
         <TextInputs
           type="default"
@@ -33,7 +33,7 @@ function SecondForm({
           }
         />
       </View>
-      <InputTitle title="성별" />
+      <InputTitle title="성별 (선택)" />
       <View style={styles.row}>
         <RadioButton
           text="여자"
