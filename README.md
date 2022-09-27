@@ -26,7 +26,15 @@
 
 ## Demo
 
+**Authentication (Login/SignUp)**
 
+**Search Brand**
+
+**Receive Message(Push Alarm)**
+
+**Brand Assign**
+
+**Create Message**
 
 <br/>
 
@@ -50,12 +58,25 @@ $ yarn lint #run eslint
 <br/>
 
 ## Stack
-| -        | -                      |
-|-------------|-------------------------|
-| **코어**      | ReactNative, TypeScript |
-| **상태관리**    | Redux, React-Query     |
-| **패키지 매니저** | Yarn                 |
-| **빌드**      | Babel, Webpack          |
+
+<table>
+  <tr>
+    <th>코어</th>
+    <td>ReactNative, TypeScript</td>
+  </tr>
+  <tr>
+    <th>상태관리</th>
+    <td>Redux, React-Query</td>
+  </tr>
+  <tr>
+    <th>패키지 매니저</th>
+    <td>Yarn</td>
+  </tr>
+  <tr>
+    <th>빌드</th>
+    <td>Babel, Webpack    </td>
+  </tr>
+</table>
 
 
 <br/>
@@ -104,3 +125,5 @@ $ yarn lint #run eslint
 v1.0 이후 백로그 (update 2022.09.20)
 
 - [ ] 타 기기에서 유저 로그인시 기존 기기 토큰 만료 핸들링
+- [x] (AppStore) 회원가입 시 생년월일, 성별 필드 선택사항으로 수정
+
