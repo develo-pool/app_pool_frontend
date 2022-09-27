@@ -24,6 +24,8 @@ import {getBrand} from '../api/brand';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {createMessage} from '../api/message';
 import {ImgAsset} from '../api/message/types';
+import {sendMultiAlarm} from '../api/fcm';
+import {getUser} from '../api/auth';
 
 export interface CreateMessageProps {
   messageBody: string;
@@ -69,18 +71,26 @@ function CreateMessageScreen() {
     refetchOnMount: 'always',
   });
 
+  const {data: poolId} = useQuery('getUserResult', () => getUser(), {
+    refetchOnMount: true,
+  });
+
   const {mutate: create} = useMutation(createMessage, {
     onSuccess: () => {
       navigation.dispatch(CommonActions.goBack());
     },
   });
+
+  const {mutate: send} = useMutation(sendMultiAlarm);
+
   const onSubmit = useCallback(() => {
     const formData = new FormData();
     formData.append('body', form.messageBody);
     formData.append('messageLink', form.messageLink as string);
     formData.append('multipartFiles', form.messageImage as Blob);
     create(formData);
-  }, [create, form]);
+    send({pool_user_id: poolId?.poolUserId as number});
+  }, [create, form, send]);
 
   const onChangeText = (prop: string) => (value: string) => {
     setForm({
