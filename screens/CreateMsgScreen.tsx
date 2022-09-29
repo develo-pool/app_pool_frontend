@@ -71,8 +71,8 @@ function CreateMessageScreen() {
     refetchOnMount: 'always',
   });
 
-  const {data: poolId} = useQuery('getUserResult', () => getUser(), {
-    refetchOnMount: true,
+  const {data: id} = useQuery('getUserResult', () => getUser(), {
+    refetchOnMount: 'always',
   });
 
   const {mutate: create} = useMutation(createMessage, {
@@ -81,7 +81,14 @@ function CreateMessageScreen() {
     },
   });
 
-  const {mutate: send} = useMutation(sendMultiAlarm);
+  const {mutate: send} = useMutation(sendMultiAlarm, {
+    onSuccess: () => {
+      console.log('Success!');
+    },
+    onError: e => {
+      console.error(e);
+    },
+  });
 
   const onSubmit = useCallback(() => {
     const formData = new FormData();
@@ -89,8 +96,14 @@ function CreateMessageScreen() {
     formData.append('messageLink', form.messageLink as string);
     formData.append('multipartFiles', form.messageImage as Blob);
     create(formData);
-    send({pool_user_id: poolId?.poolUserId as number});
-  }, [create, form, send]);
+    // onSuccessSubmit();
+    send({brand_id: id?.poolUserId as number});
+  }, [create, form]);
+
+  // const onSuccessSubmit = () => {
+  //   send(id?.poolUserId as number);
+  //   console.log(id?.poolUserId as number);
+  // };
 
   const onChangeText = (prop: string) => (value: string) => {
     setForm({

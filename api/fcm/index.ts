@@ -1,5 +1,5 @@
 import client from '../client';
-import {SingleAlert, MultiAlert, FCMParams} from './types';
+import {SingleAlert, FCMParams} from './types';
 
 export async function sendFCMToken(params: FCMParams) {
   const response = await client.post('/fcmToken', params);
@@ -11,7 +11,8 @@ export async function sendSingleAlarm(params: SingleAlert) {
   return response.config.data;
 }
 
-export async function sendMultiAlarm(params: MultiAlert) {
+export async function sendMultiAlarm(params: number) {
   const response = await client.post('/api/fcm/submit', params);
+  console.log('Pool User ID Received!');
   return response.config.data;
 }
