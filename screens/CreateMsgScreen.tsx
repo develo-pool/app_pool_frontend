@@ -98,7 +98,7 @@ function CreateMessageScreen() {
     create(formData);
     // onSuccessSubmit();
     send({brand_id: id?.poolUserId as number});
-  }, [create, form, id?.poolUserId]);
+  }, [create, form, send, id?.poolUserId]);
 
   // const onSuccessSubmit = () => {
   //   send(id?.poolUserId as number);
