@@ -5,7 +5,6 @@ export interface SingleAlert {
 
 export interface MultiAlert {
   brand_id: number;
-  Message_id: number;
 }
 
 export interface FCMParams {

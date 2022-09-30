@@ -24,6 +24,8 @@ import {getBrand} from '../api/brand';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {createMessage} from '../api/message';
 import {ImgAsset} from '../api/message/types';
+import {sendMultiAlarm} from '../api/fcm';
+import {getUser} from '../api/auth';
 
 export interface CreateMessageProps {
   messageBody: string;
@@ -69,18 +71,39 @@ function CreateMessageScreen() {
     refetchOnMount: 'always',
   });
 
+  const {data: id} = useQuery('getUserResult', () => getUser(), {
+    refetchOnMount: 'always',
+  });
+
   const {mutate: create} = useMutation(createMessage, {
     onSuccess: () => {
       navigation.dispatch(CommonActions.goBack());
     },
   });
+
+  const {mutate: send} = useMutation(sendMultiAlarm, {
+    onSuccess: () => {
+      console.log('Success!');
+    },
+    onError: e => {
+      console.error(e);
+    },
+  });
+
   const onSubmit = useCallback(() => {
     const formData = new FormData();
     formData.append('body', form.messageBody);
     formData.append('messageLink', form.messageLink as string);
     formData.append('multipartFiles', form.messageImage as Blob);
     create(formData);
-  }, [create, form]);
+    // onSuccessSubmit();
+    send({brand_id: id?.poolUserId as number});
+  }, [create, form, send, id?.poolUserId]);
+
+  // const onSuccessSubmit = () => {
+  //   send(id?.poolUserId as number);
+  //   console.log(id?.poolUserId as number);
+  // };
 
   const onChangeText = (prop: string) => (value: string) => {
     setForm({

@@ -14,7 +14,6 @@ interface Props {
 
 function FollowButton({isFollowed, poolUserId, refetch}: Props) {
   // const [isFollow, setIsFollow] = useState(isFollowed);
-  // const {mutate: sendWelcomeMessage} = useMutation(sendSingleAlarm);
   const {mutate: onPressFollow} = useMutation(follow, {
     onSuccess: () => {
       // setIsFollow(true);
@@ -30,6 +29,7 @@ function FollowButton({isFollowed, poolUserId, refetch}: Props) {
       refetch();
     },
   });
+  // const {mutate: sendWelcome} = useMutation(sendSingleAlarm);
 
   return (
     <View style={styles.FollowButton}>
@@ -38,7 +38,8 @@ function FollowButton({isFollowed, poolUserId, refetch}: Props) {
         onPress={
           () =>
             isFollowed ? onPressUnfollow(poolUserId) : onPressFollow(poolUserId)
-          // sendWelcomeMessage({pool_user_id: poolUserId, brand_id: 1})
+
+          // sendWelcome({pool_user_id: poolUserId})
         }>
         <Text style={[styles.FollowText, isFollowed && styles.UnfollowedText]}>
           {isFollowed ? '팔로잉' : '팔로우'}
