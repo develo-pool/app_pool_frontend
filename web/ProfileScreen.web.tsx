@@ -9,7 +9,7 @@ import {
 import {useQuery} from 'react-query';
 import {useNavigate, useParams} from 'react-router-dom';
 import {Message} from '../api/message/types';
-import {getBrandWebMessage} from '../api/web';
+import {getBrandWebMessage, getBrandWebProfile} from '../api/web';
 import theme from '../assets/theme';
 import Footer from '../components/setting/footer';
 import MessageBlock from './MessageBlock.web';
@@ -37,6 +37,16 @@ function ProfileScreen() {
           setCursor(data[data.length - 1].postId);
         }
       },
+      onError: () => {
+        navigation('/none');
+      },
+      refetchOnMount: true,
+    },
+  );
+  const {data: profileData, isLoading: isProfileLoading} = useQuery(
+    'getBrandWebProfile',
+    () => getBrandWebProfile(id),
+    {
       onError: () => {
         navigation('/none');
       },
@@ -76,7 +86,9 @@ function ProfileScreen() {
               refetch();
             }
           }}
-          ListHeaderComponent={<Profile id={id} />}
+          ListHeaderComponent={
+            <Profile data={profileData} isLoading={isProfileLoading} />
+          }
           ListFooterComponent={
             <View style={styles.margin}>
               <Footer />

@@ -11,3 +11,9 @@ export interface brandProfile {
     userFollowerCount: number;
   };
 }
+
+export interface brand extends brandProfile {
+  brandUserId: number;
+  isLoginUser: boolean;
+  poolUserId: number;
+}
