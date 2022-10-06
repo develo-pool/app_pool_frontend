@@ -9,22 +9,9 @@ import {
 } from 'react-native';
 import theme from '../assets/theme';
 import PoolLogo from '../assets/PoolLogo.png';
-import {useQuery} from 'react-query';
-import {getBrandWebProfile} from '../api/web';
-import {useNavigate} from 'react-router-dom';
+import {brandProfile} from '../api/web/types';
 
-function Profile({id}: {id: number}) {
-  const navigation = useNavigate();
-  const {data, isLoading} = useQuery(
-    'getBrandWebProfile',
-    () => getBrandWebProfile(id),
-    {
-      onError: () => {
-        navigation('/none');
-      },
-      refetchOnMount: true,
-    },
-  );
+function Profile({data, isLoading}: {data?: brandProfile; isLoading: boolean}) {
   return (
     <View style={styles.ProfileSection}>
       {!isLoading && data ? (
