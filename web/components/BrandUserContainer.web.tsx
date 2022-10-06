@@ -2,33 +2,17 @@ import React from 'react';
 import {StyleSheet, View, Image, Text, Pressable} from 'react-native';
 import theme from '../../assets/theme';
 import FollowButton from './FollowButton.web';
-import {
-  QueryObserverResult,
-  RefetchOptions,
-  RefetchQueryFilters,
-} from 'react-query';
-import {AllBrandResult} from '../../api/brand/types';
 import {brand} from '../../api/web/types';
 import {useNavigate} from 'react-router-dom';
 
 interface Props {
   item: brand;
   searchText?: string;
-  follow?: boolean;
   changeFollowing?: any;
-  refetch?: <TPageData>(
-    options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined,
-  ) => Promise<QueryObserverResult<AllBrandResult[], unknown>>;
   isHome?: boolean;
 }
 
-function BrandUserContainer({
-  item,
-  follow,
-  refetch,
-  searchText = '',
-  isHome,
-}: Props) {
+function BrandUserContainer({item, searchText = '', isHome}: Props) {
   const navigation = useNavigate();
   return (
     <View>
@@ -63,11 +47,7 @@ function BrandUserContainer({
               ''
             ) : (
               <View>
-                <FollowButton
-                  isFollowed={follow}
-                  poolUserId={item.poolUserId}
-                  refetch={refetch}
-                />
+                <FollowButton />
               </View>
             )}
           </View>
