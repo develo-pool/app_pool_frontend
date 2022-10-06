@@ -55,13 +55,17 @@ function Home() {
               'https://play.google.com/store/apps/details?id=com.app_pool_frontend',
             )
           }>
-          <Image source={GooglePlay} style={styles.store} />
+          <Image
+            source={GooglePlay}
+            style={styles.store}
+            resizeMode="stretch"
+          />
         </Pressable>
         <Pressable
           onPress={() =>
             Linking.openURL('https://apps.apple.com/kr/app/pool/id1640180474')
           }>
-          <Image source={AppStore} style={styles.store} />
+          <Image source={AppStore} style={styles.store} resizeMode="stretch" />
         </Pressable>
       </View>
       {/* 최신 브랜드 3개 */}
