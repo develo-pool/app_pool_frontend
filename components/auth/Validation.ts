@@ -9,7 +9,8 @@ export function CheckBirthday(value: string) {
 }
 
 export function CheckPassword(value: string) {
-  const re = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]/;
+  const re =
+    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!`_~()?@#$%^&*+=-])[A-Za-z\d!`_~()?@#$%^&*+=-]/;
   return re.test(value);
 }
 
