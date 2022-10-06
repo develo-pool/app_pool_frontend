@@ -14,11 +14,19 @@ import MessageImg from '../components/message/MessageImg';
 import MessageText from '../components/message/MessageText';
 import Link from './assets/Link.png';
 
+interface Props extends Message {
+  isHome?: boolean;
+}
+
 // 사용 시에는 user와 message 프롭스를 아래에 넣어주세용
-function MessageBlock(detailmessage: Message) {
+function MessageBlock(detailmessage: Props) {
   return (
-    <View style={styles.background}>
-      <View style={styles.detailMessageContainer}>
+    <View style={[styles.padding, !detailmessage.isHome && styles.background]}>
+      <View
+        style={[
+          styles.detailMessageContainer,
+          detailmessage.isHome && styles.home,
+        ]}>
         <MessageHeader
           brandUsername={
             detailmessage?.writerDto?.brandUserInfoDto?.brandUsername
@@ -27,6 +35,7 @@ function MessageBlock(detailmessage: Message) {
             detailmessage?.writerDto?.brandUserInfoDto?.brandProfileImage
           }
           create_date={detailmessage.create_date}
+          brandUserId={detailmessage?.writerDto?.brandUserInfoDto?.brandUserId}
         />
         <View>
           {/* 메시지의 구성에 따라 각각 다른 UI를 출력 */}
@@ -63,13 +72,20 @@ function MessageBlock(detailmessage: Message) {
 }
 
 const styles = StyleSheet.create({
-  background: {
-    backgroundColor: theme.colors.Ivory,
+  padding: {
     paddingTop: 16,
     paddingHorizontal: 16,
   },
+  background: {
+    backgroundColor: theme.colors.Ivory,
+  },
+  home: {
+    borderWidth: 1,
+    borderColor: theme.colors.Grey30,
+  },
   detailMessageContainer: {
     paddingHorizontal: 16,
+    paddingVertical: 6,
     backgroundColor: theme.colors.White,
     borderRadius: 10,
   },

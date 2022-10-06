@@ -8,14 +8,23 @@ import PoolLogo from '../../assets/logo/Logo.png';
 import GooglePlay from '../assets/home/google-play-badge.png';
 import AppStore from '../assets/home/app-store-badge.png';
 import {useQuery} from 'react-query';
-import {getRecentBrand} from '../../api/web';
+import {getRecentBrand, getRecentMessage} from '../../api/web';
 import {brand} from '../../api/web/types';
 import BrandUserContainer from '../components/BrandUserContainer.web';
+import MessageBlock from '../MessageBlock.web';
+import {Message} from '../../api/message/types';
 
 function Home() {
   const {data: brandData} = useQuery(
-    'getBrandWebProfile',
+    'getRecentBrandData',
     () => getRecentBrand(),
+    {
+      refetchOnMount: true,
+    },
+  );
+  const {data: messageData} = useQuery(
+    'getRecentMessageData',
+    () => getRecentMessage(),
     {
       refetchOnMount: true,
     },
@@ -56,8 +65,8 @@ function Home() {
         </Pressable>
       </View>
       {/* 최신 브랜드 3개 */}
-      <View>
-        <Text style={styles.subtitle}>추천브랜드</Text>
+      <View style={styles.block}>
+        <Text style={styles.subtitle}>추천 브랜드</Text>
         {brandData?.map((item: brand) => (
           <BrandUserContainer item={item} isHome={true} key={item.brandInfo} />
         ))}
@@ -65,15 +74,36 @@ function Home() {
           웹에서 브랜드를 검색해 보세요.
         </Link>
       </View>
-      <View>
-        <Text style={styles.subtitle}>최근메시지</Text>
+      {/* 최근 메세지 3개 */}
+      <View style={styles.block}>
+        <Text style={styles.subtitle}>최근 메시지</Text>
+        {messageData?.map((item: Message) => (
+          <MessageBlock
+            key={item.postId}
+            postId={item.postId}
+            body={item.body}
+            messageLink={item.messageLink}
+            filePath={item.filePath}
+            writerDto={item.writerDto}
+            commentAble={item.commentAble}
+            isWriter={item.isWriter}
+            create_date={item.create_date}
+            commentCount={item.commentCount}
+            isHome={true}
+          />
+        ))}
       </View>
-      <Footer />
+      <View>
+        <Footer />
+      </View>
     </>
   );
 }
 
 const styles = StyleSheet.create({
+  block: {
+    paddingBottom: 55,
+  },
   link: {
     textDecorationLine: 'none',
     textDecorationStyle: undefined,

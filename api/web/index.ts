@@ -25,6 +25,6 @@ export async function getRecentBrand() {
 
 // 홈 페이지 최신 메세지 3개
 export async function getRecentMessage() {
-  const response = await client.get<brand[]>('/brands/web/recommend');
+  const response = await client.get<Message[]>('/messages/recommend/web');
   return response.data;
 }

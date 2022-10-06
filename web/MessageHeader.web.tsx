@@ -1,14 +1,23 @@
 import React from 'react';
 import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
+import {useNavigate} from 'react-router-dom';
 import theme from '../assets/theme';
 
 interface Props {
   brandUsername: string;
   brandProfileImage: string;
   create_date: string;
+  brandUserId?: number;
 }
 
-function MessageHeader({brandUsername, brandProfileImage, create_date}: Props) {
+function MessageHeader({
+  brandUsername,
+  brandProfileImage,
+  create_date,
+  brandUserId,
+}: Props) {
+  const navigation = useNavigate();
+
   const Month = create_date.substring(5, 7);
   const Day = create_date.substring(8, 10);
   const Hour = create_date.substring(11, 13);
@@ -59,7 +68,11 @@ function MessageHeader({brandUsername, brandProfileImage, create_date}: Props) {
   };
   return (
     // 댓글 작성 여부에 따라 메시지스크린 -> 입력창 포커스를 잡아주는 컴포넌트
-    <TouchableOpacity style={styles.messageHeader} onPress={() => {}}>
+    <TouchableOpacity
+      style={styles.messageHeader}
+      onPress={() => {
+        navigation(`/${brandUserId}`);
+      }}>
       <View style={styles.detailHeader}>
         <Image
           style={styles.authorProfileImg}
