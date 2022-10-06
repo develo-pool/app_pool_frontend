@@ -11,15 +11,29 @@
   <meta property="og:description" content="팔로워에게 찾아가는 메시지 POOL">
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
   <style>
-    /* @font-face {
-      font-family: 'Pretendard-Regular';
-      src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-      font-weight: 400;
+    @font-face {
+      font-family: 'Pretendard Variable';
+      font-weight: 45 920;
       font-style: normal;
-    } */
+      font-display: swap;
+      src: local('Pretendard Variable'), url('./images/PretendardVariable.woff2') format('woff2-variations');
+    }
+    @font-face {
+        font-family: 'Pretendard';
+        src: url('./images/Pretendard-Regular.woff') format('woff');
+        font-weight: 400;
+        font-display: swap;
+    }
+    @font-face {
+        font-family: 'Pretendard';
+        src: url('./images/Pretendard-Bold.woff') format('woff');
+        font-weight: 700;
+        font-display: swap;
+    }
     html, body {
       height: 100%;
       width: 100%;
+      font-family: 'Pretendard';
     }
     #root {
       display: flex;
