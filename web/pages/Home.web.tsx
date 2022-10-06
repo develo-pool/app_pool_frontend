@@ -7,8 +7,20 @@ import {Link} from 'react-router-dom';
 import PoolLogo from '../../assets/logo/Logo.png';
 import GooglePlay from '../assets/home/google-play-badge.png';
 import AppStore from '../assets/home/app-store-badge.png';
+import {useQuery} from 'react-query';
+import {getRecentBrand} from '../../api/web';
+import {brand} from '../../api/web/types';
+import BrandUserContainer from '../components/BrandUserContainer.web';
 
 function Home() {
+  const {data: brandData} = useQuery(
+    'getBrandWebProfile',
+    () => getRecentBrand(),
+    {
+      refetchOnMount: true,
+    },
+  );
+
   return (
     <>
       {/* 서비스 소개 링크 */}
@@ -43,8 +55,12 @@ function Home() {
           <Image source={AppStore} style={styles.store} />
         </Pressable>
       </View>
+      {/* 최신 브랜드 3개 */}
       <View>
         <Text style={styles.subtitle}>추천브랜드</Text>
+        {brandData?.map((item: brand) => (
+          <BrandUserContainer item={item} isHome={true} key={item.brandInfo} />
+        ))}
         <Link to="/search" style={styles.search}>
           웹에서 브랜드를 검색해 보세요.
         </Link>
