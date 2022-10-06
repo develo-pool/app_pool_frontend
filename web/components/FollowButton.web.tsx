@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, TouchableOpacity, Text, StyleSheet} from 'react-native';
 import theme from '../../assets/theme';
-import openStoreByOS from '../hooks/openStoreByOS';
+import openStoreByOS from '../hooks/openStoreByOS.web';
 // import {MdCheckCircle} from 'react-icons/md';
 
 function FollowButton() {
