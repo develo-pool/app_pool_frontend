@@ -1,11 +1,10 @@
 import React from 'react';
-import {Image, StyleSheet, View} from 'react-native';
+import {Image, StyleSheet} from 'react-native';
 import PoolLogo from '../../assets/logo/Logo.png';
 
 function Info() {
   return (
     <>
-      <View></View>
       <Image source={PoolLogo} style={styles.logo} />
     </>
   );
