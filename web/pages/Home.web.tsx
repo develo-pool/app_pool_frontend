@@ -5,8 +5,8 @@ import Footer from '../../components/setting/footer';
 import Title from '../../components/Title';
 import {Link} from 'react-router-dom';
 import PoolLogo from '../../assets/logo/Logo.png';
-import GooglePlay from '../assets/store/google-play-badge.png';
-import AppStore from '../assets/store/app-store-badge.png';
+import GooglePlay from '../assets/home/google-play-badge.png';
+import AppStore from '../assets/home/app-store-badge.png';
 
 function Home() {
   return (
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
   logo: {
     alignSelf: 'center',
     width: 100,
-    height: 70,
+    height: 73,
     marginTop: 50,
     marginBottom: 30,
   },
