@@ -7,9 +7,9 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import theme from '../assets/theme';
-import PoolLogo from '../assets/PoolLogo.png';
-import {brandProfile} from '../api/web/types';
+import theme from '../../assets/theme';
+import PoolLogo from '../../assets/PoolLogo.png';
+import {brandProfile} from '../../api/web/types';
 
 function Profile({data, isLoading}: {data?: brandProfile; isLoading: boolean}) {
   return (
@@ -58,7 +58,7 @@ function Profile({data, isLoading}: {data?: brandProfile; isLoading: boolean}) {
 
 const styles = StyleSheet.create({
   ProfileSection: {
-    height: 180,
+    paddingTop: 8,
     backgroundColor: theme.colors.White,
     paddingHorizontal: 16,
   }, //프로필 영역
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   ProfileContainer: {
-    height: 120,
+    marginVertical: 12,
     flexDirection: 'row',
   }, // 프로필 내 브랜드 정보가 담긴 영역
   BrandInfo: {
@@ -96,7 +96,8 @@ const styles = StyleSheet.create({
     marginLeft: 4,
   },
   IntroContainer: {
-    alignItems: 'center',
+    marginTop: 6,
+    marginBottom: 16,
     justifyContent: 'center',
   }, //프로필 내 소개글이 담긴 영역
   IntroText: {
@@ -116,9 +117,9 @@ const styles = StyleSheet.create({
     borderRadius: 45,
     resizeMode: 'contain',
   }, //프로필 사진
-
   FollowButton: {
     justifyContent: 'center',
+    marginRight: 4,
   },
   ButtonFrame: {
     backgroundColor: theme.colors.Poolgreen,

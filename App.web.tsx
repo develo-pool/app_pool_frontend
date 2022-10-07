@@ -2,9 +2,9 @@ import React from 'react';
 import {QueryClient, QueryClientProvider} from 'react-query';
 import {Provider} from 'react-redux';
 import store from './slices';
-import ProfileScreen from './web/ProfileScreen.web';
+import ProfileScreen from './web/pages/ProfileScreen.web';
 import {Route, BrowserRouter, Routes} from 'react-router-dom';
-import NotFound from './web/NotFound.web';
+import NotFound from './web/pages/NotFound.web';
 import Home from './web/pages/Home.web';
 import Info from './web/pages/Info.web';
 

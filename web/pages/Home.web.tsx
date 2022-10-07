@@ -11,7 +11,7 @@ import {useQuery} from 'react-query';
 import {getRecentBrand, getRecentMessage} from '../../api/web';
 import {brand} from '../../api/web/types';
 import BrandUserContainer from '../components/BrandUserContainer.web';
-import MessageBlock from '../MessageBlock.web';
+import MessageBlock from './MessageBlock.web';
 import {Message} from '../../api/message/types';
 
 function Home() {
