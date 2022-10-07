@@ -23,11 +23,16 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleURLName</key>
+			<string>pool</string>
+		</dict>
+		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>com.googleusercontent.apps.493506913170-auei6so8per2kvb8h6fl661pdt7adn7o</string>
+				<string>pool</string>
 			</array>
 		</dict>
 	</array>
