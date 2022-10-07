@@ -48,7 +48,7 @@ const OpenURLButton = ({url, children}) => {
   return <Button title={children} onPress={handlePress} />;
 };
 
-const useMount = func => useEffect(() => func(), []);
+const useMount = (func : any) => useEffect(() => func(), []);
 
 const useInitialURL = () => {
   const [url, setUrl] = useState(null);
