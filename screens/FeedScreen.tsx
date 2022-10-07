@@ -27,53 +27,53 @@ import {useIsFocused} from '@react-navigation/native';
 
 const LENGTH = 10;
 
-const supportedURL = 'https://google.com';
+// const supportedURL = 'pool://searchscreen';
 
-const unsupportedURL = 'slack://open?team=123456';
+// const unsupportedURL = 'slack://open?team=123456';
 
-const OpenURLButton = ({url, children}) => {
-  const handlePress = useCallback(async () => {
-    // Checking if the link is supported for links with custom URL scheme.
-    const supported = await Linking.canOpenURL(url);
+// const OpenURLButton = ({url, children}) => {
+//   const handlePress = useCallback(async () => {
+//     // Checking if the link is supported for links with custom URL scheme.
+//     const supported = await Linking.canOpenURL(url);
 
-    if (supported) {
-      // Opening the link with some app, if the URL scheme is "http" the web link should be opened
-      // by some browser in the mobile
-      await Linking.openURL(url);
-    } else {
-      Alert.alert(`Don't know how to open this URL: ${url}`);
-    }
-  }, [url]);
+//     if (supported) {
+//       // Opening the link with some app, if the URL scheme is "http" the web link should be opened
+//       // by some browser in the mobile
+//       await Linking.openURL(url);
+//     } else {
+//       Alert.alert(`Don't know how to open this URL: ${url}`);
+//     }
+//   }, [url]);
 
-  return <Button title={children} onPress={handlePress} />;
-};
+//   return <Button title={children} onPress={handlePress} />;
+// };
 
-const useMount = (func : any) => useEffect(() => func(), []);
+// const useMount = (func : any) => useEffect(() => func(), []);
 
-const useInitialURL = () => {
-  const [url, setUrl] = useState(null);
-  const [processing, setProcessing] = useState(true);
+// const useInitialURL = () => {
+//   const [url, setUrl] = useState(null);
+//   const [processing, setProcessing] = useState(true);
 
-  useMount(() => {
-    const getUrlAsync = async () => {
-      // Get the deep link used to open the app
-      const initialUrl = await Linking.getInitialURL();
+//   useMount(() => {
+//     const getUrlAsync = async () => {
+//       // Get the deep link used to open the app
+//       const initialUrl = await Linking.getInitialURL();
 
-      // The setTimeout is just for testing purpose
-      setTimeout(() => {
-        setUrl(initialUrl);
-        setProcessing(false);
-      }, 1000);
-    };
+//       // The setTimeout is just for testing purpose
+//       setTimeout(() => {
+//         setUrl(initialUrl);
+//         setProcessing(false);
+//       }, 1000);
+//     };
 
-    getUrlAsync();
-  });
+//     getUrlAsync();
+//   });
 
-  return { url, processing };
-};
+//   return { url, processing };
+// };
 
 function FeedScreen() {
-  const { url: initialUrl, processing } = useInitialURL();
+  // const { url: initialUrl, processing } = useInitialURL();
 
   const [cursor, setCursor] = useState<number>(0);
   const [Messages, setMessages] = useState<Message[]>([]);
@@ -155,13 +155,13 @@ function FeedScreen() {
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
-        <OpenURLButton url={supportedURL}>Open Supported URL</OpenURLButton>
+        {/* <OpenURLButton url={supportedURL}>Open Supported URL</OpenURLButton>
         <OpenURLButton url={unsupportedURL}>Open Unsupported URL</OpenURLButton>
         <Text>
         {processing
           ? `Processing the initial url from a deep link`
           : `The deep link is: ${initialUrl || "None"}`}
-      </Text>
+      </Text> */}
         {isMessageLoading ? (
           <ActivityIndicator style={styles.indicator} />
         ) : Messages.length === 0 ? (
