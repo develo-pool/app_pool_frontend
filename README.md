@@ -20,7 +20,7 @@
 **AppStore**  
 🔗 https://apps.apple.com/kr/app/pool/id1640180474  
 **Web**  
-🔗 https://app-pool-firebase.web.app/1
+🔗 https://app-pool-firebase.web.app
 
 <br/>
 
