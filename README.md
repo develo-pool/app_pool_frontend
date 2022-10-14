@@ -18,9 +18,9 @@
 **Google Playstore**  
 🔗 https://play.google.com/store/apps/details?id=com.app_pool_frontend  
 **AppStore**  
-🔗 Comming Soon  
+🔗 https://apps.apple.com/kr/app/pool/id1640180474  
 **Web**  
-🔗 https://app-pool-firebase.web.app/1
+🔗 https://app-pool-firebase.web.app
 
 <br/>
 
