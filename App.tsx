@@ -11,7 +11,7 @@ import {
   // requestMultiple,
   // requestNotifications,
 } from 'react-native-permissions';
-import {AppState, Platform} from 'react-native';
+import {AppState, Platform, Linking} from 'react-native';
 import messaging from '@react-native-firebase/messaging';
 
 const queryClient = new QueryClient();
@@ -31,6 +31,69 @@ requestUserPermission();
 //     console.log('FaceID', statuses[PERMISSIONS.IOS.FACE_ID]);
 //   },
 // );
+
+const config = {
+  screens: {  
+    Welcome: '/welcome',
+    MainTab: {
+      screens: {
+        Search: '/search',
+        Feed: '/feed',
+        Profile: '/profile',
+        SettingStack: '/setting',
+      },
+    },
+    Login: '/login',
+    SignUp: '/signup',
+    Password: '/password',
+    Guide: '/guide',
+    BrandAssign: '/brandassign',
+    BrandAssignGuide: '/brandassignguide',
+    BrandAssignComplete: '/brandassigncomplete',
+    FeedMessage: '/feedmessage/:id',
+    Message: '/message/:id',
+    WelcomeMessage: '/welcomemessage',
+    Preview: '/preview',
+    BrandProfile: '/brandprofile/:id',
+    EditProfile: '/editprofile',
+    FollowList: '/followlist',
+    EditUser: '/edituser',
+  },
+};
+
+const linking = { 
+  prefixes: [
+    'http://localhost:3000',
+    'https://app-pool-firebase.web.app',
+    'pool://',
+  ],
+
+  async getInitialURL() {
+    const url = await Linking.getInitialURL();
+
+    if (url != null) {
+      return url;
+    }
+
+    return null;
+  },
+
+  subscribe(listener){
+    console.log('linking subscribe to ', listener);
+    const onReceiveURL = (event) => {
+      const { url } = event;
+      console.log('link has url', url, event);
+      return listener(url);
+    };
+
+    Linking.addEventListener('url', onReceiveURL);
+    return () => {
+      console.log('linking unsubscribe to ', listener);
+      Linking.removeEventListener('url', onReceiveURL);
+    };
+  },
+  config,
+}
 
 function App() {
   useEffect(() => {
@@ -78,7 +141,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <Provider store={store}>
-        <NavigationContainer>
+        <NavigationContainer linking={linking}>
           <RootStack />
         </NavigationContainer>
       </Provider>
