@@ -1,16 +1,12 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {
   View,
-  Text,
   StyleSheet,
   SafeAreaView,
   Image,
   FlatList,
   ActivityIndicator,
   RefreshControl,
-  Linking,
-  Alert,
-  Button,
 } from 'react-native';
 import Feed from '../components/feed/Feed';
 import theme from '../assets/theme';

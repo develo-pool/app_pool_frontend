@@ -33,7 +33,7 @@ requestUserPermission();
 // );
 
 const config = {
-  screens: {  
+  screens: {
     Welcome: '/welcome',
     MainTab: {
       screens: {
@@ -52,16 +52,35 @@ const config = {
     BrandAssignComplete: '/brandassigncomplete',
     FeedMessage: '/feedmessage/:id',
     Message: '/message/:id',
+    // Message: {
+    //   path: '/message/:id?',
+    //   parse: {
+    //     id: (id) => `message-${id}`,
+    //     stringify: {
+    //       id: (id) => id.replace(/^message-/, ''),
+    //     }
+    //   }
+    // },
     WelcomeMessage: '/welcomemessage',
     Preview: '/preview',
     BrandProfile: '/brandprofile/:id',
+    // BrandProfile: {
+    //   path: '/brandprofile/:id?',
+    //   parse: {
+    //     id: (id) => `brandprofile-${id}`,
+    //     stringify: {
+    //       id: (id) => id.replace(/^brandprofile-/, ''),
+    //     }
+    //   }
+    // },
     EditProfile: '/editprofile',
     FollowList: '/followlist',
     EditUser: '/edituser',
+    NotFount: '*',
   },
 };
 
-const linking = { 
+const linking = {
   prefixes: [
     'http://localhost:3000',
     'https://app-pool-firebase.web.app',
@@ -78,10 +97,10 @@ const linking = {
     return null;
   },
 
-  subscribe(listener){
+  subscribe(listener) {
     console.log('linking subscribe to ', listener);
-    const onReceiveURL = (event) => {
-      const { url } = event;
+    const onReceiveURL = event => {
+      const {url} = event;
       console.log('link has url', url, event);
       return listener(url);
     };
@@ -93,7 +112,7 @@ const linking = {
     };
   },
   config,
-}
+};
 
 function App() {
   useEffect(() => {
