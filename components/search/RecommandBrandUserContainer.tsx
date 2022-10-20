@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, View, Image, Text, Pressable} from 'react-native';
 import theme from '../../assets/theme';
-import FollowButton from '../profile/FollowButton';
+import FollowButton from '../../web/components/FollowButton.web';
 import {useNavigation} from '@react-navigation/native';
 import {RootStackNavigationProp} from '../../screens/types';
 import {
@@ -31,12 +31,10 @@ function RecommandBrandUserContainer({
   brandUsername,
   brandInfo,
   brandProfileImage,
-  follow,
   userFollowerCount,
   brandUserId,
   isLoginUser,
   poolUserId,
-  refetch,
   searchText,
 }: Props) {
   const navigation = useNavigation<RootStackNavigationProp>();
@@ -73,11 +71,7 @@ function RecommandBrandUserContainer({
               ''
             ) : (
               <View>
-                <FollowButton
-                  isFollowed={follow}
-                  poolUserId={poolUserId}
-                  refetch={refetch}
-                />
+                <FollowButton />
               </View>
             )}
           </View>

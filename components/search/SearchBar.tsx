@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {View, StyleSheet, TextInput, TouchableOpacity} from 'react-native';
 import theme from '../../assets/theme';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+// import Icon from 'react-native-vector-icons/MaterialIcons';
 
 interface Props {
   searchText?: string;
@@ -14,13 +14,13 @@ function SearchBar({searchText, onChangeText}: Props) {
     <View style={styles.container}>
       <View style={[styles.searchBar, focused && styles.focus]}>
         <View style={styles.searchBarContainer}>
-          <Icon
+          {/* <Icon
             name="search"
             size={24}
             color={
               searchText !== '' ? theme.colors.Grey80 : theme.colors.Grey30
             }
-          />
+          /> */}
           <TextInput
             value={searchText}
             onChangeText={onChangeText}
@@ -36,7 +36,7 @@ function SearchBar({searchText, onChangeText}: Props) {
         </View>
         {searchText !== '' ? (
           <TouchableOpacity onPress={() => onChangeText('')}>
-            <Icon name="cancel" size={16} color={theme.colors.Grey30} />
+            {/* <Icon name="cancel" size={16} color={theme.colors.Grey30} /> */}
           </TouchableOpacity>
         ) : (
           <></>

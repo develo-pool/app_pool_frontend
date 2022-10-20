@@ -18,10 +18,12 @@ import {getAllBrand} from '../api/brand/index';
 import {AllBrandResult} from '../api/brand/types';
 import {useIsFocused} from '@react-navigation/native';
 // import {follow, unfollow} from '../api/follow';
+import {useNavigate} from 'react-router-dom';
 
 const LENGTH = 10;
 
 function SearchScreen() {
+  const navigation = useNavigate();
   const [cursor, setCursor] = useState<number>(0);
   const [Brands, setBrands] = useState<AllBrandResult[]>([]);
   const [noMoreBrand, setNoMoreBrand] = useState<boolean>(false);
@@ -50,6 +52,9 @@ function SearchScreen() {
           setCursor(data[data.length - 1].brandUserId);
           setRefreshing(false);
         }
+      },
+      onError: () => {
+        navigation('/none');
       },
     },
   );
