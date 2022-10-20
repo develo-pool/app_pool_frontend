@@ -16,19 +16,16 @@ import theme from '../assets/theme';
 import {useQuery} from 'react-query';
 import {getAllBrand} from '../api/brand/index';
 import {AllBrandResult} from '../api/brand/types';
-import {useIsFocused} from '@react-navigation/native';
+
 // import {follow, unfollow} from '../api/follow';
-import {useNavigate} from 'react-router-dom';
 
 const LENGTH = 10;
 
 function SearchScreen() {
-  const navigation = useNavigate();
   const [cursor, setCursor] = useState<number>(0);
   const [Brands, setBrands] = useState<AllBrandResult[]>([]);
   const [noMoreBrand, setNoMoreBrand] = useState<boolean>(false);
   const [following, setFollowing] = useState(false);
-  const isFocused = useIsFocused();
   const changeFollowing = () => setFollowing(!following);
   const [searchText, setSearchText] = useState('');
   const [refreshing, setRefreshing] = useState(false);
@@ -52,9 +49,6 @@ function SearchScreen() {
           setCursor(data[data.length - 1].brandUserId);
           setRefreshing(false);
         }
-      },
-      onError: () => {
-        navigation('/none');
       },
     },
   );
@@ -86,7 +80,7 @@ function SearchScreen() {
       ),
     );
     // refetch();
-  }, [refetch, isFocused, searchText, Brands, onRefresh]);
+  }, [refetch, searchText, Brands, onRefresh]);
   const RenderRecommandItem = ({item}) => {
     return (
       <RecommandBrandUserContainer
