@@ -1,16 +1,7 @@
 import React, {useState} from 'react';
-import {
-  View,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-  Image,
-} from 'react-native';
+import {View, StyleSheet, TextInput, TouchableOpacity} from 'react-native';
 import theme from '../../assets/theme';
-import SearchLogo from '../../web/assets/search/Search.png';
-import OnSearchLogo from '../../web/assets/search/Search_OnFocus.png';
-import Delete from '../../web/assets/search/Delete.png';
-// import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 interface Props {
   searchText?: string;
@@ -23,18 +14,20 @@ function SearchBar({searchText, onChangeText}: Props) {
     <View style={styles.container}>
       <View style={[styles.searchBar, focused && styles.focus]}>
         <View style={styles.searchBarContainer}>
-          {focused ? (
-            <Image source={OnSearchLogo} style={styles.logo} />
-          ) : (
-            <Image source={SearchLogo} style={styles.logo} />
-          )}
+          <Icon
+            name="search"
+            size={24}
+            color={
+              searchText !== '' ? theme.colors.Grey80 : theme.colors.Grey30
+            }
+          />
           <TextInput
             value={searchText}
             onChangeText={onChangeText}
             returnKeyType="go"
             placeholder={'브랜드명을 검색해주세요.'}
             placeholderTextColor={'rgba(0, 0, 0, 0.2)'}
-            style={searchText !== '' ? styles.input_searchText : styles.input}
+            style={styles.input}
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
             autoCapitalize={'none'}
@@ -43,7 +36,7 @@ function SearchBar({searchText, onChangeText}: Props) {
         </View>
         {searchText !== '' ? (
           <TouchableOpacity onPress={() => onChangeText('')}>
-            <Image source={Delete} style={styles.logo} />
+            <Icon name="cancel" size={16} color={theme.colors.Grey30} />
           </TouchableOpacity>
         ) : (
           <></>
@@ -59,25 +52,10 @@ const styles = StyleSheet.create({
   },
   input: {
     fontSize: theme.fontSize.P1,
-    marginLeft: -36,
-    marginRight: -13,
+    marginHorizontal: 6,
     fontFamily: theme.fontFamily.Pretendard,
     paddingVertical: 12,
-    flex: 1,
-    paddingHorizontal: 40,
-    borderColor: theme.colors.Black,
-    borderRadius: 6,
-  },
-  input_searchText: {
-    fontSize: theme.fontSize.P1,
-    marginLeft: -36,
-    marginRight: -36,
-    fontFamily: theme.fontFamily.Pretendard,
-    paddingVertical: 12,
-    flex: 1,
-    paddingHorizontal: 40,
-    borderColor: theme.colors.Black,
-    borderRadius: 6,
+    width: '82%',
   },
   searchBar: {
     flexDirection: 'row',
@@ -94,18 +72,12 @@ const styles = StyleSheet.create({
   searchBarContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    flex: 1,
   },
   default: {
     backgroundColor: theme.colors.White,
   },
   focus: {
     borderColor: theme.colors.Black,
-  },
-  logo: {
-    width: 24,
-    height: 24,
-    padding: 4,
   },
 });
 

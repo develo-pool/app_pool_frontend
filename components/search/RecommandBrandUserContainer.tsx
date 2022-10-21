@@ -1,8 +1,9 @@
 import React from 'react';
 import {StyleSheet, View, Image, Text, Pressable} from 'react-native';
 import theme from '../../assets/theme';
-import FollowButton from '../../web/components/FollowButton.web';
-import {useNavigate} from 'react-router-dom';
+import FollowButton from '../profile/FollowButton';
+import {useNavigation} from '@react-navigation/native';
+import {RootStackNavigationProp} from '../../screens/types';
 import {
   QueryObserverResult,
   RefetchOptions,
@@ -30,13 +31,15 @@ function RecommandBrandUserContainer({
   brandUsername,
   brandInfo,
   brandProfileImage,
+  follow,
   userFollowerCount,
   brandUserId,
   isLoginUser,
+  poolUserId,
+  refetch,
   searchText,
 }: Props) {
-  const navigation = useNavigate();
-
+  const navigation = useNavigation<RootStackNavigationProp>();
   return (
     <View>
       <Pressable
@@ -45,7 +48,12 @@ function RecommandBrandUserContainer({
             ? styles.RecommandbrandUserContainer
             : styles.SearchbrandUserContainer
         }
-        onPress={() => navigation(`/${brandUserId}`)}>
+        onPress={() =>
+          navigation.navigate('BrandProfile', {
+            brandUserId: brandUserId,
+            poolUserId: poolUserId,
+          })
+        }>
         <View style={styles.brandUserHorizontal}>
           <Image
             style={styles.searchBrandUserProfileImg}
@@ -65,7 +73,11 @@ function RecommandBrandUserContainer({
               ''
             ) : (
               <View>
-                <FollowButton />
+                <FollowButton
+                  isFollowed={follow}
+                  poolUserId={poolUserId}
+                  refetch={refetch}
+                />
               </View>
             )}
           </View>
