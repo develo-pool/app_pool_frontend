@@ -31,7 +31,7 @@ export async function getRecentMessage() {
 
 export async function getAllBrand(params: number) {
   const response = await client.get<AllBrandResult[]>(
-    `/brands?cursor=${params}`,
+    `/brands/web?cursor=${params}`,
   );
   return response.data;
 }

@@ -14,8 +14,8 @@ import RecommandSubTitle from '../components/search/RecommandSubTitle';
 import SearchResultSubTitle from '../components/search/SearchResultSubTitle';
 import theme from '../assets/theme';
 import {useQuery} from 'react-query';
-import {getAllBrand} from '../api/brand/index';
-import {AllBrandResult} from '../api/brand/types';
+import {getAllBrand} from '../api/web/index';
+import {AllBrandResult} from '../api/web/types';
 
 // import {follow, unfollow} from '../api/follow';
 

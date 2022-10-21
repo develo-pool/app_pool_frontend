@@ -2,8 +2,7 @@ import React from 'react';
 import {StyleSheet, View, Image, Text, Pressable} from 'react-native';
 import theme from '../../assets/theme';
 import FollowButton from '../../web/components/FollowButton.web';
-import {useNavigation} from '@react-navigation/native';
-import {RootStackNavigationProp} from '../../screens/types';
+import {useNavigate} from 'react-router-dom';
 import {
   QueryObserverResult,
   RefetchOptions,
@@ -34,10 +33,10 @@ function RecommandBrandUserContainer({
   userFollowerCount,
   brandUserId,
   isLoginUser,
-  poolUserId,
   searchText,
 }: Props) {
-  const navigation = useNavigation<RootStackNavigationProp>();
+  const navigation = useNavigate();
+
   return (
     <View>
       <Pressable
@@ -47,10 +46,7 @@ function RecommandBrandUserContainer({
             : styles.SearchbrandUserContainer
         }
         onPress={() =>
-          navigation.navigate('BrandProfile', {
-            brandUserId: brandUserId,
-            poolUserId: poolUserId,
-          })
+          navigation(`/${brandUserId}`)
         }>
         <View style={styles.brandUserHorizontal}>
           <Image
