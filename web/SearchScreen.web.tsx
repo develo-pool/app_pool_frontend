@@ -7,6 +7,7 @@ import {
   ActivityIndicator,
   Text,
   Image,
+  TouchableOpacity,
 } from 'react-native';
 import SearchBar from '../components/search/SearchBar';
 import RecommandBrandUserContainer from '../components/search/RecommandBrandUserContainer';
@@ -18,12 +19,14 @@ import {useQuery} from 'react-query';
 import {getAllBrand} from '../api/web/index';
 import {AllBrandResult} from '../api/web/types';
 import Back from './assets/search/Back.png';
+import {useNavigate} from 'react-router-dom';
 
 // import {follow, unfollow} from '../api/follow';
 
 const LENGTH = 10;
 
 function SearchScreen() {
+  const navigation = useNavigate();
   const [cursor, setCursor] = useState<number>(0);
   const [Brands, setBrands] = useState<AllBrandResult[]>([]);
   const [noMoreBrand, setNoMoreBrand] = useState<boolean>(false);
@@ -126,7 +129,10 @@ function SearchScreen() {
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.SearchScreenContainer}>
         <View style={styles.Header}>
-          <Image source={Back} style={styles.Back} />
+          <TouchableOpacity onPress={() => navigation('/')}>
+            <Image source={Back} style={styles.Back} />
+          </TouchableOpacity>
+
           <Text style={styles.HeaderText}>POOL에서 브랜드를 찾아보세요</Text>
           <View style={styles.align} />
         </View>
