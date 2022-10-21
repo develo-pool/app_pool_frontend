@@ -19,7 +19,8 @@ module.exports = {
     rules: [
       {
         test: /\.(tsx|ts|jsx|js|mjs)$/,
-        exclude: /node_modules\/(?!(react-native-elements|react-native-vector-icons)\/).*/,
+        exclude:
+          /node_modules\/(?!(react-native-elements|react-native-vector-icons)\/).*/,
         loader: 'ts-loader',
       },
       {
@@ -29,8 +30,11 @@ module.exports = {
       {
         test: /\.ttf$/,
         loader: 'url-loader',
-        include: path.resolve(__dirname, "node_modules/react-native-vector-icons")
-      }
+        include: path.resolve(
+          __dirname,
+          'node_modules/react-native-vector-icons',
+        ),
+      },
     ],
   },
   devServer: {

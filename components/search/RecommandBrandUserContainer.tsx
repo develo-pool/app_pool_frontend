@@ -45,9 +45,7 @@ function RecommandBrandUserContainer({
             ? styles.RecommandbrandUserContainer
             : styles.SearchbrandUserContainer
         }
-        onPress={() =>
-          navigation(`/${brandUserId}`)
-        }>
+        onPress={() => navigation(`/${brandUserId}`)}>
         <View style={styles.brandUserHorizontal}>
           <Image
             style={styles.searchBrandUserProfileImg}

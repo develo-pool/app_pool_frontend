@@ -1,6 +1,11 @@
 import client from '../client';
 import {Message} from '../message/types';
-import {brand, brandProfile, getBrandWebMessageParams, AllBrandResult} from './types';
+import {
+  brand,
+  brandProfile,
+  getBrandWebMessageParams,
+  AllBrandResult,
+} from './types';
 
 export async function getBrandWebProfile(brandId: number) {
   const response = await client.get<brandProfile>(`/brand/${brandId}/web`);
