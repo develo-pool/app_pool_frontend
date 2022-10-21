@@ -9,8 +9,8 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
-import SearchBar from '../components/search/SearchBar';
-import RecommandBrandUserContainer from '../components/search/RecommandBrandUserContainer';
+import SearchBar from './components/SearchBar';
+import RecommandBrandUserContainer from './components/RecommandBrandUserContainer';
 import RecommandSubTitle from '../components/search/RecommandSubTitle';
 // import SearchResultBrandUserContainer from '../components/search/SearchResultBrandUserContainer';
 import SearchResultSubTitle from '../components/search/SearchResultSubTitle';
