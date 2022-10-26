@@ -1,6 +1,11 @@
 import client from '../client';
 import {Message} from '../message/types';
-import {brand, brandProfile, getBrandWebMessageParams} from './types';
+import {
+  brand,
+  brandProfile,
+  getBrandWebMessageParams,
+  AllBrandResult,
+} from './types';
 
 export async function getBrandWebProfile(brandId: number) {
   const response = await client.get<brandProfile>(`/brand/${brandId}/web`);
@@ -26,5 +31,12 @@ export async function getRecentBrand() {
 // 홈 페이지 최신 메세지 3개
 export async function getRecentMessage() {
   const response = await client.get<Message[]>('/messages/recommend/web');
+  return response.data;
+}
+
+export async function getAllBrand(params: number) {
+  const response = await client.get<AllBrandResult[]>(
+    `/brands/web?cursor=${params}`,
+  );
   return response.data;
 }

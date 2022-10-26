@@ -8,6 +8,7 @@ import NotFound from './web/pages/NotFound.web';
 import Home from './web/pages/Home.web';
 import Info from './web/pages/Info.web';
 import MessageScreen from './web/pages/MessageScreen.web';
+import SearchScreen from './web/SearchScreen.web';
 
 const queryClient = new QueryClient();
 
@@ -25,6 +26,7 @@ function App() {
               path="/messages/:messageId/web"
               element={<MessageScreen />}
             />
+            <Route path="/search" element={<SearchScreen />} />
           </Routes>
         </BrowserRouter>
       </Provider>
