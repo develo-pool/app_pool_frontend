@@ -3,6 +3,7 @@
 <image src="https://user-images.githubusercontent.com/66757141/191906174-e5a5d5d4-6762-41ea-9447-11490985ff4f.png" width="100px"/>
 
 ## Contents
+- [Summary](#summary)
 - [Latest Release](#latest-release)
 - [Demo](#demo)
 - [Start](#start)
@@ -11,6 +12,15 @@
 - [Commit Rule](#commit-rule)
 - [Branch](#branch)
 - [Refactoring](#refactoring)
+
+<br/>
+
+## Summary
+
+`바로 닿는 메세지 POOL`은 `Push 알림`으로 브랜드와 팔로워를 잇는 강력한 메세지 서비스입니다.
+- 브랜드 등록 심사 요청을 통해 누구나 `브랜드`가 될 수 있습니다.
+- 브랜드는 `Push 알림 메세지`를 생성할 수 있습니다.
+- 유저는 원하는 브랜드를 팔로우하여 `Push 알림 메세지`를 받아볼 수 있습니다.
 
 <br/>
 
@@ -128,10 +138,10 @@ $ yarn lint #run eslint
 
 ## Commit Rule
 | 타입     | 내용                  |
-|----------|-----------------------|
+|----------|----------------------|
 | style    | 코드 스타일 혹은 포맷 |
 | feature  | 새로운 기능           |
-| fix      | 수정                  |
+| fix      | 수정                 |
 | refactor | 코드 리팩토링         |
 | design   | 사용자 UI 수정        |
 | test     | 테스트 코드           |
