@@ -19,8 +19,7 @@ module.exports = {
     rules: [
       {
         test: /\.(tsx|ts|jsx|js|mjs)$/,
-        exclude:
-          /node_modules\/(?!(react-native-elements|react-native-vector-icons)\/).*/,
+        exclude: /node_modules/,
         loader: 'ts-loader',
       },
       {
