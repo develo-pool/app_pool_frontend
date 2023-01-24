@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import theme from '../../assets/theme';
 import PoolLogo from '../../assets/PoolLogo.png';
-import {brandProfile} from '../../api/web/types';
+import {brandProfile} from '../../src/api/web/types';
 
 function Profile({data, isLoading}: {data?: brandProfile; isLoading: boolean}) {
   return (

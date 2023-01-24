@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import theme from '../../assets/theme';
-import Footer from '../../components/setting/footer';
+import Footer from '../../src/components/setting/footer';
 
 function NotFound() {
   return (

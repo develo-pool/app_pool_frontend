@@ -1,10 +1,10 @@
 import {NavigationContainer} from '@react-navigation/native';
 import React, {useEffect} from 'react';
 // import {Alert} from 'react-native';
-import RootStack from './screens/RootStack';
+import RootStack from './src/screens/RootStack';
 import {QueryClient, QueryClientProvider} from 'react-query';
 import {Provider} from 'react-redux';
-import store from './slices';
+import store from './src/slices';
 import {
   request,
   PERMISSIONS,

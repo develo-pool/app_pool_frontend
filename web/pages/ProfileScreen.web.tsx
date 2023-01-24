@@ -8,10 +8,10 @@ import {
 } from 'react-native';
 import {useQuery} from 'react-query';
 import {useNavigate, useParams} from 'react-router-dom';
-import {Message} from '../../api/message/types';
-import {getBrandWebMessage, getBrandWebProfile} from '../../api/web';
+import {Message} from '../../src/api/message/types';
+import {getBrandWebMessage, getBrandWebProfile} from '../../src/api/web';
 import theme from '../../assets/theme';
-import Footer from '../../components/setting/footer';
+import Footer from '../../src/components/setting/footer';
 import MessageBlock from '../components/MessageBlock.web';
 import Profile from '../components/Profile.web';
 

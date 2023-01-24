@@ -6,31 +6,27 @@ import {
   FlatList,
   ActivityIndicator,
   Text,
-  Image,
-  TouchableOpacity,
 } from 'react-native';
-import SearchBar from '../components/SearchBar';
-import RecommandBrandUserContainer from '../components/RecommandBrandUserContainer';
-import RecommandSubTitle from '../../src/components/search/RecommandSubTitle';
+import SearchBar from '../components/search/SearchBar';
+import RecommandBrandUserContainer from '../components/search/RecommandBrandUserContainer';
+import RecommandSubTitle from '../components/search/RecommandSubTitle';
 // import SearchResultBrandUserContainer from '../components/search/SearchResultBrandUserContainer';
-import SearchResultSubTitle from '../../src/components/search/SearchResultSubTitle';
+import SearchResultSubTitle from '../components/search/SearchResultSubTitle';
 import theme from '../../assets/theme';
 import {useQuery} from 'react-query';
-import {getAllBrand} from '../../src/api/web/index';
-import {AllBrandResult} from '../../src/api/web/types';
-import Back from '../assets/search/Back.png';
-import {useNavigate} from 'react-router-dom';
-
+import {getAllBrand} from '../api/brand/index';
+import {AllBrandResult} from '../api/brand/types';
+import {useIsFocused} from '@react-navigation/native';
 // import {follow, unfollow} from '../api/follow';
 
 const LENGTH = 10;
 
 function SearchScreen() {
-  const navigation = useNavigate();
   const [cursor, setCursor] = useState<number>(0);
   const [Brands, setBrands] = useState<AllBrandResult[]>([]);
   const [noMoreBrand, setNoMoreBrand] = useState<boolean>(false);
   const [following, setFollowing] = useState(false);
+  const isFocused = useIsFocused();
   const changeFollowing = () => setFollowing(!following);
   const [searchText, setSearchText] = useState('');
   const [refreshing, setRefreshing] = useState(false);
@@ -85,7 +81,7 @@ function SearchScreen() {
       ),
     );
     // refetch();
-  }, [refetch, searchText, Brands, onRefresh]);
+  }, [refetch, isFocused, searchText, Brands, onRefresh]);
   const RenderRecommandItem = ({item}) => {
     return (
       <RecommandBrandUserContainer
@@ -128,14 +124,6 @@ function SearchScreen() {
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.SearchScreenContainer}>
-        <View style={styles.Header}>
-          <TouchableOpacity onPress={() => navigation('/')}>
-            <Image source={Back} style={styles.Back} />
-          </TouchableOpacity>
-
-          <Text style={styles.HeaderText}>POOL에서 브랜드를 찾아보세요</Text>
-          <View style={styles.align} />
-        </View>
         <View>
           <SearchBar searchText={searchText} onChangeText={onChangeText} />
           <View style={styles.line} />
@@ -188,8 +176,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   safeArea: {
-    backgroundColor: theme.colors.Grey10,
-    height: '100%',
+    backgroundColor: theme.colors.White,
   },
   flatList: {
     backgroundColor: theme.colors.Grey10,
@@ -210,28 +197,11 @@ const styles = StyleSheet.create({
   },
   SearchScreenContainer: {
     backgroundColor: theme.colors.Grey10,
+    paddingBottom: 35,
   },
-  Back: {
-    width: 32,
-    height: 32,
-    marginLeft: 10,
+  bottomSafeArea: {
+    height: 300,
   },
-  Header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    flex: 1,
-    zIndex: 999,
-    paddingTop: 30,
-    backgroundColor: theme.colors.White,
-    paddingBottom: 10,
-  },
-  HeaderText: {
-    fontWeight: theme.fontWeight.Bold,
-    fontSize: theme.fontSize.H4,
-    fontFamily: theme.fontFamily.Pretendard,
-  },
-  align: {width: 32, height: 32, marginRight: 10},
 });
 
 export default SearchScreen;

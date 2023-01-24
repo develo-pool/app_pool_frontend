@@ -1,7 +1,7 @@
 import React from 'react';
 import {QueryClient, QueryClientProvider} from 'react-query';
 import {Provider} from 'react-redux';
-import store from '../slices';
+import store from '../src/slices';
 import ProfileScreen from './pages/ProfileScreen.web';
 import {Route, BrowserRouter, Routes} from 'react-router-dom';
 import NotFound from './pages/NotFound.web';

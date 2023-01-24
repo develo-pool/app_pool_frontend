@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, View, Image, Text, Pressable} from 'react-native';
 import theme from '../../assets/theme';
 import FollowButton from './FollowButton.web';
-import {brand} from '../../api/web/types';
+import {brand} from '../../src/api/web/types';
 import {useNavigate} from 'react-router-dom';
 
 interface Props {
