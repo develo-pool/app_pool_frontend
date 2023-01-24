@@ -15,12 +15,22 @@
 <br/>
 
 ## Latest Release
-**Google Playstore**  
-🔗 https://play.google.com/store/apps/details?id=com.app_pool_frontend  
-**AppStore**  
-🔗 https://apps.apple.com/kr/app/pool/id1640180474  
-**Web**  
-🔗 https://app-pool-firebase.web.app
+<table>
+  <tr>
+    <th align='left'>Google Playstore</th>
+    <td>https://play.google.com/store/apps/details?id=com.app_pool_frontend</td>
+  </tr>
+  <tr>
+    <th align='left'>AppStore</th>
+    <td>https://apps.apple.com/kr/app/pool/id1640180474  </td>
+  </tr>
+  <tr>
+    <th align='left'>Web</th>
+    <td>https://app-pool-firebase.web.app</td>
+  </tr>
+</table>
+
+_\* 서버 운영이 2022.11로 종료되었습니다._
 
 <br/>
 
@@ -72,19 +82,19 @@ $ yarn lint #run eslint
 
 <table>
   <tr>
-    <th>코어</th>
+    <th align='left'>Core</th>
     <td>ReactNative, TypeScript</td>
   </tr>
   <tr>
-    <th>상태관리</th>
+    <th align='left'>State Management</th>
     <td>Redux, React-Query</td>
   </tr>
   <tr>
-    <th>패키지 매니저</th>
+    <th align='left'>Package Manager</th>
     <td>Yarn</td>
   </tr>
   <tr>
-    <th>빌드</th>
+    <th align='left'>Build</th>
     <td>Babel, Webpack    </td>
   </tr>
 </table>
@@ -93,19 +103,25 @@ $ yarn lint #run eslint
 <br/>
 
 ## Folder Tree
-```
-├── android
-├── ios
-├── dist # 빌드된 web 폴더
-├── api # api 요청 관련 폴더
-├── assets # svg, image, font, theme 등 정적 파일 폴더
-├── components # 여러 page에서 사용하는 컴포넌트들
-├── screens # React Navigation에서 사용하는 Screen들
-├── hooks # react hooks
-├── slices # redux slices 폴더
-├── storages # Asyncstorage 관련 폴더
-├── web # Web 관련 폴더
-│   └── assets # Web favicon, manifest 등의 파일 폴더
+```python
+📂.github
+ ┣ 📂workflows
+📂dist # 빌드된 web 폴더
+📂android
+📂ios
+📂web # Web 관련 폴더
+📂assets # svg, image, font, theme 등 정적 파일 폴더
+ ┣ 📂fonts
+ ┣ theme.ts
+📂src
+ ┣ 📂api # api 요청 관련 폴더
+ ┣ 📂components # 여러 page에서 사용하는 컴포넌트들
+ ┣ 📂hooks # react hooks
+ ┣ 📂screens # React Navigation에서 사용하는 Screen들
+ ┣ 📂slices # redux slices 폴더
+ ┣ 📂storages # Asyncstorage 관련 폴더
+ ┣ App.tsx
+ ┗ index.tsx
 ```
 
 <br/>
@@ -124,7 +140,7 @@ $ yarn lint #run eslint
 
 <br/>
 
-## Branch
+## Branch Rule
 | 브랜치명                        | 설명                  |
 |--------------------------------|-----------------------|
 | main                           | 메인 브랜치            |
