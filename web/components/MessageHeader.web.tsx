@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
 import {useNavigate} from 'react-router-dom';
-import theme from '../assets/theme';
+import theme from '../../assets/theme';
 
 interface Props {
   brandUsername: string;

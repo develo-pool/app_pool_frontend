@@ -9,16 +9,16 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
-import SearchBar from './components/SearchBar';
-import RecommandBrandUserContainer from './components/RecommandBrandUserContainer';
-import RecommandSubTitle from '../components/search/RecommandSubTitle';
+import SearchBar from '../components/SearchBar';
+import RecommandBrandUserContainer from '../components/RecommandBrandUserContainer';
+import RecommandSubTitle from '../../components/search/RecommandSubTitle';
 // import SearchResultBrandUserContainer from '../components/search/SearchResultBrandUserContainer';
-import SearchResultSubTitle from '../components/search/SearchResultSubTitle';
-import theme from '../assets/theme';
+import SearchResultSubTitle from '../../components/search/SearchResultSubTitle';
+import theme from '../../assets/theme';
 import {useQuery} from 'react-query';
-import {getAllBrand} from '../api/web/index';
-import {AllBrandResult} from '../api/web/types';
-import Back from './assets/search/Back.png';
+import {getAllBrand} from '../../api/web/index';
+import {AllBrandResult} from '../../api/web/types';
+import Back from '../assets/search/Back.png';
 import {useNavigate} from 'react-router-dom';
 
 // import {follow, unfollow} from '../api/follow';

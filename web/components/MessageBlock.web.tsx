@@ -7,12 +7,12 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {Message} from '../api/message/types';
-import theme from '../assets/theme';
+import {Message} from '../../api/message/types';
+import theme from '../../assets/theme';
 import MessageHeader from './MessageHeader.web';
-import MessageImg from '../components/message/MessageImg';
-import MessageText from '../components/message/MessageText';
-import Link from './assets/Link.png';
+import MessageImg from '../../components/message/MessageImg';
+import MessageText from '../../components/message/MessageText';
+import Link from '../assets/Link.png';
 
 interface Props extends Message {
   isHome?: boolean;

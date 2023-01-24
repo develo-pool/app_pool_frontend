@@ -8,7 +8,7 @@ const webpackEnv = process.env.NODE_ENV || 'development';
 module.exports = {
   mode: webpackEnv,
   entry: {
-    app: path.join(rootDir, './index.web.tsx'),
+    app: path.join(rootDir, './web/index.web.tsx'),
   },
   output: {
     path: path.resolve(rootDir, 'dist'),

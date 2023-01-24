@@ -1,13 +1,13 @@
 import React from 'react';
 import {QueryClient, QueryClientProvider} from 'react-query';
 import {Provider} from 'react-redux';
-import store from './slices';
-import ProfileScreen from './web/ProfileScreen.web';
+import store from '../slices';
+import ProfileScreen from './pages/ProfileScreen.web';
 import {Route, BrowserRouter, Routes} from 'react-router-dom';
-import NotFound from './web/NotFound.web';
-import Home from './web/pages/Home.web';
-import Info from './web/pages/Info.web';
-import SearchScreen from './web/SearchScreen.web';
+import NotFound from './pages/NotFound.web';
+import Home from './pages/Home.web';
+import Info from './pages/Info.web';
+import SearchScreen from './pages/SearchScreen.web';
 
 const queryClient = new QueryClient();
 

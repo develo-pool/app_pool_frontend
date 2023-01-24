@@ -8,12 +8,12 @@ import {
 } from 'react-native';
 import {useQuery} from 'react-query';
 import {useNavigate, useParams} from 'react-router-dom';
-import {Message} from '../api/message/types';
-import {getBrandWebMessage, getBrandWebProfile} from '../api/web';
-import theme from '../assets/theme';
-import Footer from '../components/setting/footer';
-import MessageBlock from './MessageBlock.web';
-import Profile from './Profile.web';
+import {Message} from '../../api/message/types';
+import {getBrandWebMessage, getBrandWebProfile} from '../../api/web';
+import theme from '../../assets/theme';
+import Footer from '../../components/setting/footer';
+import MessageBlock from '../components/MessageBlock.web';
+import Profile from '../components/Profile.web';
 
 const LENGTH = 10;
 
