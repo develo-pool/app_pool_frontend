@@ -46,26 +46,76 @@ _\* 서버 운영이 2022.11로 종료되었습니다._
 
 ## Demo
 
-**Authentication (SignUp/Login)**  
-<image src="https://user-images.githubusercontent.com/72551358/197339969-3f884440-128e-45f1-902b-54088f3a5dd1.gif" width="150px"/>
-<image src="https://user-images.githubusercontent.com/72551358/197340008-d22c2c8d-1f1b-4c46-a8df-78e138a45d7d.gif" width="150px"/>
-
-**Search Brand / Follow&UnFollow**  
-<image src="https://user-images.githubusercontent.com/72551358/197339992-f0f7d9f3-6032-4126-8ff1-4e346da88dce.gif" width="150px"/>
-
-**Read Messages / Create Comment**  
-<image src="https://user-images.githubusercontent.com/72551358/197340006-2e55f7cb-5043-418d-b455-c3541c28c097.gif" width="150px"/>
-
-**Brand Assign**  
-<image src="https://user-images.githubusercontent.com/72551358/197341212-86abe19d-2447-454e-b328-a767af815577.gif" width="150px"/>
-
-**Create Message**  
-<image src="https://user-images.githubusercontent.com/72551358/197340004-d5b0a7c8-bbee-4534-84a9-c9cf18283545.gif" width="150px"/>
-
-**Receive Message(Push Alarm)**
-
-**Information Web**  
-<image src="https://user-images.githubusercontent.com/72551358/197341213-881ecc14-9a98-49df-8b54-8077a4a15247.gif" width="150px"/>
+<details open>
+    <summary>[Demo] Authentication</summary>
+    <table>
+      <tr>
+        <th>SignUp</th>
+        <th>Login</th>
+      </tr>
+      <tr>
+        <td><image src="https://user-images.githubusercontent.com/72551358/197339969-3f884440-128e-45f1-902b-54088f3a5dd1.gif" width="300px"/></td>
+        <td><image src="https://user-images.githubusercontent.com/72551358/197340008-d22c2c8d-1f1b-4c46-a8df-78e138a45d7d.gif" width="300px"/></td>
+      </tr>
+    </table>
+</details>
+<details>
+    <summary>[Demo] Search & Follow Brand</summary>
+    <table>
+      <tr>
+        <th>Search & Follow Brand</th>
+      </tr>
+      <tr>
+        <td><image src="https://user-images.githubusercontent.com/72551358/197339992-f0f7d9f3-6032-4126-8ff1-4e346da88dce.gif" width="300px"/></td>
+      </tr>
+    </table>
+</details>
+<details>
+    <summary>[Demo] Read & Create Message</summary>
+    <table>
+      <tr>
+        <th>Read Messages / Create Comment</th>
+      </tr>
+      <tr>
+        <td><image src="https://user-images.githubusercontent.com/72551358/197340006-2e55f7cb-5043-418d-b455-c3541c28c097.gif" width="300px"/></td>
+      </tr>
+    </table>
+</details>
+<details>
+    <summary>[Demo] Brand Assign</summary>
+    <table>
+      <tr>
+        <th>Brand Assign</th>
+      </tr>
+      <tr>
+        <td><image src="https://user-images.githubusercontent.com/72551358/197341212-86abe19d-2447-454e-b328-a767af815577.gif" width="300px"/></td>
+      </tr>
+    </table>
+</details>
+<details>
+    <summary>[Demo] Create & Receive Message</summary>
+    <table>
+      <tr>
+        <th>Create Message</th>
+        <th>Receive Message(Push Alarm)</th>
+      </tr>
+      <tr>
+        <td><image src="https://user-images.githubusercontent.com/72551358/197340004-d5b0a7c8-bbee-4534-84a9-c9cf18283545.gif" width="300px"/></td>
+        <td></td>
+      </tr>
+    </table>
+</details>
+<details>
+    <summary>[Demo] Information Web</summary>
+    <table>
+      <tr>
+        <th>Information Web</th>
+      </tr>
+      <tr>
+        <td><image src="https://user-images.githubusercontent.com/72551358/197341213-881ecc14-9a98-49df-8b54-8077a4a15247.gif" width="300px"/></td>
+      </tr>
+    </table>
+</details>
 
 <br/>
 
