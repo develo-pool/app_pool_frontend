@@ -8,7 +8,7 @@ const webpackEnv = process.env.NODE_ENV || 'development';
 module.exports = {
   mode: webpackEnv,
   entry: {
-    app: path.join(rootDir, './index.web.tsx'),
+    app: path.join(rootDir, './web/index.web.tsx'),
   },
   output: {
     path: path.resolve(rootDir, 'dist'),
@@ -19,8 +19,7 @@ module.exports = {
     rules: [
       {
         test: /\.(tsx|ts|jsx|js|mjs)$/,
-        exclude:
-          /node_modules\/(?!(react-native-elements|react-native-vector-icons)\/).*/,
+        exclude: /node_modules/,
         loader: 'ts-loader',
       },
       {

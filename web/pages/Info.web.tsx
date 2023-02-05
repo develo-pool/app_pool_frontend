@@ -1,9 +1,9 @@
 import React from 'react';
 import {Image, ScrollView, StyleSheet, Text, View} from 'react-native';
 import PoolLogo from '../../assets/logo/Logo.png';
-import Title from '../../components/Title';
+import Title from '../../src/components/Title';
 import theme from '../../assets/theme';
-import DATA from '../../components/guide/Contents';
+import DATA from '../../src/components/guide/Contents';
 import Img0 from '../../assets/guide/0.png';
 import Img1 from '../../assets/guide/1.png';
 import Img2 from '../../assets/guide/2.png';

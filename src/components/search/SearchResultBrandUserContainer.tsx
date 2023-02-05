@@ -1,97 +1,89 @@
 import React from 'react';
 import {StyleSheet, View, Image, Text, Pressable} from 'react-native';
-import theme from '../../assets/theme';
-import FollowButton from '../../web/components/FollowButton.web';
-import {useNavigate} from 'react-router-dom';
+import FollowButton from '../profile/FollowButton';
+import theme from '../../../assets/theme';
+import {useNavigation} from '@react-navigation/native';
+import {RootStackNavigationProp} from '../../screens/types';
 import {
   QueryObserverResult,
   RefetchOptions,
   RefetchQueryFilters,
 } from 'react-query';
-import {AllBrandResult} from '../../src/api/brand/types';
+import {AllBrandResult} from '../../api/brand/types';
 
 interface Props {
   brandUsername: string;
-  brandInfo: string;
   brandProfileImage: string;
   follow: boolean;
   userFollowerCount: number;
+  poolUserId: number;
   brandUserId: number;
   changeFollowing?: any;
   isLoginUser?: boolean;
-  poolUserId: number;
-  searchText: string;
   refetch: <TPageData>(
     options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined,
   ) => Promise<QueryObserverResult<AllBrandResult[], unknown>>;
 }
 
-function RecommandBrandUserContainer({
+function SearchResultBrandUserContainer({
   brandUsername,
-  brandInfo,
   brandProfileImage,
+  follow,
   userFollowerCount,
-  brandUserId,
+  poolUserId,
   isLoginUser,
-  searchText,
+  brandUserId,
+  refetch,
 }: Props) {
-  const navigation = useNavigate();
-
+  const navigation = useNavigation<RootStackNavigationProp>();
   return (
     <View>
       <Pressable
-        style={
-          searchText === ''
-            ? styles.RecommandbrandUserContainer
-            : styles.SearchbrandUserContainer
-        }
-        onPress={() => navigation(`/${brandUserId}`)}>
+        style={styles.brandUserContainer}
+        onPress={() =>
+          navigation.navigate('BrandProfile', {
+            brandUserId: brandUserId,
+            poolUserId: poolUserId,
+          })
+        }>
         <View style={styles.brandUserHorizontal}>
-          <Image
-            style={styles.searchBrandUserProfileImg}
-            source={{
-              uri: brandProfileImage,
-            }}
-          />
           <View style={styles.spacebetween}>
-            <View style={styles.brandUserTextContainer}>
-              <Text style={styles.brandUsername}>{brandUsername}</Text>
-              <View style={styles.brandUserFollowerContainer}>
-                <Text style={styles.followerText}>팔로워</Text>
-                <Text style={styles.followerCount}>{userFollowerCount}</Text>
+            <View style={styles.align}>
+              <Image
+                style={styles.searchBrandUserProfileImg}
+                source={{
+                  uri: brandProfileImage,
+                }}
+              />
+              <View style={styles.brandUserTextContainer}>
+                <Text style={styles.brandUsername}>{brandUsername}</Text>
+                <View style={styles.brandUserFollowerContainer}>
+                  <Text style={styles.followerText}>팔로워</Text>
+                  <Text style={styles.followerCount}>{userFollowerCount}</Text>
+                </View>
               </View>
             </View>
             {isLoginUser === true ? (
               ''
             ) : (
               <View>
-                <FollowButton />
+                <FollowButton
+                  isFollowed={follow}
+                  poolUserId={poolUserId}
+                  refetch={refetch}
+                />
               </View>
             )}
           </View>
         </View>
-        {searchText === '' ? (
-          <View style={styles.brandUserIntroContainer}>
-            <Text style={styles.brandUserIntro}>{brandInfo}</Text>
-          </View>
-        ) : (
-          <></>
-        )}
       </Pressable>
+      <View style={styles.bottomBorderLine} />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  RecommandbrandUserContainer: {
-    backgroundColor: theme.colors.White,
-    borderRadius: 4,
-    marginHorizontal: 16,
-    marginBottom: 12,
-    flex: 1,
-    padding: 12,
-  },
-  SearchbrandUserContainer: {
+  brandUserContainer: {
     backgroundColor: theme.colors.White,
     flex: 1,
     padding: 10,
@@ -104,25 +96,28 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    marginRight: 12,
+    marginVertical: 5,
+    marginRight: 5,
   },
   spacebetween: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: '85%',
     alignItems: 'center',
-    paddingHorizontal: 5,
+    paddingRight: 5,
+    width: '100%',
   },
   brandUserTextContainer: {
     justifyContent: 'center',
-    alignItems: 'flex-start',
+    // alignItems: 'flex-start',
+    alignItems: 'center',
+    alignContent: 'center',
     margin: 3,
+    paddingLeft: 5,
   },
   brandUserFollowerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: 2,
-    // marginBottom: 4,
   },
   followerText: {
     color: theme.colors.Grey40,
@@ -145,23 +140,17 @@ const styles = StyleSheet.create({
     fontSize: theme.fontSize.P2,
     color: theme.colors.Grey80,
   },
-  brandUserIntro: {
-    color: theme.colors.Grey60,
-    fontSize: theme.fontSize.P3,
-    fontFamily: theme.fontFamily.Pretendard,
-    fontWeight: theme.fontWeight.Light,
-  },
   brandUserIntroContainer: {
-    marginTop: 12,
-  },
-  align: {
-    flexDirection: 'row',
+    paddingVertical: 10,
   },
   bottomBorderLine: {
     width: '100%',
     height: 1,
     backgroundColor: theme.colors.Grey20,
   },
+  align: {
+    flexDirection: 'row',
+  },
 });
 
-export default RecommandBrandUserContainer;
+export default SearchResultBrandUserContainer;

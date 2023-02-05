@@ -1,18 +1,18 @@
 import React from 'react';
 import {Image, Linking, Pressable, StyleSheet, Text, View} from 'react-native';
 import theme from '../../assets/theme';
-import Footer from '../../components/setting/footer';
-import Title from '../../components/Title';
+import Footer from '../../src/components/setting/footer';
+import Title from '../../src/components/Title';
 import {Link} from 'react-router-dom';
 import PoolLogo from '../../assets/logo/Logo.png';
 import GooglePlay from '../assets/home/google-play-badge.png';
 import AppStore from '../assets/home/app-store-badge.png';
 import {useQuery} from 'react-query';
-import {getRecentBrand, getRecentMessage} from '../../api/web';
-import {brand} from '../../api/web/types';
+import {getRecentBrand, getRecentMessage} from '../../src/api/web';
+import {brand} from '../../src/api/web/types';
 import BrandUserContainer from '../components/BrandUserContainer.web';
-import MessageBlock from '../MessageBlock.web';
-import {Message} from '../../api/message/types';
+import MessageBlock from '../components/MessageBlock.web';
+import {Message} from '../../src/api/message/types';
 
 function Home() {
   const {data: brandData} = useQuery(
